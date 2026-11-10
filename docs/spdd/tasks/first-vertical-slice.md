@@ -1,6 +1,6 @@
 # First vertical slice — Karoo → Collector → Persistence → Power Curve
 
-Status: T01a only is approved; [scope/evidence](t01a-canonical-input.md). Full vertical slice NOT APPROVED. Task IDs T01–T04. Read Canvas v0.2 and ADRs 0001–0003 first.
+Status: T01a and T01b are complete. See [T01a evidence](t01a-canonical-input.md) and [T01b evidence](t01b-synthetic-replay.md). Full vertical slice NOT APPROVED. Task IDs T01–T04. Read Canvas v0.2 and ADRs 0001–0003 first.
 
 Goal: a real recording session on Karoo produces durable source-neutral inputs and correctly observed power-duration records, independent of visible fields.
 

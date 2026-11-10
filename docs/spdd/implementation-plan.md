@@ -1,6 +1,6 @@
 # Dependency-ordered implementation backlog
 
-Status: owner authorized T01a only; [scope/evidence](tasks/t01a-canonical-input.md). T01 as a whole and remaining tasks are not implementation-authorized. M0 ends with this review packet; approval must name tasks.
+Status: T01a and owner-resumed T01b complete; [T01a evidence](tasks/t01a-canonical-input.md), [T01b evidence](tasks/t01b-synthetic-replay.md). T01 remains incomplete pending separately approved T01c; remaining tasks are not implementation-authorized. M0 ends with this review packet; approval must name tasks.
 
 | Task | Goal | Dependencies | Requirement / tests | Output / risk / Done |
 |---|---|---|---|---|

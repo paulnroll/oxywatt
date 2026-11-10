@@ -1,6 +1,6 @@
 # Small implementation work packages
 
-Status: T01a owner-authorized; see [task and evidence](t01a-canonical-input.md). Remaining packages are proposed and unapproved. Parent tasks T01–T09 and all existing gates remain authoritative. This adds execution boundaries, not product scope. See [Canvas](../reasons-canvas.md), [backlog](../implementation-plan.md), [first slice](first-vertical-slice.md), and [decisions](../decision-log.md).
+Status: T01a and owner-resumed T01b complete; see [T01a evidence](t01a-canonical-input.md) and [T01b evidence](t01b-synthetic-replay.md). Remaining packages are proposed and unapproved. Parent tasks T01–T09 and all existing gates remain authoritative. This adds execution boundaries, not product scope. See [Canvas](../reasons-canvas.md), [backlog](../implementation-plan.md), [first slice](first-vertical-slice.md), and [decisions](../decision-log.md).
 
 ## Execution approach
 

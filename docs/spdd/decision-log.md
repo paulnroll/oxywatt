@@ -49,3 +49,7 @@ The owner authorized T01b after T01a, then explicitly paused it to publish/revie
 ## CI build and reports extension
 
 2026-11-10: owner requested CI tests and build. Extend D14 / T01a-format / R11 / JVM V13 with explicit `:core:build` after existing formatting and contract checks, and upload available HTML/XML test reports even on failure unless cancelled. Original CI passed on main (run 42910646933); updated workflow requires a new remote run. No application scope expansion.
+
+## T01b resumption and synthetic replay evidence
+
+2026-11-10: after PR #3 merged, owner explicitly resumed T01b (“to jedziemy T01b”). Scope: test-only deterministic canonical traces and independent expectations, R01/R02/R11 and fixture-level V01/V02/V03. Canonical v1 remains unchanged; no production collector, SDK/FIT decoder or Android implementation. [Task/evidence](tasks/t01b-synthetic-replay.md): six new tests pass, 16 total JVM tests; full source equivalence and lifecycle acceptance remain open. T01c requires its own approval.

@@ -33,4 +33,4 @@ M0: documents/skills/source evidence → owner review → separately authorized 
 
 ## Subsequent owner checkpoint — 2026-11-10
 
-Owner approved source-neutral core/adapters architecture and T01a only. [T01a](tasks/t01a-canonical-input.md) records implementation and verification evidence. Historical M0 status above describes the original review packet; it no longer blocks that named package. Other slice, device, science, trend-default and license approvals remain open.
+Owner approved source-neutral core/adapters architecture and T01a only. [T01a](tasks/t01a-canonical-input.md) records implementation and verification evidence. Historical M0 status above describes the original review packet; it no longer blocks that named package. The owner subsequently resumed T01b after PR #3 merged. The [synthetic replay evidence](tasks/t01b-synthetic-replay.md) records its completion. Remaining slice, device, science, trend-default and license approvals are open.

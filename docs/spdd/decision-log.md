@@ -45,3 +45,7 @@ The owner authorized T01b after T01a, then explicitly paused it to publish/revie
 ## Formatting and CI tooling approval
 
 2026-11-10: owner accepted Spotless and explicitly requested a CI check. D14 (OWNER-APPROVED): use pinned Spotless 8.11.0 and ktfmt 0.64, Kotlin style (4-space block indentation), for core Kotlin and root/core Gradle Kotlin DSL. Add GitHub Actions push/PR formatting and JVM checks on JDK 25, preserving JVM/release 17. Scope and acceptance: [T01a-format](tasks/t01a-formatting-ci.md), supporting R11 and the JVM portion of V13; no new product requirement or application implementation approval. Sources: [Spotless plugin](https://plugins.gradle.org/plugin/com.diffplug.spotless), [ktfmt](https://kotlin.github.io/ktfmt/).
+
+## CI build and reports extension
+
+2026-11-10: owner requested CI tests and build. Extend D14 / T01a-format / R11 / JVM V13 with explicit `:core:build` after existing formatting and contract checks, and upload available HTML/XML test reports even on failure unless cancelled. Original CI passed on main (run 42910646933); updated workflow requires a new remote run. No application scope expansion.

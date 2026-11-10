@@ -28,4 +28,4 @@ Use JDK 25 and run `./gradlew :core:check --console=plain` (Windows: `gradlew.ba
 
 Use `./gradlew spotlessApply` to format Kotlin and Gradle Kotlin DSL, and `./gradlew spotlessCheck` to verify formatting. Spotless 8.11.0 uses ktfmt 0.64 with Kotlin style (4-space block indentation). Generated files and local caches are outside the formatting targets.
 
-`./gradlew check --console=plain` runs formatting and JVM core checks; `:core:check` also includes formatting. GitHub Actions runs an explicit formatting step followed by JVM core checks on every push and pull request, using Temurin JDK 25. CI reports formatting errors without modifying files. See [formatting/CI task](docs/spdd/tasks/t01a-formatting-ci.md).
+`./gradlew check --console=plain` runs formatting and JVM core checks; `:core:check` also includes formatting. GitHub Actions runs an explicit formatting step followed by JVM core checks and `:core:build` (including the JAR) on every push and pull request, using Temurin JDK 25. CI reports formatting errors without modifying files and uploads available HTML/XML test reports, including on failure. See [formatting/CI task](docs/spdd/tasks/t01a-formatting-ci.md).

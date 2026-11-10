@@ -1,6 +1,6 @@
 # Dependency-ordered implementation backlog
 
-Status: T01a and owner-resumed T01b complete; [T01a evidence](tasks/t01a-canonical-input.md), [T01b evidence](tasks/t01b-synthetic-replay.md). T01 remains incomplete pending separately approved T01c; remaining tasks are not implementation-authorized. M0 ends with this review packet; approval must name tasks.
+Status: T01a and owner-resumed T01b complete; [T01a evidence](tasks/t01a-canonical-input.md), [T01b evidence](tasks/t01b-synthetic-replay.md). [T01c evidence](tasks/t01c-fit-replay.md) closes the developer FIT work package. Real Karoo mapping remains to be verified in T02, which requires named approval. M0 ends with this review packet; approval must name tasks.
 
 | Task | Goal | Dependencies | Requirement / tests | Output / risk / Done |
 |---|---|---|---|---|

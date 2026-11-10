@@ -53,3 +53,7 @@ The owner authorized T01b after T01a, then explicitly paused it to publish/revie
 ## T01b resumption and synthetic replay evidence
 
 2026-11-10: after PR #3 merged, owner explicitly resumed T01b (“to jedziemy T01b”). Scope: test-only deterministic canonical traces and independent expectations, R01/R02/R11 and fixture-level V01/V02/V03. Canonical v1 remains unchanged; no production collector, SDK/FIT decoder or Android implementation. [Task/evidence](tasks/t01b-synthetic-replay.md): six new tests pass, 16 total JVM tests; full source equivalence and lifecycle acceptance remain open. T01c requires its own approval.
+
+## T01c developer FIT decoder
+
+After PR #6 merged, the owner authorized the next package, T01c. Use fitdecode 0.11.0 (MIT) in the developer fixture verifier. It decodes a generated binary FIT stream and verifies the checked-in projection used by the JVM tests. The developer fixture verifies units, missing reasons, timer event order and file-record provenance for R01/R02/R11 and partial V01/V02. Real Karoo mapping and downstream checks remain open. See [T01c evidence](tasks/t01c-fit-replay.md).

@@ -1,3 +1,14 @@
+buildscript {
+    if (providers.gradleProperty("karooDiagnostic").orNull == "true") {
+        repositories {
+            google()
+            mavenCentral()
+            gradlePluginPortal()
+        }
+        dependencies { classpath("com.android.tools.build:gradle:9.0.1") }
+    }
+}
+
 plugins {
     base
     kotlin("jvm") version "2.3.20" apply false
@@ -8,11 +19,11 @@ repositories { mavenCentral() }
 
 spotless {
     kotlin {
-        target("core/src/**/*.kt")
+        target("core/src/**/*.kt", "app/src/**/*.kt")
         ktfmt("0.64").kotlinlangStyle()
     }
     kotlinGradle {
-        target("*.gradle.kts", "core/*.gradle.kts")
+        target("*.gradle.kts", "core/*.gradle.kts", "app/*.gradle.kts")
         ktfmt("0.64").kotlinlangStyle()
     }
 }

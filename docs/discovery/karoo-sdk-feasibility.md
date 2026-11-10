@@ -1,6 +1,6 @@
 # Karoo Extensions feasibility
 
-Inspected 2026-11-10. Source review only; no physical-device tests or build executed. VERIFIED means the API/source contract exists, not that end-to-end behavior was measured.
+Initial source review 2026-11-10. The [T02a diagnostic host](../spdd/tasks/t02a-diagnostic-host.md) records the later APK build against pinned SDK sources. Installation and launch were verified on Karoo 3. Host binding and whole-ride behavior still require device checks. VERIFIED means the API/source contract exists, not that end-to-end behavior was measured.
 
 ## Evidence baseline
 

@@ -16,18 +16,27 @@ data class ReceiptStamp(
         require(ingestSequence >= 0) { "Ingest sequence must be nonnegative" }
     }
 
-    /** Clock difference only: a shared epoch does not establish recording continuity across pauses/gaps. */
+    /**
+     * Clock difference only: a shared epoch does not establish recording continuity across
+     * pauses/gaps.
+     */
     fun elapsedSince(earlier: ReceiptStamp): Duration? =
         if (epochId != earlier.epochId || elapsedNanos < earlier.elapsedNanos) null
         else Duration.ofNanos(elapsedNanos - earlier.elapsedNanos)
 }
 
 /** Adapter identifiers/versions, not sensor identifiers or native ride identity. */
-data class SourceRef(val adapterId: String, val adapterVersion: String, val sourceSequence: Long? = null) {
+data class SourceRef(
+    val adapterId: String,
+    val adapterVersion: String,
+    val sourceSequence: Long? = null,
+) {
     init {
         require(adapterId.isNotBlank()) { "Adapter ID is required" }
         require(adapterVersion.isNotBlank()) { "Adapter version is required" }
-        require(sourceSequence == null || sourceSequence >= 0) { "Source sequence must be nonnegative" }
+        require(sourceSequence == null || sourceSequence >= 0) {
+            "Source sequence must be nonnegative"
+        }
     }
 }
 
@@ -38,18 +47,48 @@ data class InputEnvelope(
     val normalizationVersion: String,
     val payload: InputPayload,
 ) {
-    init { require(normalizationVersion.isNotBlank()) { "Normalization version is required" } }
+    init {
+        require(normalizationVersion.isNotBlank()) { "Normalization version is required" }
+    }
 }
 
-enum class Metric { POWER_W, HEART_RATE_BPM, CADENCE_RPM }
-enum class MissingReason { UNAVAILABLE, DROPOUT, INVALID_SOURCE_VALUE }
-enum class SourceTimeMeaning { MEASUREMENT, FILE_RECORD }
-data class SourceTime(val utc: Instant, val meaning: SourceTimeMeaning)
-enum class RecordingState { UNKNOWN, IDLE, RECORDING, PAUSED }
-enum class SettingOrigin { CONFIGURED, MANUAL }
-data class ProfileSetting(val value: Double, val origin: SettingOrigin) {
-    init { require(value.isFinite() && value > 0) { "Configured setting must be finite and positive" } }
+enum class Metric {
+    POWER_W,
+    HEART_RATE_BPM,
+    CADENCE_RPM,
 }
+
+enum class MissingReason {
+    UNAVAILABLE,
+    DROPOUT,
+    INVALID_SOURCE_VALUE,
+}
+
+enum class SourceTimeMeaning {
+    MEASUREMENT,
+    FILE_RECORD,
+}
+
+data class SourceTime(val utc: Instant, val meaning: SourceTimeMeaning)
+
+enum class RecordingState {
+    UNKNOWN,
+    IDLE,
+    RECORDING,
+    PAUSED,
+}
+
+enum class SettingOrigin {
+    CONFIGURED,
+    MANUAL,
+}
+
+data class ProfileSetting(val value: Double, val origin: SettingOrigin) {
+    init {
+        require(value.isFinite() && value > 0) { "Configured setting must be finite and positive" }
+    }
+}
+
 data class RiderProfileSnapshot(
     val version: String,
     val effectiveAt: Instant? = null,
@@ -57,7 +96,9 @@ data class RiderProfileSnapshot(
     val configuredMaxHeartRateBpm: ProfileSetting? = null,
     val configuredFtpWatts: ProfileSetting? = null,
 ) {
-    init { require(version.isNotBlank()) { "Profile version is required" } }
+    init {
+        require(version.isNotBlank()) { "Profile version is required" }
+    }
 }
 
 sealed interface InputPayload {
@@ -68,7 +109,9 @@ sealed interface InputPayload {
         val sourceTime: SourceTime? = null,
     ) : InputPayload {
         init {
-            require((value == null) == (missingReason != null)) { "Only missing values require a reason" }
+            require((value == null) == (missingReason != null)) {
+                "Only missing values require a reason"
+            }
             if (value != null) {
                 require(value.isFinite()) { "Metric value must be finite" }
                 require(if (metric == Metric.HEART_RATE_BPM) value > 0 else value >= 0) {
@@ -77,6 +120,8 @@ sealed interface InputPayload {
             }
         }
     }
+
     data class Recording(val state: RecordingState) : InputPayload
+
     data class Profile(val snapshot: RiderProfileSnapshot) : InputPayload
 }

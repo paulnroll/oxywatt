@@ -1,6 +1,6 @@
 # T01a-format — Formatting and CI
 
-Status: implemented and locally verified 2026-11-10; remote CI run pending.
+Status: implemented and locally verified 2026-11-10; original remote CI passed; explicit JAR build/report extension locally verified, remote run pending.
 
 Goal: consistent Kotlin formatting locally and on pull requests. Supports R11 and the JVM-only portion of V13; adds no domain acceptance or hardware evidence. Depends on T01a JVM tooling.
 
@@ -20,5 +20,9 @@ Risks/limits: formatter upgrades may cause diff churn; pin versions. No Android/
 - F01: initial `spotlessCheck` failed with Kotlin format violations. A controlled misformat in `settings.gradle.kts` failed `spotlessKotlinGradleCheck`; original content restored and final checks passed.
 - F02: `spotlessApply` repaired existing files. A second invocation left SHA-256 hashes of all targeted files unchanged.
 - F03: `spotlessApply spotlessCheck check :core:check --console=plain` passed on Temurin 25; 10 JVM tests, zero failures/errors. Final `spotlessCheck :core:check` also passed. Existing Java 17 API restriction and contract review corrections were preserved. Gradle needed sandbox escalation for its local socket and dependency downloads.
-- F04: workflow has push/PR triggers, explicit formatting/JVM steps and read-only contents permission. Remote workflow has not been run; branch protection is unchanged.
+- F04: workflow has push/PR triggers, explicit formatting/JVM steps and read-only contents permission. Original workflow passed on main: [run 42910646933](https://github.com/paulnroll/oxywatt/actions/runs/42910646933). Branch protection is unchanged.
 - Relative Markdown link targets in the touched documentation exist; R11/V13 references resolve to the existing baseline. `git diff --check` passed. No skills changed.
+
+## Explicit build and reports extension
+
+Owner requested CI tests and build on 2026-11-10. F04 now also runs `:core:build` to assemble the JVM JAR and uploads available HTML/XML test reports even after failure (unless cancelled). No Android build is implied. Local `spotlessCheck :core:check :core:build` passed on JDK 25. The updated workflow has not yet run remotely. Supports R11 / JVM V13 only.

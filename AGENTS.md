@@ -28,3 +28,7 @@ Update task evidence and documentation with actual results. A source-verified ca
 ## Verification
 
 For T01a run `./gradlew :core:check --console=plain` (JDK 25, JVM target/release 17). Also check relative Markdown links, requirement/task/test traceability, YAML skill frontmatter, and `git diff --check`. Validate skills with the installed skill-creator validator when available. Only JVM core tooling exists; no Android or device tests may be claimed. Run checks appropriate to each approved slice.
+
+## GitHub CLI account
+
+This repository uses its own GitHub CLI configuration: run repository GitHub commands with `GH_CONFIG_DIR=.git/gh-personal` from the repository root (for example, `GH_CONFIG_DIR=.git/gh-personal gh pr create`). Check this account before diagnosing authentication or collaborator failures; the global `gh` account may belong to a different identity. Do not request a new login or extract credentials from Git helpers to work around the wrong account. Keep `.git/gh-personal` private and out of commits.

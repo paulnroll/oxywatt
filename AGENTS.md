@@ -11,6 +11,7 @@ Discovery, architecture, specifications and project skills only. Do not generate
 - Karoo integration: `docs/discovery/karoo-sdk-feasibility.md` and `.agents/skills/karoo-extension/SKILL.md`.
 - Scientific changes: relevant `docs/algorithms/` document, `docs/discovery/scientific-research.md`, and `.agents/skills/oxywatt-models/SKILL.md`.
 - Spec creation, readiness and synchronization: `.agents/skills/oxywatt-spec/SKILL.md`.
+- Approved implementation, fixes and refactors: `.agents/skills/oxywatt-developer/SKILL.md` (minimal complete changes and behavior-driven TDD).
 
 ## Invariants
 

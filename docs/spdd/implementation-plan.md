@@ -16,6 +16,8 @@ Status: planning only. No task below is implementation-authorized. M0 ends with 
 
 First vertical slice is T01 → T02 → T03 → T04: **Karoo → Collector → Persistence → Power Curve**. T02 first tests the acquisition hypothesis; it does not silently become a separate production feature. Detailed scope: [first-slice task](tasks/first-vertical-slice.md).
 
+For smaller agent contexts, see the proposed [work packages and handoff template](tasks/agent-work-packages.md). These subdivide existing tasks without authorizing implementation or bypassing dependencies.
+
 T05 can use developer FIT replay before any product import UI. T06 and T07 are logically independent once shared evidence is ready; no agent parallelization is required. Failure of a scientific gate leads to reviewed scope/method change, not an arbitrary formula.
 
 Review checkpoints: M0 architecture; T02 device feasibility; T04 first slice; each model selection before code; full-release evidence before publication. No estimated implementation dates until hardware/toolchain and model gates are understood.

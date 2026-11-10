@@ -32,7 +32,11 @@ Initially two modules: pure Kotlin/JVM `:core`, Android `:app`. Core contains co
 
 Read each task before implementing. Implement only explicitly approved tasks. Each task links goal, files, dependencies, tests, risks and completion evidence. Keep SDK findings source-verified versus hardware-tested.
 
+Proposed [agent work packages](tasks/agent-work-packages.md) subdivide the backlog into bounded file ownership and contract-based handoffs. Parallel work is optional and follows accepted interfaces and existing gates; it adds no implementation authorization.
+
 ## N — Norms
+
+The [developer skill](../../.agents/skills/oxywatt-developer/SKILL.md) guides approved packages toward minimal complete changes and behavior-driven TDD. Domain tests precede implementation; SDK, build and device claims require their respective checks. This workflow does not authorize code or close feasibility/scientific gates.
 
 Kotlin types express units/nullability, explicit reason codes, immutable result/config snapshots. Core imports neither Android nor Hammerhead/Room/Compose. Flow is orchestration, not a replacement for time semantics. Bounded work/queues using the count, payload, reserved-control capacity and fail-closed overload policy in N01; indexed batches and transactional writes. No UI-owned collector. Numerical tests use independent oracles and irregular-time datasets. UI text is translatable; application screens cover empty, collecting, partial, unavailable, stale and storage-error states.
 

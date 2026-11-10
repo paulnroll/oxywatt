@@ -1,6 +1,6 @@
 # First vertical slice — Karoo → Collector → Persistence → Power Curve
 
-Status: NOT APPROVED. Task IDs T01–T04. Read Canvas v0.1 and ADRs 0001–0003 first.
+Status: NOT APPROVED. Task IDs T01–T04. Read Canvas v0.2 and ADRs 0001–0003 first.
 
 Goal: a real recording session on Karoo produces durable source-neutral inputs and correctly observed power-duration records, independent of visible fields.
 
@@ -14,7 +14,7 @@ Acceptance:
 
 1. T01 maps live/file semantics into one contract; V01–V03 fixtures pass independently of Android.
 2. T02 proves or rejects source timing/startup/lifecycle assumptions on the actual Karoo build. Record four-hour coverage, field visibility, screen/app state, pause/reconnect, process kill and force-stop separately. If host residency fails, stop before T03's production acquisition design.
-3. T03 commits bounded data/checkpoint atomically, survives restart with explicit gaps/ambiguity, never duplicates local sequence keys. Storage failure is visible; V04/V05/V09/V12/V14 pass.
+3. T03 commits bounded data/checkpoint atomically, survives restart with explicit gaps/ambiguity, never duplicates local sequence keys. Storage failure is visible; enforce N01 across queues and in-flight writes, including reserved control capacity and fail-closed overflow recovery. Result-generation persistence cannot reactivate superseded runs. V04/V05/V09/V12/V14/V16/V17 pass (V16 may use repository fixtures before physiological models exist).
 4. T04 time-weighted maxima match independent integrals, exclude gaps and persist provenance. A recorded device session reaches the readout without requiring our field to remain visible. V06/V13 pass; memory/battery budgets measured.
 
 Risks: SDK has no sensor timestamp/durable ride ID; host binding unproven; telemetry-free hardware diagnostics still contain sensitive physiological data. Keep traces local and report summaries only.

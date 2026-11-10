@@ -18,6 +18,9 @@ Status: planned scenarios, none executed. Stable scenario IDs link requirements 
 | V12 | Offline ride works; network permission absent unless justified; no GPS/private fixture leakage; package secrets not logged | R10 |
 | V13 | JVM engine independent of Android; long-run memory/queue/battery budgets measured against repeatable baseline | R11 |
 | V14 | Upgrade real prior schema, recompute/delete winning contributor, transactional result writes and storage-full recovery | R12 |
+| V15 | One ride with two process deaths creates partial/ambiguous fragments but zero trend contributors; an initial attachment while Recording also contributes zero. Three separate observed-start/end sessions can meet the minimum. No automatic merging; ordinary model-qualified sample gaps do not alone imply identity ambiguity. | R03/R08 |
+| V16 | Accepted generation 1 followed by unavailable generation 2 removes the old value from current/trend while preserving audit history. Pending/failed generation 2 cannot fall back to generation 1; late generation 1 completion cannot replace generation 2. Transaction retry leaves one authoritative pointer and correct contributors. | R07/R08/R12 |
+| V17 | Burst above telemetry count and payload ceilings, including queued plus in-flight writes, remains within N01. Reserved recording/profile events retain admission order; exhausted control capacity interrupts acquisition. Loss accounting stays bounded under stalled/full storage, and recovery or death never bridges the unknown interval. Oversize inputs are rejected explicitly. | R03/R11 |
 
 ## Test layers
 

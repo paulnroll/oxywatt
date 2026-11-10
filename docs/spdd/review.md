@@ -14,9 +14,13 @@ SDK release 1.1.9, power/HR/cadence type definitions, recording states, configur
 
 Approve the domain boundaries in [domain model](../architecture/domain-model.md) and the two-module architecture. Keep FTP and VO₂max independently gated; first deliver observed power analytics. Use supplied FITs for robustness/replay once available, without claiming lab truth or building import UI prematurely. Keep the normal-ride product objective and require a specific model decision before estimator code.
 
+## Review corrections included
+
+Canvas v0.2 excludes uncertain recording fragments from trend eligibility, defines authoritative recalculation generations including unavailable results, and specifies hard ingestion limits/overflow recovery. Regression scenarios V15–V17 are planned; they have not been executed against an application.
+
 ## Decisions requested
 
-1. Approve or amend Canvas v0.1/domain model and T01–T04 first vertical slice. T02 is the device feasibility checkpoint, not a claim already validated.
+1. Approve or amend Canvas v0.2/domain model and T01–T04 first vertical slice. T02 is the device feasibility checkpoint, not a claim already validated.
 2. Accept basic chart/raw points plus provisional 42-day/14-day-half-life/3-session trend defaults, or adjust them. These defaults are engineering proposals.
 3. Decide project license before release; Apache-2.0 and MIT are options for later legal/license review, not a decision already made.
 4. Scientific gate remains open: production FTP and VO₂max methods, usable paired validation data and acceptable error criteria require T05–T07 review. Architecture approval cannot imply scientific validation.

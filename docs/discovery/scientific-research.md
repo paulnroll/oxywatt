@@ -1,0 +1,28 @@
+# Scientific research and evidence ledger
+
+Reviewed 2026-11-10. This is initial feasibility research, not a completed validation study. No coefficients are approved for OxyWatt production. Source observations below are deliberately separated from product hypotheses.
+
+| Source / method | Evidence actually reviewed | Input/protocol mismatch | Recommendation |
+|---|---|---|---|
+| [Björkman et al. 2016, revised Ekblom-Bak](https://pmc.ncbi.nlm.nih.gov/articles/PMC4983286/) | Controlled two-workload cycle test; sex-specific equations using age and HR response; independent cross-validation reported | Requires prescribed stages, demographic inputs and stable responses; ordinary road segments are not its validated protocol | Calibration benchmark candidate, not drop-in normal-ride estimator |
+| [2023 differential submaximal cycling model](https://pmc.ncbi.nlm.nih.gov/articles/PMC10338562/) | Full protocol includes measured oxygen uptake and extrapolation of HR and VO₂ kinetics | Despite promising title, requires respiratory gas measurement; unavailable on Karoo | Reject for power+HR-only implementation |
+| [Wiecha et al. 2023](https://pubmed.ncbi.nlm.nih.gov/37162318/) | Abstract reports submaximal exercise and somatic models; VO₂ at AT/RCP contributes strongly | High reported model fit does not establish prediction from ordinary power+HR streams; full equation/data audit still needed | Do not borrow accuracy claims or coefficients |
+| [Karsten et al. 2021 CP versus FTP](https://pmc.ncbi.nlm.nih.gov/articles/PMC7862708/) | Controlled cycling trials; individual agreement limits matter despite strong association | Maximal trials are not equivalent to unlabelled routine rides | Separate metrics; no CP→FTP renaming |
+| [Do CP and FTP equate? 2021](https://pubmed.ncbi.nlm.nih.gov/34055164/) | Abstract directly evaluates interchangeability in highly trained athletes | Supports checking model-specific agreement, not a universal conversion | No constant conversion approved |
+
+## Candidate ranking
+
+1. Observed power-duration maxima: suitable for immediate deterministic engineering; no claim they are maximal physiological capacity.
+2. FTP: manual baseline now; compare protocol-specific FTP and power-duration candidates using effort evidence. Lack of observed maximal work limits identification. Research does not yet select a defensible automatic ordinary-ride FTP model.
+3. VO₂max: prioritize explainable power/HR response candidates for offline experiments, with measured/configured HRmax provenance and mass. Segment qualification, HR lag and efficiency assumptions must be established. No reviewed study here establishes production accuracy for this exact passive use case.
+4. Optional controlled calibration may improve identifiability, but cannot become mandatory without owner agreement.
+
+A conventional oxygen-cost equation or fixed efficiency can estimate an assumed metabolic cost; neither by itself identifies VO₂max. HRmax/resting-HR ratios alone do not use ride evidence and are not the selected model. Proprietary Garmin outputs can be comparison observations, not laboratory ground truth.
+
+## Research still required before model approval
+
+Retrieve complete candidate equations and coefficient units, code/data licenses and population constraints. Audit whether inputs include measured VO₂, ventilatory/lactate thresholds or maximal protocol evidence unavailable to us. Specify HR-lag handling, stable-window detection, physiological confounders, sensitivity to HRmax/mass/efficiency and out-of-distribution abstention. Document both numerical correctness and external validity.
+
+No legally reusable matched ordinary-ride + CPET ground-truth dataset has been secured. Owner FIT files support ingestion, robustness and repeatability checks, not absolute accuracy without independent physiology measurements. The differential-model paper makes its data available on request; that is not a ready public dataset. Do not contact authors without authorization.
+
+Decision: independent research gates T05/T06/T07; algorithms can remain unavailable rather than emitting invented precision. Release scope must be reviewed if these gates cannot be satisfied.

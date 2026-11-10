@@ -1,0 +1,17 @@
+# Private local data and build credentials
+fixtures/private/
+local.properties
+.env
+.env.*
+!.env.example
+*.fit
+*.FIT
+*.db
+*.db-shm
+*.db-wal
+*.jks
+*.keystore
+.gradle/
+**/build/
+.idea/
+.DS_Store

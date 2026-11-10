@@ -1,0 +1,21 @@
+# Dependency-ordered implementation backlog
+
+Status: planning only. No task below is implementation-authorized. M0 ends with this review packet; approval must name tasks.
+
+| Task | Goal | Dependencies | Requirement / tests | Output / risk / Done |
+|---|---|---|---|---|
+| T01 | Canonical input, lifecycle and deterministic replay contract | Architecture approval | R01/R02/R11; V01/V02/V03 | `core` contracts, JVM fixtures, decoder/license decision; risk time semantics; done when two source mappings preserve units/provenance and fixture oracles pass |
+| T02 | Verify Karoo lifecycle/timing and toolchain | T01; named permission for diagnostic code/device run | R02/R09/R11; V02/V11/V13 | Android diagnostic slice and evidence report; risk unreliable binding; done when startup/4-hour/kill scenarios recorded and acquisition design accepted or rejected |
+| T03 | Durable, bounded collection | T01, passed T02 gate | R03/R07/R10/R12; V04/V05/V09/V12/V14 | Android repositories/checkpoints plus core lifecycle, migrations; risk ambiguous identity/disk loss; done when interruption, storage-full and idempotency tests pass |
+| T04 | End-to-end observed power curve | T03 | R04; V06/V13 | Core integration + app readout; risk false rolling windows; done when device ride reaches persisted curve and independent irregular-time oracle agrees |
+| T05 | Reproducible model experiment protocol | T01, owner-provided FIT or approved licensed fixtures | R06/R07; V08/V09 | Versioned datasets, profiles, candidate audit and benchmark report; risk no ground truth; done when evaluation protocol/limitations and go/no-go criteria reviewed |
+| T06 | Select then implement FTP model | T04, T05 and method approval | R05; V07/V09 | Core FTP strategy/config + evidence; risk nonmaximal effort; done when numerical and eligibility tests pass and validity limits reviewed; CP cannot satisfy FTP automatically |
+| T07 | Select then implement VO₂max model | T05 and method approval; T03 for device integration | R06; V08/V09 | Independent core model + abstention; risk unidentified physiology; done when equations, coefficients, sensitivity, applicability and external validation evidence reviewed |
+| T08 | History, smoothing and basic chart | T03/T04; T06/T07 for numeric estimator acceptance | R07/R08/R12; V09/V10/V14 | Persisted runs/contributors, app UI; risk hidden bias/cohort mixing; done when raw vs trend, staleness, unavailable states and deletion/recalculation work |
+| T09 | Release hardening and publication readiness | T04/T06/T07/T08; license decision | All applicable scenarios | Signed artifact/release evidence after authorization; risk compatibility/privacy; done when hardware, migration, offline and science gates pass, docs current and publication explicitly authorized |
+
+First vertical slice is T01 → T02 → T03 → T04: **Karoo → Collector → Persistence → Power Curve**. T02 first tests the acquisition hypothesis; it does not silently become a separate production feature. Detailed scope: [first-slice task](tasks/first-vertical-slice.md).
+
+T05 can use developer FIT replay before any product import UI. T06 and T07 are logically independent once shared evidence is ready; no agent parallelization is required. Failure of a scientific gate leads to reviewed scope/method change, not an arbitrary formula.
+
+Review checkpoints: M0 architecture; T02 device feasibility; T04 first slice; each model selection before code; full-release evidence before publication. No estimated implementation dates until hardware/toolchain and model gates are understood.

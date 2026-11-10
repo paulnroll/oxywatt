@@ -1,0 +1,12 @@
+# Acquisition and processing flow
+
+1. Karoo adapter connects, subscribes independently to power/HR/optional cadence and recording/profile events. Stamp each callback immediately with monotonic receipt time, UTC and process epoch. FIT replay supplies decoded source times and identical domain metric values with different timing provenance.
+2. Collector validates finite values/units, serializes arrival order and appends observations with local sequence IDs. It tracks recording segments, profile snapshots, gaps and per-channel freshness. Never discard repeated equal values as duplicates.
+3. Bounded batches/checkpoints are committed atomically. Overload or storage failure creates an explicit loss marker and degraded status. Stop unbounded buffering; show actionable status on next visible UI.
+4. Normalization produces time-weighted intervals and analysis frames from explicit policy. Callback streams are asynchronous; latest-HR plus latest-power without age limits is invalid. Source measurement time is optional and never manufactured.
+5. Incremental power maxima update for configured durations; persist checkpoints. At locally observed end, finish eligible analysis and persist result snapshots. No expensive full physiology calculation is required on every callback.
+6. FTP and VO₂max independently qualify the available inputs. Model refusal is a valid result with reasons. History projects compatible result cohorts and the UI reads this state without owning acquisition.
+
+Proposed timing policy for evaluation: use monotonic receipt offsets within a process epoch; preserve UTC only for history. Never connect windows across pause, process epoch, backwards source timestamps or explicit gap. On resampling, a held sample requires a reviewed maximum age; no silent unlimited hold or zero fill. Select exact freshness/latency tolerances from T02 traces, then version them before analytics implementation.
+
+Recovery: load last committed checkpoint, query present RideState and host time fields where available. Persisted local identity alone cannot prove the native ride is unchanged. Resume an in-process service reconnect conservatively; after ambiguous process death open a linked partial session and leave merging for explicit reconciliation. No samples from downtime are reconstructed.

@@ -23,3 +23,9 @@ Personal FIT files and local measurement databases must stay out of Git. The ope
 ## JVM core checks
 
 Use JDK 25 and run `./gradlew :core:check --console=plain` (Windows: `gradlew.bat :core:check`). The wrapper pins Gradle 9.1.0 with a SHA-256 checksum; Kotlin is pinned to 2.3.20, targeting JVM/release 17. First run downloads Gradle and Maven dependencies. Only `:core` exists; Android toolchain selection remains T02 work. Tests establish contract behavior, not adapter equivalence or device reliability. See [T01a evidence](docs/spdd/tasks/t01a-canonical-input.md).
+
+## Code formatting and CI
+
+Use `./gradlew spotlessApply` to format Kotlin and Gradle Kotlin DSL, and `./gradlew spotlessCheck` to verify formatting. Spotless 8.11.0 uses ktfmt 0.64 with Kotlin style (4-space block indentation). Generated files and local caches are outside the formatting targets.
+
+`./gradlew check --console=plain` runs formatting and JVM core checks; `:core:check` also includes formatting. GitHub Actions runs an explicit formatting step followed by JVM core checks on every push and pull request, using Temurin JDK 25. CI reports formatting errors without modifying files. See [formatting/CI task](docs/spdd/tasks/t01a-formatting-ci.md).

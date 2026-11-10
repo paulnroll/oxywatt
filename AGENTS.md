@@ -2,7 +2,7 @@
 
 ## Current authorization
 
-Discovery, architecture, specifications and project skills only. Do not generate application code, scaffold Android, or implement a diagnostic app until the owner explicitly approves a named implementation slice. The first milestone ends with reviewed domain model, REASONS Canvas and source-verified SDK capabilities. Device behavior remains conditional until tested.
+Owner approved T01a and the source-neutral core/adapters architecture on 2026-11-10: minimal JVM build, canonical input contracts and their JVM tests. See `docs/spdd/tasks/t01a-canonical-input.md`. T01b was subsequently authorized then paused by the owner before changes for PR #3 review; keep it paused. Owner also approved formatting/CI tooling on 2026-11-10; see `docs/spdd/tasks/t01a-formatting-ci.md`. Other implementation remains unapproved. Discovery, architecture, specifications and project skills remain authorized. Do not generate application code, scaffold Android, or implement a diagnostic app until the owner explicitly approves a named implementation slice. The first milestone ends with reviewed domain model, REASONS Canvas and source-verified SDK capabilities. Device behavior remains conditional until tested.
 
 ## Routing
 
@@ -27,4 +27,8 @@ Update task evidence and documentation with actual results. A source-verified ca
 
 ## Verification
 
-Currently documentation only: check relative Markdown links, requirement/task/test traceability, YAML skill frontmatter, and `git diff --check`. Validate skills with the installed skill-creator validator when available. No Gradle project exists; do not report application tests as run. Once build tooling is approved, add real commands here and run the checks appropriate to each slice.
+For T01a run `./gradlew :core:check --console=plain` (JDK 25, JVM target/release 17). Also check relative Markdown links, requirement/task/test traceability, YAML skill frontmatter, and `git diff --check`. Validate skills with the installed skill-creator validator when available. Only JVM core tooling exists; no Android or device tests may be claimed. Run checks appropriate to each approved slice.
+
+## GitHub CLI account
+
+This repository uses its own GitHub CLI configuration: run repository GitHub commands with `GH_CONFIG_DIR=.git/gh-personal` from the repository root (for example, `GH_CONFIG_DIR=.git/gh-personal gh pr create`). Check this account before diagnosing authentication or collaborator failures; the global `gh` account may belong to a different identity. Do not request a new login or extract credentials from Git helpers to work around the wrong account. Keep `.git/gh-personal` private and out of commits.

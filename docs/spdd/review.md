@@ -30,3 +30,7 @@ Canvas v0.2 excludes uncertain recording fragments from trend eligibility, defin
 M0: documents/skills/source evidence → owner review → separately authorized T01–T04 → T02 hardware gate → first persisted observed power curve → independent model gates → history/chart → release validation.
 
 **Stop here. No scaffold, diagnostic APK or production application code until explicit owner approval of the named implementation scope.** This checkpoint comes from the owner's bootstrap and subsequent milestone instruction. No device access or private FIT availability is assumed. Optional research and documentation amendments can continue within M0 authorization.
+
+## Subsequent owner checkpoint — 2026-11-10
+
+Owner approved source-neutral core/adapters architecture and T01a only. [T01a](tasks/t01a-canonical-input.md) records implementation and verification evidence. Historical M0 status above describes the original review packet; it no longer blocks that named package. Other slice, device, science, trend-default and license approvals remain open.

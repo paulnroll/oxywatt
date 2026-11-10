@@ -1,6 +1,6 @@
 # Dependency-ordered implementation backlog
 
-Status: planning only. No task below is implementation-authorized. M0 ends with this review packet; approval must name tasks.
+Status: owner authorized T01a only; [scope/evidence](tasks/t01a-canonical-input.md). T01 as a whole and remaining tasks are not implementation-authorized. M0 ends with this review packet; approval must name tasks.
 
 | Task | Goal | Dependencies | Requirement / tests | Output / risk / Done |
 |---|---|---|---|---|

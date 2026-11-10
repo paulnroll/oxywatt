@@ -1,6 +1,6 @@
 # Validation strategy
 
-Status: planned scenarios, none executed. Stable scenario IDs link requirements to future tests. Developer FIT replay does not imply product import or historical API access.
+Status: full scenarios remain planned. T01a has executed contract-level checks for portions of V01/V02/V03 and JVM independence in V13; see [task evidence](../spdd/tasks/t01a-canonical-input.md). These checks do not establish adapter equivalence, lifecycle state-machine behavior or hardware acceptance. Stable scenario IDs link requirements to future tests. Developer FIT replay does not imply product import or historical API access.
 
 | ID | Scenario and observable oracle | Requirements |
 |---|---|---|

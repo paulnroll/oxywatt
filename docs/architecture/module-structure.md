@@ -1,6 +1,6 @@
 # Module structure and persistence
 
-Owner-approved architecture: two physical modules. T01a creates only `:core`; `:app` remains a future gated module.
+Owner-approved architecture: two physical modules. T01a created `:core`. T02a adds the diagnostic `:app`, enabled with `-PkarooDiagnostic=true`. See [toolchain and evidence](../spdd/tasks/t02a-diagnostic-host.md).
 
 ```text
 :core       Kotlin/JVM: collection contract, lifecycle, analytics, estimation, history policies, ports

@@ -57,3 +57,11 @@ The owner authorized T01b after T01a, then explicitly paused it to publish/revie
 ## T01c developer FIT decoder
 
 After PR #6 merged, the owner authorized the next package, T01c. Use fitdecode 0.11.0 (MIT) in the developer fixture verifier. It decodes a generated binary FIT stream and verifies the checked-in projection used by the JVM tests. The developer fixture verifies units, missing reasons, timer event order and file-record provenance for R01/R02/R11 and partial V01/V02. Real Karoo mapping and downstream checks remain open. See [T01c evidence](tasks/t01c-fit-replay.md).
+
+## T02a diagnostic host
+
+The owner approved T02a after PR #7 merged. Keep the existing Gradle wrapper and make the diagnostic app opt-in so JVM CI runs without Android setup. Pin AGP 9.0.1 and official karoo-ext 1.1.9. Use the sample's min SDK 23 and target SDK 34 as candidates until measured on the device. R02/R09/R11 and setup portions of V02/V11/V13 are tracked in [T02a](tasks/t02a-diagnostic-host.md).
+
+## T02b diagnostic probe
+
+After confirming the diagnostic launcher on Karoo 3, the owner authorized [T02b](tasks/t02b-karoo-probe.md). Observe ride states, channel availability and receipt timing on an extension service instance. Advertise FIT binding for observation without emitting FIT effects. R02/R09 and partial V02/V11 remain subject to device evidence.

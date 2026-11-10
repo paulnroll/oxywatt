@@ -2,7 +2,7 @@
 
 ## Current authorization
 
-Owner approved T01a and the source-neutral core/adapters architecture on 2026-11-10: minimal JVM build, canonical input contracts and their JVM tests. See `docs/spdd/tasks/t01a-canonical-input.md`. Owner resumed T01b on 2026-11-10 after PR #3 merged: synthetic replay fixtures and independent expected outputs only; completed with evidence in `docs/spdd/tasks/t01b-synthetic-replay.md`. Owner approved T01c after PR #6 merged. Developer FIT decoding and canonical replay are verified on a synthetic fixture in `docs/spdd/tasks/t01c-fit-replay.md`. Owner also approved formatting/CI tooling on 2026-11-10; see `docs/spdd/tasks/t01a-formatting-ci.md`. Other implementation remains unapproved. Discovery, architecture, specifications and project skills remain authorized. Do not generate application code, scaffold Android, or implement a diagnostic app until the owner explicitly approves a named implementation slice. The first milestone ends with reviewed domain model, REASONS Canvas and source-verified SDK capabilities. Device behavior remains conditional until tested.
+Owner approved T01a and the source-neutral core/adapters architecture on 2026-11-10: minimal JVM build, canonical input contracts and their JVM tests. See `docs/spdd/tasks/t01a-canonical-input.md`. Owner resumed T01b on 2026-11-10 after PR #3 merged: synthetic replay fixtures and independent expected outputs only; completed with evidence in `docs/spdd/tasks/t01b-synthetic-replay.md`. Owner approved T01c after PR #6 merged. Developer FIT decoding and canonical replay are verified on a synthetic fixture in `docs/spdd/tasks/t01c-fit-replay.md`. Owner also approved formatting/CI tooling on 2026-11-10; see `docs/spdd/tasks/t01a-formatting-ci.md`. The owner approved T02a after PR #7 merged. See `docs/spdd/tasks/t02a-diagnostic-host.md` for the diagnostic host and verification status. The owner approved the T02b diagnostic probe. T02c and later implementation remain unapproved. Discovery, architecture, specifications and project skills remain authorized. Do not generate application code, scaffold Android, or implement a diagnostic app until the owner explicitly approves a named implementation slice. The first milestone ends with reviewed domain model, REASONS Canvas and source-verified SDK capabilities. Device behavior remains conditional until tested.
 
 ## Routing
 
@@ -27,7 +27,7 @@ Update task evidence and documentation with actual results. A source-verified ca
 
 ## Verification
 
-For T01a run `./gradlew :core:check --console=plain` (JDK 25, JVM target/release 17). Also check relative Markdown links, requirement/task/test traceability, YAML skill frontmatter, and `git diff --check`. Validate skills with the installed skill-creator validator when available. Only JVM core tooling exists; no Android or device tests may be claimed. Run checks appropriate to each approved slice.
+For T01a run `./gradlew :core:check --console=plain` (JDK 25, JVM target/release 17). Also check relative Markdown links, requirement/task/test traceability, YAML skill frontmatter, and `git diff --check`. Validate skills with the installed skill-creator validator when available. For T02a also run the opt-in Android build and lint when the SDK and package access are available. Record device checks only when performed. Run checks appropriate to each approved slice.
 
 ## GitHub CLI account
 

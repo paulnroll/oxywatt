@@ -1,6 +1,6 @@
 # Small implementation work packages
 
-Status: PROPOSED planning decomposition; no implementation or agent execution authorized. Parent tasks T01–T09 and all existing gates remain authoritative. This adds execution boundaries, not product scope. See [Canvas](../reasons-canvas.md), [backlog](../implementation-plan.md), [first slice](first-vertical-slice.md), and [decisions](../decision-log.md).
+Status: T01a owner-authorized; see [task and evidence](t01a-canonical-input.md). Remaining packages are proposed and unapproved. Parent tasks T01–T09 and all existing gates remain authoritative. This adds execution boundaries, not product scope. See [Canvas](../reasons-canvas.md), [backlog](../implementation-plan.md), [first slice](first-vertical-slice.md), and [decisions](../decision-log.md).
 
 ## Execution approach
 

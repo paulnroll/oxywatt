@@ -1,13 +1,13 @@
 # Decision log
 
-2026-11-10. Owner direction is accepted as intent; technical recommendations remain proposed until reviewed. No application implementation is approved.
+2026-11-10. Owner direction is accepted as intent; technical recommendations remain proposed until reviewed. Owner subsequently approved T01a only in this session.
 
 | ID | State | Decision / rationale | Consequence |
 |---|---|---|---|
 | D01 | OWNER-DECIDED | Independent Collector; both Karoo and FIT supply one canonical input | [ADR 0001](../architecture/adr/0001-source-neutral-core.md); no SDK types in engine |
 | D02 | OWNER-DECIDED | FTP and VO₂max are separate models with explicit credibility | [ADR 0002](../architecture/adr/0002-independent-estimators.md); no CP/FTP equivalence |
 | D03 | OWNER-DECIDED | Whole-ride acquisition is the principal feasibility gate; M0 ends before code | [ADR 0003](../architecture/adr/0003-collection-feasibility-gate.md); first live slice only after approval |
-| D04 | PROPOSED | Two physical modules, logical contexts inside core | Avoid seven modules before actual implementation needs |
+| D04 | OWNER-APPROVED ARCHITECTURE | Two physical modules, logical contexts inside core | Avoid seven modules before actual implementation needs |
 | D05 | PROPOSED | Room local persistence, Compose application screen, optional numeric field | Verify runtime OS/toolchain first; custom field UI is not arbitrary Compose |
 | D06 | PROPOSED | Developer FIT replay early; product import/backfill later | Validate real datasets without adding import UI to 0.1 |
 | D07 | PROPOSED | One authoritative estimate per unambiguous session, versioned 42-day recency-weighted trend, basic chart | Owner requests smoothing/history now; defaults require review |
@@ -27,3 +27,11 @@ Owner requested corrections to all three review findings. These refine the draft
 - N01/R03/R11, T03, V17: replace nominal-duration queue wording with event/payload hard limits, in-flight accounting, reserved control capacity, bounded loss reporting and fail-closed lifecycle recovery.
 
 Changes after approval must record what changed, why, affected requirement/task/test IDs, and whether scope needs reapproval. No automatic GitHub issues, pushes or publication are part of this bootstrap.
+
+## T01a authorization and contract decision
+
+2026-11-10: owner replied “tak to jedziemy” to the explicit T01a + core/adapters architecture approval request. Approved: minimal Kotlin/JVM build, canonical input/time/profile/recording contracts and focused JVM tests (R01/R02/R11; partial V01/V02/V03). No Android scaffold or other package approval. Domain model contract v1 records signatures, units, nullability and epoch semantics before code. Sequence ordering and lifecycle effects remain T03 responsibilities.
+
+JVM bootstrap uses Gradle 9.1.0 (supports installed JDK 25), Kotlin 2.3.20 (documented Gradle range includes 9.1), Java release/JVM target 17. Sources: [Gradle release](https://docs.gradle.org/9.1.0/release-notes.html), [Kotlin compatibility](https://kotlinlang.org/docs/gradle-configure-project.html). This is not an Android toolchain decision; T02 must resolve that matrix.
+
+T01a verification: wrapper `:core:check` passed (7 JVM tests), including assertion red/green evidence for epoch separation and input validation; see task evidence. No device/scientific gate closed.

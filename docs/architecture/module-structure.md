@@ -1,11 +1,13 @@
 # Module structure and persistence
 
-Proposed minimal physical modules after approval:
+Owner-approved architecture: two physical modules. T01a creates only `:core`; `:app` remains a future gated module.
 
 ```text
 :core       Kotlin/JVM: collection contract, lifecycle, analytics, estimation, history policies, ports
 :app        Android: Karoo adapter, Room repositories, orchestration, Compose app UI, extension fields
 ```
+
+Current `:core` contains only `com.oxywatt.core.collection` canonical inputs and JVM tests, using Gradle 9.1.0/Kotlin 2.3.20 on JDK 25 with target/release 17. This does not select the Android toolchain.
 
 Package boundaries inside core follow the logical contexts. Add a development-only FIT replay module only when an actual parser and licensing/dependency choice require it; otherwise keep decoder helpers in test support. A future FIT adapter maps to the same Collector input. No production dependency on a FIT library is required for the live slice.
 

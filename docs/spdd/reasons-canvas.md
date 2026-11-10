@@ -1,6 +1,6 @@
 # OxyWatt REASONS Canvas v0.2
 
-Status: DRAFT — NOT APPROVED FOR APPLICATION IMPLEMENTATION. Updated 2026-11-10. Owner decisions D01–D03 constrain all future slices. This is the maintained engineering prompt; linked documents expand it without creating competing requirements.
+Status: T01a and source-neutral core/adapters architecture approved by owner in this session; all other implementation remains unapproved. Updated 2026-11-10. Owner decisions D01–D03 constrain all future slices. This is the maintained engineering prompt; linked documents expand it without creating competing requirements.
 
 Method: [Structured-Prompt-Driven Development, Thoughtworks authors on martinfowler.com](https://martinfowler.com/articles/structured-prompt-driven/). We adopt its REASONS structure and synchronization; specific engineering choices below belong to OxyWatt. [Open Mercato spec workflow](https://github.com/open-mercato/skills/blob/main/skills/om-spec-writing/SKILL.md) informs skeleton/review/phasing, not Android implementation rules.
 
@@ -8,7 +8,7 @@ Method: [Structured-Prompt-Driven Development, Thoughtworks authors on martinfow
 
 Build offline cycling analytics for Karoo 3 from normal rides with real power/HR. R01–R12 and N01–N03 in [requirements](../product/requirements.md) are the acceptance baseline. Distinguish collected facts, observed maxima, estimates, user settings and trends. The owner wants a progressively aggregated value and chart. First milestone is documentation only; first implementation slice, once separately approved, is Karoo → Collector → Persistence → Power Curve.
 
-Done means linked acceptance evidence and honest limitations, not a displayed number. R05/R06 remain scientifically gated. No application scaffold, diagnostic APK or production code is authorized by this draft.
+Done means linked acceptance evidence and honest limitations, not a displayed number. R05/R06 remain scientifically gated. The owner separately authorized T01a only; this Canvas does not authorize further packages, an Android scaffold or diagnostic APK.
 
 ## E — Entities
 
@@ -53,4 +53,4 @@ No invented SDK APIs or process guarantees. No absent-input zero fill, hidden HR
 
 ## Approval and unresolved decisions
 
-Architecture approval must identify this version and the allowed task scope. It does not certify continuous operation, scientific accuracy or license choice. See [review packet](review.md) for decisions. Current state: awaiting owner review. No approved implementation tasks.
+Architecture approval must identify this version and the allowed task scope. It does not certify continuous operation, scientific accuracy or license choice. See [review packet](review.md) for decisions. Current state: owner approved T01a and the core/adapters architecture on 2026-11-10. T01a is implemented and verified by 7 JVM contract tests; [evidence](tasks/t01a-canonical-input.md). Canonical input contract v1 is in the domain model. This authorizes minimal JVM build and contract tests only; T01b/T01c, Android and T02–T09 remain gated.

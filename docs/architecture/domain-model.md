@@ -1,6 +1,6 @@
 # Domain model
 
-Status: proposal for owner review; decisions D01–D03 already explicitly supplied. Names describe responsibilities, not mandatory classes/tables.
+Status: owner approved the source-neutral core/adapters architecture and T01a in this session (2026-11-10). Other packages and physiological methods remain gated; decisions D01–D03 already explicitly supplied. Names describe responsibilities, not mandatory classes/tables.
 
 | Concept | Kind and responsibility | Invariants |
 |---|---|---|
@@ -32,3 +32,18 @@ Domain outcomes such as SessionInterrupted and AnalysisCompleted may drive direc
 Keep input coverage, effort suitability, model applicability, physiological validation status and age separate. Proposed labels unavailable / limited / eligible describe evidence, not a calibrated probability. A model may have excellent signal coverage and unknown absolute accuracy. Store rejection reason codes and translate them in the UI.
 
 The core holds no Android/SDK/ORM/UI classes. Persistence schema follows access patterns; domain relationships are not automatic Room entities.
+
+## Canonical input contract v1 — T01a
+
+Package `com.oxywatt.core.collection`, file `CanonicalInput.kt`. This revision is accepted for T01a by the owner’s named slice approval; it freezes the boundary for T01b/T01c, not their execution authorization.
+
+- `InputEnvelope(sessionId: UUID, stamp: ReceiptStamp, source: SourceRef, normalizationVersion: String, payload: InputPayload)`. Local session identity is not a vendor ride ID. SourceRef contains nonblank adapter ID/version and optional nonnegative source sequence; it contains no device serial.
+- `ReceiptStamp(utc: Instant, epochId: UUID, elapsedNanos: Long, ingestSequence: Long)`: nonnegative elapsed time relative to a process-local epoch; sequence nonnegative and locally increasing (enforced by future collector, not a value object). Epoch changes on restart. UTC is audit time and cannot establish duration/continuity. `elapsedSince(earlier)` returns Duration only for the same epoch and nondecreasing elapsed time; otherwise null. Equal times return zero. Epoch IDs are opaque UUIDs.
+- `InputPayload.MetricReading(metric: Metric, value: Double?, missingReason: MissingReason?, sourceTime: SourceTime?)`: POWER_W, HEART_RATE_BPM, CADENCE_RPM declare units. Present values must be finite, power/cadence ≥0 and HR >0. Missing values require UNAVAILABLE, DROPOUT or INVALID_SOURCE_VALUE; present values forbid a missing reason. A reported zero HR is invalid, not a manufactured dropout. Adapters convert sentinel/invalid values to missing with a reason. No arbitrary physiological ceiling.
+- `SourceTime(utc: Instant, meaning: SourceTimeMeaning)` distinguishes MEASUREMENT from FILE_RECORD; absent when the source gives no timestamp. A decoded file record timestamp is not automatically sensor measurement time. Receipt and source timestamps are independent; no guessed time or source sequence.
+- `InputPayload.Recording(state: RecordingState)` represents UNKNOWN, IDLE, RECORDING, PAUSED without asserting a saved native ride or completing a session. State machine belongs to T03a; cold attach/initial Idle have no completion side effect here.
+- `InputPayload.Profile(snapshot: RiderProfileSnapshot)` carries `version: String`, `effectiveAt: Instant?`, and nullable `massKg`, `configuredMaxHeartRateBpm`, `configuredFtpWatts`, each `ProfileSetting(value: Double, origin: SettingOrigin)` with CONFIGURED or MANUAL origin. Present settings must be finite and >0. Version is an adapter-provided stable identifier/hash of values and origins; effectiveAt stays null when unknown, never fabricated from receipt time. Missing settings remain null. This represents configured facts, not estimates.
+
+All objects are immutable; Java UUID/Instant/Duration and Kotlin values only. No normalization, alignment, freshness policy, automatic merging, persistence or analytics is implemented here. Future normalized RideSample must retain per-channel age; this event boundary does not claim atomic channel alignment. Versions travel with every envelope/profile for replay.
+
+Contract fixture examples: power 0 W is present; HR null/DROPOUT remains absent; receipt t=5 s and t=7.5 s in one epoch give 2.5 s even if UTC goes backwards; the same elapsed numbers across epochs give no duration. A RECORDING event after cold attach represents observed host state only.

@@ -12,7 +12,7 @@ Acceptance: preserve zero versus missing values, reject invalid/nonfinite units 
 
 Verification command: `./gradlew :core:check --console=plain` on JDK 25; `git diff --check` plus Markdown link/traceability checks. Build/test only, no Gradle wiring TDD requirement.
 
-Risks/limits: no real Karoo/FIT adapter, decoder choice, replay engine, persistence, analytics or Android code. T01b/T01c and T02 remain unapproved. Full V01 equivalence, V02 downstream analysis and V03 lifecycle/window guarantees cannot be established by these contracts alone.
+Risks/limits: no real Karoo/FIT adapter, decoder choice, replay engine, persistence, analytics or Android code. T01b was subsequently authorized, then paused by the owner before changes; it is excluded from this PR. T01c and T02 remain unapproved. Full V01 equivalence, V02 downstream analysis and V03 lifecycle/window guarantees cannot be established by these contracts alone.
 
 ## Evidence
 
@@ -21,3 +21,10 @@ Risks/limits: no real Karoo/FIT adapter, decoder choice, replay engine, persiste
 - Actual final command: `GRADLE_USER_HOME="$PWD/.gradle-user-home" ./gradlew :core:check --console=plain` → BUILD SUCCESSFUL. Gradle's local socket requires sandbox escalation in this environment. No Android/device tests run.
 - `git diff --check` passed; 52 local Markdown link targets exist; skill frontmatter name/description and T01a R/V references checked. Installed skill-creator `quick_validate.py` passed for all four project skills. Main source imports only Java time/UUID; runtime dependencies are Kotlin/JDK only.
 - Canonical input v1 and build are delivered. V01/V02/V03 are covered only at the contract boundary described above, not full scenario acceptance; V13 device budgets remain untested. Parent T01 remains incomplete until separately approved T01b/T01c evidence exists.
+
+## Self-review corrections — PR #3
+
+- P2, R11/V13: `jvmTarget=17` and Java `options.release=17` did not restrict Kotlin's JDK API surface. On installed JDK 25 a temporary Kotlin reference to Java 21's `java.util.SequencedCollection` compiled successfully. Added `-Xjdk-release=17`: the same probe then failed specifically with unresolved `SequencedCollection`; removed the probe. This is a build-configuration check, not behavioral TDD or Android compatibility evidence. See [Kotlin compiler documentation](https://kotlinlang.org/docs/compiler-reference.html#xjdk-release-version).
+- Added focused regression coverage for Long.MAX_VALUE elapsed time (independent expected seconds/nanoseconds), data-class copy validation, and repeated equal measurements retaining distinct ingest keys. No collector/deduplicator is implied by the last check.
+- Clarified `elapsedSince` documents clock arithmetic only, not contiguous recording. Corrected validation status to distinguish executed contract checks from still-planned full V scenarios and recorded the T01b pause accurately.
+- Final `GRADLE_USER_HOME="$PWD/.gradle-user-home" ./gradlew :core:check --console=plain`: 10 tests, 0 failures/errors. No production domain behavior change or new implementation package.

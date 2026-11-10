@@ -16,6 +16,7 @@ data class ReceiptStamp(
         require(ingestSequence >= 0) { "Ingest sequence must be nonnegative" }
     }
 
+    /** Clock difference only: a shared epoch does not establish recording continuity across pauses/gaps. */
     fun elapsedSince(earlier: ReceiptStamp): Duration? =
         if (epochId != earlier.epochId || elapsedNanos < earlier.elapsedNanos) null
         else Duration.ofNanos(elapsedNanos - earlier.elapsedNanos)

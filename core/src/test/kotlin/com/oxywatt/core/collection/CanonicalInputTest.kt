@@ -88,4 +88,36 @@ class CanonicalInputTest {
         assertNull(profile.configuredFtpWatts)
         assertEquals(SettingOrigin.MANUAL, profile.massKg?.origin)
     }
+
+    @Test fun `largest supported elapsed interval does not overflow`() {
+        val origin = ReceiptStamp(utc, epoch, 0, 0)
+        val last = ReceiptStamp(utc, epoch, Long.MAX_VALUE, Long.MAX_VALUE)
+        assertEquals(Duration.ofSeconds(9_223_372_036, 854_775_807), last.elapsedSince(origin))
+        assertNull(origin.elapsedSince(last))
+    }
+
+    @Test fun `copies cannot bypass canonical input validation`() {
+        val reading = InputPayload.MetricReading(Metric.POWER_W, 0.0)
+        assertFailsWith<IllegalArgumentException> { reading.copy(metric = Metric.HEART_RATE_BPM) }
+        assertFailsWith<IllegalArgumentException> { reading.copy(value = null) }
+        val dropout = reading.copy(value = null, missingReason = MissingReason.DROPOUT)
+        assertFailsWith<IllegalArgumentException> { dropout.copy(value = 100.0) }
+        assertEquals(reading, dropout.copy(value = 0.0, missingReason = null))
+        assertFailsWith<IllegalArgumentException> {
+            ReceiptStamp(utc, epoch, 0, 0).copy(elapsedNanos = -1)
+        }
+        assertFailsWith<IllegalArgumentException> {
+            ProfileSetting(75.0, SettingOrigin.MANUAL).copy(value = Double.NEGATIVE_INFINITY)
+        }
+    }
+
+    @Test fun `repeated equal measurements retain distinct local ingestion keys`() {
+        val first = InputEnvelope(UUID(0, 3), ReceiptStamp(utc, epoch, 0, 0),
+            SourceRef("synthetic", "1"), "normalization-v1", InputPayload.MetricReading(Metric.POWER_W, 200.0))
+        val next = first.copy(stamp = first.stamp.copy(ingestSequence = 1))
+        assertEquals(first.payload, next.payload)
+        assertNotEquals(first, next)
+        assertNull(first.source.sourceSequence)
+        assertEquals(listOf(0L, 1L), listOf(first, next).map { it.stamp.ingestSequence })
+    }
 }

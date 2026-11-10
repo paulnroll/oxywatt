@@ -2,7 +2,7 @@
 
 ## Current authorization
 
-Owner approved T01a and the source-neutral core/adapters architecture on 2026-11-10: minimal JVM build, canonical input contracts and their JVM tests. See `docs/spdd/tasks/t01a-canonical-input.md`. Other implementation remains unapproved. Discovery, architecture, specifications and project skills remain authorized. Do not generate application code, scaffold Android, or implement a diagnostic app until the owner explicitly approves a named implementation slice. The first milestone ends with reviewed domain model, REASONS Canvas and source-verified SDK capabilities. Device behavior remains conditional until tested.
+Owner approved T01a and the source-neutral core/adapters architecture on 2026-11-10: minimal JVM build, canonical input contracts and their JVM tests. See `docs/spdd/tasks/t01a-canonical-input.md`. T01b was subsequently authorized then paused by the owner before changes for PR #3 review; keep it paused. Other implementation remains unapproved. Discovery, architecture, specifications and project skills remain authorized. Do not generate application code, scaffold Android, or implement a diagnostic app until the owner explicitly approves a named implementation slice. The first milestone ends with reviewed domain model, REASONS Canvas and source-verified SDK capabilities. Device behavior remains conditional until tested.
 
 ## Routing
 

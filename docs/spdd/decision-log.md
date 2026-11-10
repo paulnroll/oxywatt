@@ -35,3 +35,13 @@ Changes after approval must record what changed, why, affected requirement/task/
 JVM bootstrap uses Gradle 9.1.0 (supports installed JDK 25), Kotlin 2.3.20 (documented Gradle range includes 9.1), Java release/JVM target 17. Sources: [Gradle release](https://docs.gradle.org/9.1.0/release-notes.html), [Kotlin compatibility](https://kotlinlang.org/docs/gradle-configure-project.html). This is not an Android toolchain decision; T02 must resolve that matrix.
 
 T01a verification: wrapper `:core:check` passed (7 JVM tests), including assertion red/green evidence for epoch separation and input validation; see task evidence. No device/scientific gate closed.
+
+## PR #3 self-review corrections
+
+R11/V13/T01a: restrict Kotlin to the Java 17 API with `-Xjdk-release=17`; JVM bytecode target alone left newer JDK API usage possible. Temporary Java 21 API probe compiled before and was rejected after the change. Ten JVM contract tests pass, with additional time-boundary/copy-validation/repeated-reading coverage. `elapsedSince` remains clock arithmetic, not a continuity guarantee. No source contract or Android/science approval changed.
+
+The owner authorized T01b after T01a, then explicitly paused it to publish/review PR #3 before any T01b changes. Keep that package paused; this PR contains T01a and its review fixes only.
+
+## Formatting and CI tooling approval
+
+2026-11-10: owner accepted Spotless and explicitly requested a CI check. D14 (OWNER-APPROVED): use pinned Spotless 8.11.0 and ktfmt 0.64, Kotlin style (4-space block indentation), for core Kotlin and root/core Gradle Kotlin DSL. Add GitHub Actions push/PR formatting and JVM checks on JDK 25, preserving JVM/release 17. Scope and acceptance: [T01a-format](tasks/t01a-formatting-ci.md), supporting R11 and the JVM portion of V13; no new product requirement or application implementation approval. Sources: [Spotless plugin](https://plugins.gradle.org/plugin/com.diffplug.spotless), [ktfmt](https://kotlin.github.io/ktfmt/).

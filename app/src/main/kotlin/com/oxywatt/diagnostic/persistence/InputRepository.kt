@@ -28,6 +28,14 @@ data class StoredBatchMetadata(
     val terminal: InterruptionReason?,
 )
 
+data class CommittedEffect(
+    val revision: Long,
+    val batchId: UUID,
+    val index: Int,
+    val update: LifecycleUpdate,
+    val metadata: StoredBatchMetadata,
+)
+
 data class StoredCollectorState(val revision: Long, val checkpoint: CollectorCheckpoint?)
 
 /** Blocking adapter: its owner must call it on a worker, never from a sensor or UI callback. */
@@ -118,6 +126,82 @@ class InputRepository(context: Context, name: String) : AutoCloseable {
                     )
                 }
             }
+
+    /** Stable upper revision; callers retain the last (revision,index) across pages. */
+    fun replay(
+        throughRevision: Long,
+        afterRevision: Long = 0,
+        afterIndex: Int = -1,
+        limit: Int = 256,
+    ): List<CommittedEffect> {
+        require(throughRevision >= 0 && afterRevision >= 0 && afterIndex >= -1 && limit in 1..256)
+        return helper.readableDatabase
+            .rawQuery(
+                "SELECT b.revision,b.id,e.item,e.data,b.document FROM batches b JOIN effects e ON e.batch=b.id WHERE b.revision<=? AND (b.revision>? OR (b.revision=? AND e.item>?)) ORDER BY b.revision,e.item LIMIT ?",
+                arrayOf(
+                    throughRevision.toString(),
+                    afterRevision.toString(),
+                    afterRevision.toString(),
+                    afterIndex.toString(),
+                    limit.toString(),
+                ),
+            )
+            .use { c ->
+                buildList {
+                    while (c.moveToNext()) {
+                        val encoded = JSONObject(c.getString(3))
+                        require(encoded.getInt("codec") == 1)
+                        val update = CollectorCodec.update(encoded.getJSONObject("update"))
+                        update.envelope?.let { envelope ->
+                            helper.readableDatabase
+                                .rawQuery(
+                                    "SELECT data,session,segment FROM observations WHERE epoch=? AND sequence=? AND batch=?",
+                                    arrayOf(
+                                        envelope.stamp.epochId.toString(),
+                                        envelope.stamp.ingestSequence.toString(),
+                                        c.getString(1),
+                                    ),
+                                )
+                                .use { input ->
+                                    check(input.moveToFirst()) { "Missing committed observation" }
+                                    check(
+                                        CollectorCodec.observation(
+                                            JSONObject(input.getString(0))
+                                        ) ==
+                                            SourceObservation(
+                                                envelope.stamp,
+                                                envelope.source,
+                                                envelope.normalizationVersion,
+                                                envelope.payload,
+                                            )
+                                    )
+                                    check(input.getString(1) == envelope.sessionId.toString())
+                                    check(
+                                        (if (input.isNull(2)) null else input.getLong(2)) ==
+                                            update.recordingSegment
+                                    )
+                                }
+                        }
+                        val m = JSONObject(c.getString(4))
+                        require(m.getInt("codec") == 1)
+                        add(
+                            CommittedEffect(
+                                c.getLong(0),
+                                UUID.fromString(c.getString(1)),
+                                c.getInt(2),
+                                update,
+                                StoredBatchMetadata(
+                                    CollectorCodec.admissionPolicy(m),
+                                    CollectorCodec.loss(m),
+                                    if (m.isNull("terminal")) null
+                                    else InterruptionReason.valueOf(m.getString("terminal")),
+                                ),
+                            )
+                        )
+                    }
+                }
+            }
+    }
 
     internal var beforeCheckpoint: () -> Unit = {}
 

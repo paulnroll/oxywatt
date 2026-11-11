@@ -74,11 +74,11 @@ public class PreviewReplayInstrumentation extends Instrumentation {
         if (PreviewRun.INSTANCE.start(getTargetContext(), false, false)) {
             throw new AssertionError("Reopen allowed a duplicate source");
         }
-        long deadline = System.nanoTime() + 12_000_000_000L;
+        long deadline = System.nanoTime() + 20_000_000_000L;
         while (System.nanoTime() < deadline) {
             String state = PreviewRun.INSTANCE.getSnapshot();
             if (state != null && state.contains("EOF / stopped")) {
-                if (!state.contains("Saved canonical events: 7")) {
+                if (!state.contains("Saved canonical events: 14")) {
                     throw new AssertionError("Demo event count changed: " + state);
                 }
                 return;

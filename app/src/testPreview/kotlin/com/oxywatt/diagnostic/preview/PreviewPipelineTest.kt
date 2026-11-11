@@ -216,4 +216,117 @@ class PreviewPipelineTest {
         }
         context.deleteDatabase(name)
     }
+
+    @Test
+    fun persistedCurveIsIdenticalAtAllReplaySpeedsAndReopenReadsTheSameGeneration() {
+        val context = ApplicationProvider.getApplicationContext<Context>()
+        val semantic =
+            mutableListOf<
+                Triple<String, List<com.oxywatt.core.power.PowerDurationResult>, Boolean>
+            >()
+        for (speed in listOf(1, 10, null)) {
+            val name = "oxywatt-synthetic-demo-${UUID.randomUUID()}.db"
+            val fixedEpoch = UUID(0, 42)
+            var generation = 0L
+            // A fixed ID provider tests raw semantic hash equality across persisted replays.
+            com.oxywatt.diagnostic.persistence.InputRepository(context, name).use { repo ->
+                val l =
+                    CollectorLifecycle(
+                        fixedEpoch,
+                        LifecyclePolicy("preview-silence-v1", 2_000_000_000),
+                        { UUID(0, 41) },
+                    )
+                val queue = BoundedAdmission()
+                val clock = com.oxywatt.core.collection.simulation.VirtualTimeline()
+                val source =
+                    com.oxywatt.core.collection.simulation.SimulatedRideDataSource(
+                        com.oxywatt.core.collection.simulation.powerCurvePreviewScenario(),
+                        clock,
+                        fixedEpoch,
+                        Instant.EPOCH,
+                        17_000_000_000,
+                        speed = speed,
+                    )
+                source.start({ queue.offer(it) }, { assertNull(it) }).use {
+                    while (source.pump()) {}
+                }
+                val batch = queue.takeBatch()!!
+                repo.commit(repo.prepare(batch, l, 0))
+                queue.committed(batch)
+                com.oxywatt.diagnostic.persistence.AnalysisRepository(context, name).use { results
+                    ->
+                    val c =
+                        com.oxywatt.diagnostic.persistence
+                            .PowerCurveCalculation(repo, results)
+                            .prepare(UUID(0, 41), "SYNTHETIC:preview-curve-v1:seed=0", "test")
+                    assertEquals(
+                        com.oxywatt.diagnostic.persistence.AnalysisStatus.AVAILABLE,
+                        c.terminal.status,
+                    )
+                    generation = c.generation
+                    results.complete(c.generation, c.terminal)
+                    val curve =
+                        results
+                            .current(
+                                com.oxywatt.diagnostic.persistence.PowerCurveCalculation.slot(
+                                    UUID(0, 41)
+                                )
+                            )!!
+                            .terminal!!
+                            .curve!!
+                    semantic.add(
+                        Triple(
+                            curve.inputHash,
+                            curve.snapshot.durations,
+                            curve.snapshot.resourceLimited,
+                        )
+                    )
+                    assertEquals(200.0, curve.snapshot.durations.first().record!!.meanWatts, 1e-8)
+                    assertEquals(
+                        10_000_000_000L,
+                        curve.snapshot.durations.first().record!!.startNanos,
+                    )
+                }
+            }
+            PreviewPipeline(context, name).use { p ->
+                p.calculateCurve("SYNTHETIC:ignored-on-reopen", "test")
+                assertEquals(generation, p.storedCurve()!!.generation)
+                val text = curveText(context, p)
+                assertTrue(text, text.contains("200.00 W"))
+                assertTrue(text, text.contains("SYNTHETIC"))
+                assertTrue(text, text.contains("ENDED_LOCALLY"))
+            }
+            context.deleteDatabase(name)
+        }
+        assertEquals(semantic[0], semantic[1])
+        assertEquals(semantic[0], semantic[2])
+    }
+
+    @Test
+    fun terminalSyntheticFitSavesPartialUnavailableCurveWithoutInventingCoverage() {
+        val context = ApplicationProvider.getApplicationContext<Context>()
+        val name = "oxywatt-synthetic-demo-${UUID.randomUUID()}.db"
+        PreviewPipeline(context, name).use { p ->
+            val manifest =
+                context.assets.open("fit-scenario/manifest.json").bufferedReader().use {
+                    it.readText()
+                }
+            com.oxywatt.core.collection.simulation.replayFitStream(
+                manifest,
+                { context.assets.open("fit-scenario/observations.tsv") },
+                null,
+                { p.accept(it) },
+                epoch = p.epoch,
+            )
+            p.flush()
+            p.stopped()
+            p.calculateCurve("SYNTHETIC:generated-synthetic-v1:seed=0", "test")
+            val run = p.storedCurve()!!
+            assertEquals(com.oxywatt.diagnostic.persistence.AnalysisStatus.AVAILABLE, run.status)
+            assertEquals(SessionPhase.INTERRUPTED, run.terminal!!.curve!!.session.phase)
+            assertTrue(run.terminal!!.curve!!.snapshot.durations.all { it.record == null })
+            assertTrue(curveText(context, p).contains("INTERRUPTED"))
+        }
+        context.deleteDatabase(name)
+    }
 }

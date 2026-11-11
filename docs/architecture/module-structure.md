@@ -36,3 +36,5 @@ T03p software implementation (2026-11-11, owner-approved after PR #17): isolated
 
 
 T04a adds `core/power/PowerCurve.kt`: a caller-serialized single-session engine over explicitly confirmed intervals, immutable result/provenance/policy types and bounded rolling history. No collection, SDK, persistence or simulator type is introduced into this boundary. Canonical-to-interval preprocessing and result-storage consumers remain separately scoped T04b work.
+
+T04b1 adds core CanonicalPowerReplay/BudgetedPowerCurve and app revision/index-bounded committed effect queries. The preview worker performs two streaming passes (semantic hash, then calculation) after a committed terminal boundary. AnalysisTerminal codec v2 carries typed StoredPowerCurve alongside scalar-v1 compatibility in the unchanged SQLite schema v2; existing request/complete/current authority is reused. Structured curves are excluded from aggregate membership. Saved session phase/origin/ambiguity and scan limits remain visible; source receipt clocks never extend across recovery epochs. No new module/dependency/live coordinator. See [T04b1](../spdd/tasks/t04b-persisted-curve.md).

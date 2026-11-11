@@ -35,11 +35,11 @@ object PreviewRun {
                             if (!restoreOnly) {
                                 val manifest =
                                     RunManifest(
-                                        if (fit) "synthetic-fit-v1" else "preview-v1",
+                                        if (fit) "synthetic-fit-v1" else "preview-curve-v1",
                                         0,
                                         epoch,
                                         Instant.EPOCH,
-                                        if (fit) 9_000_000_000 else 10_000_000_000,
+                                        if (fit) 9_000_000_000 else 17_000_000_000,
                                         normalizationVersion =
                                             if (fit) "fit-normalization-v1" else "canonical-v1",
                                     )
@@ -128,7 +128,7 @@ object PreviewRun {
                                             "${metric.name}: ${reading.value ?: reading.missingReason}"
                                         },
                                         pipeline.gaps,
-                                    )
+                                    ) + curveText(context, pipeline)
                             }
                             fun waitUntil(deadline: Long) {
                                 while (!cancelled.get() && System.nanoTime() - began < deadline) {
@@ -143,10 +143,24 @@ object PreviewRun {
                                 clock.at(time) {
                                     pipeline.advance(time)
                                     publish()
-                                    if (time < 10_000_000_000) tick(time + 500_000_000)
+                                    if (time < 17_000_000_000) tick(time + 500_000_000)
                                 }
                             }
                             if (restoreOnly) {
+                                val previousEpoch =
+                                    pipeline.committedCheckpoint?.latestSession?.epochId
+                                val storedManifest =
+                                    context
+                                        .getSharedPreferences(
+                                            "synthetic-run-manifest",
+                                            Context.MODE_PRIVATE,
+                                        )
+                                        .getString(previousEpoch.toString(), null)
+                                if (storedManifest != null)
+                                    pipeline.calculateCurve(
+                                        "SYNTHETIC:$storedManifest",
+                                        com.oxywatt.diagnostic.BuildConfig.CODE_REVISION,
+                                    )
                                 publish(true)
                                 return@use
                             }
@@ -172,11 +186,11 @@ object PreviewRun {
                             } else {
                                 val source =
                                     SimulatedRideDataSource(
-                                        previewScenario(),
+                                        powerCurvePreviewScenario(),
                                         clock,
                                         epoch,
                                         Instant.EPOCH,
-                                        10_000_000_000,
+                                        17_000_000_000,
                                         speed = 1,
                                         awaitPlaybackDeadline = ::waitUntil,
                                     )
@@ -185,6 +199,18 @@ object PreviewRun {
                                 }
                             }
                             pipeline.stopped()
+                            val storedManifest =
+                                context
+                                    .getSharedPreferences(
+                                        "synthetic-run-manifest",
+                                        Context.MODE_PRIVATE,
+                                    )
+                                    .getString(epoch.toString(), null)
+                            if (storedManifest != null)
+                                pipeline.calculateCurve(
+                                    "SYNTHETIC:$storedManifest",
+                                    com.oxywatt.diagnostic.BuildConfig.CODE_REVISION,
+                                )
                             publish(true)
                         }
                     } catch (failure: Exception) {
@@ -203,4 +229,47 @@ object PreviewRun {
             .start()
         return true
     }
+}
+
+internal fun curveText(context: Context, pipeline: PreviewPipeline): String {
+    pipeline.curveError?.let {
+        return context.getString(R.string.preview_curve_error, it)
+    }
+    val run = pipeline.storedCurve() ?: return context.getString(R.string.preview_curve_empty)
+    val curve = run.terminal?.curve
+    val details =
+        if (curve == null) run.terminal?.reason ?: context.getString(R.string.preview_unknown)
+        else {
+            val values =
+                curve.snapshot.durations.joinToString("\n") { d ->
+                    context.getString(
+                        R.string.preview_curve_duration,
+                        d.durationSeconds,
+                        d.record?.let {
+                            context.getString(R.string.preview_curve_watts, it.meanWatts)
+                        } ?: d.unavailableReason!!.name,
+                    )
+                }
+            context.getString(
+                R.string.preview_curve_details,
+                curve.session.phase.name,
+                curve.session.origin.name,
+                curve.session.ambiguityGroupId?.toString()
+                    ?: context.getString(R.string.preview_none),
+                curve.revision,
+                curve.inputHash,
+                context.getString(
+                    if (curve.snapshot.resourceLimited) R.string.preview_curve_limited
+                    else R.string.preview_curve_scanned
+                ),
+                values,
+            )
+        }
+    return context.getString(
+        R.string.preview_curve_header,
+        run.slot.session.toString(),
+        run.generation,
+        run.status.name,
+        details,
+    )
 }

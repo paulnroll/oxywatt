@@ -39,6 +39,14 @@ android {
         targetSdk = 34
         versionCode = 2
         versionName = "0.2.0"
+        val codeRevision =
+            providers
+                .exec { commandLine("git", "rev-parse", "HEAD") }
+                .standardOutput
+                .asText
+                .get()
+                .trim()
+        buildConfigField("String", "CODE_REVISION", "\"$codeRevision\"")
         testInstrumentationRunner = "com.oxywatt.diagnostic.preview.PreviewReplayInstrumentation"
     }
 

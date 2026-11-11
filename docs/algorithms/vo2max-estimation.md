@@ -13,3 +13,8 @@ Before enabling: document every equation, unit, coefficient source, validation p
 Results expose data coverage, applicability and validation status independently. Display mL/kg/min with restrained rounding determined by model evidence; preserve full computation internally for reproducibility. If an exploratory model is approved, visibly label it experimental. If no method qualifies, show unavailable and seek an explicit release-scope decision.
 
 Trend: preserve per-ride accepted values and reasons for rejected rides. Separate indoor/outdoor and incompatible model/calibration cohorts until comparability is established. Smoothing specification is in the Canvas; it summarizes estimates and adds no physiological validity.
+
+
+## T05b protocol proposal — 2026-11-11
+
+[Canonical T05b specification](../spdd/tasks/t05b-evaluation-protocol.md). The proposed T05b protocol requires independently measured cycling CPET references, explicit VO₂max versus VO₂peak status, dated mass/normalization provenance and participant-level held-out evaluation. Sensitivity depends on actual T07 candidate inputs; no HR/mass/efficiency parameter is invented or universally required. No lawful paired dataset secured; experiment and product admission remain blocked.

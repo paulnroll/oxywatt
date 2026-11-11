@@ -183,3 +183,8 @@ Owner requested a concrete specification and authorized its PR publication, not 
 ## T05a implementation — 2026-11-11
 
 Owner approved named T05a after PR #27 merged. Reuse explicit development event tables and nullable descriptor linkage in RunManifest, preserving legacy hashes. Rights validation checks declarations, not actual consent; current fixture admission supports synthetic inputs only. Separate FTP/VO₂max profile schemas retain missing inputs and model_not_approved without estimator code. Existing typed replay hashing, generation storage and release isolation remain authoritative. [Evidence](../evidence/t05a-software-2026-11-11/README.md). T05b protocol/sensitivity/go-no-go and later scientific/live acceptance remain open.
+
+
+## T05b protocol proposal — 2026-11-11
+
+[Canonical T05b specification](tasks/t05b-evaluation-protocol.md). Owner requested specification/publication only. PR #28 is merged and all four remote checks passed; local main advanced to dca3639 before this proposal. Proposed smallest named package: protocol review plus worked synthetic qualification/reporting exercise, no code/framework. Independent protocol-defined FTP and cycling CPET VO₂max references are required; CP is not FTP. No lawful paired dataset secured. Open decisions O1–O5 require explicit resolution before experiment admission; readiness does not select T06/T07 methods or admit a product. Named T05b execution approval is pending. Continue on simulator; no private FIT read or device action; postponed live gates stay open.

@@ -156,3 +156,8 @@ After merged PR #26, propose [T05a](tasks/t05a-fixture-reproducibility.md), R01�
 ## T05a implementation — 2026-11-11
 
 T05a implementation approved after merged PR #27. Extend development RunManifest only with an optional versioned descriptor digest (legacy preimage preserved); explicit synthetic event tables, rights declarations and two independent input-profile schemas live in existing test fixtures. Existing virtual source/Collector/admission/SQLite/curve/readout checks provide reproducibility evidence; no production estimator/storage changes. See [T05a](tasks/t05a-fixture-reproducibility.md) and [software evidence](../evidence/t05a-software-2026-11-11/README.md). Scientific and live gates remain separate.
+
+
+## T05b protocol proposal — 2026-11-11
+
+[Canonical T05b specification](tasks/t05b-evaluation-protocol.md). T05b defines separate FTP/VO₂max questions, independent reference qualification, participant-level splits, locked reporting and method-dependent sensitivity. Reuse T05a descriptors/profiles and existing authoritative hashes/storage. Protocol readiness, experiment admission, method selection and product admission are independent decisions. O1–O5 block real experiments; no method, accuracy threshold or sample size is selected. B01–B08 await named execution approval. Software, scientific and deferred live gates remain separate.

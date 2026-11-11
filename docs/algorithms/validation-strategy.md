@@ -102,3 +102,8 @@ Owner approved [T04b2](../spdd/tasks/t04b2-long-variable-scan.md) after specific
 ## T05a implementation — 2026-11-11
 
 Owner-approved T05a after PR #27: [software evidence](../evidence/t05a-software-2026-11-11/README.md) maps A01–A07 to actual fixture/profile/hash/refusal tests and native persisted virtual-timer replay. Numerical expectations are synthetic only; V07/V08 physiological acceptance and V11/device V13 remain open. Existing private-FIT opt-in stays disabled.
+
+
+## T05b protocol proposal — 2026-11-11
+
+[Canonical T05b specification](../spdd/tasks/t05b-evaluation-protocol.md). B01/B02 distinguish FTP protocol references and cycling CPET VO₂max (R05/R06; V07/V08/V09). B03 covers rights/person/modality/time/protocol qualification (V07/V08/V09/V12); B04 participant independence and frozen splits (V07/V08/V09); B05 error/agreement and coverage/refusal denominators (V07/V08/V09); B06 conditional sensitivity (V07/V08/V09/V18/V19); B07 independent decision gates (V07/V08/V09); B08 existing software reuse and separate live status (V06/V09/V12/V14/V16/V18/V22/V23). All are proposed review/exercise criteria, not executed scientific validation. Numerical conformance, robustness, deterministic repeatability, physiological test–retest and criterion validity must be reported distinctly. No universal thresholds, participant N or sensitivity bounds are approved.

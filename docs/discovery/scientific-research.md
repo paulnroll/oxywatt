@@ -26,3 +26,8 @@ Retrieve complete candidate equations and coefficient units, code/data licenses 
 No legally reusable matched ordinary-ride + CPET ground-truth dataset has been secured. Owner FIT files support ingestion, robustness and repeatability checks, not absolute accuracy without independent physiology measurements. The differential-model paper makes its data available on request; that is not a ready public dataset. Do not contact authors without authorization.
 
 Decision: independent research gates T05/T06/T07; algorithms can remain unavailable rather than emitting invented precision. Release scope must be reviewed if these gates cannot be satisfied.
+
+
+## T05b protocol proposal — 2026-11-11
+
+[Canonical T05b specification](../spdd/tasks/t05b-evaluation-protocol.md). T05b proposes evaluation design, not new primary-source findings or coefficient approval. It separates numerical/robustness/repeatability evidence from criterion validity and records unresolved protocol, sample/precision, rights/population, thresholds and candidate-sensitivity decisions O1–O5. T06/T07 must verify full primary equations/inputs/populations before candidate experiments. No source contacted or real/private data accessed.

@@ -104,3 +104,8 @@ Owner approved [T04b2](t04b2-long-variable-scan.md) after specification PR #25 m
 ## T05a implementation — 2026-11-11
 
 Owner approved [T05a](t05a-fixture-reproducibility.md) after merged PR #27; development support and replay tests reuse existing two-module contracts. [Software evidence](../../evidence/t05a-software-2026-11-11/README.md) maps A01–A07, with no production storage/model work. T05b and scientific/live gates retain their separate scope.
+
+
+## T05b protocol proposal — 2026-11-11
+
+[Canonical T05b specification](t05b-evaluation-protocol.md). T05b / T05 is now a bounded documentation/evaluation-design package: protocol, B01–B08 worked review report and synchronization only. Exact files, dependencies, risks and checks are in the task. Named execution approval pending. No new manifest/storage/runner, estimator, private FIT or device dependency. Lawful reference data and O1–O5 block experiment admission, not protocol design. T06/T07 own independent method decisions.

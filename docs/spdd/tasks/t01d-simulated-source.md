@@ -22,3 +22,7 @@ Risks: virtual scheduling must never use machine clocks; lazy input must not cre
 Playback uses a harness-provided absolute-deadline waiting hook; tests run it without sleeping. All acquisition timers use the same harness-owned virtual timeline. Sources own no background thread or queued event buffer. The harness must supply a fresh timeline/epoch and fresh lazy sequence for each run. Real paced playback and hardware behavior are not claimed.
 
 Collector session identity, interrupted/ambiguous eligibility, gap coverage, bounded admission under overload, storage/history isolation and power integrals remain their owning T03/T04/T08 checks. No analytical or scientific result is implemented here. T01e/T02d and live adapter migration remain unapproved.
+
+## PR #10 additional code review
+
+Found a virtual-clock reentrancy bug: a timer at 5 could recursively advance to 20 while an outer advance targeted 10, allowing the outer call to rewind the clock to 10. A regression test failed before the correction. Recursive advances are now explicitly rejected; timer callbacks may still schedule/cancel tasks. A second test checks that cancellation removes timers and an exception releases the advance guard. All 30 JVM tests pass after the fix. No canonical contract, SDK or hardware claim changed.

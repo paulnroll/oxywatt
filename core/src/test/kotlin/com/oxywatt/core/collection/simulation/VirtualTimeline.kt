@@ -8,6 +8,7 @@ class VirtualTimeline {
 
     private val timers = PriorityQueue(compareBy<Timer> { it.deadline }.thenBy { it.order })
     private var order = 0L
+    private var advancing = false
     var now: Long = 0
         private set
 
@@ -19,12 +20,18 @@ class VirtualTimeline {
     }
 
     fun advanceTo(deadline: Long) {
+        check(!advancing) { "Timers may schedule work but cannot advance the clock recursively" }
         require(deadline >= now)
-        while (timers.peek()?.deadline?.let { it <= deadline } == true) {
-            val timer = timers.remove()
-            now = timer.deadline
-            timer.action()
+        advancing = true
+        try {
+            while (timers.peek()?.deadline?.let { it <= deadline } == true) {
+                val timer = timers.remove()
+                now = timer.deadline
+                timer.action()
+            }
+            now = deadline
+        } finally {
+            advancing = false
         }
-        now = deadline
     }
 }

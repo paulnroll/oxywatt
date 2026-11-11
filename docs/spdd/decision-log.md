@@ -83,3 +83,5 @@ Source observations now precede Collector-owned session/envelope assignment. The
 2026-11-11: owner accepted the simulation-first proposal and named T01d implementation (“no to jedziemy”). D15 architecture is accepted; only T01d implementation is authorized. No external test dependency is adopted. See [T01d](tasks/t01d-simulated-source.md). Other packages retain separate approval gates.
 
 T01d completion: production adds only RideDataSource/SourceObservation; simulation support stays in JVM test sources, without dependencies or Android changes. Virtual acquisition uses a harness-owned timer queue and absolute playback-deadline hook. Source termination never emits a fabricated Idle. All 28 JVM tests and core build pass; scope and deferred Collector/hardware criteria are recorded in the task.
+
+T01d PR #10 additional review: reject recursive virtual-clock advances to prevent time reversal; regression reproduced before the fix. Timer cancellation and exception recovery are covered. All 30 JVM tests pass; no scope or live feasibility change.

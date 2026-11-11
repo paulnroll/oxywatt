@@ -354,4 +354,27 @@ class SimulationTest {
         assertEquals(3600 * second, clock.now)
         assertEquals(listOf("flush", "sample"), order)
     }
+
+    @Test
+    fun nestedClockAdvanceIsRejectedWithoutRewindingTime() {
+        val clock = VirtualTimeline()
+        clock.at(5) { assertFailsWith<IllegalStateException> { clock.advanceTo(20) } }
+        clock.advanceTo(10)
+        assertEquals(10, clock.now)
+        clock.advanceTo(20)
+        assertEquals(20, clock.now)
+    }
+
+    @Test
+    fun timerFailureReleasesAdvanceGuardAndCancelledTimerNeverFires() {
+        val clock = VirtualTimeline()
+        val cancelled = clock.at(3) { fail("cancelled timer fired") }
+        cancelled.close()
+        cancelled.close()
+        clock.at(5) { throw IllegalArgumentException("injected") }
+        assertFailsWith<IllegalArgumentException> { clock.advanceTo(10) }
+        assertEquals(5, clock.now)
+        clock.advanceTo(10)
+        assertEquals(10, clock.now)
+    }
 }

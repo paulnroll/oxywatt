@@ -72,3 +72,5 @@ Architecture approval must identify this version and the allowed task scope. It 
 T01a self-review: Kotlin API restricted to Java 17 in addition to JVM target 17; time helper explicitly makes no continuity claim. See task evidence for the compiler probe and boundary tests.
 
 T01d evidence: the source-neutral port and test-only simulator are implemented; 28 JVM tests pass with formatting/build and production-JAR isolation checks. See [T01d](tasks/t01d-simulated-source.md). This closes source-level V18/V19 and manifest-level V22 only; Collector and hardware gates remain open.
+
+T01d PR #10 review correction: virtual time cannot advance recursively inside a timer callback; this prevents time reversal. Timer scheduling/cancellation remains allowed. All 30 JVM tests pass; see the T01d task review evidence.

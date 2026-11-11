@@ -161,3 +161,8 @@ T05a implementation approved after merged PR #27. Extend development RunManifest
 ## T05b protocol proposal — 2026-11-11
 
 [Canonical T05b specification](tasks/t05b-evaluation-protocol.md). T05b defines separate FTP/VO₂max questions, independent reference qualification, participant-level splits, locked reporting and method-dependent sensitivity. Reuse T05a descriptors/profiles and existing authoritative hashes/storage. Protocol readiness, experiment admission, method selection and product admission are independent decisions. O1–O5 block real experiments; no method, accuracy threshold or sample size is selected. B01–B08 await named execution approval. Software, scientific and deferred live gates remain separate.
+
+
+## T05b executed protocol exercises — 2026-11-11
+
+Owner approved T05b after merged PR #29. [B01–B08 report](../evidence/t05b-protocol-review/README.md) completes the bounded documentation exercise: separate FTP/VO₂max estimands, ten invented qualification cases, participant split/freeze rehearsal, reconciled coverage/refusal/error arithmetic, conditional sensitivity and explicit O1–O5 decisions. Self-reviewed evidence is ready for owner review; it is not a physiological study. Both experiment admissions remain NO-GO; no lawful matched dataset, justified scientific thresholds/sample plan or method selected. T06/T07 retain independent research/selection and later implementation; no automatic authorization follows. T05 protocol/reproducibility deliverables are now recorded, while parent scientific acceptance and deferred T02c/T03e/parent T04 live gates remain open.

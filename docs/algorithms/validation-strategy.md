@@ -107,3 +107,10 @@ Owner-approved T05a after PR #27: [software evidence](../evidence/t05a-software-
 ## T05b protocol proposal — 2026-11-11
 
 [Canonical T05b specification](../spdd/tasks/t05b-evaluation-protocol.md). B01/B02 distinguish FTP protocol references and cycling CPET VO₂max (R05/R06; V07/V08/V09). B03 covers rights/person/modality/time/protocol qualification (V07/V08/V09/V12); B04 participant independence and frozen splits (V07/V08/V09); B05 error/agreement and coverage/refusal denominators (V07/V08/V09); B06 conditional sensitivity (V07/V08/V09/V18/V19); B07 independent decision gates (V07/V08/V09); B08 existing software reuse and separate live status (V06/V09/V12/V14/V16/V18/V22/V23). All are proposed review/exercise criteria, not executed scientific validation. Numerical conformance, robustness, deterministic repeatability, physiological test–retest and criterion validity must be reported distinctly. No universal thresholds, participant N or sensitivity bounds are approved.
+
+
+## T05b executed protocol exercises — 2026-11-11
+
+Owner approved T05b after merged PR #29. [B01–B08 report](../evidence/t05b-protocol-review/README.md) completes the bounded documentation exercise: separate FTP/VO₂max estimands, ten invented qualification cases, participant split/freeze rehearsal, reconciled coverage/refusal/error arithmetic, conditional sensitivity and explicit O1–O5 decisions. Self-reviewed evidence is ready for owner review; it is not a physiological study. Both experiment admissions remain NO-GO; no lawful matched dataset, justified scientific thresholds/sample plan or method selected. T06/T07 retain independent research/selection and later implementation; no automatic authorization follows. T05 protocol/reproducibility deliverables are now recorded, while parent scientific acceptance and deferred T02c/T03e/parent T04 live gates remain open.
+
+V08 clarification: mass, HRmax and HR availability/sensitivity checks apply when required by the audited candidate, not as invented universal inputs for every possible VO₂max method. T05b supplies protocol/review evidence only; actual method-specific numerical, refusal and sensitivity execution remains T07.

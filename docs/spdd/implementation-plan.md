@@ -39,3 +39,6 @@ T03a is owner-approved and implemented locally: [lifecycle/checkpoint contract a
 
 
 T03p software implementation (2026-11-11, owner-approved after PR #17): isolated debug-derived preview consumes actual T03a/b/c pipeline and schema v2. Shared test fixtures and stream FIT reader remain outside release. Received versus committed values, virtual ages, pending/loss, interruption and storage errors are inspectable. Last committed receipt time is explicitly distinguished from an unavailable durable transaction timestamp. See [T03p evidence](tasks/t03p-diagnostic-preview.md). V22/V23 software checks do not close the on-Karoo screenshot/device claim, T02 or live T03e.
+
+
+Proposed software-only T04a amendment — 2026-11-11: the owner requests useful simulator-backed work with live tests at the end. [T04a](tasks/t04a-power-curve-engine.md) can implement the pure observed power-duration engine over explicitly covered intervals after T01/T03a policy review, before T03e. T04b canonical-to-interval preprocessing, persistence/readout and parent first-slice acceptance remain separately scoped and live-gated. T02c/T03e are deferred, not accepted or silently enabled. Named T04a implementation approval is still required; this supersedes the blanket T04 sequencing only for the proposed pure engine.

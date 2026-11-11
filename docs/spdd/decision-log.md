@@ -139,3 +139,6 @@ T03p implementation authorized by the owner on 2026-11-11 after PR #17. Readines
 
 
 T03p software implementation (2026-11-11, owner-approved after PR #17): isolated debug-derived preview consumes actual T03a/b/c pipeline and schema v2. Shared test fixtures and stream FIT reader remain outside release. Received versus committed values, virtual ages, pending/loss, interruption and storage errors are inspectable. Last committed receipt time is explicitly distinguished from an unavailable durable transaction timestamp. See [T03p evidence](tasks/t03p-diagnostic-preview.md). V22/V23 software checks do not close the on-Karoo screenshot/device claim, T02 or live T03e.
+
+
+2026-11-11: owner authorized T03p preview-only Karoo installation/launch, synthetic tests, screenshots, scoped fixes and PR publication after merged PR #18. No full T02c/T03e authorization follows. Preparation found no ADB device; local software verification passed with up-to-date tests. Installation and hardware claims remain pending. Existing controls cannot deliberately inject loss/storage errors; no fault panel will be added for screenshots. See [T03p readiness](tasks/t03p-diagnostic-preview.md).

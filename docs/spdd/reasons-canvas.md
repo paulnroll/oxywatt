@@ -44,6 +44,8 @@ Proposed [agent work packages](tasks/agent-work-packages.md) subdivide the backl
 
 ## N — Norms
 
+The project [PR skill](../../.agents/skills/oxywatt-pr/SKILL.md) covers self-review, slice-specific verification, repository GitHub identity and Conventional Commit formatting for both commit subjects and PR titles. Publication follows the owner’s session authorization.
+
 Owner-approved [T01a-format tooling](tasks/t01a-formatting-ci.md): pinned Spotless/ktfmt with Kotlin style formats core Kotlin and Gradle Kotlin DSL. GitHub Actions checks formatting, JVM contracts and the core JAR build on pushes and pull requests, retaining available test reports; local `check` includes formatting. This adds no application behavior.
 
 The [developer skill](../../.agents/skills/oxywatt-developer/SKILL.md) guides approved packages toward minimal complete changes and behavior-driven TDD. Domain tests precede implementation; SDK, build and device claims require their respective checks. This workflow does not authorize code or close feasibility/scientific gates.

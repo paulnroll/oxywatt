@@ -69,3 +69,7 @@ After confirming the diagnostic launcher on Karoo 3, the owner authorized [T02b]
 ## D15 — Simulation-first architecture proposal
 
 2026-11-11. State PROPOSED. The owner requested a design review before production changes. [ADR 0004](../architecture/adr/0004-simulation-first-testing.md) specifies RideDataSource at the canonical envelope boundary, virtual acquisition time independent of playback speed, deterministic generators, lawful real FIT fixtures and separate SDK/device layers. [Work packages](tasks/simulation-first-development.md) add T01d/T01e/T02d and propose a selective T03 dependency amendment. V18–V22 extend traceability. T02 device acquisition and T05–T07 scientific acceptance require their own evidence. No implementation or new dependency was adopted in this review.
+
+## D16 — Project PR workflow skill
+
+2026-11-11. OWNER-REQUESTED WORKFLOW. Add [oxywatt-pr](../../.agents/skills/oxywatt-pr/SKILL.md) after the PR #9 title correction. Validate commit subjects and PR titles independently, perform self-review, and use the repository GitHub configuration. [Task/evidence](tasks/pr-workflow-skill.md). This skill supports existing authorization boundaries.

@@ -32,6 +32,8 @@ Proposed trend algorithm `trend-v0` for review: for each metric and compatible m
 
 Initially two modules: pure Kotlin/JVM `:core`, Android `:app`. Core contains collection, power analytics, separate estimation packages and history policies. App adapts Karoo, local Room storage (subject to OS compatibility), orchestration, Compose screens and optional numeric ride field. FIT replay helper for development precedes user-facing import. Constructor injection and direct calls; no generic plugin/event infrastructure. See [module structure](../architecture/module-structure.md).
 
+A planned debug-only diagnostic preview, [T03p](tasks/t03p-diagnostic-preview.md), makes T03a–d visible on Karoo through synthetic simulation/FIT replay before live T03e integration. It projects actual Collector and transactional demo-repository state; received readings and committed event counts remain distinct. The Activity owns no acquisition, demo storage is separate from real history, and simulation support/assets are absent from release. T03p/V23 is owner-requested planning, not authorization of its dependencies or a completed hardware check.
+
 ## O — Operations
 
 [Backlog](implementation-plan.md): T01 canonical input/replay fixtures; T02 Karoo timing/lifecycle feasibility; T03 durable ingestion; T04 power curve and minimal projection, completing first vertical slice. Then T05 model experiment protocol, independent T06 FTP/T07 VO₂max selection, T08 history/chart, T09 release validation. T02 is an explicit stop if continuity cannot be supported; failed hypothesis requires architecture review, not hidden scope reduction.
@@ -50,9 +52,9 @@ Owner-approved [T01a-format tooling](tasks/t01a-formatting-ci.md): pinned Spotle
 
 The [developer skill](../../.agents/skills/oxywatt-developer/SKILL.md) guides approved packages toward minimal complete changes and behavior-driven TDD. Domain tests precede implementation; SDK, build and device claims require their respective checks. This workflow does not authorize code or close feasibility/scientific gates.
 
-Kotlin types express units/nullability, explicit reason codes, immutable result/config snapshots. Core imports neither Android nor Hammerhead/Room/Compose. Flow is orchestration, not a replacement for time semantics. Bounded work/queues using the count, payload, reserved-control capacity and fail-closed overload policy in N01; indexed batches and transactional writes. No UI-owned collector. Numerical tests use independent oracles and irregular-time datasets. UI text is translatable; application screens cover empty, collecting, partial, unavailable, stale and storage-error states.
+Kotlin types express units/nullability, explicit reason codes, immutable result/config snapshots. Core imports neither Android nor Hammerhead/Room/Compose. Flow is orchestration, not a replacement for time semantics. Bounded work/queues using the count, payload, reserved-control capacity and fail-closed overload policy in N01; indexed batches and transactional writes. No UI-owned collector. Numerical tests use independent oracles and irregular-time datasets. All UI text is English and stored in resources; application screens cover empty, collecting, partial, unavailable, stale and storage-error states.
 
-Read [AGENTS](../../AGENTS.md) and applicable project skills. Update Canvas/ADRs when intent changes; update docs to actual implementation after refactoring. Never mark a task done from a successful build alone. Docs are English for open-source collaboration; conversation may remain Polish.
+Read [AGENTS](../../AGENTS.md) and applicable project skills. Update Canvas/ADRs when intent changes; update docs to actual implementation after refactoring. Never mark a task done from a successful build alone. Documentation, product/diagnostic UI, code comments, tests and commit/PR text are English. Conversation with the owner may be in Polish. Additional UI localization requires an owner request.
 
 ## S — Safeguards
 

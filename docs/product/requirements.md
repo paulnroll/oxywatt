@@ -38,3 +38,7 @@ N03: no collection of GPS, sensor serials or unrelated profile data by default. 
 ## Definition of Done
 
 Named slice accepted, linked tests pass, limitations visible, applicable hardware evidence recorded, migrations exercised, docs synchronized. Documentation milestone requires traceability and honest capability states, not a running APK. Full release additionally requires the estimator and device gates in the plan.
+
+## Language
+
+Owner direction: all product and diagnostic UI, documentation, code comments, test names and contribution text use English. UI strings stay in resources; no additional localization is currently planned. This applies to the T03p diagnostic preview and later product screens.

@@ -101,3 +101,11 @@ T01e additional review, 2026-11-11: reproduced and fixed platform newline/hash m
 T02d implementation/evidence: KarooRideDataSource normalizes metrics, recording states and configured profiles without changing canonical v1. Published SDK 1.1.9/fake 0.1.1 with Robolectric 4.17 pass 22 app test executions at API 32/34 plus plain mapper tests; core, debug assembly, lint and release dependency isolation pass. The public JitPack SDK selection is explicit and default GitHub Packages coordinates remain unchanged. Core-library desugaring and bounded Gradle memory address actual compatibility/build failures. Opt-in Android CI is manual only and has not run remotely. [Evidence](tasks/t02d-karoo-adapter-tests.md); no hardware gate closes.
 
 T02d pre-publication self-review reproduced reentrant accept callbacks on API 32/34. Fail-closed rejection prevents nested delivery and preserves terminal acknowledgement after outer callback exit, without buffering or changing canonical v1 (V20). See T02d for red/green evidence.
+
+## T03p — Diagnostic preview plan
+
+2026-11-11. OWNER-REQUESTED PLANNING: after asking whether T03a–d will be visible on Karoo, the owner accepted the offer to plan a small separate preview package. [T03p](tasks/t03p-diagnostic-preview.md) / V23 specifies debug-only simulation/FIT → real Collector/admission/repository → read-only screen, with visible source origin, observed versus committed data and separate demo storage. Minimal shared fixture support and Android stream-reader compatibility are explicit dependencies; no runtime Python or private ride bundling. T03e live wiring still needs T02 acquisition acceptance. This records the requested plan, not T03a–d/T03p code or device-test completion.
+
+## English language requirement
+
+2026-11-11. OWNER-DECIDED: all UI, including diagnostic previews, project documentation, code comments, test names and contribution text must be in English. Conversation with the owner may be in Polish. Replace the Polish T03p sketch with English labels and decimal formatting; preserve resource-based strings for possible future localization only if requested. This changes language requirements, not implementation authorization or task gates. Historical owner quotations remain as originally recorded.

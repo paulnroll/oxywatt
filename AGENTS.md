@@ -14,6 +14,10 @@ Owner approved T01a and the source-neutral core/adapters architecture on 2026-11
 - Approved implementation, fixes and refactors: `.agents/skills/oxywatt-developer/SKILL.md` (minimal complete changes and behavior-driven TDD).
 - Pull request preparation and publication: `.agents/skills/oxywatt-pr/SKILL.md` (self-review, Conventional Commit subjects and PR titles, repository GitHub identity).
 
+## Language
+
+Use English for all product and diagnostic UI, documentation, code comments, test names and commit/PR text. Conversation with the owner may be in Polish. Keep UI strings in resources; English is the default and only planned UI language unless the owner requests localization.
+
 ## Invariants
 
 Collector normalizes Karoo and future FIT inputs to one source-neutral model. The core has no Android, Hammerhead, Room or Compose types. FTP and VO₂max are separate models; Critical Power is not FTP. Never invent SDK APIs, measurement timestamps, historical access or process survival guarantees. Distinguish facts, observations, estimates and manual calibration. Missing data is not zero. Input quality is not calibrated physiological confidence.

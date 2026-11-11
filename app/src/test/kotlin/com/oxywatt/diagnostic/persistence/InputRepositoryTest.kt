@@ -354,7 +354,7 @@ class InputRepositoryTest {
                 null,
                 android.database.sqlite.SQLiteDatabase.OPEN_READWRITE,
             )
-            .use { it.version = 2 }
+            .use { it.version = 3 }
         assertThrows(android.database.sqlite.SQLiteException::class.java) {
             InputRepository(context, name).use { it.state() }
         }
@@ -364,7 +364,7 @@ class InputRepositoryTest {
                 android.database.sqlite.SQLiteDatabase.OPEN_READWRITE,
             )
             .use { db ->
-                db.version = 1
+                db.version = 2
                 db.rawQuery("SELECT COUNT(*) FROM observations", null).use {
                     it.moveToFirst()
                     assertEquals(1, it.getInt(0))

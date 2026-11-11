@@ -98,3 +98,9 @@ T03b core evidence: twelve admission/lifecycle regression tests pass, including 
 
 T03c is owner-approved after merged PR #15. [Input repository contract](tasks/t03c-transactional-inputs.md) chooses platform SQLite for atomic input/effect/checkpoint commits, versioned replay and conservative recovery. Room remains optional rather than adding a processor for this boundary. No live acquisition or result storage follows.
 T03c software evidence: atomic input/effect/checkpoint commits, exact retries, pre-lifecycle receipt rejection, competing writers, conservative restart and native SQLite-full rollback pass in 32 new API 32/34 executions; all 56 app tests and 68 core tests pass (one private replay skip). [Evidence and limits](tasks/t03c-transactional-inputs.md). Schema v1 starts migration history; hardware/full live V17 and later result/deletion scenarios remain open.
+
+## T03d authorization and contract
+
+2026-11-11: owner approved T03d after PR #16 merged. [T03d](tasks/t03d-analysis-persistence.md) freezes additive v1 migration, idempotent generation requests, newest-only result reads and transactional whole-aggregate membership invalidation before code. Synthetic results only; T03p/T03e and physiology remain excluded.
+
+T03d storage implementation is software-verified: durable idempotent generations, newest-only current results and atomic whole-aggregate membership invalidation use platform SQLite schema v2 with a preserved-data v1 migration. Full app/core/build/lint checks pass; see the T03d evidence. T03p/T03e, scientific calculations and complete T08 deletion/trend projections remain gated.

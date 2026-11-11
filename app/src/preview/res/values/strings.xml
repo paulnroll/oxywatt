@@ -1,0 +1,14 @@
+<resources>
+<string name="preview_title">OxyWatt — Diagnostics</string>
+<string name="preview_demo">Start demo</string>
+<string name="preview_fit">Start synthetic FIT replay</string>
+<string name="preview_stop">Stop</string>
+<string name="preview_empty">DEMO · Synthetic data only\nNo run</string>
+<string name="preview_summary">%1$s · SYNTHETIC\nSource: %2$s\nVirtual activity time: %3$.1f s\nCollector: %4$s\nCommitted session: %5$s\nReceived observations (not saved values):\n%6$s\nCommitted metric values: %12$s\nCoverage breaks: %13$d\nSaved canonical events: %7$d\nPending: %8$d · Lost: %9$d\nLast committed receipt virtual time: %10$s\nStorage: %11$s</string>
+<string name="preview_metric">%1$s: %2$s · virtual age %3$s\n</string>
+<string name="preview_unknown">Unavailable</string>
+<string name="preview_healthy">Healthy</string>
+<string name="preview_running">Running</string>
+<string name="preview_finished">EOF / stopped — partial session</string>
+<string name="preview_failure">%1$s · SYNTHETIC\nSource/storage failure: %2$s</string>
+</resources>

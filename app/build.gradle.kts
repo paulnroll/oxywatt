@@ -1,3 +1,5 @@
+import java.util.zip.ZipFile
+
 plugins { id("com.android.application") }
 
 repositories {
@@ -45,6 +47,17 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
     }
 
+    buildTypes {
+        create("preview") {
+            initWith(getByName("debug"))
+            applicationIdSuffix = ".preview"
+            matchingFallbacks += "debug"
+        }
+    }
+    sourceSets
+        .getByName("preview")
+        .assets
+        .srcDir(layout.buildDirectory.dir("syntheticPreviewAssets").get().asFile)
     buildFeatures { buildConfig = true }
     testOptions { unitTests.isIncludeAndroidResources = true }
 }
@@ -52,6 +65,7 @@ android {
 dependencies {
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.5")
     implementation(project(":core"))
+    "previewImplementation"(testFixtures(project(":core")))
     val sdk =
         if (providers.gradleProperty("karooSdkJitpack").orNull == "true")
             "com.github.hammerheadnav:karoo-ext:1.1.9"
@@ -89,3 +103,72 @@ tasks.register("verifyReleaseDependencyIsolation") {
         )
     }
 }
+
+androidComponents {
+    beforeVariants(selector().withBuildType("preview")) {
+        (it as com.android.build.api.variant.HasUnitTestBuilder).enableUnitTest = true
+    }
+}
+
+tasks.register("verifyPreviewIsolation") {
+    dependsOn("assemblePreview", "assembleRelease")
+    doLast {
+        val manifest =
+            file(
+                    "build/intermediates/merged_manifests/preview/processPreviewManifest/AndroidManifest.xml"
+                )
+                .readText()
+        for (component in listOf("MainActivity", "DiagnosticExtension")) {
+            check(
+                Regex(
+                        "<(?:activity|service)[^>]*android:name=\"[^\"]*$component\"[^>]*>",
+                        RegexOption.DOT_MATCHES_ALL,
+                    )
+                    .find(manifest)
+                    ?.value
+                    ?.contains("android:enabled=\"false\"") == true
+            )
+        }
+        val apk = file("build/outputs/apk/release/app-release-unsigned.apk")
+        ZipFile(apk).use { zip ->
+            check(zip.entries().asSequence().none { it.name.startsWith("assets/fit-") })
+            zip.entries()
+                .asSequence()
+                .filter { it.name.endsWith(".dex") }
+                .forEach {
+                    val bytes =
+                        zip.getInputStream(it).use { input ->
+                            input.readBytes().toString(Charsets.ISO_8859_1)
+                        }
+                    check(
+                        listOf(
+                                "PreviewActivity",
+                                "SimulatedRideDataSource",
+                                "VirtualTimeline",
+                                "FakeKaroo",
+                            )
+                            .none(bytes::contains)
+                    )
+                }
+        }
+    }
+}
+
+val prepareSyntheticPreviewAssets by
+    tasks.registering(Sync::class) {
+        from("../core/src/test/resources") {
+            include("fit-scenario/manifest.json", "fit-scenario/observations.tsv")
+        }
+        into(layout.buildDirectory.dir("syntheticPreviewAssets"))
+        doFirst {
+            check(
+                file("../core/src/test/resources/fit-scenario/manifest.json")
+                    .readText()
+                    .contains("generated-synthetic-v1")
+            )
+        }
+    }
+
+tasks
+    .matching { it.name == "prePreviewBuild" }
+    .configureEach { dependsOn(prepareSyntheticPreviewAssets) }

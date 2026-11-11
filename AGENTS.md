@@ -12,6 +12,7 @@ Owner approved T01a and the source-neutral core/adapters architecture on 2026-11
 - Scientific changes: relevant `docs/algorithms/` document, `docs/discovery/scientific-research.md`, and `.agents/skills/oxywatt-models/SKILL.md`.
 - Spec creation, readiness and synchronization: `.agents/skills/oxywatt-spec/SKILL.md`.
 - Approved implementation, fixes and refactors: `.agents/skills/oxywatt-developer/SKILL.md` (minimal complete changes and behavior-driven TDD).
+- Pull request preparation and publication: `.agents/skills/oxywatt-pr/SKILL.md` (self-review, Conventional Commit subjects and PR titles, repository GitHub identity).
 
 ## Invariants
 

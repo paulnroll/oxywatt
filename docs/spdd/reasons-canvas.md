@@ -1,6 +1,6 @@
-# OxyWatt REASONS Canvas v0.2
+# OxyWatt REASONS Canvas v0.3 — simulation-first proposal
 
-Status: The owner approved the source-neutral architecture, T01a–T01c and T02a. Further implementation requires named approval. Updated 2026-11-10. Owner decisions D01–D03 constrain all future slices. This is the maintained engineering prompt; linked documents expand it without creating competing requirements.
+Status: the owner approved the source-neutral architecture, T01a–T01c and T02a/T02b. The simulation-first amendment is PROPOSED for review. Updated 2026-11-11. Owner decisions D01–D03 constrain all future slices. This is the maintained engineering prompt; linked documents expand it without creating competing requirements.
 
 Method: [Structured-Prompt-Driven Development, Thoughtworks authors on martinfowler.com](https://martinfowler.com/articles/structured-prompt-driven/). We adopt its REASONS structure and synchronization; specific engineering choices below belong to OxyWatt. [Open Mercato spec workflow](https://github.com/open-mercato/skills/blob/main/skills/om-spec-writing/SKILL.md) informs skeleton/review/phasing, not Android implementation rules.
 
@@ -10,11 +10,17 @@ Build offline cycling analytics for Karoo 3 from normal rides with real power/HR
 
 Done means linked acceptance evidence and honest limitations, not a displayed number. R05/R06 remain scientifically gated. T01a delivers the canonical JVM contracts and T01b adds test fixtures for replay. Further packages require named approval.
 
+Simulation-first development is proposed under [ADR 0004](../architecture/adr/0004-simulation-first-testing.md), with layer acceptance V18–V22 in the validation strategy. Synthetic fixtures provide numerical/software evidence. Scientific evaluation of FTP and VO₂max remains T05–T07.
+
 ## E — Entities
 
 Use the [domain model](../architecture/domain-model.md): local RecordingSession and contiguous segments; SourceObservation and normalized RideSample; versioned RiderProfileSnapshot; observed PowerCurve; independent FTP/VO₂max results within an immutable PerformanceEstimate envelope; manual calibration and derived TrendSnapshot. Session UUID is local, not native ride identity. No framework objects in core, no per-sample aggregate.
 
+RideDataSource is a small technical port producing SourceObservation values from existing canonical stamp/source/payload types. The Collector assigns session identity and builds InputEnvelope. The harness supplies acquisition epoch/clock context. Source adapters own transport and mapping. Test scenarios and run manifests stay in development support.
+
 ## A — Approach
+
+Proposed simulation amendment uses KarooRideDataSource and SimulatedRideDataSource immediately before the existing envelope boundary. Source termination is acknowledged after callback quiescence and follows the shared interruption policy. FIT decoding feeds the simulator. Virtual receipt/activity time advances independently of playback speed, including timeout/flush scheduling. Simulated origin, hashes, seed and versions remain explicit and isolated from real history. SDK mapping tests use the real adapter with a fake host. External Karoo replay at accelerated speed tests wiring/load because live receipt time is compressed.
 
 Adapters emit the same source-neutral observations to an independent Collector. Preserve timing origin and per-channel freshness. Serialize ingestion, batch persistence and use monotonic time within an epoch. Gaps/pause/restart break contiguous analytics. Use deterministic time integration for power curves; independently research physiological models. No CP-to-FTP substitution or VO₂max equation approval implied.
 
@@ -30,11 +36,15 @@ Initially two modules: pure Kotlin/JVM `:core`, Android `:app`. Core contains co
 
 [Backlog](implementation-plan.md): T01 canonical input/replay fixtures; T02 Karoo timing/lifecycle feasibility; T03 durable ingestion; T04 power curve and minimal projection, completing first vertical slice. Then T05 model experiment protocol, independent T06 FTP/T07 VO₂max selection, T08 history/chart, T09 release validation. T02 is an explicit stop if continuity cannot be supported; failed hypothesis requires architecture review, not hidden scope reduction.
 
+Proposed [simulation-first packages](tasks/simulation-first-development.md) add T01d source/generators, T01e real FIT and T02d SDK integration tests. After separate approval, T03a–T03d may develop against accepted simulation contracts. T03e live wiring and parent live acceptance remain behind passed T02 device acquisition checks. This revises the proposed dependency order and awaits owner review.
+
 Read each task before implementing. Implement only explicitly approved tasks. Each task links goal, files, dependencies, tests, risks and completion evidence. Keep SDK findings source-verified versus hardware-tested.
 
 Proposed [agent work packages](tasks/agent-work-packages.md) subdivide the backlog into bounded file ownership and contract-based handoffs. Parallel work is optional and follows accepted interfaces and existing gates; it adds no implementation authorization.
 
 ## N — Norms
+
+The project [PR skill](../../.agents/skills/oxywatt-pr/SKILL.md) covers self-review, slice-specific verification, repository GitHub identity and Conventional Commit formatting for both commit subjects and PR titles. Publication follows the owner’s session authorization.
 
 Owner-approved [T01a-format tooling](tasks/t01a-formatting-ci.md): pinned Spotless/ktfmt with Kotlin style formats core Kotlin and Gradle Kotlin DSL. GitHub Actions checks formatting, JVM contracts and the core JAR build on pushes and pull requests, retaining available test reports; local `check` includes formatting. This adds no application behavior.
 
@@ -49,6 +59,8 @@ Read [AGENTS](../../AGENTS.md) and applicable project skills. Update Canvas/ADRs
 No invented SDK APIs or process guarantees. No absent-input zero fill, hidden HRmax formula, unjustified efficiency constant, fake confidence or inferred lab accuracy. No backend, accounts, runtime telemetry, unnecessary GPS/permissions or committed secrets/private FITs. Preserve data provenance and deletion limitations. Enforce bounded resource use and reveal acquisition loss. Candidate SDK is 1.1.9, latest verified release in this review, not yet device-tested.
 
 ## Revision history
+
+- v0.3 PROPOSED: simulation-first source/test boundary, virtual timeline, V18–V22 and selective T03 dependency amendment. T02 hardware and estimator science gates remain open.
 
 - v0.2: address PR review findings with conservative trend eligibility for interrupted fragments, authoritative recalculation generations, and hard ingestion limits. Add V15–V17; all remain planned, not executed.
 - v0.1: initial discovery and architecture proposal.

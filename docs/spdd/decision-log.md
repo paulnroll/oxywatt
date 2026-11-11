@@ -65,3 +65,15 @@ The owner approved T02a after PR #7 merged. Keep the existing Gradle wrapper and
 ## T02b diagnostic probe
 
 After confirming the diagnostic launcher on Karoo 3, the owner authorized [T02b](tasks/t02b-karoo-probe.md). Observe ride states, channel availability and receipt timing on an extension service instance. Advertise FIT binding for observation without emitting FIT effects. R02/R09 and partial V02/V11 remain subject to device evidence.
+
+## D15 — Simulation-first architecture proposal
+
+2026-11-11. State PROPOSED. The owner requested a design review before production changes. [ADR 0004](../architecture/adr/0004-simulation-first-testing.md) specifies RideDataSource immediately before canonical envelope/session assignment, virtual acquisition time independent of playback speed, deterministic generators, lawful real FIT fixtures and separate SDK/device layers. [Work packages](tasks/simulation-first-development.md) add T01d/T01e/T02d and propose a selective T03 dependency amendment. V18–V22 extend traceability. T02 device acquisition and T05–T07 scientific acceptance require their own evidence. No implementation or new dependency was adopted in this review.
+
+## D16 — Project PR workflow skill
+
+2026-11-11. OWNER-REQUESTED WORKFLOW. Add [oxywatt-pr](../../.agents/skills/oxywatt-pr/SKILL.md) after the PR #9 title correction. Validate commit subjects and PR titles independently, perform self-review, and use the repository GitHub configuration. [Task/evidence](tasks/pr-workflow-skill.md). This skill supports existing authorization boundaries.
+
+## PR #9 review corrections — D15
+
+Source observations now precede Collector-owned session/envelope assignment. The proposed terminal callback acknowledges cancellation, EOF and errors after in-flight delivery drains. This closes the missing interruption signal and the self-cancellation deadlock in the initial proposal. V18 adds timer/input ordering at equal virtual timestamps. V19 adds two rides through one source and terminal lifecycle cases. T02c can run without T02d, and V22 evidence is scoped to each package's implemented capabilities. All architecture changes remain PROPOSED.

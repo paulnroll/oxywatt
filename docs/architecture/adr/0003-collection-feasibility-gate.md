@@ -9,3 +9,7 @@ Decision: acquisition has a lifecycle independent of UI. M0 produces documents a
 Alternative rejected: create acquisition inside `DataTypeImpl.startView` or claim reconnect equals replay. Candidate: host `startFit` binding; fallback: compliant user-armed foreground service after review. Neither is guaranteed until device evidence exists.
 
 If no supported lifecycle meets R09, stop and propose an explicit mode/scope change. Never invent a keep-alive, emit fake FIT data, or silently accept partial rides as full. Requirements R02/R03/R09/R11; tests V02–V05/V11/V13.
+
+## Proposed dependency amendment — 2026-11-11
+
+[ADR 0004](0004-simulation-first-testing.md) proposes allowing T03a–T03d software development after accepted simulated source and repository contracts, while T03e production wiring and live acceptance continue to require the T02 acquisition decision. This is a proposed change to the existing gate, awaiting review. Hardware still determines startup, sustained residency, radios, death/force-stop behavior and resource budgets. Failed feasibility triggers architecture review before live deployment.

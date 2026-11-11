@@ -45,3 +45,7 @@ Proposed software-only T04a amendment — 2026-11-11: the owner requests useful 
 
 
 T04a was approved after PR #21 and is software-complete: [confirmed-interval engine/evidence](tasks/t04a-power-curve-engine.md), 14 new tests and 82 core passes plus one private-FIT skip. The approved narrow dependency amendment allows this engine before T03e; T04b canonical preprocessing, persistence/readout and integration workload need their own contract/approval. Parent T04 first-slice/device acceptance and T02/T03e gates remain open.
+
+## Next proposed software package after PR #22
+
+[T04b1 — terminal synthetic persisted curve](tasks/t04b-persisted-curve.md) is proposed, not implementation-approved. Dependencies T03a–d/T03p/T04a are software-complete. One complete package adds revision-bounded committed effect replay, explicit hold/expiry preprocessing, bounded T04a scan, typed curve terminal through existing T03d and durable preview readout. B1–B7 define software acceptance without bicycle/Karoo; live T02c/T03e and parent T04 remain open. This proposed amendment supersedes earlier blanket live-first T04b sequencing only for synthetic software work. No continuous analytics/history/physiology; dense-scan optimization may follow separately if needed.

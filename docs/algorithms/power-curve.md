@@ -19,3 +19,7 @@ Owner requested continued simulation-backed development with live trials deferre
 
 
 T04a software implementation (2026-11-11): [task evidence](../spdd/tasks/t04a-power-curve-engine.md) records the versioned single-session interval engine, exact boundary candidates, compensated weighted integration, earliest numerical-tolerance ties and bounded saturation. Fourteen tests cover anchors, an independent irregular-time oracle and four simulated hours. The engine consumes confirmed intervals only; it establishes neither canonical hold/expiry preprocessing nor persisted/device curves.
+
+## Proposed persisted consumer
+
+[T04b1](../spdd/tasks/t04b-persisted-curve.md) freezes canonical-power-hold-v1: present values held only within persisted lifecycle timeout and committed horizon, timer-before-input equality, explicit loss/pause/expiry/terminal breaks, no old-epoch extrapolation. Terminal synthetic replay reuses T04a and T03d; incomplete/resource-limited and partial sessions remain visible. A conservative work budget prevents an unbounded dense-then-long numerical call. This is an engineering policy proposal, not sensor freshness evidence or physiological inference; implementation awaits named approval.

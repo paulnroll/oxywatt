@@ -34,3 +34,5 @@ T02b has partial host/state evidence and pending real-sensor checks. T02d makes 
 ## Planned on-device preview checkpoint
 
 After T03a–d, [T03p](tasks/t03p-diagnostic-preview.md) adds a debug-only screen over the real demo Collector/repository: latest readings with age/missing reasons, committed/pending events, gaps/loss and storage health. Owner requested this plan on 2026-11-11; implementation still needs named approval and completed component contracts. It uses synthetic simulation/FIT replay in a separate demo database and does not require or close the live acquisition gate. Sequence: T03a → T03b/T03c → T03d → T03p; then T03e after passed T02c, followed by T04. V23 records screen/integration and actual Karoo preview acceptance.
+
+T03a is owner-approved and implemented locally: [lifecycle/checkpoint contract and evidence](tasks/t03a-collector-lifecycle.md). It provides pure JVM session assignment, conservative recovery and per-channel coverage effects; durable repository and bounded admission remain T03c/T03b. Next dependency-ordered implementation package is T03b, requiring named approval. T03p remains after T03a–d.

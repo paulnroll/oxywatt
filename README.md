@@ -16,7 +16,7 @@ Start with [the review packet](docs/spdd/review.md), [REASONS Canvas](docs/spdd/
 - [Power curve](docs/algorithms/power-curve.md), [FTP](docs/algorithms/ftp-estimation.md), [VO₂max](docs/algorithms/vo2max-estimation.md), [validation](docs/algorithms/validation-strategy.md)
 - [Decisions](docs/spdd/decision-log.md), [agent workflow](AGENTS.md)
 
-The first milestone ends at architectural review. Production code requires explicit approval of a named slice. Scientific validity and device reliability are not established by this documentation. The owner approved T01a–T01e and T02a/T02b/T02d. Later packages require named approval.
+The first milestone ends at architectural review. Production code requires explicit approval of a named slice. Scientific validity and device reliability are not established by this documentation. The owner approved T01a–T01e, T02a/T02b/T02d and T03a. Later packages require named approval.
 
 Personal FIT files and local measurement databases must stay out of Git. The open-source license remains an owner decision; no project license has yet been granted.
 

@@ -92,3 +92,6 @@ T03a is owner-approved after PR #13 merged: pure core lifecycle/session assignme
 T03a local software evidence: 20 new core lifecycle/replay tests pass; the full suite has 54 passes and one explicit private replay skip. Versioned checkpoints retain source/policy/profile provenance; per-channel breaks and interruption/recovery fragments remain separate. [Evidence](tasks/t03a-collector-lifecycle.md). Persistence, admission and live/hardware gates remain open.
 
 T03a review correction: ID allocation/validation precedes lifecycle mutation; known previous/root IDs cannot be reopened and failed allocation preserves receipt/checkpoint and pending recovery effects for retry. See the T03a evidence.
+
+T03b is owner-approved after merged PR #14. [Admission contract](tasks/t03b-bounded-admission.md) defines shared queued/in-flight N01 budgets, bounded out-of-band loss, fail-closed controls and explicit commit acknowledgement. Core-only V17 evidence does not close repository/live gates.
+T03b core evidence: twelve admission/lifecycle regression tests pass, including a 100,000-event stalled-write burst and queued/in-flight accounting; full suite has 68 passes and one private-FIT skip. Repository atomicity and live timer/writer integration remain open.

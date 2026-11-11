@@ -46,7 +46,7 @@ class PowerCurveCalculation(
         val profile = PowerReplayHash()
         hash.token(id.toString())
         hash.token(
-            "canonical-power-hold-v1:power-intervals-v1:power-replay-budget-v1:16384:20000000"
+            "canonical-power-hold-v1:power-range-means-v2:power-replay-work-v2:16384:100000000"
         )
         hash.token(manifest)
         scan(revision, cancelled) { row ->
@@ -71,9 +71,9 @@ class PowerCurveCalculation(
                 inputHash,
                 "${session.source.adapterId}:${session.source.adapterVersion}:${session.normalizationVersion}",
                 profile.finish(),
-                "power-intervals-v1",
+                "power-range-means-v2",
                 "canonical-power-hold-v1",
-                "power-replay-budget-v1:16384:20000000:${session.policy.version}:${session.policy.channelSilenceNanos}",
+                "power-replay-work-v2:16384:100000000:${session.policy.version}:${session.policy.channelSilenceNanos}",
                 "not-applicable-v1",
                 "not-applicable-v1",
                 Instant.now(),
@@ -92,7 +92,7 @@ class PowerCurveCalculation(
         val generation = analyses.request(slot(id), frozen.requestId, frozen.provenance)
         val terminal =
             try {
-                val engine = BudgetedPowerCurve(id)
+                val engine = BudgetedPowerCurve(id, cancelled = cancelled)
                 val replay =
                     CanonicalPowerReplay(id) { part ->
                         if (cancelled()) throw CancellationException()

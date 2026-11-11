@@ -12,7 +12,7 @@ data class PowerInterval(
 )
 
 data class PowerCurvePolicy(
-    val version: String = "power-intervals-v1",
+    val version: String = "power-range-means-v2",
     val maxIntervals: Int = 16384,
 ) {
     init {
@@ -63,9 +63,30 @@ class PowerCurveEngine(
     private val sessionId: UUID,
     private val provenance: PowerProvenance,
     private val policy: PowerCurvePolicy = PowerCurvePolicy(),
+    workBudget: Long = 100_000_000,
+    cancelled: () -> Boolean = { false },
 ) {
 
-    private val intervals = java.util.TreeMap<Long, PowerInterval>()
+    private val work = PowerWork(workBudget, cancelled)
+    private val index = PowerRangeIndex(work)
+    private var root: PowerRangeIndex.Node? = null
+    val workStats: PowerWorkStats
+        get() = work.stats()
+
+    var workLimited = false
+        private set
+
+    val retainedPeak: Int
+        get() = index.sizePeak
+
+    // Conservative bound includes both roots, transient AVL paths and rotations, including
+    // staging before eviction or an exhausted append. No caller can retain tree snapshots.
+    val stagedNodeBound: Int
+        get() = if (index.sizePeak == 0) 0 else 2 * index.sizePeak + 2 * index.heightPeak + 2
+
+    var candidatePeak = 0
+        private set
+
     private var winners = mutableMapOf<Int, PowerRecord>()
     private var lastAccepted: PowerInterval? = null
     private var coverageStart = 0L
@@ -81,6 +102,7 @@ class PowerCurveEngine(
                 interval.endNanos > interval.startNanos
         )
         require(interval.watts.isFinite() && interval.watts >= 0)
+        if (workLimited) return
         val previous = lastAccepted
         if (previous != null && previous.epochId == interval.epochId) {
             require(interval.startNanos >= previous.endNanos) {
@@ -89,102 +111,107 @@ class PowerCurveEngine(
             require(interval.segmentIndex >= previous.segmentIndex) { "Regressing segment" }
         }
         val contiguous =
-            intervals.isNotEmpty() &&
+            root != null &&
                 previous != null &&
                 previous.epochId == interval.epochId &&
                 previous.segmentIndex == interval.segmentIndex &&
                 previous.endNanos == interval.startNanos
-        val merge = contiguous && intervals.lastEntry().value.watts == interval.watts
-        val saturated = contiguous && !merge && intervals.size == policy.maxIntervals
+        val merge = contiguous && previous.watts == interval.watts
+        val saturated = contiguous && !merge && root!!.size == policy.maxIntervals
         val reset = !contiguous || saturated
-        val history = if (reset) java.util.TreeMap<Long, PowerInterval>() else intervals
+        val history = if (reset) null else root
         val spanStart = if (reset) interval.startNanos else coverageStart
         val proposed = winners.toMutableMap()
         var windows = 0L
         var fragments = 0L
-        for (seconds in DURATIONS) {
-            val duration = seconds * NANOS_PER_SECOND
-            if (interval.endNanos - spanStart < duration) continue
-            val minimumEnd = maxOf(interval.startNanos, spanStart + duration)
-            val ends = java.util.TreeSet<Long>()
-            ends.add(minimumEnd)
-            ends.add(interval.endNanos)
-            // Arrival boundaries shifted by duration are expiration-side slope changes.
-            val lower = maxOf(0, minimumEnd - duration)
-            val upper = interval.endNanos - duration
-            for (boundary in history.subMap(lower, true, upper, true).keys) ends.add(
-                boundary + duration
-            )
-            if (interval.startNanos <= upper) ends.add(interval.startNanos + duration)
-            for (end in ends) {
-                val start = end - duration
-                var sum = 0.0
-                var correction = 0.0
-                fun add(part: PowerInterval) {
-                    val overlap = minOf(end, part.endNanos) - maxOf(start, part.startNanos)
-                    if (overlap <= 0) return
-                    val weighted = part.watts * (overlap.toDouble() / duration.toDouble())
-                    val adjusted = weighted - correction
-                    val next = sum + adjusted
-                    correction = (next - sum) - adjusted
-                    sum = next
-                    fragments++
+        try {
+            for (seconds in DURATIONS) {
+                val duration = seconds * NANOS_PER_SECOND
+                if (interval.endNanos - spanStart < duration) continue
+                val minimumEnd = maxOf(interval.startNanos, spanStart + duration)
+                val ends = java.util.TreeSet<Long>()
+                fun candidate(end: Long) {
+                    work.charge(2)
+                    ends.add(end)
+                    candidatePeak = maxOf(candidatePeak, ends.size)
                 }
-                val first = history.floorKey(start) ?: history.ceilingKey(start)
-                if (first != null)
-                    for (part in history.tailMap(first, true).values) {
-                        if (part.startNanos >= end) break
-                        add(part)
+                candidate(minimumEnd)
+                candidate(interval.endNanos)
+                // Arrival boundaries shifted by duration are expiration-side slope changes.
+                val lower = maxOf(0, minimumEnd - duration)
+                val upper = interval.endNanos - duration
+                index.boundaries(history, lower, upper) { candidate(it + duration) }
+                if (interval.startNanos <= upper) candidate(interval.startNanos + duration)
+                for (end in ends) {
+                    val start = end - duration
+                    work.charge(2)
+                    val weighted = WeightedMean(duration, work)
+                    index.integrate(history, start, end, weighted)
+                    val overlap = minOf(end, interval.endNanos) - maxOf(start, interval.startNanos)
+                    if (overlap > 0) weighted.add(interval.watts, overlap)
+                    val sum = weighted.value()
+                    fragments += weighted.terms
+                    windows++
+                    val best = proposed[seconds]
+                    val tolerance = maxOf(1e-8, 1e-12 * maxOf(sum, best?.meanWatts ?: 0.0))
+                    if (
+                        best == null ||
+                            sum - best.meanWatts > tolerance ||
+                            (kotlin.math.abs(sum - best.meanWatts) <= tolerance &&
+                                best.epochId == interval.epochId &&
+                                start < best.startNanos)
+                    ) {
+                        proposed[seconds] =
+                            PowerRecord(
+                                seconds,
+                                sum,
+                                start,
+                                end,
+                                sessionId,
+                                interval.epochId,
+                                interval.segmentIndex,
+                            )
                     }
-                add(interval)
-                require(sum.isFinite()) { "Nonfinite power integral" }
-                windows++
-                val best = proposed[seconds]
-                val tolerance = maxOf(1e-8, 1e-12 * maxOf(sum, best?.meanWatts ?: 0.0))
-                if (
-                    best == null ||
-                        sum - best.meanWatts > tolerance ||
-                        (kotlin.math.abs(sum - best.meanWatts) <= tolerance &&
-                            best.epochId == interval.epochId &&
-                            start < best.startNanos)
-                ) {
-                    proposed[seconds] =
-                        PowerRecord(
-                            seconds,
-                            sum,
-                            start,
-                            end,
-                            sessionId,
-                            interval.epochId,
-                            interval.segmentIndex,
-                        )
                 }
             }
+            // Build a persistent staged index before publishing, so rejection is retryable.
+            val admitted =
+                if (!reset && merge) interval.copy(startNanos = tailStart(history!!)) else interval
+            var staged = index.put(history, admitted)
+            val cutoff = maxOf(0, interval.endNanos - MAX_DURATION_NANOS)
+            while (true) {
+                val first = index.first(staged)
+                if (first.endNanos > cutoff) {
+                    if (first.startNanos < cutoff) {
+                        val rest = index.removeFirst(staged)
+                        staged = index.put(rest, first.copy(startNanos = cutoff))
+                    }
+                    break
+                }
+                staged = index.removeFirst(staged) ?: break
+            }
+            root = staged
+            coverageStart = spanStart
+            lastAccepted = interval
+            winners = proposed
+            resourceLimited = resourceLimited || saturated
+            evaluatedWindows = saturatingAdd(evaluatedWindows, windows)
+            integratedFragments = saturatingAdd(integratedFragments, fragments)
+        } catch (_: PowerWorkLimit) {
+            // Preserve only previously committed candidates; this append is incomplete.
+            workLimited = true
+            resourceLimited = true
+            root = null
         }
-        // Publish only after all validation/calculation succeeds; rejected inputs are retryable.
-        if (reset) intervals.clear()
-        if (!reset && merge) {
-            val tail = intervals.pollLastEntry().value
-            intervals[tail.startNanos] = interval.copy(startNanos = tail.startNanos)
-        } else intervals[interval.startNanos] = interval
-        val cutoff = maxOf(0, interval.endNanos - MAX_DURATION_NANOS)
-        while (intervals.isNotEmpty() && intervals.firstEntry().value.endNanos <= cutoff) intervals
-            .pollFirstEntry()
-        val first = intervals.firstEntry()?.value
-        if (first != null && first.startNanos < cutoff) {
-            intervals.pollFirstEntry()
-            intervals[cutoff] = first.copy(startNanos = cutoff)
-        }
-        coverageStart = spanStart
-        lastAccepted = interval
-        winners = proposed
-        resourceLimited = resourceLimited || saturated
-        evaluatedWindows = saturatingAdd(evaluatedWindows, windows)
-        integratedFragments = saturatingAdd(integratedFragments, fragments)
+    }
+
+    private fun tailStart(n: PowerRangeIndex.Node): Long {
+        work.charge(0)
+        return n.right?.let(::tailStart) ?: n.part.startNanos
     }
 
     fun breakCoverage() {
-        intervals.clear()
+        root = null
     }
 
     fun snapshot() =
@@ -204,7 +231,7 @@ class PowerCurveEngine(
                 }
             ),
             resourceLimited,
-            intervals.size,
+            root?.size ?: 0,
             evaluatedWindows,
             integratedFragments,
         )

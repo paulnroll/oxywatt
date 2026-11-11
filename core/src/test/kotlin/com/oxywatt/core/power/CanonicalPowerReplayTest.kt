@@ -194,8 +194,8 @@ class CanonicalPowerReplayTest {
     }
 
     @Test
-    fun `budget stops before dense long append and four hour state stays bounded`() {
-        val e = BudgetedPowerCurve(id, budget = 100_000)
+    fun `budget stops dense long append and four hour state stays bounded`() {
+        val e = BudgetedPowerCurve(id, budget = 100)
         for (t in 0L..300) {
             e.accept(
                 PowerInterval(
@@ -228,7 +228,7 @@ class CanonicalPowerReplayTest {
                     )
                 )
             }
-            assertEquals(alternating, long.limited)
+            assertFalse(long.limited)
             assertTrue(long.snapshot().integratedFragments <= long.reserved)
             assertTrue(long.snapshot().retainedIntervals <= 16384)
             println(

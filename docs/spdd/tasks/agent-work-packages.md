@@ -90,3 +90,8 @@ T04b1 implemented after owner approval following merged PR #23: [terminal synthe
 ## T04b2 proposal — 2026-11-11
 
 T04b2 / T04b / T04: proposed single package owning existing core/power integration/index and budget, narrowly affected app provenance/codec/readout and tests. Dependencies T04b1 and prior software contracts complete. R02/R03/R04/R07/R10/R11/R12; B2-01–08 map V06/V09/V13/V18/V19/V22/V23 and repository regressions. Risks: numerical regrouping, eviction candidates, bounded staging, stale generation. No delegation or implementation is authorized by this entry; named owner approval remains pending. See [T04b2 specification](t04b2-long-variable-scan.md).
+
+
+## Approved T04b2 implementation — 2026-11-11
+
+Owner approved [T04b2](t04b2-long-variable-scan.md) after specification PR #25 merged. The existing core/power now uses bounded persistent AVL range means and charged work-v2, with exact candidates/coverage/tolerance retained. Canonical hold-v1, the existing logical slot, scalar-v1/curve-v2, atomic newest-generation storage and durable preview readout remain in the same flow. Independent exact oracles and long synthetic speed/reopen checks provide software evidence; see task for final results and resource bounds. This replaces T04b1's conservative quadratic reservation for new calculations, without rewriting old records. No private FIT, live acquisition or physiological model; T02c/T03e and parent T04 live acceptance remain open.

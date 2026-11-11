@@ -141,62 +141,50 @@ class CanonicalPowerReplay(
     }
 }
 
-/** Conservative pre-call work reservation; no expensive append after exhaustion. */
+/** Charged range-index work; an exhausted append never publishes a partial candidate. */
 class BudgetedPowerCurve(
     sessionId: UUID,
     policy: PowerCurvePolicy = PowerCurvePolicy(),
-    val budget: Long = 20_000_000,
+    val budget: Long = 100_000_000,
+    cancelled: () -> Boolean = { false },
 ) {
     private val engine =
         PowerCurveEngine(
             sessionId,
             PowerProvenance("canonical-power-hold-v1", "committed-synthetic-effects-v1"),
             policy,
+            budget,
+            cancelled,
         )
-    var reserved = 0L
-        private set
+    val reserved: Long
+        get() = engine.workStats.total
 
-    var limited = false
-        private set
+    val workStats: PowerWorkStats
+        get() = engine.workStats
+
+    val limited: Boolean
+        get() = engine.workLimited
+
+    val retainedPeak: Int
+        get() = engine.retainedPeak
+
+    val stagedNodeBound: Int
+        get() = engine.stagedNodeBound
+
+    val candidatePeak: Int
+        get() = engine.candidatePeak
 
     var intervalCount = 0L
         private set
 
-    init {
-        require(budget > 0)
-    }
-
     fun accept(part: PowerInterval?) {
         if (limited) return
-        if (part == null) {
-            engine.breakCoverage()
-            return
+        if (part == null) engine.breakCoverage()
+        else {
+            engine.accept(part)
+            if (!limited) intervalCount++
         }
-        val n = engine.snapshot().retainedIntervals.toLong()
-        val cost = Math.multiplyExact(9, Math.multiplyExact(n + 3, n + 1))
-        if (cost > budget - reserved) {
-            limited = true
-            return
-        }
-        reserved += cost
-        engine.accept(part)
-        intervalCount++
     }
 
-    fun snapshot(): PowerCurveSnapshot {
-        val s = engine.snapshot()
-        return if (!limited) s
-        else
-            s.copy(
-                resourceLimited = true,
-                durations =
-                    java.util.Collections.unmodifiableList(
-                        s.durations.map {
-                            if (it.record == null)
-                                it.copy(unavailableReason = PowerUnavailableReason.RESOURCE_LIMIT)
-                            else it
-                        }
-                    ),
-            )
-    }
+    fun snapshot(): PowerCurveSnapshot = engine.snapshot()
 }

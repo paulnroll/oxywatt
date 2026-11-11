@@ -30,3 +30,8 @@ T04b1 implemented after owner approval following merged PR #23: [terminal synthe
 ## T04b2 proposal — 2026-11-11
 
 Proposed T04b2 replaces repeated direct fragment integration with bounded balanced range means, without floating-point prefix subtraction. Exact nanosecond candidates, expiry-side maxima, tolerance and deterministic tie rules remain. Numerical regrouping requires independent exact/high-precision evidence; canonical preprocessing stays unchanged. This is an observed numerical optimization, not a physiological method or live-performance claim. See [T04b2 specification](../spdd/tasks/t04b2-long-variable-scan.md).
+
+
+## Approved T04b2 implementation — 2026-11-11
+
+Owner approved [T04b2](../spdd/tasks/t04b2-long-variable-scan.md) after specification PR #25 merged. The existing core/power now uses bounded persistent AVL range means and charged work-v2, with exact candidates/coverage/tolerance retained. Canonical hold-v1, the existing logical slot, scalar-v1/curve-v2, atomic newest-generation storage and durable preview readout remain in the same flow. Independent exact oracles and long synthetic speed/reopen checks provide software evidence; see task for final results and resource bounds. This replaces T04b1's conservative quadratic reservation for new calculations, without rewriting old records. No private FIT, live acquisition or physiological model; T02c/T03e and parent T04 live acceptance remain open.

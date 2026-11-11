@@ -1,6 +1,6 @@
 # Simulation-first development change request
 
-Date 2026-11-11. Architecture ACCEPTED and T01d owner-approved on 2026-11-11. Other implementation packages require named approval. See [T01d evidence](t01d-simulated-source.md). R01–R04/R07/R09–R12, N01–N03 and V01–V22 provide traceability.
+Date 2026-11-11. Architecture ACCEPTED and T01d/T01e owner-approved on 2026-11-11. Other implementation packages require named approval. See [T01d evidence](t01d-simulated-source.md). R01–R04/R07/R09–R12, N01–N03 and V01–V22 provide traceability.
 
 ## Problem, scope and unknowns
 
@@ -10,7 +10,7 @@ Unknowns are artifact/toolchain compatibility of the SDK fakes, lawful real-FIT 
 
 ## Proposed packages
 
-T01d has named approval; every other row still requires named approval. Paths describe bounded work areas to finalize in the slice task before implementation.
+T01d/T01e have named approval; every other row still requires named approval. Paths describe bounded work areas to finalize in the slice task before implementation.
 
 | Package | Goal and dependencies | Expected files | Verification and Done evidence | Risk |
 |---|---|---|---|---|

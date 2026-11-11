@@ -85,3 +85,9 @@ Source observations now precede Collector-owned session/envelope assignment. The
 T01d completion: production adds only RideDataSource/SourceObservation; simulation support stays in JVM test sources, without dependencies or Android changes. Virtual acquisition uses a harness-owned timer queue and absolute playback-deadline hook. Source termination never emits a fabricated Idle. All 28 JVM tests and core build pass; scope and deferred Collector/hardware criteria are recorded in the task.
 
 T01d PR #10 additional review: reject recursive virtual-clock advances to prevent time reversal; regression reproduced before the fix. Timer cancellation and exception recovery are covered. All 30 JVM tests pass; no scope or live feasibility change.
+
+## T01e authorization
+
+2026-11-11: owner requested PR publication and the next package, T01e, then supplied a private Karoo FIT. Authorizes local decoding and verification, not redistribution of the input or derived ride data. T01e branches from T01d while PR #10 is reviewed. See [T01e](tasks/t01e-fit-replay.md).
+
+T01e software verification: strict developer export and lazy simulator bridge pass eight synthetic Python checks and 33 JVM tests with the private opt-in enabled (one explicit skip without it). Owner FIT passes CRC/timestamp checks and replays identically at all speeds; original file/projection/hash stay private. Public CI uses generated fixtures only, with no redistribution claim. See the T01e task for limitations and commands.

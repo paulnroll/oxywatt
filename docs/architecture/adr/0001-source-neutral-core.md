@@ -12,4 +12,4 @@ Consequences: pure JVM replay; explicit mapping/versioning; decoding and time re
 
 ## Proposed simulation-first extension — 2026-11-11
 
-[ADR 0004](0004-simulation-first-testing.md) proposes a RideDataSource technical port using existing canonical envelopes, with Karoo and simulated implementations. FIT decoding feeds simulated replay in developer support. Acquisition context remains Collector-owned. Review is pending before implementing the port.
+[ADR 0004](0004-simulation-first-testing.md) proposes a RideDataSource technical port using SourceObservation values built from canonical v1 types, with Karoo and simulated implementations. The Collector assigns session IDs when creating envelopes. FIT decoding feeds simulated replay in developer support. Acquisition context remains Collector-owned. Review is pending before implementing the port.

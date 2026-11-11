@@ -16,11 +16,11 @@ Simulation-first development is proposed under [ADR 0004](../architecture/adr/00
 
 Use the [domain model](../architecture/domain-model.md): local RecordingSession and contiguous segments; SourceObservation and normalized RideSample; versioned RiderProfileSnapshot; observed PowerCurve; independent FTP/VO₂max results within an immutable PerformanceEstimate envelope; manual calibration and derived TrendSnapshot. Session UUID is local, not native ride identity. No framework objects in core, no per-sample aggregate.
 
-RideDataSource is a small technical port beside canonical inputs, carrying existing InputEnvelope objects. Collector/harness assigns acquisition session/epoch context. Source adapters own transport and mapping. Test scenarios and run manifests stay in development support.
+RideDataSource is a small technical port producing SourceObservation values from existing canonical stamp/source/payload types. The Collector assigns session identity and builds InputEnvelope. The harness supplies acquisition epoch/clock context. Source adapters own transport and mapping. Test scenarios and run manifests stay in development support.
 
 ## A — Approach
 
-Proposed simulation amendment uses KarooRideDataSource and SimulatedRideDataSource at the existing envelope boundary. FIT decoding feeds the simulator. Virtual receipt/activity time advances independently of playback speed, including timeout/flush scheduling. Simulated origin, hashes, seed and versions remain explicit and isolated from real history. SDK mapping tests use the real adapter with a fake host. External Karoo replay at accelerated speed tests wiring/load because live receipt time is compressed.
+Proposed simulation amendment uses KarooRideDataSource and SimulatedRideDataSource immediately before the existing envelope boundary. Source termination is acknowledged after callback quiescence and follows the shared interruption policy. FIT decoding feeds the simulator. Virtual receipt/activity time advances independently of playback speed, including timeout/flush scheduling. Simulated origin, hashes, seed and versions remain explicit and isolated from real history. SDK mapping tests use the real adapter with a fake host. External Karoo replay at accelerated speed tests wiring/load because live receipt time is compressed.
 
 Adapters emit the same source-neutral observations to an independent Collector. Preserve timing origin and per-channel freshness. Serialize ingestion, batch persistence and use monotonic time within an epoch. Gaps/pause/restart break contiguous analytics. Use deterministic time integration for power curves; independently research physiological models. No CP-to-FTP substitution or VO₂max equation approval implied.
 

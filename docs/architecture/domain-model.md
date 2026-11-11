@@ -47,3 +47,7 @@ Package `com.oxywatt.core.collection`, file `CanonicalInput.kt`. This revision i
 All objects are immutable; Java UUID/Instant/Duration and Kotlin values only. No normalization, alignment, freshness policy, automatic merging, persistence or analytics is implemented here. Future normalized RideSample must retain per-channel age; this event boundary does not claim atomic channel alignment. Versions travel with every envelope/profile for replay.
 
 Contract fixture examples: power 0 W is present; HR null/DROPOUT remains absent; receipt t=5 s and t=7.5 s in one epoch give 2.5 s even if UTC goes backwards; the same elapsed numbers across epochs give no duration. A RECORDING event after cold attach represents observed host state only.
+
+## Proposed source boundary — simulation-first review
+
+[ADR 0004](adr/0004-simulation-first-testing.md) proposes SourceObservation as the pre-session transport record using ReceiptStamp, SourceRef, normalizationVersion and InputPayload. The Collector creates canonical v1 InputEnvelope after assigning the local session. This keeps a live subscription independent of individual ride boundaries. The record, RideDataSource port and terminal callback remain proposed T01d work. Existing canonical v1 code is unchanged.

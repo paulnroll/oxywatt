@@ -65,3 +65,7 @@ If a required contract conflicts with the spec, report it before dependent work.
 ```
 
 Coordinator accepts the work, integrates it, records actual evidence in the parent task, and synchronizes Canvas/decision log when intent changes. A worker summary alone is not completion evidence. No Gradle or application checks have been executed for this planning document.
+
+## Simulation-first proposal
+
+The [simulation-first change request](simulation-first-development.md) proposes T01d/T01e/T02d, an optional emulator/replay layer and selective T03 dependencies. ADR 0004 and its per-layer acceptance await review. The original dependency table remains the current gate until that amendment is accepted.

@@ -20,3 +20,7 @@ Acceptance:
 Risks: SDK has no sensor timestamp/durable ride ID; host binding unproven; telemetry-free hardware diagnostics still contain sensitive physiological data. Keep traces local and report summaries only.
 
 Definition of Done: requirement/test evidence attached, actual OS/SDK/toolchain recorded, no scientific estimates implied, bounded-loss limitations visible, docs updated, reviewer accepts T04. A successful build or sample APK install alone is insufficient.
+
+## Simulation-first amendment for review — 2026-11-11
+
+[ADR 0004](../../architecture/adr/0004-simulation-first-testing.md) proposes building the source/scheduler and SDK regression layers before more hardware work. Its amendment would permit T03a–T03d against accepted simulated contracts. The live T03e/T04 delivery continues to depend on the T02 acquisition decision and real-device evidence. The current gate above remains effective until review accepts the amendment.

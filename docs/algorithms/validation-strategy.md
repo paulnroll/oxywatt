@@ -22,6 +22,32 @@ Status: full scenarios remain planned. T01a has executed contract-level checks f
 | V16 | Accepted generation 1 followed by unavailable generation 2 removes the old value from current/trend while preserving audit history. Pending/failed generation 2 cannot fall back to generation 1; late generation 1 completion cannot replace generation 2. Transaction retry leaves one authoritative pointer and correct contributors. | R07/R08/R12 |
 | V17 | Burst above telemetry count and payload ceilings, including queued plus in-flight writes, remains within N01. Reserved recording/profile events retain admission order; exhausted control capacity interrupts acquisition. Loss accounting stays bounded under stalled/full storage, and recovery or death never bridges the unknown interval. Oversize inputs are rejected explicitly. | R03/R11 |
 
+## Simulation-first acceptance proposal — 2026-11-11
+
+Status PROPOSED. The following criteria extend stable V IDs and remain unexecuted. [ADR 0004](../architecture/adr/0004-simulation-first-testing.md) specifies clock/source semantics.
+
+| ID | Scenario and observable oracle | Requirements / package |
+|---|---|---|
+| V18 | At 1x, 10x and unpaced execution a fixed manifest yields identical envelopes, activity durations, timer firings and result inputs. Equal timestamps retain input order. Injected UTC jumps leave monotonic durations intact. Silence advances flush/gap timers. | R01/R07/R11, T01d/T01e/T03 |
+| V19 | Explicit dropout retains null/reason while power zero remains present. A silent gap and pause break coverage. Restart creates a new epoch, with ambiguous fragments excluded. Duplicate start fails, close is idempotent, partial-start failure releases registrations, and no callback follows completed close. | R02/R03/R11, T01d/T03a |
+| V20 | The real Karoo adapter under FakeKarooSystem/Host maps named power/HR/cadence fields, initial and subsequent ride states and profiles to expected canonical inputs. Missing and invalid values remain distinct, repeated values retain keys. startFit/cancel, living-process reconnection and teardown leave zero active consumers and no duplicate registration. | R01/R02/R09/R11, T02d |
+| V21 | A lawfully sourced real FIT plus independent expected event/value table survives pinned decode/export/replay with original FILE_RECORD times and declared virtual acquisition mapping. CRC corruption/truncation fails explicitly. Missing/regressing time has a diagnostic. Pause/stop variants and EOF retain uncertainty. | R01/R02/R07/R10, T01e |
+| V22 | Simulation origin and versions remain in run manifests, fixed seeds reproduce hashes, synthetic results are isolated from real history/trends, and release dependency inspection excludes SDK fakes, emulator stand-ins and simulation controls. | R07/R08/R10/R11, T01d/T02d/T08 |
+
+| Layer | Acceptance before claiming the layer passes | What the evidence settles |
+|---|---|---|
+| Pure JVM source and generator tests | V18/V19, fixed manifest and independently enumerated event tables, all signal shapes and fault combinations. No wall-clock sleep is required. | Source contract, deterministic ordering/time and scenario reproducibility. |
+| Pure JVM Collector and numerical regressions | V01–V09/V15–V19 as applicable. Independently calculated constant/interval/ramp anchors and coverage exclusions. Compare exact inputs and declared numerical tolerances. | Software policy and numerical conformance after those packages exist. |
+| Real FIT decoder bridge | V21 and V18 at all replay speeds. Decoder regenerates fixture export before JVM replay. Record fixture hash, permission, preprocessing and timestamp policy. | Real-file decoding and canonical semantics for the accepted fixture. |
+| SDK integration with Robolectric | V20/V22 at API 32 and the additional supported API selected by the compatibility spike. Feed the same scenario through the SDK fake and direct source, compare canonical values/keys and expected provenance. Repeat without leaked consumers. | SDK-facing mapping and controlled service/cleanup behavior. |
+| Real repository integration | V04/V05/V09/V14/V16/V17 with actual transactional repository on Android test runtime or emulator. Fail writes between commit/checkpoint, retry, restart, delete and supersede concurrently. Assert N01 bounds including in-flight payload/count and control reserve. | Persistence and overload behavior under injected faults. |
+| Emulator end-to-end, optional | Isolated appstore stand-in, debug app and bounded scenario. Trace start → persist → query, cancellation and process recreation. Verify no fake package in release artifact. | Android wiring under the emulated host. |
+| Karoo replay-tool smoke, optional | Verify helper APK/tool/OS and permissions first. Pair virtual channels, compare 1x availability/dropout transitions against manifest, restore configuration. Record accelerated tests as wiring/load evidence. | Integration with the real host through virtual devices. |
+| Real Karoo and real sensors | Finish V02/V11/V13 with actual power/HR/cadence delivery, field hidden/absent, screen off, four hours, manual/auto pause, reconnect, low-memory kill and force-stop separately. Measure memory/battery with matched baselines. | Radio delivery, real host/OS behavior and resource budgets on the tested build. |
+| Scientific study | Existing T05–T07 method selection and criterion validation, participant-level splits and matched references. | Physiological applicability/accuracy within the studied population. |
+
+All layers report evidence separately. Real sensors, ANT+/BLE radio behavior, sensor delivery latency, OS scheduling/termination, automatic host startup, measured battery and physical-device memory budgets remain hardware risks. A fake can drive an error path without proving its frequency or recovery on Karoo. A virtual maximal-effort trace can exercise eligibility and equations while FTP/VO₂max validity still requires scientific evidence.
+
 ## Test layers
 
 Pure JVM unit/property tests cover time integration, normalization, lifecycle, model eligibility and trend math. Reference fixtures are independently calculated, not snapshots of the implementation. Repository integration tests exercise transactions/restart/migrations; Android tests cover adapter cleanup and UI state. Real Karoo tests establish lifecycle and performance. Do not equate JVM coverage with hardware validation.

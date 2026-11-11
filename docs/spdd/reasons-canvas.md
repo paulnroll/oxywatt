@@ -78,3 +78,9 @@ T01d PR #10 review correction: virtual time cannot advance recursively inside a 
 T01e implements the pinned developer FIT exporter and test-only simulator bridge, with strict timestamp/integrity checks, explicit timer metadata and private owner-file verification. [Task/evidence](tasks/t01e-fit-replay.md) records V21/V01/V02/V18 scope and the absence of a redistributable real fixture. Public CI uses generated data only.
 
 T01e review correction (V18/V21): exported bytes and checked-out hashed fixtures use LF consistently; replay rejects inconsistent manifest end/count at streaming EOF before completing acquisition. See the T01e task for red/green evidence and private-file verification.
+
+T02d is owner-approved on 2026-11-11 after T01e merged: SDK-fake compatibility, canonical adapter mapping and lifecycle regressions, plus test dependency isolation. See [task](tasks/t02d-karoo-adapter-tests.md). Hardware acceptance remains open.
+
+T02d software evidence: app → core Karoo source mapping and diagnostic migration are verified with SDK 1.1.9/fake 0.1.1 under Robolectric API 32/34. Cancellation/reconnect/teardown and release dependency isolation pass; default JVM CI remains independent of Android. [Evidence and limits](tasks/t02d-karoo-adapter-tests.md). This does not close parent live V11/V13 or authorize T03.
+
+T02d pre-publication review: reject reentrant SDK delivery explicitly; a nested callback cannot overlap accept or prematurely acknowledge cleanup. Regression evidence is recorded in the T02d task.

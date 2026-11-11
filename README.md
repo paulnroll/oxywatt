@@ -16,7 +16,7 @@ Start with [the review packet](docs/spdd/review.md), [REASONS Canvas](docs/spdd/
 - [Power curve](docs/algorithms/power-curve.md), [FTP](docs/algorithms/ftp-estimation.md), [VO₂max](docs/algorithms/vo2max-estimation.md), [validation](docs/algorithms/validation-strategy.md)
 - [Decisions](docs/spdd/decision-log.md), [agent workflow](AGENTS.md)
 
-The first milestone ends at architectural review. Production code requires explicit approval of a named slice. Scientific validity and device reliability are not established by this documentation. The owner approved T01a–T01e and T02a/T02b. Later packages require named approval.
+The first milestone ends at architectural review. Production code requires explicit approval of a named slice. Scientific validity and device reliability are not established by this documentation. The owner approved T01a–T01e and T02a/T02b/T02d. Later packages require named approval.
 
 Personal FIT files and local measurement databases must stay out of Git. The open-source license remains an owner decision; no project license has yet been granted.
 
@@ -33,3 +33,11 @@ Use `./gradlew spotlessApply` to format Kotlin and Gradle Kotlin DSL, and `./gra
 ## Developer FIT replay
 
 [T01e instructions and evidence](docs/spdd/tasks/t01e-fit-replay.md) cover strict FIT export and virtual replay. Personal inputs and decoded projections remain under ignored `fixtures/private/`; public CI verifies a generated synthetic fixture with fitdecode 0.11.0. The JVM private-file replay is opt-in.
+
+SDK adapter integration tests are opt-in and run under Robolectric at API 32 and 34:
+
+```sh
+./gradlew -PkarooDiagnostic=true -PkarooSdkJitpack=true :app:testDebugUnitTest :app:assembleDebug :app:lintDebug :app:verifyReleaseDependencyIsolation --console=plain
+```
+
+Set `ANDROID_HOME` to an SDK with platform 36 and Build Tools 36.0.0. The explicit JitPack option selects the public build of SDK tag 1.1.9; omit it to use the original GitHub Packages coordinate with local package credentials. Fake 0.1.1 remains test-only. The manual **Opt-in Android SDK integration** workflow runs the same checks without changing default JVM CI. See [T02d scope and evidence](docs/spdd/tasks/t02d-karoo-adapter-tests.md); these tests do not establish real sensor delivery or device residency.

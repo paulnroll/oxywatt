@@ -28,3 +28,5 @@ Checked the 1.1.9 SDK registration and teardown paths, matching field constants,
 ## Simulation-first follow-up proposal — 2026-11-11
 
 Existing device evidence above remains partial. [ADR 0004](../../architecture/adr/0004-simulation-first-testing.md) proposes moving future canonical mapping/teardown regression coverage into T02d with the SDK fake. The current probe logs presence and sampled callback intervals. It does not yet implement RideDataSource or record all canonical inputs. Real sensor delivery, startFit timing and the sustained acquisition matrix remain pending. Proposed T03 software development can proceed independently after named approval of the amended dependencies.
+
+T02d follow-up: subscriptions now live behind KarooRideDataSource, with the same presence/timing diagnostic logging and observation-only FIT callbacks. Configured profiles are normalized but never logged or stored. See [T02d](t02d-karoo-adapter-tests.md) for SDK-fake regression evidence; the earlier hardware observations apply to the original probe APK, not automatically to this refactor.

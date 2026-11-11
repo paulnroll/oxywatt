@@ -1,0 +1,34 @@
+name: Opt-in Android SDK integration
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  android:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '25'
+      - uses: android-actions/setup-android@v3
+      - name: Install pinned Android tools
+        run: sdkmanager 'platforms;android-36' 'build-tools;36.0.0'
+      - name: Check adapter with public SDK tag build
+        run: ./gradlew -PkarooDiagnostic=true -PkarooSdkJitpack=true spotlessCheck :core:check :app:testDebugUnitTest :app:assembleDebug :app:lintDebug :app:verifyReleaseDependencyIsolation --console=plain
+      - name: Upload integration and lint reports
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-sdk-test-reports
+          path: |
+            app/build/reports/
+            app/build/test-results/
+          if-no-files-found: ignore

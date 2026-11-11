@@ -154,3 +154,10 @@ Both candidates reproduce injected observational changes but show confounder-dri
 [T08a2](../spdd/tasks/t08a2-comparable-observations.md): I01–I07 are document review cases mapped to existing V IDs, not executed tests. Report deterministic replay, independently acquired observation repeatability, sensitivity, native/intersection coverage, reference-qualified false direction and censored detection delay separately. Missing reference truth means not assessable.
 
 Specification/publication only is authorized; named execution awaits owner approval. N, windows, HR/drift thresholds, meaningful change, baseline horizon and smoothing remain open with resolution paths. No lawful dataset admitted; real-data/scientific pilot is NO-GO. T05b O1–O5, physiological R05/R06, T02c/T03e/parent T04 live gates and T08b/c remain open. No bike, Karoo or private FIT required.
+
+
+## T08a2 executed qualification review — 2026-11-11
+
+[Task/evidence](../evidence/t08a2-comparable-observations/README.md): I01–I07 document review is complete: native/intersection coverage uses explicit set denominators; visit differences remain descriptive under serial dependence. False direction and delay are not assessable without independent labels/onset and a frozen declaration rule. No participant or application tests were executed.
+
+Real-data/scientific admission remains blocked; N, qualification thresholds, meaningful change, baseline horizon and smoothing remain unresolved without defaults. T05b O1–O5, T02c/T03e/parent T04 and T08b/c remain open. No new framework, storage, manifests or UI.

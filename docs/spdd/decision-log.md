@@ -243,3 +243,10 @@ Both candidates reproduce injected observational changes but show confounder-dri
 [T08a2](tasks/t08a2-comparable-observations.md): Owner authorized specification/publication after T08a1, not implementation, method selection or participant research. PR #36 was verified merged at 31b43adaff60a0e68ceb163a3bc0149815f3a33f and local main fast-forwarded with a clean tree. Propose a documentation/evaluation-design package rather than another synthetic-only expansion or a forced A/B winner.
 
 Specification/publication only is authorized; named execution awaits owner approval. N, windows, HR/drift thresholds, meaningful change, baseline horizon and smoothing remain open with resolution paths. No lawful dataset admitted; real-data/scientific pilot is NO-GO. T05b O1–O5, physiological R05/R06, T02c/T03e/parent T04 live gates and T08b/c remain open. No bike, Karoo or private FIT required.
+
+
+## T08a2 executed qualification review — 2026-11-11
+
+[Task/evidence](tasks/t08a2-comparable-observations.md): After owner merged PR #37 and explicitly approved T08a2, executed the documentation-only I01–I07 review. Decision: document-design deliverable ready for owner review, real-observation pilot NO-GO pending lawful source/context and separately authorized acquisition; frozen evaluation and physiological method/claims also NO-GO. No code, method selection or participant research follows automatically.
+
+Real-data/scientific admission remains blocked; N, qualification thresholds, meaningful change, baseline horizon and smoothing remain unresolved without defaults. T05b O1–O5, T02c/T03e/parent T04 and T08b/c remain open. No new framework, storage, manifests or UI.

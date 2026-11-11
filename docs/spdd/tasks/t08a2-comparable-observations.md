@@ -1,6 +1,6 @@
 # T08a2 — Comparable power–HR observation qualification and pilot readiness
 
-Status: specification/publication authorized on 2026-11-11. **Named execution approval pending.** This is the next unused subdivision of T08a after T08a1; it does not rename T08b/c. Execution proposed here is a bounded documentation/evaluation-design package, not code, method selection or participant research.
+Status: owner approved named documentation-only execution on 2026-11-11 after PR #37 merged. **I01–I07 dossier completed and self-reviewed, ready for owner review; real-data/scientific pilot remains NO-GO.** This is the next unused subdivision of T08a after T08a1; it does not rename T08b/c. Execution proposed here is a bounded documentation/evaluation-design package, not code, method selection or participant research.
 
 ## Problem, goal and scope
 
@@ -120,8 +120,8 @@ Exact files for the proposed named execution: this task; `docs/evidence/t08a2-co
 | Gate | Current status / reopening evidence |
 |---|---|
 | T08a1 software | Local H01–H07 recorded; remote checks separately monitored, never assumed passed |
-| T08a2 specification | Prepared for owner review; publication authorized |
-| T08a2 named execution | Pending owner approval; I01–I07 are proposed deliverables, not completed pilot evidence |
+| T08a2 specification | PR #37 merged by owner at 30795346649134d648f57e7e00800a8fef9fcfe1 |
+| T08a2 named execution | Owner approved; [I01–I07 dossier](../../evidence/t08a2-comparable-observations/README.md) complete for review, not pilot evidence |
 | Real-observation pilot | NO-GO: lawful records unavailable, full-source/qualification/precision decisions unresolved, acquisition not authorized |
 | Physiological trend / method / product | NO-GO: no method selected, no repeated independent references, O1–O5 open; T08b/c separate |
 
@@ -132,3 +132,14 @@ Done for T08a2 execution means a reviewed qualification/pilot decision dossier w
 Self-review: compared the complete proposed document change against main; checked claim boundaries, primary full-text versus limited access, A/B unequal selection, no invented numeric defaults, per-visit dependence/coverage, authority and scalar-origin limits, privacy and named authorization. Relative Markdown target check: 10 changed/new documents, 228 relative links, zero broken. All referenced R/V IDs resolve to requirements/validation and I01–I07 are defined. `git diff --check` passed. Skills were read but not changed; no skill validation needed. No application/Android tests rerun for documentation only; inherited local test counts are not fresh results.
 
 PR #36 is merged with the exact supplied head/merge hashes. At 20:30 UTC, runs 43095615450 (pull_request), 43095608185 (push) and 43095780996 (main) were still queued, conclusion absent; main had zero jobs/check runs. Actions enabled. No failing test/log exists to diagnose yet. This is pending remote verification, not a pass or evidence of a code defect. Local main was updated to 31b43ad before branching; no unrelated changes were present.
+
+
+## Named execution evidence — 2026-11-11
+
+Owner approved T08a2 I01–I07 after merging PR #37. Execution stays documentation-only; no model, code or participant processing authorized. [Dossier](../../evidence/t08a2-comparable-observations/README.md) now contains recovered primary thesis/field-study methods and source limitations (I01), qualification/disposition and A/B native/intersection denominator tables (I02), completed freeze-plan worksheet with measured/declared/unknown evidence and acquisition boundaries (I03), auditable metrics and claim/reference limits (I04), explicit decision/blocker paths (I05), read-only canonical/profile/authority/origin reuse review (I06), and separate document/software/real-data/scientific/product admission decisions (I07).
+
+No lawful dataset secured/admitted, no empirical repeatability/change measured, no method selected and no numeric defaults added. Full thesis chapters improve the audit beyond abstracts but do not establish final journal-version equivalence; remaining access/version limits stay visible. Next evidence needs an actual lawful source/context acquisition path and separate authorization before repeated observation collection. No further synthetic expansion substitutes for that evidence.
+
+Execution checks: self-review cross-checked primary-source/version/access limits, distinct claim targets, common pool versus actual retained HR exposure, per-comparison matching, mutually exclusive primary dispositions, coverage set identities, dependent visit pairs, reference onset/censoring, unset numerical decisions and scalar-v1 isolation limits. Corrected the reconciliation to include uncompleted attempts explicitly and clarified matching per contrast when support is not series-wide. Relative-link check: 10 changed documents, 238 local Markdown targets, zero broken. All R/V references resolve; seven I01–I07 evidence sections present. `git diff --check` passes; only scoped Markdown documents changed. No application tests, private FIT or hardware checks run; no source PDF committed.
+
+At 20:41 UTC, all six inherited remote runs remained queued with no conclusion: #36 pull_request 43095615450/push 43095608185/main 43095780996; #37 pull_request 43096566790/push 43096560344/main 43096948167. There is still no executed failing check to repair or remote pass to claim. Publication CI is monitored separately from document acceptance.

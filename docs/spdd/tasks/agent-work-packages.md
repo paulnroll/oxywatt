@@ -150,3 +150,10 @@ Both candidates reproduce injected observational changes but show confounder-dri
 [T08a2](t08a2-comparable-observations.md): T08a2 is the next unused subdivision of T08a. Own only the exact documentation files listed in the task; extend its source evidence into I01–I07 after named approval. No implementation or participant execution. No delegation requirement. T08b/c remain separate subsequent packages.
 
 Specification/publication only is authorized; named execution awaits owner approval. N, windows, HR/drift thresholds, meaningful change, baseline horizon and smoothing remain open with resolution paths. No lawful dataset admitted; real-data/scientific pilot is NO-GO. T05b O1–O5, physiological R05/R06, T02c/T03e/parent T04 live gates and T08b/c remain open. No bike, Karoo or private FIT required.
+
+
+## T08a2 executed qualification review — 2026-11-11
+
+[Task/evidence](t08a2-comparable-observations.md): Owner-approved T08a2 I01–I07 document execution completed; exact scoped documents only. The dossier contains qualification/disposition, freeze-plan, metrics/denominators and open-decision/admission evidence. No software, participant activity or additional agent package was dispatched. Lawful data/context acquisition needs its own concrete review and authorization.
+
+Real-data/scientific admission remains blocked; N, qualification thresholds, meaningful change, baseline horizon and smoothing remain unresolved without defaults. T05b O1–O5, T02c/T03e/parent T04 and T08b/c remain open. No new framework, storage, manifests or UI.

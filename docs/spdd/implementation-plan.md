@@ -30,3 +30,7 @@ Architecture ACCEPTED; T01d/T01e complete and T02d owner-approved. [ADR 0004](..
 Proposed order is T01d (source port, virtual clock and generators) → T01e (lawful real FIT replay) and T02d (SDK fake compatibility and mapping tests) → applicable T03a–d software packages. Existing T03a → T03b/T03c → T03d dependencies still apply. Hardware T02c evidence can proceed alongside that approved software work. T03e remains gated by the passed T02 acquisition decision. T04 still follows T03. T05–T07 scientific gates remain unchanged.
 
 T02b has partial host/state evidence and pending real-sensor checks. T02d makes its mapping and cleanup regressions repeatable. T02c concentrates the hardware matrix. SDK fakes, emulator and external replay are evidence layers, each with limits in V18–V22. Individual package completion cannot close parent V11/V13 or physiological validity.
+
+## Planned on-device preview checkpoint
+
+After T03a–d, [T03p](tasks/t03p-diagnostic-preview.md) adds a debug-only screen over the real demo Collector/repository: latest readings with age/missing reasons, committed/pending events, gaps/loss and storage health. Owner requested this plan on 2026-11-11; implementation still needs named approval and completed component contracts. It uses synthetic simulation/FIT replay in a separate demo database and does not require or close the live acquisition gate. Sequence: T03a → T03b/T03c → T03d → T03p; then T03e after passed T02c, followed by T04. V23 records screen/integration and actual Karoo preview acceptance.

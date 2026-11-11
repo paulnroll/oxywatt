@@ -117,3 +117,8 @@ Self-review covered full tracked/untracked diff, policy/time/identity validation
 Final self-review also froze the prepared request UUID/provenance across a request-transaction failure, retaining the calculator on the existing worker until exact retry succeeds; a new regression verifies rollback and unchanged request provenance on retry. Corruption before hash completion remains a read failure without a new request. All 195 relative Markdown links resolve, all five project skills pass the installed validator, and git diff --check passes. No skills were modified.
 
 Self-review reproduced cross-session result attribution: the new curve payload could be completed against another existing session's generation. A new native-SQLite regression failed on API 32 and 34 because no exception was thrown. AnalysisRepository.complete now checks that the payload session owns the generation before any terminal mutation; the regression and full app checks pass. This guard preserves scalar behavior and all generation authority rules.
+
+
+## T04b2 proposal — 2026-11-11
+
+After merged PR #24, T04b1 is software-complete with its documented conservative dense-scan limitation. Proposed T04b2 is the next named package: complete long variable synthetic analysis by bounded range integration and actual work charging, preserving canonical hold/expiry, storage and preview. This supersedes no live gate; B2 acceptance is planned and implementation unapproved. See [T04b2 specification](t04b2-long-variable-scan.md).

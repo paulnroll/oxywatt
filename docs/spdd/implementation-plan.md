@@ -75,3 +75,8 @@ Owner approved T05a after merged PR #27. [Implementation/evidence](../evidence/t
 ## T05b protocol proposal — 2026-11-11
 
 [Canonical T05b specification](tasks/t05b-evaluation-protocol.md). T05b / T05: proposed protocol review and worked synthetic reporting exercise, B01–B08 (R05/R06/R07/R10/R12; V07/V08/V09 plus software reuse mappings). Depends on merged T05a software, not live acceptance. Expected output: reviewed protocol, toy disposition/metrics/split tables and O1–O5 go/no-go register. No code or physiological experiment authorized. T06/T07 keep method selection and later implementation separate; live T02c/T03e/parent T04 remain open.
+
+
+## T05b executed protocol exercises — 2026-11-11
+
+Owner approved T05b after merged PR #29. [B01–B08 report](../evidence/t05b-protocol-review/README.md) completes the bounded documentation exercise: separate FTP/VO₂max estimands, ten invented qualification cases, participant split/freeze rehearsal, reconciled coverage/refusal/error arithmetic, conditional sensitivity and explicit O1–O5 decisions. Self-reviewed evidence is ready for owner review; it is not a physiological study. Both experiment admissions remain NO-GO; no lawful matched dataset, justified scientific thresholds/sample plan or method selected. T06/T07 retain independent research/selection and later implementation; no automatic authorization follows. T05 protocol/reproducibility deliverables are now recorded, while parent scientific acceptance and deferred T02c/T03e/parent T04 live gates remain open.

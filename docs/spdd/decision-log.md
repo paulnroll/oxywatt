@@ -188,3 +188,8 @@ Owner approved named T05a after PR #27 merged. Reuse explicit development event 
 ## T05b protocol proposal — 2026-11-11
 
 [Canonical T05b specification](tasks/t05b-evaluation-protocol.md). Owner requested specification/publication only. PR #28 is merged and all four remote checks passed; local main advanced to dca3639 before this proposal. Proposed smallest named package: protocol review plus worked synthetic qualification/reporting exercise, no code/framework. Independent protocol-defined FTP and cycling CPET VO₂max references are required; CP is not FTP. No lawful paired dataset secured. Open decisions O1–O5 require explicit resolution before experiment admission; readiness does not select T06/T07 methods or admit a product. Named T05b execution approval is pending. Continue on simulator; no private FIT read or device action; postponed live gates stay open.
+
+
+## T05b executed protocol exercises — 2026-11-11
+
+Owner approved T05b after merged PR #29. [B01–B08 report](../evidence/t05b-protocol-review/README.md) completes the bounded documentation exercise: separate FTP/VO₂max estimands, ten invented qualification cases, participant split/freeze rehearsal, reconciled coverage/refusal/error arithmetic, conditional sensitivity and explicit O1–O5 decisions. Self-reviewed evidence is ready for owner review; it is not a physiological study. Both experiment admissions remain NO-GO; no lawful matched dataset, justified scientific thresholds/sample plan or method selected. T06/T07 retain independent research/selection and later implementation; no automatic authorization follows. T05 protocol/reproducibility deliverables are now recorded, while parent scientific acceptance and deferred T02c/T03e/parent T04 live gates remain open.

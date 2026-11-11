@@ -20,3 +20,8 @@ Do not feed estimated FTP into VO₂max by default. Do not overwrite the host FT
 ## T05b protocol proposal — 2026-11-11
 
 [Canonical T05b specification](../spdd/tasks/t05b-evaluation-protocol.md). The proposed T05b protocol requires an independently acquired, explicitly defined FTP test reference, participant-level held-out evaluation, individual agreement and coverage/refusal reporting. CP, configured FTP and unqualified observed P20 cannot substitute as ground truth. T06 resolves candidate inputs, eligibility, sensitivity bounds and primary-source method audit; no method selection follows from protocol readiness.
+
+
+## T05b executed protocol exercises — 2026-11-11
+
+Owner approved T05b after merged PR #29. [B01–B08 report](../evidence/t05b-protocol-review/README.md) completes the bounded documentation exercise: separate FTP/VO₂max estimands, ten invented qualification cases, participant split/freeze rehearsal, reconciled coverage/refusal/error arithmetic, conditional sensitivity and explicit O1–O5 decisions. Self-reviewed evidence is ready for owner review; it is not a physiological study. Both experiment admissions remain NO-GO; no lawful matched dataset, justified scientific thresholds/sample plan or method selected. T06/T07 retain independent research/selection and later implementation; no automatic authorization follows. T05 protocol/reproducibility deliverables are now recorded, while parent scientific acceptance and deferred T02c/T03e/parent T04 live gates remain open.

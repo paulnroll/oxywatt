@@ -1,6 +1,6 @@
 # T05b — Evaluation protocol, sensitivity and scientific go/no-go
 
-Status: specification proposed on 2026-11-11; publication authorized, named T05b execution approval pending. No estimator or method is approved. Parent T05 remains open.
+Status: owner approved named T05b execution on 2026-11-11 after specification PR #29 merged. B01–B08 documentation exercises completed and self-reviewed; evidence below is ready for owner review. No estimator or method is approved. Parent T05 physiological acceptance remains open.
 
 ## Problem, scope and dependencies
 
@@ -93,7 +93,7 @@ A stopped experiment reports why and what evidence would reopen it. Missing thre
 
 ## Measurable acceptance and R–T–V traceability
 
-These are planned T05b review/exercise criteria, not executed physiological tests. No new top-level R/V identifiers are needed.
+These are the T05b review/exercise acceptance baseline, now exercised in the linked evidence; they are not executed physiological tests. No new top-level R/V identifiers are needed.
 
 | Case | Observable Done evidence | Mapping |
 |---|---|---|
@@ -118,10 +118,18 @@ Risks: false ground truth, declaration mistaken for rights proof, leakage, pseud
 
 | Acceptance layer | Current position |
 |---|---|
-| Software | T05a historical evidence exists; T05b review/exercises B01–B08 await approval/execution. No estimator conformance exists. |
+| Software | T05a historical evidence exists; T05b review/exercises B01–B08 completed as documentation evidence, ready for owner review. No estimator conformance exists. |
 | Scientific | Both tracks blocked on lawful independent reference data and O1–O5; R05/R06 and physiological V07/V08 remain open. |
 | Live | T02c/T03e/parent T04 and physical-device budgets remain open; owner defers tests until the end. Deferral passes no gate. |
 
 ## Specification self-review — 2026-11-11
 
 Reviewed T05a source contracts/tests, task/evidence, domain constraints and the full documentation diff including this new file. Corrected the parent backlog to keep candidate audit/selection in T06/T07 and distinguish protocol design dependencies from real experiment admission. Checked B01–B08 mappings against existing R/V definitions, rights/privacy boundaries, conditional sensitivity and unresolved O1–O5. All 155 relative Markdown links in the nine affected documents resolve; `git diff --check` passes. No application tests were run for this documentation-only change; no physiological or live result is claimed. Worked B01–B08 execution remains pending named approval.
+
+## Executed T05b evidence — 2026-11-11
+
+Owner approved T05b after merging PR #29 (all four remote CI checks successful); local main fast-forwarded to bf25e0e. [Worked report](../../evidence/t05b-protocol-review/README.md) provides B01/B02 separate estimand sheets, B03 ten invented qualification cases, B04 participant split/freeze rehearsal, B05 reconciled disposition/coverage and independently checked error arithmetic, B06 conditional sensitivity checklist with O5 blocked, B07 per-track decisions/O1–O5 reopening evidence and B08 existing-contract audit with separate acceptance layers. All examples are invented paper records; no physiological experiment, source/equation selection, estimator, application code/test run, private FIT or device action.
+
+Self-review completed the planned B01–B08 documentation exercise; owner review of this evidence remains separate. Both scientific experiment admissions remain NO-GO, methods unselected and products not admitted. This closes the bounded T05b execution deliverable, not R05/R06, physiological V07/V08 or live T02c/T03e/parent T04.
+
+Verification passed: toy participant-weighted MAE/MSE/bias and rounded RMSE independently recalculated with Python fractions/math; disposition totals, unique participant counts and disjoint development/evaluation assignments checked. All 166 relative Markdown links in the eleven affected documents resolve; `git diff --check` passes. No skill files changed, so skill frontmatter validation is not applicable.

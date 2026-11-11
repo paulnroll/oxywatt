@@ -1,6 +1,6 @@
 # ADR 0004 — Simulation-first development through a shared input boundary
 
-Date 2026-11-11. Status PROPOSED for owner review. This change request authorizes specification work. Implementation and adoption of new dependencies require a named slice approval.
+Date 2026-11-11. Status ACCEPTED on 2026-11-11. Owner authorized T01d implementation; other slices and new dependencies require named approval.
 
 ## Context and evidence
 

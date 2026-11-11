@@ -6,7 +6,7 @@ Status: T01a and owner-resumed T01b complete; [T01a evidence](tasks/t01a-canonic
 |---|---|---|---|---|
 | T01 | Canonical input, lifecycle and deterministic replay contract | Architecture approval | R01/R02/R11; V01/V02/V03 | `core` contracts, JVM fixtures, decoder/license decision; risk time semantics; done when two source mappings preserve units/provenance and fixture oracles pass |
 | T02 | Verify Karoo lifecycle/timing and toolchain | T01; named permission for diagnostic code/device run | R02/R09/R11; V02/V11/V13 | Android diagnostic slice and evidence report; risk unreliable binding; done when startup/4-hour/kill scenarios recorded and acquisition design accepted or rejected |
-| T03 | Durable, bounded collection | Current gate is T01 + passed T02. Proposed ADR 0004 permits T03a–d after simulation contracts, with T03e/live acceptance still gated by T02. | R03/R07/R10/R12; V04/V05/V09/V12/V14/V16/V17 | Android repositories/checkpoints plus core lifecycle, migrations; risk ambiguous identity/disk loss; done when interruption, storage-full, hard-cap overload, generation/supersession and idempotency tests pass |
+| T03 | Durable, bounded collection | Accepted ADR 0004 permits T03a–d after simulation contracts, with T03e/live acceptance still gated by T02. | R03/R07/R10/R12; V04/V05/V09/V12/V14/V16/V17 | Android repositories/checkpoints plus core lifecycle, migrations; risk ambiguous identity/disk loss; done when interruption, storage-full, hard-cap overload, generation/supersession and idempotency tests pass |
 | T04 | End-to-end observed power curve | T03 | R04; V06/V13 | Core integration + app readout; risk false rolling windows; done when device ride reaches persisted curve and independent irregular-time oracle agrees |
 | T05 | Reproducible model experiment protocol | T01, owner-provided FIT or approved licensed fixtures | R06/R07; V08/V09 | Versioned datasets, profiles, candidate audit and benchmark report; risk no ground truth; done when evaluation protocol/limitations and go/no-go criteria reviewed |
 | T06 | Select then implement FTP model | T04, T05 and method approval | R05; V07/V09 | Core FTP strategy/config + evidence; risk nonmaximal effort; done when numerical and eligibility tests pass and validity limits reviewed; CP cannot satisfy FTP automatically |
@@ -23,9 +23,9 @@ T05 can use developer FIT replay before any product import UI. T06 and T07 are l
 Review checkpoints: M0 architecture; T02 device feasibility; T04 first slice; each model selection before code; full-release evidence before publication. No estimated implementation dates until hardware/toolchain and model gates are understood.
 
 
-## Proposed simulation-first amendment — 2026-11-11
+## Accepted simulation-first architecture — 2026-11-11
 
-Status PROPOSED. [ADR 0004](../architecture/adr/0004-simulation-first-testing.md) and the [change task](tasks/simulation-first-development.md) define dependencies, bounded files, acceptance and risks. This request authorizes specifications.
+Architecture ACCEPTED; T01d owner-approved. [ADR 0004](../architecture/adr/0004-simulation-first-testing.md) and the [change task](tasks/simulation-first-development.md) define dependencies, bounded files, acceptance and risks. Only T01d implementation is authorized; other packages retain named approval gates.
 
 Proposed order is T01d (source port, virtual clock and generators) → T01e (lawful real FIT replay) and T02d (SDK fake compatibility and mapping tests) → applicable T03a–d software packages. Existing T03a → T03b/T03c → T03d dependencies still apply. Hardware T02c evidence can proceed alongside that approved software work. T03e remains gated by the passed T02 acquisition decision. T04 still follows T03. T05–T07 scientific gates remain unchanged.
 

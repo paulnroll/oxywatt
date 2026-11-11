@@ -65,3 +65,6 @@ No compatible licensed paired field-ride/CPET dataset secured. Record this expli
 
 
 T03p software implementation (2026-11-11, owner-approved after PR #17): isolated debug-derived preview consumes actual T03a/b/c pipeline and schema v2. Shared test fixtures and stream FIT reader remain outside release. Received versus committed values, virtual ages, pending/loss, interruption and storage errors are inspectable. Last committed receipt time is explicitly distinguished from an unavailable durable transaction timestamp. See [T03p evidence](../spdd/tasks/t03p-diagnostic-preview.md). V22/V23 software checks do not close the on-Karoo screenshot/device claim, T02 or live T03e.
+
+
+V22/V23 on-Karoo follow-up (2026-11-11): [device evidence](../evidence/t03p-karoo-2026-11-11/README.md) records isolated preview installation, synthetic demo/FIT SQLite/readout checks, actual screenshots, Activity.recreate/reopen and force-stop recovery. Android FIT parsing regression was red then green on the device. Loss/storage fault and speed invariance retain software-only evidence; low-memory death and T02/T03e gates remain open.

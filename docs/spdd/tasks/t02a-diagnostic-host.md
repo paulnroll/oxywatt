@@ -38,3 +38,6 @@ Record the Karoo software version from the device settings as well. APK installa
 - Initial ADB check showed no attached device. After the owner connected the Karoo 3 via USB, ADB identified model `k24` with Android 12, API 32 and build `SKQ1.230210.001 dev-keys`. The Hammerhead ride app was `4.217.1-ad98202524` (version code `27885909`).
 - The source-build APK installed successfully with `adb install -r`. A cold launch returned `Status: ok` and Activity Manager reported `com.oxywatt.diagnostic/.MainActivity` as resumed. Android Package Manager resolved exactly one service in the diagnostic package for `io.hammerhead.karooext.KAROO_EXTENSION`, namely `DiagnosticExtension`. Host binding and ride callbacks remain for T02b/T02c.
 - T02a install and launch are verified on this device with the source-build APK. Assembly against the published AAR still requires GitHub Packages credentials.
+
+
+2026-11-11 preview follow-up: the same model/OS/ride-host versions were re-observed; original diagnostic host 0.2.0/code 2 remained installed. Only `.preview` and its instrumentation companion were installed for T03p. [Preview evidence](../../evidence/t03p-karoo-2026-11-11/README.md) does not upgrade the original host or close sustained/live T02 acceptance.

@@ -4,6 +4,7 @@ import com.oxywatt.core.collection.*
 import java.security.MessageDigest
 import java.time.Duration
 import java.time.Instant
+import java.time.OffsetDateTime
 import java.util.UUID
 
 fun replayFitStream(
@@ -43,7 +44,8 @@ fun replayFitStream(
     val expectedRows =
         checkNotNull(Regex("\"projected_rows\": ([0-9]+)").find(manifest)).groupValues[1].toLong()
     require(expectedRows > 0)
-    val fileOrigin = Instant.parse(text("file_origin"))
+    // API 32 Instant.parse rejects exporter offsets accepted by the host JVM.
+    val fileOrigin = OffsetDateTime.parse(text("file_origin")).toInstant()
     val receiptOrigin = Instant.parse("2026-01-01T00:00:00Z")
 
     openProjection().bufferedReader().use { reader ->
@@ -59,7 +61,7 @@ fun replayFitStream(
                 val messageIndex = cells[0].toLong()
                 require(messageIndex >= previousMessage)
                 previousMessage = messageIndex
-                val stamp = Instant.parse(cells[1])
+                val stamp = OffsetDateTime.parse(cells[1]).toInstant()
                 val offset = cells[2].toLong()
                 require(Duration.between(fileOrigin, stamp).toNanos() == offset)
                 val payload =

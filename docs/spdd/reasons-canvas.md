@@ -110,3 +110,9 @@ T03p implementation authorized by the owner on 2026-11-11 after PR #17. Readines
 
 
 T03p software implementation (2026-11-11, owner-approved after PR #17): isolated debug-derived preview consumes actual T03a/b/c pipeline and schema v2. Shared test fixtures and stream FIT reader remain outside release. Received versus committed values, virtual ages, pending/loss, interruption and storage errors are inspectable. Last committed receipt time is explicitly distinguished from an unavailable durable transaction timestamp. See [T03p evidence](tasks/t03p-diagnostic-preview.md). V22/V23 software checks do not close the on-Karoo screenshot/device claim, T02 or live T03e.
+
+
+T03p device-verification preparation after PR #18: owner authorized preview-only installation, synthetic scenarios and screenshots. Local full verification passed with cached test results; ADB currently lists no devices. No installation, screenshot or current hardware version evidence exists. V22/V23 device checks and T02/T03e gates remain open; see [readiness and limitations](tasks/t03p-diagnostic-preview.md).
+
+
+T03p device follow-up: identified Karoo preview installation and synthetic demo/FIT screenshots now exist. Android offset-time parsing was fixed after a real-device red test; device instrumentation verifies FIT commits and distinct Activity recreation/reopen. Force-stop recovery conservatively preserves the committed prefix without automatic continuation. [Evidence and limitations](../evidence/t03p-karoo-2026-11-11/README.md); V22/V23 hardware scope is partial, T02/T03e remain open.

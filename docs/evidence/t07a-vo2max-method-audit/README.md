@@ -133,3 +133,7 @@ Possible later owner decisions: keep passive intent with unavailable physiologic
 | G08 | Task/algorithm/ledger/Canvas/backlog/decision/validation synchronization; checks recorded in task | R06/R07; V08/V09 |
 
 Self-review cross-checked source equations/units/locations, exponential versus linear output, cycling versus treadmill reference, measured-gas dependencies, vendor versus independent evidence, input availability and preserved FTP boundaries. Access failures and unreviewed attachments remain limits. No application tests, participant experiment or estimator execution; no physiological/live acceptance claimed.
+
+## Owner priority after this audit — 2026-11-11
+
+The owner prioritizes useful within-person trends over exact absolute agreement. This changes the primary intended-use question for follow-up; it does not turn these cross-sectional/protocol source findings into longitudinal evidence. Investigate repeatability/change sensitivity and report absolute agreement separately. A stable bias may permit useful change tracking, but stability across conditions/profile/calibration changes remains an assumption to evaluate. O2 is narrowed, not numerically resolved. A clearly labeled exploratory fitness proxy is an option for a concrete later specification; it cannot be silently labeled physiological VO₂max. Audit findings and no-approved-estimator status remain intact.

@@ -198,3 +198,8 @@ Owner approved T05b after merged PR #29. [B01–B08 report](../evidence/t05b-pro
 ## CI plugin repository repair — 2026-11-11
 
 Owner requested repair of main run 43084264896. Add Maven Central before Plugin Portal in settings plugin management so plugin transitive dependencies do not rely solely on the Portal endpoint. Root project repositories apply to project dependencies, not plugin classpaths. Retain all pinned versions and existing CI checks; verify with an empty Gradle user home. This is a tooling correction under [T01a-format F03/F04](tasks/t01a-formatting-ci.md), with no application or architecture change.
+
+
+## T06a scope proposal — 2026-11-11
+
+[Named T06a scope](tasks/t06a-ftp-method-audit.md) defines a bounded primary-source FTP audit after merged T05b PR #30. F01–F08 map R05/R07 (plus input/privacy R02/R10) to V07/V09 and conditional V02/V12/V18/V19: search log, equation/protocol/population/reference audit, current-input compatibility, conditional sensitivity, rights/data availability and a reviewable recommendation. Named audit execution approval is pending; this specification chooses no method. O1–O5, experiment admission, separate T06b implementation and later live gates remain explicit. T07a stays independent. No application code, private FIT, dataset download, device action or new framework.

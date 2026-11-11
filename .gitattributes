@@ -1,2 +1,5 @@
 gradlew text eol=lf
 gradlew.bat text eol=crlf
+
+# Byte-hashed developer replay fixtures must survive Windows checkouts unchanged.
+core/src/test/resources/fit-scenario/* text eol=lf

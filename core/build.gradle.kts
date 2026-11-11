@@ -18,3 +18,13 @@ java {
 tasks.withType<JavaCompile>().configureEach { options.release.set(17) }
 
 dependencies { testImplementation(kotlin("test-junit")) }
+
+// Changing opt-in private fixtures must invalidate the local test result, even if code is
+// unchanged.
+tasks.test {
+    val privateReplay = providers.environmentVariable("OXYWATT_PRIVATE_FIT_REPLAY_DIR")
+    inputs.property("privateFitReplayDirectory", privateReplay.orElse(""))
+    privateReplay.orNull?.let {
+        inputs.files(fileTree(it)).withPropertyName("privateFitReplayFixtures")
+    }
+}

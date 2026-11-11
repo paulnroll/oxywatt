@@ -35,3 +35,21 @@ jobs:
             core/build/reports/tests/test/
             core/build/test-results/test/
           if-no-files-found: ignore
+
+  fit-replay:
+    name: Synthetic FIT decoder verification
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Install pinned developer decoder
+        run: python -m pip install fitdecode==0.11.0
+      - name: Verify FIT projections and malformed input rejection
+        run: |
+          python tools/verify_fit_replay.py
+          python -m unittest discover -s tools -p 'test_export_fit_replay.py'

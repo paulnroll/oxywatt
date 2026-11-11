@@ -1,0 +1,42 @@
+{
+  "decoder": "fitdecode",
+  "decoder_version": "0.11.0",
+  "diagnostics": [
+    "native_saved_or_discarded_unknown",
+    "final_timer_stop_not_observed"
+  ],
+  "end_offset_nanos": 9000000000,
+  "file_origin": "2025-12-31T00:00:00+00:00",
+  "input_sha256": "4c47c1a8988224bc56c72e5b642c005e3955554cb33dfcc8daaf03beb07d8e15",
+  "normalization_version": "fit-normalization-v1",
+  "projected_rows": 15,
+  "projection_sha256": "470108c641e76ca8f121bc644cdcfeeac8a33325e57b9d0439da0fdb48e57779",
+  "provenance": "generated-synthetic-v1",
+  "record_messages": 4,
+  "scheduler_policy": "timers-before-input-v1",
+  "schema": "fit-replay-v1",
+  "timer_events": [
+    {
+      "event_type": "start",
+      "file_timestamp": "2025-12-31T00:00:00+00:00",
+      "message_index": 4,
+      "offset_nanos": 0,
+      "timer_trigger": null
+    },
+    {
+      "event_type": "stop",
+      "file_timestamp": "2025-12-31T00:00:03+00:00",
+      "message_index": 7,
+      "offset_nanos": 3000000000,
+      "timer_trigger": null
+    },
+    {
+      "event_type": "start",
+      "file_timestamp": "2025-12-31T00:00:08+00:00",
+      "message_index": 8,
+      "offset_nanos": 8000000000,
+      "timer_trigger": null
+    }
+  ],
+  "timestamp_policy": "ordered-original-file-time-v1"
+}

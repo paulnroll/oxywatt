@@ -16,7 +16,7 @@ Start with [the review packet](docs/spdd/review.md), [REASONS Canvas](docs/spdd/
 - [Power curve](docs/algorithms/power-curve.md), [FTP](docs/algorithms/ftp-estimation.md), [VO₂max](docs/algorithms/vo2max-estimation.md), [validation](docs/algorithms/validation-strategy.md)
 - [Decisions](docs/spdd/decision-log.md), [agent workflow](AGENTS.md)
 
-The first milestone ends at architectural review. Production code requires explicit approval of a named slice. Scientific validity and device reliability are not established by this documentation. The owner approved work through T02b. Later packages require named approval.
+The first milestone ends at architectural review. Production code requires explicit approval of a named slice. Scientific validity and device reliability are not established by this documentation. The owner approved T01a–T01e and T02a/T02b. Later packages require named approval.
 
 Personal FIT files and local measurement databases must stay out of Git. The open-source license remains an owner decision; no project license has yet been granted.
 
@@ -29,3 +29,7 @@ Use JDK 25 and run `./gradlew :core:check --console=plain` (Windows: `gradlew.ba
 Use `./gradlew spotlessApply` to format Kotlin and Gradle Kotlin DSL, and `./gradlew spotlessCheck` to verify formatting. Spotless 8.11.0 uses ktfmt 0.64 with Kotlin style (4-space block indentation). Generated files and local caches are outside the formatting targets.
 
 `./gradlew check --console=plain` runs formatting and JVM core checks; `:core:check` also includes formatting. GitHub Actions runs an explicit formatting step followed by JVM core checks and `:core:build` (including the JAR) on every push and pull request, using Temurin JDK 25. CI reports formatting errors without modifying files and uploads available HTML/XML test reports, including on failure. See [formatting/CI task](docs/spdd/tasks/t01a-formatting-ci.md).
+
+## Developer FIT replay
+
+[T01e instructions and evidence](docs/spdd/tasks/t01e-fit-replay.md) cover strict FIT export and virtual replay. Personal inputs and decoded projections remain under ignored `fixtures/private/`; public CI verifies a generated synthetic fixture with fitdecode 0.11.0. The JVM private-file replay is opt-in.

@@ -154,3 +154,9 @@ T03p software implementation (2026-11-11, owner-approved after PR #17): isolated
 
 
 2026-11-11: owner explicitly requested postponing live tests until the end and continued simulator-backed work without a bicycle. Proposed next named package is [T04a](tasks/t04a-power-curve-engine.md): pure observed power-duration engine on confirmed intervals, R04/R07/R11 and software V06/V09/V13/V18/V19/V22. This narrows the dependency amendment to core calculations before T03e; it does not accept hardware feasibility, authorize T03e or choose physiology. T04b preprocessing/persistence/device projection and parent T04 live acceptance remain separate. Implementation awaits named T04a approval.
+
+
+2026-11-11: owner approved named T04a implementation after PR #21 merged. Accepted software-only dependency amendment: pure confirmed-interval engine before T03e. Use one engine per session, exact candidate boundary search, compensated weighted integration and explicit bounded saturation. Numerical-tolerance ties choose earliest comparable start; epochs are not ordered by their local origins. [Contract](tasks/t04a-power-curve-engine.md). Hardware and T04b gates remain open.
+
+
+T04a implementation/evidence: use direct compensated weighted integration rather than growing cumulative-energy subtraction to avoid cancellation/overflow. This has a documented bounded but potentially quadratic per-append high-rate CPU cost. Self-review fixed a publicly mutable shared duration list after a failing regression. Fourteen new tests pass, including an independent exact-grid oracle and four virtual hours; core 82 passes/one private skip. [Evidence](tasks/t04a-power-curve-engine.md). T04b must review actual preprocessing, persistence and integration workload before claiming a live curve.

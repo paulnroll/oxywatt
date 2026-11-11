@@ -1,6 +1,6 @@
 # Observed power-duration curve
 
-Status: proposed calculation specification. [T04a](../spdd/tasks/t04a-power-curve-engine.md) proposes a pure engine over explicit covered intervals before live integration; T04b still requires reviewed canonical-to-interval timing and T02/T03 live acceptance.
+Status: T04a confirmed-interval engine is software-verified; integration/preprocessing remain proposed. [T04a](../spdd/tasks/t04a-power-curve-engine.md) proposes a pure engine over explicit covered intervals before live integration; T04b still requires reviewed canonical-to-interval timing and T02/T03 live acceptance.
 
 Durations initially: 5, 30, 60, 180, 300, 600, 1200, 1800, 3600 seconds. A missing duration is unavailable, not zero. Report observed best rolling mean, not a prediction of physiological maximum.
 
@@ -16,3 +16,6 @@ Historical all-time curve takes per-duration maxima of valid per-session records
 ## Proposed T04a software boundary — 2026-11-11
 
 Owner requested continued simulation-backed development with live trials deferred. The pure engine accepts explicit confirmed half-open constant-power intervals, with session/epoch/segment identity and discontinuities; it cannot extend a latest reading or remove pauses. Nanosecond boundaries, insertion/expiration candidate maxima, deterministic ties, a bounded interval policy and independent software acceptance are specified in [T04a](../spdd/tasks/t04a-power-curve-engine.md). This is an observed quantity, not a physiological method selection. Canonical reading hold/expiry preprocessing and durable result wiring remain T04b work, and no end-to-end or device curve is claimed by the engine alone.
+
+
+T04a software implementation (2026-11-11): [task evidence](../spdd/tasks/t04a-power-curve-engine.md) records the versioned single-session interval engine, exact boundary candidates, compensated weighted integration, earliest numerical-tolerance ties and bounded saturation. Fourteen tests cover anchors, an independent irregular-time oracle and four simulated hours. The engine consumes confirmed intervals only; it establishes neither canonical hold/expiry preprocessing nor persisted/device curves.

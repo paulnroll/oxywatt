@@ -33,3 +33,6 @@ T03c resolves input storage to platform SQLiteOpenHelper in `app` without a new 
 
 
 T03p software implementation (2026-11-11, owner-approved after PR #17): isolated debug-derived preview consumes actual T03a/b/c pipeline and schema v2. Shared test fixtures and stream FIT reader remain outside release. Received versus committed values, virtual ages, pending/loss, interruption and storage errors are inspectable. Last committed receipt time is explicitly distinguished from an unavailable durable transaction timestamp. See [T03p evidence](../spdd/tasks/t03p-diagnostic-preview.md). V22/V23 software checks do not close the on-Karoo screenshot/device claim, T02 or live T03e.
+
+
+T04a adds `core/power/PowerCurve.kt`: a caller-serialized single-session engine over explicitly confirmed intervals, immutable result/provenance/policy types and bounded rolling history. No collection, SDK, persistence or simulator type is introduced into this boundary. Canonical-to-interval preprocessing and result-storage consumers remain separately scoped T04b work.

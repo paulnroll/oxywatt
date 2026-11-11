@@ -112,6 +112,21 @@ class PowerCurvePersistenceTest {
                     )
                 results.complete(scalarGeneration, scalar)
                 assertEquals(scalar, results.current(scalarSlot)!!.terminal)
+                val legacyCurve =
+                    completion.terminal.copy(
+                        curve =
+                            curve.copy(
+                                snapshot =
+                                    curve.snapshot.copy(
+                                        policy =
+                                            com.oxywatt.core.power.PowerCurvePolicy(
+                                                "power-intervals-v1"
+                                            )
+                                    ),
+                                reservedWork = 19_773_567,
+                            )
+                    )
+                assertEquals(legacyCurve, AnalysisTerminal.decode(legacyCurve.encode()))
                 val bad = JSONObject(completion.terminal.encode()).put("codec", 3)
                 assertThrows(IllegalArgumentException::class.java) {
                     AnalysisTerminal.decode(bad.toString())

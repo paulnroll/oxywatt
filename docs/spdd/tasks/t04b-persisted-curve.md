@@ -122,3 +122,8 @@ Self-review reproduced cross-session result attribution: the new curve payload c
 ## T04b2 proposal — 2026-11-11
 
 After merged PR #24, T04b1 is software-complete with its documented conservative dense-scan limitation. Proposed T04b2 is the next named package: complete long variable synthetic analysis by bounded range integration and actual work charging, preserving canonical hold/expiry, storage and preview. This supersedes no live gate; B2 acceptance is planned and implementation unapproved. See [T04b2 specification](t04b2-long-variable-scan.md).
+
+
+## Approved T04b2 implementation — 2026-11-11
+
+Owner approved [T04b2](t04b2-long-variable-scan.md) after specification PR #25 merged. The existing core/power now uses bounded persistent AVL range means and charged work-v2, with exact candidates/coverage/tolerance retained. Canonical hold-v1, the existing logical slot, scalar-v1/curve-v2, atomic newest-generation storage and durable preview readout remain in the same flow. Independent exact oracles and long synthetic speed/reopen checks provide software evidence; see task for final results and resource bounds. This replaces T04b1's conservative quadratic reservation for new calculations, without rewriting old records. No private FIT, live acquisition or physiological model; T02c/T03e and parent T04 live acceptance remain open.

@@ -126,6 +126,8 @@ class PowerCurveAcceptanceTest {
                 )
             )
             assertTrue(e.snapshot().retainedIntervals <= 2)
+            assertTrue(e.retainedPeak <= 2)
+            assertTrue(e.stagedNodeBound <= 10)
             assertEquals(winner, e.best())
         }
     }

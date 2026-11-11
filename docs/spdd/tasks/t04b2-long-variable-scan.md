@@ -1,6 +1,6 @@
 # T04b2 — Complete bounded analysis of long variable synthetic sessions
 
-Status: PROPOSED, 2026-11-11, after merged PR #24 (`26e1875`). Specification publication authorized; implementation requires owner approval of **T04b2**. Continue on the simulator, with live testing at the end. Deferral accepts no hardware gate.
+Status: owner approved **T04b2** implementation on 2026-11-11 after specification PR #25 merged (`b9b82cb`). Software implementation and acceptance complete locally; live acceptance remains open. Continue on the simulator, with live testing at the end. Deferral accepts no hardware gate.
 
 ## Goal, dependencies and scope
 
@@ -69,3 +69,24 @@ Risks: regrouped floating-point arithmetic, accidental candidate loss during evi
 ## Specification review evidence — 2026-11-11
 
 Self-review checked coverage/candidate completeness, numerical regrouping and independent oracles, operation charging including inner loops, retained plus staged memory, legacy slot/version compatibility, persisted speed/reopen acceptance, R/B2/V traceability and software/live separation. Baseline investigation ran on unchanged classes: 11 existing engine acceptance tests passed; the standalone synthetic driver produced the recorded counts. All 206 relative Markdown links resolve and git diff --check passes. No application implementation, private FIT read or device action occurred. New algorithm, budget and B2-01–08 acceptance remain unexecuted and implementation remains pending owner approval.
+
+## Approved implementation and software evidence — 2026-11-11
+
+Owner approved T04b2 after PR #25 merged. Implementation uses the existing two modules: private persistent AVL range index in `PowerRangeIndex.kt`, existing PowerCurveEngine candidate traversal with range queries, work-v2 charging in the existing wrapper, and new provenance in PowerCurveCalculation. No acquisition, canonical hold/expiry, storage schema, logical slot or product controls changed. A work-limited append retains winners from previously committed appends, not partially completed candidates from that append. Index mutation is staged before publication.
+
+[Detailed software evidence](../../evidence/t04b2-software-2026-11-11/README.md) maps B2-01–06 to ten new core cases with independent integer-cell and exact BigDecimal oracles, full candidate counts, four/eight-hour cost, dense-then-long, high-water bounds, resource exhaustion, cancellation and retry. B2-07 uses native SQLite and existing preview readout at virtual 1x/10x/unpaced; B2-08 retains repository generation/compatibility/isolation regressions. New-model/work provenance makes old counter semantics distinguishable without rewriting scalar-v1 or curve-v2.
+
+Four-hour alternating 1 Hz: 243659 windows, 1868736 disjoint query contributions, 10577296 charged units; full scan. Eight hours: 22079439 units (2.087×). Dense 16000 × 1 ms then a confirmed 3600 s interval: 8752127 units, 155018 windows, complete. Peak staged interval count 16001, conservative live-node bound 32032, candidate peak 16002, all within approved limits. These are software structural counts, not Karoo memory/battery/timing evidence. Independent expectations retain exact nanosecond windows and the declared tolerance.
+
+TDD evidence: the compiling four-hour completion test failed on the old wrapper, then passed after range-index integration. A self-review regression for disconnected peak instrumentation failed, then passed after the staging counters were connected. Other scenarios were added against the integrated implementation, without claiming individually observed red tests.
+
+
+Final software verification (JDK 25/JVM release 17):
+
+```sh
+ANDROID_HOME=/Users/pawelkozicki/Library/Android/sdk ./gradlew -PkarooDiagnostic=true -PkarooSdkJitpack=true spotlessApply :core:check :core:build :app:testDebugUnitTest :app:testPreviewUnitTest :app:assemblePreview :app:lintPreview :app:verifyReleaseDependencyIsolation :app:verifyPreviewIsolation --console=plain
+```
+
+Passed: core 101 executions, 100 passed and one explicit private-FIT skip; debug 92 passed; preview 104 passed, zero failures/errors. The single long-preview test contains all 18 combinations (six fixtures × three speeds), each checking exact fixture counts, independent results, full stored-curve equality, native SQLite save/reopen and preview readout. Build/lint, release dependency isolation and preview APK isolation passed. Existing SQLiteMode/Conscrypt warnings remain; no new device evidence. B2-01–08 software acceptance is complete; T02c/T03e/parent T04 live acceptance stays OPEN.
+
+Final self-review covered all tracked and new files, numerical candidate completeness, independent oracle construction, work exits/cancellation, staging high-water bounds, old counter/version compatibility, same logical slot/no fallback and synthetic-only scope. No modules, dependencies, second storage, schema migration, live acquisition, physiological model or private artifact added. Documentation links and whitespace were checked after synchronization. No implementation publication or remote CI was performed in this local work package.

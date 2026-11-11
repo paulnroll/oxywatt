@@ -60,23 +60,34 @@ data class AnalysisTerminal(
     val unit: String? = null,
     val quality: String? = null,
     val reason: String? = null,
+    val curve: StoredPowerCurve? = null,
 ) {
     init {
         require(status != AnalysisStatus.PENDING)
         if (status == AnalysisStatus.AVAILABLE)
             require(
-                value != null &&
-                    value.isFinite() &&
-                    !unit.isNullOrBlank() &&
-                    !quality.isNullOrBlank() &&
-                    reason == null
+                reason == null &&
+                    ((curve != null && value == null && unit == null && quality == null) ||
+                        (curve == null &&
+                            value != null &&
+                            value.isFinite() &&
+                            !unit.isNullOrBlank() &&
+                            !quality.isNullOrBlank()))
             )
-        else require(value == null && unit == null && quality == null && !reason.isNullOrBlank())
+        else
+            require(
+                curve == null &&
+                    value == null &&
+                    unit == null &&
+                    quality == null &&
+                    !reason.isNullOrBlank()
+            )
     }
 
     internal fun encode(): String =
         JSONObject()
-            .put("codec", 1)
+            .put("codec", if (curve == null) 1 else 2)
+            .put("curve", curve?.let(PowerCurveCodec::encode) ?: JSONObject.NULL)
             .put("status", status.name)
             .put("at", calculatedAt.toString())
             .put("value", value?.let(java.lang.Double::toHexString) ?: JSONObject.NULL)
@@ -88,7 +99,8 @@ data class AnalysisTerminal(
     companion object {
         internal fun decode(text: String): AnalysisTerminal {
             val j = JSONObject(text)
-            require(j.getInt("codec") == 1)
+            require(j.getInt("codec") in 1..2)
+            if (j.getInt("codec") == 2) require(!j.isNull("curve"))
             return AnalysisTerminal(
                 AnalysisStatus.valueOf(j.getString("status")),
                 Instant.parse(j.getString("at")),
@@ -96,6 +108,8 @@ data class AnalysisTerminal(
                 if (j.isNull("unit")) null else j.getString("unit"),
                 if (j.isNull("quality")) null else j.getString("quality"),
                 if (j.isNull("reason")) null else j.getString("reason"),
+                if (j.getInt("codec") == 2) PowerCurveCodec.decode(j.getJSONObject("curve"))
+                else null,
             )
         }
     }
@@ -182,6 +196,9 @@ class AnalysisRepository(context: Context, name: String) : AutoCloseable {
 
     fun complete(generation: Long, terminal: AnalysisTerminal) = transaction { db ->
         val old = checkNotNull(run(generation)) { "Unknown generation" }
+        terminal.curve?.let {
+            check(it.session.id == old.slot.session) { "Curve session does not own generation" }
+        }
         if (old.terminal != null) check(old.terminal == terminal) { "Conflicting terminal retry" }
         else {
             db.execSQL(
@@ -238,6 +255,7 @@ class AnalysisRepository(context: Context, name: String) : AutoCloseable {
         check(runs.map { it.slot.metric to it.slot.cohort }.distinct().size <= 1)
         runs.forEach { run ->
             check(current(run.slot)?.generation == run.generation)
+            check(run.terminal?.curve == null) { "Diagnostic curves cannot enter aggregates" }
             db.rawQuery(
                     "SELECT snapshot FROM sessions WHERE id=?",
                     arrayOf(run.slot.session.toString()),

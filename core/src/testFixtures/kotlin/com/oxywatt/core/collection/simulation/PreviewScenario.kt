@@ -17,3 +17,12 @@ fun previewScenario(): Sequence<ScheduledObservation> =
         ScheduledObservation(5_000_000_000, InputPayload.Recording(RecordingState.RECORDING)),
         ScheduledObservation(6_000_000_000, InputPayload.MetricReading(Metric.POWER_W, 180.0)),
     )
+
+/** Extends existing diagnostic states with six covered seconds and an observed local end. */
+fun powerCurvePreviewScenario(): Sequence<ScheduledObservation> = sequence {
+    yieldAll(previewScenario())
+    for (t in 10L..15) yield(
+        ScheduledObservation(t * 1_000_000_000, InputPayload.MetricReading(Metric.POWER_W, 200.0))
+    )
+    yield(ScheduledObservation(16_000_000_000, InputPayload.Recording(RecordingState.IDLE)))
+}

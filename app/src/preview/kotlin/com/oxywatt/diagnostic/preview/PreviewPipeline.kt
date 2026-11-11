@@ -22,6 +22,46 @@ class PreviewPipeline(
     }
 
     private val repository = InputRepository(context, databaseName)
+    private val analyses = AnalysisRepository(context, databaseName)
+    private val curveCalculation = PowerCurveCalculation(repository, analyses)
+    private var pendingCurve: PreparedPowerCompletion? = null
+    var curveError: String? = null
+        private set
+
+    fun storedCurve(): StoredAnalysis? =
+        repository.checkpoint()?.latestSession?.id?.let {
+            analyses.newest(PowerCurveCalculation.slot(it))
+        }
+
+    fun calculateCurve(
+        manifest: String,
+        codeVersion: String,
+        cancelled: () -> Boolean = { false },
+    ) {
+        try {
+            val session = repository.checkpoint()?.latestSession ?: return
+            if (
+                session.phase !in setOf(SessionPhase.ENDED_LOCALLY, SessionPhase.INTERRUPTED) ||
+                    pending > 0 ||
+                    error != null
+            )
+                return
+            if (pendingCurve == null) {
+                // Reopen/Activity recreation never issues a replacement request.
+                if (storedCurve() != null && !curveCalculation.hasPreparedRequest) return
+                pendingCurve =
+                    PowerCurveCalculation(repository, analyses)
+                        .prepare(session.id, manifest, codeVersion, cancelled)
+            }
+            val completion = pendingCurve!!
+            analyses.complete(completion.generation, completion.terminal)
+            pendingCurve = null
+            curveError = null
+        } catch (failure: Exception) {
+            curveError = failure.javaClass.simpleName.take(80)
+        }
+    }
+
     private val admission = BoundedAdmission(policy)
     private val lifecycle =
         CollectorLifecycle(
@@ -133,5 +173,8 @@ class PreviewPipeline(
         }
     }
 
-    override fun close() = repository.close()
+    override fun close() {
+        analyses.close()
+        repository.close()
+    }
 }

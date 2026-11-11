@@ -142,3 +142,6 @@ T03p software implementation (2026-11-11, owner-approved after PR #17): isolated
 
 
 2026-11-11: owner authorized T03p preview-only Karoo installation/launch, synthetic tests, screenshots, scoped fixes and PR publication after merged PR #18. No full T02c/T03e authorization follows. Preparation found no ADB device; local software verification passed with up-to-date tests. Installation and hardware claims remain pending. Existing controls cannot deliberately inject loss/storage errors; no fault panel will be added for screenshots. See [T03p readiness](tasks/t03p-diagnostic-preview.md).
+
+
+2026-11-11 T03p connected-device follow-up: preview-only install and synthetic runs performed on identified Karoo. Owner-authorized scoped fix uses OffsetDateTime for exported FIT offset timestamps after an Android API 32 behavioral red; no physiological/live feature added. Distinct Activity recreation and force-stop recovery were verified separately. Permission-denied SIGKILL is not a process-death pass; no fault panel was added. [Device evidence](../evidence/t03p-karoo-2026-11-11/README.md) supersedes the earlier no-device status without closing T02/T03e.

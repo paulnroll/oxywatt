@@ -39,6 +39,7 @@ android {
         targetSdk = 34
         versionCode = 2
         versionName = "0.2.0"
+        testInstrumentationRunner = "com.oxywatt.diagnostic.preview.PreviewReplayInstrumentation"
     }
 
     compileOptions {
@@ -46,6 +47,8 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
+
+    testBuildType = "preview"
 
     buildTypes {
         create("preview") {
@@ -105,8 +108,10 @@ tasks.register("verifyReleaseDependencyIsolation") {
 }
 
 androidComponents {
-    beforeVariants(selector().withBuildType("preview")) {
-        (it as com.android.build.api.variant.HasUnitTestBuilder).enableUnitTest = true
+    beforeVariants(selector().all()) {
+        if (it.buildType in setOf("debug", "preview")) {
+            (it as com.android.build.api.variant.HasUnitTestBuilder).enableUnitTest = true
+        }
     }
 }
 

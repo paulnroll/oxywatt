@@ -77,3 +77,7 @@ Proposed T04a software acceptance (2026-11-11): [task](../spdd/tasks/t04a-power-
 
 
 T04a executed software evidence (2026-11-11): [task](../spdd/tasks/t04a-power-curve-engine.md) records 14 passing confirmed-interval tests: constant/ramp/fractional anchors, six seeded exact-grid oracles, virtual delivery-speed equality, gaps/identity/rejection/ties, repeated resource limits and four simulated hours. Full core: 82 passes plus one private-FIT skip. V06/V09 and software V13/V18/V19/V22 remain scoped to the pure interval engine, not canonical preprocessing, device resources or live acceptance.
+
+## Proposed T04b1 software acceptance
+
+[T04b1 cases B1–B7](../spdd/tasks/t04b-persisted-curve.md) map exact canonical/effect interval tables to V02–V06/V15/V18/V19, independent integrals and speed/hash equality to V06/V09/V18/V22, actual SQLite/revision/codec/generation fault tests to V04/V05/V09/V14/V16, isolated durable preview readout to V12/V22/V23 and conservative computational bounds to software V13/V17. These cases are planned, unexecuted and require no bicycle or Karoo. Later live acquisition, physical-device resource budgets and parent T04 acceptance remain open; neither an older probe nor a synthetic preview substitutes for current-adapter evidence.

@@ -122,3 +122,6 @@ T02b HR-only follow-up: owner supplied a paired HR sensor. The existing older in
 
 
 T02b real-HR follow-up now includes owner-confirmed transmitter off/on: unavailable/searching and subsequent present were observed without agent-triggered probe restart or pairing changes. No new callbacks occurred in a dedicated 30-second off window. This is limited presence/reconnection evidence from the older installed probe; current adapter, exact latency, native recording and sustained T02c/T03e acceptance remain open. [Evidence](tasks/t02b-karoo-probe.md).
+
+
+Owner direction (2026-11-11): postpone live trials and continue useful work with the simulator. Proposed [T04a](tasks/t04a-power-curve-engine.md) isolates a pure, bounded observed power-duration engine over explicitly confirmed intervals; software acceptance uses irregular-time integrals, breaks and deterministic synthetic oracles. T04b owns future canonical-to-interval preprocessing and persistence/readout. No FTP/VO2max method or T03e/live hardware acceptance follows. Named T04a approval remains required before implementation; only its pure numerical dependency gate is proposed to move ahead of T03e.

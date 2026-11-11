@@ -1,6 +1,6 @@
 # Observed power-duration curve
 
-Status: proposed calculation specification; T04 depends on reviewed T02/T03 timing policy.
+Status: proposed calculation specification. [T04a](../spdd/tasks/t04a-power-curve-engine.md) proposes a pure engine over explicit covered intervals before live integration; T04b still requires reviewed canonical-to-interval timing and T02/T03 live acceptance.
 
 Durations initially: 5, 30, 60, 180, 300, 600, 1200, 1800, 3600 seconds. A missing duration is unavailable, not zero. Report observed best rolling mean, not a prediction of physiological maximum.
 
@@ -11,3 +11,8 @@ Use bounded rolling interval buffers with cumulative energy/time and correct fra
 Acceptance examples: 300 seconds of fully covered 200 W produces 200 W at durations ≤300 and unavailable at longer durations. Fully covered 5-second sequence 0/100/200/300/400 W, one second each, produces 200 W for 5 seconds. A missing middle interval prevents a 5-second record across it. A 60-second pause is not removed to concatenate otherwise separate efforts.
 
 Historical all-time curve takes per-duration maxima of valid per-session records. A recent-window view must be labeled with horizon. Incremental upsert compares new records; deleting a winning ride or correcting its source recomputes only affected duration/cohort records. Never silently compare preprocessing versions.
+
+
+## Proposed T04a software boundary — 2026-11-11
+
+Owner requested continued simulation-backed development with live trials deferred. The pure engine accepts explicit confirmed half-open constant-power intervals, with session/epoch/segment identity and discontinuities; it cannot extend a latest reading or remove pauses. Nanosecond boundaries, insertion/expiration candidate maxima, deterministic ties, a bounded interval policy and independent software acceptance are specified in [T04a](../spdd/tasks/t04a-power-curve-engine.md). This is an observed quantity, not a physiological method selection. Canonical reading hold/expiry preprocessing and durable result wiring remain T04b work, and no end-to-end or device curve is claimed by the engine alone.

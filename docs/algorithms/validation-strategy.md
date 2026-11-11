@@ -71,3 +71,6 @@ V22/V23 on-Karoo follow-up (2026-11-11): [device evidence](../evidence/t03p-karo
 
 
 V02/V11 partial real-HR evidence (2026-11-11): [T02b](../spdd/tasks/t02b-karoo-probe.md) records real channel presence, owner-confirmed transmitter off/on with unavailable/searching then present, and short presence observation after a screen-sleep command. Older installed probe only; no numeric HR validation, display-state confirmation, native recording, current-adapter verification, SQLite live persistence or sustained T02c/T03e acceptance is claimed.
+
+
+Proposed T04a software acceptance (2026-11-11): [task](../spdd/tasks/t04a-power-curve-engine.md) refines V06/V09 and software-only V13/V18/V19/V22 with independent confirmed-interval integrals, fractional/expiration boundaries, zero/missing/discontinuity policies, deterministic timing and a hard retained-interval cap. No numerical test has yet run for T04a; canonical-to-interval replay and Karoo end-to-end curve remain later T04b/hardware acceptance.

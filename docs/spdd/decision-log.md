@@ -145,3 +145,9 @@ T03p software implementation (2026-11-11, owner-approved after PR #17): isolated
 
 
 2026-11-11 T03p connected-device follow-up: preview-only install and synthetic runs performed on identified Karoo. Owner-authorized scoped fix uses OffsetDateTime for exported FIT offset timestamps after an Android API 32 behavioral red; no physiological/live feature added. Distinct Activity recreation and force-stop recovery were verified separately. Permission-denied SIGKILL is not a process-death pass; no fault panel was added. [Device evidence](../evidence/t03p-karoo-2026-11-11/README.md) supersedes the earlier no-device status without closing T02/T03e.
+
+
+2026-11-11: owner offered a real HR sensor and confirmed ready for a limited T02b probe continuation. Existing original APK only; no replacement installation or native recording initiated. Record presence/status and sampled receipt timing, without numeric HR, sensor identifiers or raw logs. No full T02c/T03e approval or gate closure follows. [Evidence](tasks/t02b-karoo-probe.md).
+
+
+2026-11-11 T02b HR trial: owner confirmed transmitter off, then on. Existing probe showed unavailable/searching and later present. Keep sampled callback delivery intervals distinct from sensor freshness or action-to-reconnect latency; no original-probe restart, installation, pairing change, native recording or numeric HR read by the agent. Record these as partial V02/V11 evidence only; no change to the T02c/T03e gate. [Evidence](tasks/t02b-karoo-probe.md).

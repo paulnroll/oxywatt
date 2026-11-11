@@ -125,3 +125,9 @@ T02b real-HR follow-up now includes owner-confirmed transmitter off/on: unavaila
 
 
 Owner direction (2026-11-11): postpone live trials and continue useful work with the simulator. Proposed [T04a](tasks/t04a-power-curve-engine.md) isolates a pure, bounded observed power-duration engine over explicitly confirmed intervals; software acceptance uses irregular-time integrals, breaks and deterministic synthetic oracles. T04b owns future canonical-to-interval preprocessing and persistence/readout. No FTP/VO2max method or T03e/live hardware acceptance follows. Named T04a approval remains required before implementation; only its pure numerical dependency gate is proposed to move ahead of T03e.
+
+
+T04a approved after merged PR #21 on 2026-11-11. Implement one-session confirmed-interval power-duration core with explicit breaks, bounded interval retention and independent JVM oracles; no live adapter/preprocessing, persistence, UI or physiology. [Contract](tasks/t04a-power-curve-engine.md).
+
+
+T04a software evidence: confirmed-interval power engine and 14 new numerical/acceptance tests pass; full core 82 passes plus one private-FIT skip. Exact-boundary records preserve session/epoch/segment and versioned provenance. Explicit resource status prevents claiming a fully searched curve after saturation. [Evidence and computational limits](tasks/t04a-power-curve-engine.md). No canonical preprocessing, persistence, UI, live or physiology gate closes.

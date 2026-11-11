@@ -68,3 +68,6 @@ T02d implements the Karoo source in the opt-in app adapter, preserving canonical
 
 
 T03p software implementation (2026-11-11, owner-approved after PR #17): isolated debug-derived preview consumes actual T03a/b/c pipeline and schema v2. Shared test fixtures and stream FIT reader remain outside release. Received versus committed values, virtual ages, pending/loss, interruption and storage errors are inspectable. Last committed receipt time is explicitly distinguished from an unavailable durable transaction timestamp. See [T03p evidence](../spdd/tasks/t03p-diagnostic-preview.md). V22/V23 software checks do not close the on-Karoo screenshot/device claim, T02 or live T03e.
+
+
+T04a implements observed PowerRecord with duration, watts, exact monotonic window, session/epoch/segment identity inside a versioned PowerCurveSnapshot. Explicit confirmed intervals are an internal calculation boundary, not sensor samples or a new Collector. A numeric partial observation does not assert completed recording or trend eligibility; resource-limited scans remain explicitly marked. [Contract/evidence](../spdd/tasks/t04a-power-curve-engine.md).

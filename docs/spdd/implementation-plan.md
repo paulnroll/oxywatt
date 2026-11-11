@@ -42,3 +42,6 @@ T03p software implementation (2026-11-11, owner-approved after PR #17): isolated
 
 
 Proposed software-only T04a amendment — 2026-11-11: the owner requests useful simulator-backed work with live tests at the end. [T04a](tasks/t04a-power-curve-engine.md) can implement the pure observed power-duration engine over explicitly covered intervals after T01/T03a policy review, before T03e. T04b canonical-to-interval preprocessing, persistence/readout and parent first-slice acceptance remain separately scoped and live-gated. T02c/T03e are deferred, not accepted or silently enabled. Named T04a implementation approval is still required; this supersedes the blanket T04 sequencing only for the proposed pure engine.
+
+
+T04a was approved after PR #21 and is software-complete: [confirmed-interval engine/evidence](tasks/t04a-power-curve-engine.md), 14 new tests and 82 core passes plus one private-FIT skip. The approved narrow dependency amendment allows this engine before T03e; T04b canonical preprocessing, persistence/readout and integration workload need their own contract/approval. Parent T04 first-slice/device acceptance and T02/T03e gates remain open.

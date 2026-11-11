@@ -217,3 +217,10 @@ Owner authorized T07a following T06a; PR #33 merged during work and local main/b
 ## Owner direction: prioritize within-person change — 2026-11-11
 
 Owner prioritizes useful trends over precise absolute laboratory agreement for R05/R06/R08. [Requirements](../product/requirements.md) record this intended use; [validation strategy](../algorithms/validation-strategy.md) separates change tracking from absolute agreement. T05b O2 is narrowed, with numeric criteria still open. Next specification may define an explicitly labeled exploratory fitness trend; no method/estimator is approved. Repeated physiological references remain necessary for physiological change claims; smoothing and cross-sectional agreement alone do not establish longitudinal validity.
+
+
+## T08a1 specification proposal — 2026-11-11
+
+PR #34 was verified merged (audited head bfaff35ba0725042dff2e3a7d45dfb532edcfe46, four successful checks); local main advanced to c1526d9 with no unrelated changes. Owner authorized preparing/publishing this specification, not its execution or method selection.
+
+Propose [T08a1](tasks/t08a1-power-hr-trend.md) under existing T08a: synthetic-only comparison of fixed-HR-band power and local interpolation at a frozen HR anchor, raw session results and a fixed-baseline development report using existing replay/storage/authority. Recommend A as descriptive reference and B as comparator, subject to review; accept neither automatically. This refines the owner's trend priority without claiming VO₂max/FTP, stable bias or physiological validity. D07/trend-v0 numeric defaults are not adopted. T07/T07b, T08b/c and T02c/T03e/parent T04 remain separately gated. No new store, manifests, framework, private data or hardware requirement. H01–H07 execution acceptance is planned, not passed.

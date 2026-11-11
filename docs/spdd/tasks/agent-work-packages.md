@@ -129,3 +129,10 @@ Owner approved T06a after specification PR #32 merged. [F01–F08 report](../../
 ## T07a executed independent audit — 2026-11-11
 
 Owner authorized T07a following T06a; PR #33 merged during work and local main/branch updated. [G01–G08 report](../../evidence/t07a-vo2max-method-audit/README.md) centralizes primary equations, protocol/population/reference and rights/access findings, input compatibility and conditional sensitivity. Recommendation: retain model_not_approved for ordinary-ride VO₂max on present evidence. VO₂max O1–O5 remain unresolved/blocked; no method, experiment, dataset or T07b implementation admitted. Any optional controlled-protocol direction requires a separate scope decision. FTP remains independent; R06/physiological V08 and deferred T02c/T03e/parent T04 live acceptance remain open. No application code, private FIT, dataset download, device action or framework.
+
+
+## T08a1 — proposed subdivision of T08a
+
+[T08a1](t08a1-power-hr-trend.md) is the next named execution proposal, pending owner approval: development-only fixed-band versus interpolated power-at-HR comparison on existing synthetic recipes, committed replay/native SQLite reopen, session/baseline report and H01–H07 checks. Own only the test-fixture/test/report files listed in the task and synchronized evidence. Shared canonical/storage contracts remain unchanged. No delegation requirement is introduced.
+
+Handoff contract: input revision/terminal identity, paired segment coverage, recipe context/profile/calibration/config versions, existing hashes and newest-requested scalar results. Output is a reproducible experimental report, not a selected physiological method or product chart. T07/T07b and T08b/c remain independent later approvals; T02c/T03e/parent T04 are open.

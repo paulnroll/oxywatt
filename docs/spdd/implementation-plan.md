@@ -99,3 +99,10 @@ Owner authorized T07a following T06a; PR #33 merged during work and local main/b
 ## Owner direction: prioritize within-person change — 2026-11-11
 
 Owner prioritizes useful trends over precise absolute laboratory agreement for R05/R06/R08. [Requirements](../product/requirements.md) record this intended use; [validation strategy](../algorithms/validation-strategy.md) separates change tracking from absolute agreement. T05b O2 is narrowed, with numeric criteria still open. Next specification may define an explicitly labeled exploratory fitness trend; no method/estimator is approved. Repeated physiological references remain necessary for physiological change claims; smoothing and cross-sectional agreement alone do not establish longitudinal validity.
+
+
+## Next proposed package — T08a1
+
+[T08a1 experimental comparable power–HR trend](tasks/t08a1-power-hr-trend.md) subdivides existing T08a. Dependencies are implemented T03/T04/T05a software plus T05b/T06a/T07a review contracts (PR #34 merged). Specification/publication is authorized; execution is pending a named owner decision. Smallest complete delivery: synthetic A/B comparative calculation from committed replay, raw session/baseline report, persisted scalar/reopen/generation regressions and H01–H07 evidence. No method automatically selected.
+
+T07 remains VO₂max research/selection and later T07b; T08a1 does not satisfy R06 or admit a physiological experiment. T08b/c product storage/deletion/chart follows later reviewed policy. Existing T08 dependency on T06/T07 applies to numerical physiological estimator acceptance, not this isolated nonphysiological software experiment. No chart/smoother, new storage/manifest/framework or live implementation; T02c/T03e/parent T04 live gates remain open.

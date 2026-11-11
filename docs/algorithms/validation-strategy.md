@@ -68,3 +68,6 @@ T03p software implementation (2026-11-11, owner-approved after PR #17): isolated
 
 
 V22/V23 on-Karoo follow-up (2026-11-11): [device evidence](../evidence/t03p-karoo-2026-11-11/README.md) records isolated preview installation, synthetic demo/FIT SQLite/readout checks, actual screenshots, Activity.recreate/reopen and force-stop recovery. Android FIT parsing regression was red then green on the device. Loss/storage fault and speed invariance retain software-only evidence; low-memory death and T02/T03e gates remain open.
+
+
+V02/V11 partial real-HR evidence (2026-11-11): [T02b](../spdd/tasks/t02b-karoo-probe.md) records real channel presence, owner-confirmed transmitter off/on with unavailable/searching then present, and short presence observation after a screen-sleep command. Older installed probe only; no numeric HR validation, display-state confirmation, native recording, current-adapter verification, SQLite live persistence or sustained T02c/T03e acceptance is claimed.

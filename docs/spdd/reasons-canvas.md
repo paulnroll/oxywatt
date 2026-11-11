@@ -116,3 +116,9 @@ T03p device-verification preparation after PR #18: owner authorized preview-only
 
 
 T03p device follow-up: identified Karoo preview installation and synthetic demo/FIT screenshots now exist. Android offset-time parsing was fixed after a real-device red test; device instrumentation verifies FIT commits and distinct Activity recreation/reopen. Force-stop recovery conservatively preserves the committed prefix without automatic continuation. [Evidence and limitations](../evidence/t03p-karoo-2026-11-11/README.md); V22/V23 hardware scope is partial, T02/T03e remain open.
+
+
+T02b HR-only follow-up: owner supplied a paired HR sensor. The existing older installed probe reported real HR presence in fresh short baseline and post-screen-sleep-command captures; power/cadence were unavailable. This does not verify current T02d code, numerical HR accuracy, SQLite live persistence or T02c/T03e. [Evidence](tasks/t02b-karoo-probe.md).
+
+
+T02b real-HR follow-up now includes owner-confirmed transmitter off/on: unavailable/searching and subsequent present were observed without agent-triggered probe restart or pairing changes. No new callbacks occurred in a dedicated 30-second off window. This is limited presence/reconnection evidence from the older installed probe; current adapter, exact latency, native recording and sustained T02c/T03e acceptance remain open. [Evidence](tasks/t02b-karoo-probe.md).

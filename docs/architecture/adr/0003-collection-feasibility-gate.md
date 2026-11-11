@@ -12,4 +12,4 @@ If no supported lifecycle meets R09, stop and propose an explicit mode/scope cha
 
 ## Proposed dependency amendment — 2026-11-11
 
-[ADR 0004](0004-simulation-first-testing.md) proposes allowing T03a–T03d software development after accepted simulated source and repository contracts, while T03e production wiring and live acceptance continue to require the T02 acquisition decision. This is a proposed change to the existing gate, awaiting review. Hardware still determines startup, sustained residency, radios, death/force-stop behavior and resource budgets. Failed feasibility triggers architecture review before live deployment.
+[ADR 0004](0004-simulation-first-testing.md) allows T03a–T03d software development after accepted simulated source and repository contracts, while T03e production wiring and live acceptance continue to require the T02 acquisition decision. The owner accepted this architecture on 2026-11-11; each implementation slice still needs named approval. Hardware still determines startup, sustained residency, radios, death/force-stop behavior and resource budgets. Failed feasibility triggers architecture review before live deployment.

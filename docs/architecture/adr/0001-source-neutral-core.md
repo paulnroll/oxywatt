@@ -10,6 +10,6 @@ Alternative rejected: SDK DTOs throughout the engine, or separate FIT-only calcu
 
 Consequences: pure JVM replay; explicit mapping/versioning; decoding and time reconciliation remain adapter responsibilities. Matching values alone cannot establish identical measurement timing. Verified mapping is T01 and hardware timing is T02. Requirements R01–R04; tests V01–V06.
 
-## Proposed simulation-first extension — 2026-11-11
+## Accepted simulation-first extension — 2026-11-11
 
-[ADR 0004](0004-simulation-first-testing.md) proposes a RideDataSource technical port using SourceObservation values built from canonical v1 types, with Karoo and simulated implementations. The Collector assigns session IDs when creating envelopes. FIT decoding feeds simulated replay in developer support. Acquisition context remains Collector-owned. Review is pending before implementing the port.
+[ADR 0004](0004-simulation-first-testing.md) defines a RideDataSource technical port using SourceObservation values built from canonical v1 types, with Karoo and simulated implementations. The Collector assigns session IDs when creating envelopes. FIT decoding feeds simulated replay in developer support. Acquisition context remains Collector-owned. Owner approved the architecture and T01d on 2026-11-11; live adapter migration remains separately gated.

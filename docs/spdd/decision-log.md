@@ -109,3 +109,11 @@ T02d pre-publication self-review reproduced reentrant accept callbacks on API 32
 ## English language requirement
 
 2026-11-11. OWNER-DECIDED: all UI, including diagnostic previews, project documentation, code comments, test names and contribution text must be in English. Conversation with the owner may be in Polish. Replace the Polish T03p sketch with English labels and decimal formatting; preserve resource-based strings for possible future localization only if requested. This changes language requirements, not implementation authorization or task gates. Historical owner quotations remain as originally recorded.
+
+## T03a authorization and lifecycle contract
+
+2026-11-11. OWNER-APPROVED: the owner requested the next package after merged PR #13. Implement T03a core lifecycle/identity/recovery, R02/R03/R07/R11 and V02/V03/V05/V09/V15/V18/V19. [Task](tasks/t03a-collector-lifecycle.md) records bounded effects/checkpoints, explicit versioned per-channel silence policy, observed-start versus partial fragments and new-epoch conservative recovery before implementation. T03c owns durable atomicity/idempotency; no Android/live/UI or later-package authorization follows.
+
+T03a software evidence: bounded core lifecycle and checkpoint effects pass 20 new tests, including exact simulation/FIT replay equality at three speeds, repeated restarts, channel-specific gaps and fail-closed source/time validation. The cross-source Idle regression prevents falsely observed starts. Full core check/build passes (54 pass, one opt-in skip); no Android, database, telemetry buffering or publication changes. See [T03a](tasks/t03a-collector-lifecycle.md) for red/green evidence and remaining V04/T03 gates.
+
+T03a pre-publication review reproduced checkpoint mutation on ID allocation failure and reuse of a known ambiguity-root UUID. Allocate/validate before mutation and reject known root/latest collisions; preserve pending recovery changes on retry. Both regressions now form part of T03a verification; no broader repository or live-slice scope is added.

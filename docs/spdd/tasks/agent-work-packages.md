@@ -70,3 +70,5 @@ Coordinator accepts the work, integrates it, records actual evidence in the pare
 ## Simulation-first proposal
 
 The owner accepted the [simulation-first architecture](simulation-first-development.md) and ADR 0004 on 2026-11-11, approving T01d and subsequently T01e. The accepted amendment permits T03a–T03d software development after the relevant simulation contracts are accepted; every package still needs named approval. T03e live wiring and parent live acceptance remain behind passed T02 hardware acquisition checks. T02d and optional emulator/replay tooling retain their separate gates.
+
+T03a follow-up: the owner approved the package after PR #13 merged. Its [implemented contract and core evidence](t03a-collector-lifecycle.md) define the checkpoint/effect boundary for T03b/T03c; database/live acceptance is not implied.

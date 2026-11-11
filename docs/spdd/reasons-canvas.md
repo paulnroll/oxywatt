@@ -86,3 +86,9 @@ T02d is owner-approved on 2026-11-11 after T01e merged: SDK-fake compatibility, 
 T02d software evidence: app → core Karoo source mapping and diagnostic migration are verified with SDK 1.1.9/fake 0.1.1 under Robolectric API 32/34. Cancellation/reconnect/teardown and release dependency isolation pass; default JVM CI remains independent of Android. [Evidence and limits](tasks/t02d-karoo-adapter-tests.md). This does not close parent live V11/V13 or authorize T03.
 
 T02d pre-publication review: reject reentrant SDK delivery explicitly; a nested callback cannot overlap accept or prematurely acknowledge cleanup. Regression evidence is recorded in the T02d task.
+
+T03a is owner-approved after PR #13 merged: pure core lifecycle/session assignment, conservative recovery checkpoints and per-channel coverage effects against simulation. [Contract and evidence](tasks/t03a-collector-lifecycle.md). T03b–e/T03p and live device acceptance retain their gates.
+
+T03a local software evidence: 20 new core lifecycle/replay tests pass; the full suite has 54 passes and one explicit private replay skip. Versioned checkpoints retain source/policy/profile provenance; per-channel breaks and interruption/recovery fragments remain separate. [Evidence](tasks/t03a-collector-lifecycle.md). Persistence, admission and live/hardware gates remain open.
+
+T03a review correction: ID allocation/validation precedes lifecycle mutation; known previous/root IDs cannot be reopened and failed allocation preserves receipt/checkpoint and pending recovery effects for retry. See the T03a evidence.

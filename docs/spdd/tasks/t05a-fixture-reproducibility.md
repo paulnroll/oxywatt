@@ -1,6 +1,6 @@
 # T05a — Fixture provenance, profiles and reproducible replay
 
-Status: PROPOSED, 2026-11-11 after merged PR #26. Documentation/publication authorized; implementation requires named owner approval of **T05a**. No new acceptance tests have run. Parent T05 remains open.
+Status: owner approved named **T05a** implementation on 2026-11-11 after specification PR #27 merged. Original planned criteria below remain the acceptance baseline; actual implementation evidence follows. Parent T05 remains open.
 
 ## Problem and smallest complete scope
 
@@ -94,3 +94,13 @@ Live acceptance remains T02c/T03e/parent T04: sensor delivery, host lifecycle, p
 ## Specification self-review evidence — 2026-11-11
 
 Reviewed existing generator/manifest, canonical profile, FIT export/stream validation, selected-effect hashing and long persisted replay contracts. Checked scope against R/T/V, rights versus actual permission, identity-dependent hashes, missing profile evidence, independent expectations and software/science/live separation. All 137 relative Markdown links in the six affected documents resolve; A01–A07 each have R/V mappings; git diff --check passes. No application files changed, private FIT accessed, hardware checks performed or new scientific sources/accuracy claims introduced. No implementation tests run for this documentation-only package. Implementation remains pending named T05a approval.
+
+## Approved implementation and software acceptance — 2026-11-11
+
+Owner approved T05a after PR #27 merged. [Executed evidence](../../evidence/t05a-software-2026-11-11/README.md) maps A01–A07 to seven new core tests and two preview tests. Existing RunManifest adds an optional descriptor digest with a new linked domain, leaving legacy hashes unchanged. Two development-support files define explicit synthetic fixture tables/rights and separate FTP/VO₂max input profiles; no production source/storage/hash changes, module, dependency or experiment framework was added.
+
+Four small fixtures (constant, irregular, pause/profile/missing and silent expiry) traverse actual virtual acquisition timers, Collector/admission, native SQLite, atomic generation and reopened preview readout at three speeds. Independent tables pin counts/end, all nine numerical/absent records, exact winning boundaries and unavailable reasons; canonical effects, semantic hashes and provenance match across speeds with fixed identities. Existing 18 long persisted combinations and scalar/curve/no-fallback/aggregate regressions pass. Rights declarations and source/projection references are checked before delivery; only synthetic descriptors are executable now, and unsupported execution policy is refused. Real/reference data admission is deliberately not claimed without lawful data.
+
+Full verification: core 107 passes plus one explicit private-FIT skip; debug 92 and preview 106 passes; build/lint/isolation pass. After final self-review assertions/policy guard, full core and both selected preview tests (12 combinations), lint/build/isolation pass again. Evidence distinguishes these runs and records TDD history. Software A01–A07 acceptance is complete for the public synthetic scope. Scientific T05b/T06/T07, legal paired references and live T02c/T03e/parent T04 remain OPEN. No private FIT or device action occurred.
+
+Final documentation review: 146 relative Markdown links resolve across affected documents; A01–A07 retain R/V mappings and executed evidence. git diff --check passes.

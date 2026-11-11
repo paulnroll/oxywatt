@@ -99,3 +99,8 @@ Owner approved [T04b2](t04b2-long-variable-scan.md) after specification PR #25 m
 ## T05a proposed bounded package — 2026-11-11
 
 [T05a](t05a-fixture-reproducibility.md) now defines exact development-support ownership, dependencies, descriptor/profile/hash contracts, A01–A07 and R/V mappings. Reuse T01d/T01e, T03a–d/T03p and T04 software contracts after merged PR #26. No private FIT, device dependency, estimator, second manifest system/storage or experiment framework. Implementation pending named approval. T05b remains separate evaluation protocol/sensitivity/go-no-go; parent T05 is not complete.
+
+
+## T05a implementation — 2026-11-11
+
+Owner approved [T05a](t05a-fixture-reproducibility.md) after merged PR #27; development support and replay tests reuse existing two-module contracts. [Software evidence](../../evidence/t05a-software-2026-11-11/README.md) maps A01–A07, with no production storage/model work. T05b and scientific/live gates retain their separate scope.

@@ -65,3 +65,8 @@ Owner approved [T04b2](tasks/t04b2-long-variable-scan.md) after specification PR
 ## T05 execution boundary after PR #26
 
 Proposed [T05a](tasks/t05a-fixture-reproducibility.md): fixture provenance/rights, complete generator recipes, separate FTP/VO₂max input profiles and fixed-identity semantic replay/reopen checks using existing manifests and storage. A01–A07 provide measurable software acceptance and R/V mapping; none executed yet. Depends on completed simulation/persistence/curve software, without private FIT or hardware. Named implementation approval pending. T05b separately owns evaluation protocol, sensitivity and scientific go/no-go. T05 completion and T06/T07 model approvals still require reviewed scientific evidence; no lawful paired reference dataset is secured. Live T02c/T03e/parent T04 remain open.
+
+
+## T05a implementation — 2026-11-11
+
+Owner approved T05a after merged PR #27. [Implementation/evidence](../evidence/t05a-software-2026-11-11/README.md) covers descriptor/profile development support and replay acceptance A01–A07. Parent T05 is not complete: T05b scientific evaluation/protocol and lawful references are still required. No estimator or live gate is accepted.

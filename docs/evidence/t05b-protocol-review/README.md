@@ -151,3 +151,7 @@ Self-review checked every B01–B08 criterion against these sheets/tables, revie
 ## FTP follow-up from T06a — 2026-11-11
 
 The [executed FTP audit](../t06a-ftp-method-audit/README.md) narrows O1/O5 with source-specific target/equation/input findings and explicit unresolved correction/protocol details. O1/O5 are not closed; O2/O3 remain unresolved and O4 lacks a secured lawful paired dataset. FTP experiment admission remains NO-GO, no method selected. Historical B01–B08 toy results above are unchanged. This follow-up does not resolve any VO₂max decision or live gate.
+
+## VO₂max follow-up from T07a — 2026-11-11
+
+The [independent VO₂max audit](../t07a-vo2max-method-audit/README.md) narrows O1/O5 through explicit reference-modality and required-input/reproducibility checks. O1/O5 remain open, O2/O3 unresolved and O4 lacks an admitted lawful paired dataset. Experiment admission remains NO-GO, no method selected. Historical B01–B08 exercise and FTP decision dispositions remain unchanged.

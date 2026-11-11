@@ -42,3 +42,11 @@ Named slice accepted, linked tests pass, limitations visible, applicable hardwar
 ## Language
 
 Owner direction: all product and diagnostic UI, documentation, code comments, test names and contribution text use English. UI strings stay in resources; no additional localization is currently planned. This applies to the T03p diagnostic preview and later product screens.
+
+## Owner priority: within-person trends — 2026-11-11
+
+The owner prioritizes useful direction of change within one rider over exact agreement of individual estimates with laboratory values. This clarifies the intended use of R05/R06/R08; it does not require perfect absolute accuracy, select an equation or authorize estimator implementation.
+
+Evaluate longitudinal change detection, repeatability and coverage in comparable rides as primary product questions. Report absolute accuracy separately when claiming FTP W or VO₂max mL/kg/min. Smoothing alone does not validate a trend. Preserve raw observations, refusals and staleness; separate incompatible method/profile/calibration/environment cohorts and distinguish measurement/configuration changes from fitness changes.
+
+An exploratory cycling fitness indicator may be a useful alternative for review; its observable definition, label and acceptance require a concrete specification. Do not silently call an unvalidated power/HR proxy FTP or VO₂max. No numeric trend threshold, observation horizon or confidence percentage is selected by this direction.

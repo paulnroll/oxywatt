@@ -216,3 +216,10 @@ Both candidates reproduce injected observational changes but show confounder-dri
 [T08a2](tasks/t08a2-comparable-observations.md): Requirements/Entities: measured power–HR observation, visit, joint support, time-in-ride and declared context remain separate from physiological state. Approach/Structure: native A/B coverage plus locked common-support comparison, existing descriptors/profiles only. Operations/Norms/Safeguards: retain all attempted visits and unknowns, newest-requested/no-fallback, versioned provenance and synthetic exclusion; scalar-v1 alone does not enforce origin.
 
 Specification/publication only is authorized; named execution awaits owner approval. N, windows, HR/drift thresholds, meaningful change, baseline horizon and smoothing remain open with resolution paths. No lawful dataset admitted; real-data/scientific pilot is NO-GO. T05b O1–O5, physiological R05/R06, T02c/T03e/parent T04 live gates and T08b/c remain open. No bike, Karoo or private FIT required.
+
+
+## T08a2 executed qualification review — 2026-11-11
+
+[Task/evidence](tasks/t08a2-comparable-observations.md): Owner-approved I01–I07 documentation execution delivers the qualification and frozen-plan dossier. Common input pool versus actual A/B exposure and visit-level coverage are explicit; measured observations, declarations and physiological claims remain separate. Existing source-neutral contracts, provenance, newest/no-fallback and development-only synthetic isolation remain unchanged.
+
+Real-data/scientific admission remains blocked; N, qualification thresholds, meaningful change, baseline horizon and smoothing remain unresolved without defaults. T05b O1–O5, T02c/T03e/parent T04 and T08b/c remain open. No new framework, storage, manifests or UI.

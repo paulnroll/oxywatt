@@ -65,3 +65,10 @@ Both candidates reproduce injected observational changes but show confounder-dri
 [T08a2](../spdd/tasks/t08a2-comparable-observations.md): The linked source register adds full-text controlled HRV-repeatability and longitudinal HR-suppression evidence. Direct power-repeatability/LSCT and other longitudinal full-text gaps remain explicit blockers to protocol adoption. No source thresholds or participant data are imported.
 
 Specification/publication only is authorized; named execution awaits owner approval. N, windows, HR/drift thresholds, meaningful change, baseline horizon and smoothing remain open with resolution paths. No lawful dataset admitted; real-data/scientific pilot is NO-GO. T05b O1–O5, physiological R05/R06, T02c/T03e/parent T04 live gates and T08b/c remain open. No bike, Karoo or private FIT required.
+
+
+## T08a2 executed qualification review — 2026-11-11
+
+[Task/evidence](../evidence/t08a2-comparable-observations/README.md): The source register now includes recovered full primary thesis chapters and a full field-coupling article, with protocol/population, independence/coverage and longitudinal limits. Final-version reconciliation and other inaccessible bodies remain open. No article protocol, threshold or dataset is adopted.
+
+Real-data/scientific admission remains blocked; N, qualification thresholds, meaningful change, baseline horizon and smoothing remain unresolved without defaults. T05b O1–O5, T02c/T03e/parent T04 and T08b/c remain open. No new framework, storage, manifests or UI.

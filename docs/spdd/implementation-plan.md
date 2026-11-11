@@ -120,3 +120,10 @@ Both candidates reproduce injected observational changes but show confounder-dri
 [T08a2](tasks/t08a2-comparable-observations.md): Next named execution proposal: documentation-only qualification and pilot-readiness dossier I01–I07. Depends on T08a1 software and T05a/T05b/T07a contracts. Delivers source audit, common-support/time/context policy, measurement worksheet, frozen metrics plan and admission/blocker decision. No core/app changes or new infrastructure.
 
 Specification/publication only is authorized; named execution awaits owner approval. N, windows, HR/drift thresholds, meaningful change, baseline horizon and smoothing remain open with resolution paths. No lawful dataset admitted; real-data/scientific pilot is NO-GO. T05b O1–O5, physiological R05/R06, T02c/T03e/parent T04 live gates and T08b/c remain open. No bike, Karoo or private FIT required.
+
+
+## T08a2 executed qualification review — 2026-11-11
+
+[Task/evidence](tasks/t08a2-comparable-observations.md): T08a2 I01–I07 execution is complete as a bounded design dossier, ready for owner review. Next evidence dependency is an actual lawful repeated-observation acquisition path with adequate context, then separately approved development observations; no such dataset is admitted. Numeric qualification/precision/usefulness decisions block frozen evaluation. This is not authorization for a new implementation slice.
+
+Real-data/scientific admission remains blocked; N, qualification thresholds, meaningful change, baseline horizon and smoothing remain unresolved without defaults. T05b O1–O5, T02c/T03e/parent T04 and T08b/c remain open. No new framework, storage, manifests or UI.

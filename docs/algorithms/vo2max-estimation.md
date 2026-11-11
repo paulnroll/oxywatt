@@ -51,3 +51,10 @@ Both candidates reproduce injected observational changes but show confounder-dri
 [T08a2](../spdd/tasks/t08a2-comparable-observations.md): Neither A nor B is selected. A lawful observational repeatability pilot need not use CPET, but cannot validate VO₂max change. Repeated independent cycling gas references and O1–O5 remain required for that claim; source HRV reliability cannot establish power–HR reliability.
 
 Specification/publication only is authorized; named execution awaits owner approval. N, windows, HR/drift thresholds, meaningful change, baseline horizon and smoothing remain open with resolution paths. No lawful dataset admitted; real-data/scientific pilot is NO-GO. T05b O1–O5, physiological R05/R06, T02c/T03e/parent T04 live gates and T08b/c remain open. No bike, Karoo or private FIT required.
+
+
+## T08a2 executed qualification review — 2026-11-11
+
+[Task/evidence](../evidence/t08a2-comparable-observations/README.md): The executed qualification review retains model_not_approved. Observation repeatability without CPET can evaluate a descriptive signal; VO₂max-change validity still requires independently repeated cycling gas references with target/maximum status, uncertainty and timing. Neither A nor B is selected.
+
+Real-data/scientific admission remains blocked; N, qualification thresholds, meaningful change, baseline horizon and smoothing remain unresolved without defaults. T05b O1–O5, T02c/T03e/parent T04 and T08b/c remain open. No new framework, storage, manifests or UI.

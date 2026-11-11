@@ -1,6 +1,6 @@
-# T08a2 specification evidence and source-access register
+# T08a2 — Executed qualification and pilot-readiness review
 
-Review date: 2026-11-11. [Canonical task and proposed I01–I07](../../spdd/tasks/t08a2-comparable-observations.md). This records specification research, not executed T08a2 qualification, participant analysis or pilot evidence. No participant files downloaded, authors contacted or private rides used. Article access does not grant participant-data rights. No lawful repeated-observation dataset secured/admitted.
+Review date: 2026-11-11. Owner approved named T08a2 execution after PR #37 merged at `30795346649134d648f57e7e00800a8fef9fcfe1`. [Canonical task and I01–I07](../../spdd/tasks/t08a2-comparable-observations.md). This is the completed documentation/qualification-design review for owner review, not participant analysis or empirical pilot evidence. No participant files downloaded, authors contacted or private rides used. Article access does not grant participant-data rights. No lawful repeated-observation dataset secured/admitted.
 
 ## Bounded primary-source review
 
@@ -15,7 +15,7 @@ Searches: `Lamberts submaximal cycle test 2011 797 full text pdf repeatability`;
 | [Capostagno et al. 2021](https://pure.amsterdamumc.nl/files/142189355/Analysis-of-a-submaximal-cycle-test-to-monitor-adaptations-to-training-implications-for-optimizing-training-prescriptio.pdf), DOI 10.1519/JSC.0000000000003227; indexed primary article first-page extraction only; direct PDF, download/ws alternatives and curl returned 403/unavailable | Abstract describes retrospective analysis of 15 cyclists after interval training, grouped by time-trial response. | Change-tracking lead with outcome-defined groups. Full tables/analysis not audited. No claim that indexed abstract access equals full PDF access; I01 remains open for this source. |
 | [Fritzsche et al. 1999](https://pubmed.ncbi.nlm.nih.gov/10066688/), DOI 10.1152/jappl.1999.86.3.799; inherited T08a1 abstract-level access, full body not verified here | Controlled prolonged-cycling cardiovascular drift lead. | No universal drift/window/temperature threshold inferred. Time-in-ride comparability is a proposed safeguard requiring development evidence, not a replicated source protocol. |
 
-Full-source review now adds actual controlled-repeatability and repeated-change counterevidence; it does not close directly relevant power-repeatability source gaps. The complete qualification audit is a named T08a2 execution deliverable, conditional on lawful access. No claim-bearing real pilot is admitted by these partial findings.
+The table above preserves the specification-stage access record. Named execution subsequently recovered a primary thesis containing the directly relevant study chapters (below). Final journal-version differences and the other unavailable full bodies remain unresolved; no claim-bearing real pilot is admitted.
 
 ## Review outcomes
 
@@ -23,6 +23,138 @@ A/B should remain separate descriptive candidates. Compare native coverage and a
 
 A useful next empirical result would quantify independently acquired within-person visit differences and actual support/abstention under documented equipment/context continuity. It could reject feasibility without CPET. Change validity needs later independently repeated references matched to the intended claim. Smoothing and more synthetic recipes supply neither.
 
-## Specification verification
+## Earlier specification verification
 
 Self-review checked T08a1 code/report against A band selection versus B all-qualified fitting, context/cohort behavior, actual scalar-v1 origin limitation, newest-requested authority and H01–H07 evidence limits. T05b B01–B08 and T07a G01–G08 remain distinct from I01–I07. No code, schema, UI, study, method or numeric defaults introduced. Exact document checks and remote CI observations are recorded in the task after verification; no application tests rerun for this documentation-only change.
+
+## I01 — Additional full-source audit and disposition
+
+The follow-up searched the exact LSCT title with `full text repository`, the case DOI, Capostagno's title and fatigue/recovery title. Author publication lists were leads only, not evidence of efficacy or permission to contact. Publisher full/PDF and institutional alternatives for Capostagno and Fritzsche still returned 403/unavailable. The original BMJ body remains inaccessible. Stop this bounded audit after the recovered primary chapters and field article supply inspectable methods and limitations; do not label the final published bodies verified.
+
+**S7 — [Lamberts doctoral thesis, UCT 2009](https://open.uct.ac.za/handle/11427/2757), [full PDF](https://open.uct.ac.za/bitstreams/59bef89d-070b-4f46-ac71-1ece945fd544/download).** Chapter 6, printed pp. 110–116, Table 6.2 and Discussion; Chapter 7, pp. 134–138/Discussion; synthesis p. 163. Primary study chapters, not a verified identical journal version. Seventeen men recruited; fifteen analyzed after incomplete participation/medication exclusions. Familiarization preceded repeated HR-targeted stages, controlled training instructions, trainer calibration/recalibration, transition exclusion and ICC/TEM analysis. These are power-repeatability observations under a controlled protocol, not A/B passive-ride reliability. The case chapter used weekly tests with pre/post gas/PPO/time-trial references; high-load weeks were excluded from an analysis. The synthesis explicitly leaves longitudinal confirmation open. Endpoint references cannot establish weekly truth, and selective exclusions matter. No protocol or numerical cutoff is adopted. No underlying data/license secured; link and paraphrase only.
+
+**S8 — [de Leeuw et al. 2025, full institutional PDF](https://research.vu.nl/ws/files/425501841/Coupling_heart_rate_and_power_data_in_professional_road_cycling_Shorter_heart_rate_response_indicate_better_10-min_time_trial_power_output.pdf), DOI [10.1080/02640414.2025.2481533](https://doi.org/10.1080/02640414.2025.2481533).** Journal pp. 979–983, Methods/Results/Discussion; p. 984 availability. Two seasons, 23 male semi-professionals, 87 laboratory visits; field meters calibrated before rides, laboratory ergometer distinct. Fits lag/recovery dynamics rather than fixed-HR watts. Random within-data splitting and rider-averaged performance associations do not establish prospective individual change validity. Only 286/1193 modeled instances passed the source fit gate; 29/87 tests had temporally matched outputs. Authors explicitly could not assess individual longitudinal evolution sufficiently. Context remained incompletely modeled. This is relevant field feasibility evidence, not proof passive estimation is impossible or validation of A/B. Its fit threshold and matching interval are not adopted. Article access is under institutional terms; no PDF committed. Participant data are on request; no request/download made and no dataset rights secured.
+
+Disposition: full primary methods now inform power repeatability, longitudinal limitations and coverage; final-version reconciliation for S7, Capostagno/Fritzsche full access and real-world A/B qualification remain open. The two candidates' algebra stays T08a1's own descriptive proposal. S7/S8 are not new candidate selections. Prior full-text suppression and HRV findings retain their distinct targets; no HRV reliability is reassigned to watts.
+
+## I02 — Qualification worksheet and disposition review
+
+This worksheet is a human-readable analysis-report section, using existing T05a descriptor/profile references. It is not a new input manifest, store or software contract. No actual visit records exist in this review. Local study IDs/equipment aliases and retained-input references must remain restricted; public output would need a separately authorized privacy review. Missing required evidence never receives a default.
+
+| Worksheet block | Fields to record before evaluating change | Decision with absent/conflicting evidence |
+|---|---|---|
+| Attempt and origin | Local person/attempt ID, date, planned versus completed visit, actual origin, T05a descriptor reference, lawful processing/retention evidence | Unknown rights: do not process. Synthetic: development-only. Uncompleted attempt remains in attempted-visit count without inventing a session |
+| Identity/time | Known original start/end, epochs/ingest order, pauses/loss/recovery, FILE_RECORD versus receipt/acquisition meaning, input revision and retained-input reference | Ambiguous identity: no comparison contributor. Unsupported time: timing refusal. Known gap: break coverage, then reassess supported segments without bridging |
+| Joint coverage | Observed power/HR intervals, missing/invalid/zero status, expiry policy, eligible paired seconds and excluded seconds | No jointly supported data: unavailable. Zero W remains measured, with work suitability assessed separately |
+| Qualification | Policy revision, transition/reset evidence, time since original start and since reset, complete window and settling/stability/drift evidence | Unset/unvalidated real-use policy: qualification not approved. Unknown warm-up: comparative refusal. Operational error: failed, not scientific rejection |
+| Comparison context | Equipment aliases/history and calibration evidence, profile/configuration digest, indoor/outdoor, environmental and setup evidence with measured/declared/unknown tags | Changed configuration/equipment: separate cohort. Unknown required context: unverified, no assertion of comparability |
+| HR/time support | Frozen anchor/band/local support/time stratum, paired duration/distribution, support holes and both sides of anchor, segment IDs | Min/max overlap alone: insufficient matching evidence. Unbracketed anchor: B abstains; no extrapolation or substitution |
+| Result/authority | Native A/B value or reason, retained segments, current generation/status, contributor identity and as-of, comparison eligibility | Newest pending/failed/unavailable excludes old value. Changed contributor authority invalidates the derived report |
+
+All stages retain secondary flags; one primary exclusion per disposition prevents double counting. Priority for reconciliation: no lawful processing → origin restriction → uncompleted attempt → identity/time uncertainty → operational failure → missing required policy/context → no qualified joint coverage → candidate support/fit refusal. This is reporting precedence, not permission to discard secondary problems or to calculate before rights are checked.
+
+A candidate support/fit refusal is separate from a pre-analysis policy/context block. An operational failure is not evidence the physiological observation is absent. Any complete disposition table must include numeric, unavailable, blocked and failed, without zero filling.
+
+### A/B decision table reviewed without fabricating visit data
+
+| Available evidence at a visit/comparison | Native A | Native B | Paired analysis |
+|---|---|---|---|
+| Common context/time pool, in-band observations, bracketed supported anchor, justified qualification and B fit checks pass | Descriptive W | Descriptive W | Include only if locked cross-visit support/distribution rule also passes |
+| In-band observations on only one side of anchor | May be descriptive W | Unbracketed, unavailable | Exclude; A-only coverage remains visible |
+| Bracketed pool, no A in-band observations | Insufficient support | May be descriptive W | Exclude; B-only coverage remains visible |
+| Bracketed pool but ill-conditioned/nonpositive-slope/excessive-residual fit under approved B policy | May be descriptive W | Explicit fit refusal | Exclude; do not select A as automatic fallback |
+| Both numeric, only HR min/max ranges overlap, distributions/holes differ | Keep native record | Keep native record | Not comparable until prespecified matching evidence exists |
+| Both numeric at different times since ride start or incompatible context | Keep separate descriptive records | Keep separate descriptive records | Exclude; no early/late pooling |
+| Both numeric but unresolved sensor/calibration/profile change | Audit records retained | Audit records retained | Boundary or unverified context; no baseline carry-over |
+| Unknown warm-up, required real-use cutoffs unset, ambiguous session or origin not admitted | No comparative result | No comparative result | Block/refuse with reason; numeric availability from a test helper cannot override admission |
+| Newest generation pending/failed/unavailable, or inputs deleted | No older current value | No older current value | Remove affected contributor; named baseline unavailable |
+
+These are logical policy branch reviews, not additional synthetic fixtures or empirical observations. The review found a necessary distinction: common input pool does not mean A and B retain the same exposure. The frozen A band is inside the local support, while B may use bracketing data outside that band. Report each candidate's actual segment set; “matched” refers to a locked comparison design and visit support, not identical A/B formulas. No new weighting/standardization algorithm is chosen here.
+
+### Denominator reconciliation
+
+Let U be all planned/attempted visits, including uncompleted attempts; Q the subset with admitted rights/origin/identity/context/time/policy and qualified joint coverage. Let A and B be numeric native results within Q. Let M be the locked cross-visit matching eligibility subset, including justified HR-distribution and elapsed-time/context restrictions. Paired evaluation is P = A ∩ B ∩ M. Report counts of U, Q, A, B, A∩B and P; Q\(A∪B), A\B, B\A and (A∩B)\M expose refusal/selection. Within Q, the four A/B membership cells sum to Q. Pre-Q disposition counts plus Q sum to U. Each denominator is shown explicitly; zero denominator means not assessable.
+
+Report native coverage |A|/|U| and |B|/|U|, conditional coverage |A|/|Q| and |B|/|Q|, and paired coverage |P|/|U|. Report attempted/completed counts separately; not every attempt produces canonical inputs. M is defined for the fixed comparison cohort/design; if support must instead be qualified for individual contrasts, recompute and report matching eligibility per contrast rather than assuming any two visits in P form a valid pair. Pairwise longitudinal comparisons use their own prespecified comparison count; visit counts are not comparison counts. Reconcile failures/primary reasons without double-counting; show secondary-flag prevalence separately. Duration reconciliation uses jointly supported time, not total session length. Actual counts: not measured, no real-data pilot executed.
+
+## I03 — Completed freeze-plan template and acquisition boundary
+
+| Freeze item | Recorded design / evidence status now | Must be resolved before dependent execution |
+|---|---|---|
+| Intended use and claim | One person's raw power-at-comparable-HR observation in W; A and B separate, no fitness diagnosis or alerts | Owner confirms the specific personal decision/use case before useful-change targets are set |
+| Population/unit | Intended within-person repeated visits; segments nested in visits, visits serially dependent | No population generalization; any multi-person extension needs its own scope/design |
+| Data access | No lawful dataset secured or admitted; no private rides/participant data processed | Data custodian verifies processing/retention/publication separately; separate owner authorization for acquisition or use |
+| Acquisition | Proposed repeated observations in a declared approximately stable routine; development/familiarization precedes prospective evaluation | Source, measurement setup, actual timing semantics, missing channels/context and compatible input mapping must be reviewed first; no Karoo requirement |
+| Measurement record | Power/HR/time/transitions measured; cadence/environment measured only if supplied; calibration/setup dated operator evidence; fatigue/sleep/load/hydration/medication context voluntary declarations | For each field record method, effective date, evidence class, missing reason and scope of consent. “Not supplied” never means unchanged |
+| Instrument boundaries | Separate power and HR aliases, firmware/setup and calibration history; adapter ID cannot substitute | Verify continuity; unknown/changed instrument blocks/splits comparison. Routine documented zeroing is not automatically a new sensor cohort, but a changed procedure or unexplained calibration result needs review |
+| Cohort and support | Pin full profile/policy/time semantics and declared context; raw values retained; A/B native coverage and P subset defined above | Lock anchor/band/support/time stratum and matching rule using development evidence; no evaluation feedback tuning |
+| Primary analysis | Unsmoothed within-person visit differences in W plus native/paired coverage, reasons and context; observation repeatability only | Resolve repeatability pairing and serial-dependence/precision plan before analysis; no q, baseline count/horizon or performance target selected |
+| Sensitivity | Separate measured uncertainty from invalid-data stress; power/HR errors and qualification interactions reviewed | Obtain actual sensor/calibration uncertainty and context support; no ranges copied from synthetic fixtures |
+| Evaluation isolation | Chronological development then locked later evaluation; all attempts retained; no random segment split | Fix dates/assignment/analysis revision before evaluation outcome access; sufficient independent information remains an open precision decision |
+| Reference and change labels | None available; physiological truth and onset unavailable | Independently repeated claim-matched references with their own error and timing for any change-validity claim |
+| Stop/deviation rule | Rights/identity/required context/policy unresolved → do not launch; changed method/configuration → new exploratory revision/cohort | Log deviations and excluded attempts; a contaminated evaluation cannot become confirmatory by relabeling |
+| Reproducibility | Existing retained inputs, hashes/revisions/profiles and versioned report contributors, no extra framework | Restrict private linkage; deletion invalidates affected outputs; no older-generation fallback |
+
+Minimal sequence for a later separately approved study: resolve rights and source/context capture → acquire familiarization/development observations → estimate feasible support and within-person variation → justify and lock qualification/sample/precision/useful-change decisions → acquire later repeated observations under that lock → evaluate coverage and observation repeatability → decide whether reference-linked change validation is warranted. Development measurements are evidence needed to make decisions, not proof the later method passes. Do not require a training intervention or induce fatigue to manufacture changes.
+
+No new manifest/storage is needed for this design. A restricted worksheet can cite existing T05a descriptors and profile evidence where representable. Canonical gaps in sensor identity/environment cannot be repaired with an undocumented string or inferred from FIT metadata. Before a real-data consumer exists, explicitly decide how verified context is supplied; that is not authorized implementation in T08a2.
+
+## I04 — Analysis definitions and claim audit
+
+For a prespecified comparable pair of independently acquired visits (a,b), record d = x_b − x_a W separately for A and B. Record both dates, time separation and retained support/context. Report all d, their arithmetic mean and sample standard deviation when estimable, versus magnitude/time/context and with exclusions/coverage alongside. These are descriptive summaries, not independent-sample standard errors or physiological confidence intervals. Pairs sharing a visit are dependent. One person's serial series does not support a population ICC or resampling individual segments. Any interval/model for repeated differences must be justified from its dependence/variance assumptions and precision requirements before use; absent that, report descriptive differences without a calibrated uncertainty claim.
+
+Observational “repeatability” includes instrument, biological and residual context variability. A stable-routine declaration is not a true null; do not calculate empirical false-positive rates from it. A repeatability scale does not automatically define meaningful change. Raw differences can be reported before a useful-change decision; direction alerts cannot.
+
+Sensitivity reports changed W and admission/coverage under justified perturbations, retaining interactions (e.g. an HR perturbation can remove bracketing). A sensor's stated specification is evidence to review, not a guaranteed bound on every ride. No instrument bridge/offset correction is fitted. A replacement may be investigated in a separately approved bridge design with simultaneous independent comparisons and uncertainty, but is a cohort boundary until such evidence is admitted.
+
+False increase and false decrease require a separately justified reference label (increase/decrease/null/indeterminate) and a frozen observational declaration rule. Report direction confusion counts and denominators over reference-qualified comparisons, and conditional on both a declaration and usable observation; disclose abstentions, failures and indeterminate truth. No reference labels or declaration threshold exist now: false-direction performance is **not assessable**. Synthetic H03 results remain software counterexamples.
+
+For an independently bracketed onset [l,u], report first correctly directed qualifying declaration time t, the calendar-delay interval [t−u,t−l] when t is after the onset bracket, and eligible-visit index counted under the frozen policy. A declaration within the onset bracket has uncertain ordering; earlier declarations cannot be credited as detection. Non-detection is censored at the last observable follow-up, with missed/censored counts and coverage; intervals between reference visits are not exact onset times. No onset, threshold or reference evidence now: delay is **not assessable**. Neither eligible-visit delay alone nor zero assigned to misses can hide calendar gaps.
+
+| Permissible later evidence without CPET | What it cannot establish |
+|---|---|
+| Retained raw W/HR/time plus lawful context and repeated acquisitions | Oxygen uptake, FTP, stable bias or known fitness direction |
+| Comparable unsmoothed W differences and observation repeatability | That apparent favorable changes are physiological improvement |
+| Independent repeated performance reference with protocol/error/timing reviewed | VO₂max change or FTP change unless the reference actually defines that distinct estimand |
+| Repeated cycling CPET with verified target/status, calibration and uncertainty | Universal transport beyond tested context, or exact onset between visits |
+
+A useful personal observation is therefore still an open empirical proposition. Go forward only if repeated acquisition gives enough comparable coverage and variation small enough for an owner-defined use, under a justified precision plan; no magnitude or pass threshold is invented here.
+
+## I05 — Decision register and resolution evidence
+
+| Decision | Disposition now | Evidence path / blocking gate |
+|---|---|---|
+| HR anchor/band/local support, distribution-matching tolerance | OPEN; retain separate native A/B and paired-P target | Inspect lawful development support, justify matching/conditioning and abstention trade-off; blocks comparative calculation/admission |
+| Window length, hold/expiry, settling, transition and HR/power drift/stability limits | OPEN; synthetic policy cannot be promoted | Review full protocol applicability and labeled developmental timing/context; blocks real qualification |
+| N, visit spacing, study duration and precision | OPEN; no source N adopted | Statistical design using pilot-development variation, serial dependence and intended-use precision; blocks frozen evaluation |
+| Meaningful change, direction threshold and acceptable false direction/delay | OPEN; raw W description only | Owner defines the practical decision, then scientific/statistical review accounts for observation/reference variability; blocks directional pass/fail |
+| Baseline count/horizon, freshness, reference pairing | OPEN; no automatic moving baseline | Context stability, reference temporal evidence and dependence review; blocks baseline-index/claim-bearing evaluation |
+| Smoothing | DEFERRED | Only after raw qualification/repeatability evidence; separately reviewed comparison of false direction/delay and missingness |
+| Full publication-version/source reconciliation | PARTIAL: primary chapters recovered; final versions/other bodies still limited | Lawful access/version comparison without author contact; blocks asserting final protocol verified, not document-design completion |
+| Real-observation rights/context contract | BLOCKED: no legal dataset or actual source-specific context inventory | Responsible custodian plus separately approved use; blocks any participant/private-record processing |
+| Independent change reference/onset | BLOCKED: none available | Repeated claim-matched references with uncertainty and temporal design; blocks physiological direction/delay validation |
+
+These decisions do not all have to close for documentation Done. Each must close before the dependent pilot activity. O1–O5 retain their separate physiological meaning; this register does not override them. No default was introduced for N, any physiological cutoff, q, horizons or smoothing.
+
+## I06 — Contract reuse and authority review
+
+Inspected existing `CanonicalInput.kt`, Collector identity/effects, `CanonicalPowerReplay.kt`, T05a `ExperimentProfiles.kt`, T08a1 support and `AnalysisRepository.kt` request/complete/newest/current/membership behavior. This is a read-only contract review, not a new integration test pass.
+
+- Canonical source-neutral readings/time and lifecycle preserve observed values, missingness, epochs and uncertainty. Power hold-v1 is not an HR settling rule. SourceRef identifies an adapter, not a physical sensor. Existing profiles permit optional settings and declared development context/calibration, not guaranteed measured environment or sensor identity.
+- `AnalysisSlot(session, metric, cohort)` and versioned provenance already support distinct candidate records. Semantic method/preprocessing/parameter/profile/rider-setting/trend/input revisions must all be pinned; a context-evidence revision belongs in future reviewed provenance/qualification, not silent unversioned report editing.
+- `newest` returns the newest-requested generation; `current` exposes it only when available. Requested pending/failed/unavailable generations suppress older available records. Named baseline contributors all must remain eligible; failed or deleted contributors are not replaced. Late completion remains historical. Recheck contributor authority/status before returning a derived report; future transactional/product deletion work stays T08b.
+- scalar-v1 stores a value/unit/quality, not an independently enforced origin type. T08a1 protection is the development-only consumer's descriptor/permission checks and isolated database naming/membership. No general synthetic-safe production history guarantee exists. This package adds no real-data reader; future origin admission must be reviewed explicitly.
+- Inputs deleted or context/authority changed: reproducibility/current comparison becomes unavailable, with retained audit history where permitted. No fabricated reconstruction, uncertain-session merge or fallback to another candidate/profile/baseline. FTP and VO₂max profiles and method approvals remain separate.
+
+## I07 — Completion and admission decision
+
+| Layer / decision | Reviewed outcome | Evidence still needed |
+|---|---|---|
+| T08a1 software | Existing H01–H07 local evidence retained; no additional software claim | Remote CI below remains separate; no physiology inferred |
+| T08a2 document design | I01–I07 dossier completed, self-reviewed and ready for owner review | Owner review may accept design with the recorded source/data/numeric blockers |
+| Observational real-data feasibility pilot | **NO-GO now** | Lawful data/source/context plan, named study/use approval and development acquisition design; no processing authorized here |
+| Frozen repeatability/trend evaluation | **NO-GO now** | Development evidence resolving qualification/support, N/precision, dependence, intended-use criteria and frozen evaluation plan |
+| Physiological method/change claim | **NO-GO now** | Independent repeated references, O1–O5 and separate T06/T07 method/experiment decisions |
+| Product/live acceptance | **OPEN, outside package** | T08b/c and T02c/T03e/parent T04 gates; no chart/UI/store or live wiring delivered |
+
+The next useful evidence is a rights-and-context-qualified acquisition path followed, only with separate authorization, by independently repeated observations from the same person. No such lawful source is available today. Without it, neither more synthetic fixtures nor a document approval demonstrates personal usefulness. Do not launch a study, contact authors or request private FITs as an automatic continuation. A future proposal must identify the actual lawful source and minimal context capture before acquisition or code is approved.

@@ -224,3 +224,15 @@ Owner prioritizes useful trends over precise absolute laboratory agreement for R
 PR #34 was verified merged (audited head bfaff35ba0725042dff2e3a7d45dfb532edcfe46, four successful checks); local main advanced to c1526d9 with no unrelated changes. Owner authorized preparing/publishing this specification, not its execution or method selection.
 
 Propose [T08a1](tasks/t08a1-power-hr-trend.md) under existing T08a: synthetic-only comparison of fixed-HR-band power and local interpolation at a frozen HR anchor, raw session results and a fixed-baseline development report using existing replay/storage/authority. Recommend A as descriptive reference and B as comparator, subject to review; accept neither automatically. This refines the owner's trend priority without claiming VO₂max/FTP, stable bias or physiological validity. D07/trend-v0 numeric defaults are not adopted. T07/T07b, T08b/c and T02c/T03e/parent T04 remain separately gated. No new store, manifests, framework, private data or hardware requirement. H01–H07 execution acceptance is planned, not passed.
+
+
+## T08a1 execution authorization — 2026-11-11
+
+Owner explicitly approved execution after specification PR #35 merged. Scope is the [T08a1 H01–H07](tasks/t08a1-power-hr-trend.md) synthetic-only software experiment, independent oracles, persisted replay/reopen and development report. No production method/estimator, product chart, participant experiment or live gate is authorized. Local main advanced to c2f5a81 with a clean working tree.
+
+
+## T08a1 executed software experiment — 2026-11-11
+
+Owner approved [T08a1](tasks/t08a1-power-hr-trend.md) after PR #35 merged. [H01–H07 evidence](../evidence/t08a1-power-hr-trend/README.md) records the synthetic A/B experiment through actual committed replay, scalar-v1/reopen, newest authority, fixed-baseline/raw reports and fault/cohort/resource checks. Ten new core tests and ten API 32/34 preview executions pass; full core 117 passes/one private-FIT skip, debug 92/preview 116, build/lint/release isolation and final focused checks pass. No production method/estimator, chart, schema, store or manifest was added.
+
+Both candidates reproduce injected observational changes but show confounder-driven false directions; neither is selected for physiological interpretation. Software H01–H07 does not close O1–O5, R05/R06/physiological V07/V08, T07/T07b, T08b/c or deferred T02c/T03e/parent T04 live gates. No participant data or hardware evidence. Smoothing and legacy trend-v0 numeric defaults remain unapproved for this route.

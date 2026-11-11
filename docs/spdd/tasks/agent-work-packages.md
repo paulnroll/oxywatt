@@ -136,3 +136,10 @@ Owner authorized T07a following T06a; PR #33 merged during work and local main/b
 [T08a1](t08a1-power-hr-trend.md) is the next named execution proposal, pending owner approval: development-only fixed-band versus interpolated power-at-HR comparison on existing synthetic recipes, committed replay/native SQLite reopen, session/baseline report and H01–H07 checks. Own only the test-fixture/test/report files listed in the task and synchronized evidence. Shared canonical/storage contracts remain unchanged. No delegation requirement is introduced.
 
 Handoff contract: input revision/terminal identity, paired segment coverage, recipe context/profile/calibration/config versions, existing hashes and newest-requested scalar results. Output is a reproducible experimental report, not a selected physiological method or product chart. T07/T07b and T08b/c remain independent later approvals; T02c/T03e/parent T04 are open.
+
+
+## T08a1 executed software experiment — 2026-11-11
+
+Owner approved [T08a1](t08a1-power-hr-trend.md) after PR #35 merged. [H01–H07 evidence](../../evidence/t08a1-power-hr-trend/README.md) records the synthetic A/B experiment through actual committed replay, scalar-v1/reopen, newest authority, fixed-baseline/raw reports and fault/cohort/resource checks. Ten new core tests and ten API 32/34 preview executions pass; full core 117 passes/one private-FIT skip, debug 92/preview 116, build/lint/release isolation and final focused checks pass. No production method/estimator, chart, schema, store or manifest was added.
+
+Both candidates reproduce injected observational changes but show confounder-driven false directions; neither is selected for physiological interpretation. Software H01–H07 does not close O1–O5, R05/R06/physiological V07/V08, T07/T07b, T08b/c or deferred T02c/T03e/parent T04 live gates. No participant data or hardware evidence. Smoothing and legacy trend-v0 numeric defaults remain unapproved for this route.

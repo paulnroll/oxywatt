@@ -55,3 +55,10 @@ An exploratory cycling fitness indicator may be a useful alternative for review;
 ## Experimental observational route — T08a1 proposal
 
 [T08a1](../spdd/tasks/t08a1-power-hr-trend.md) proposes a synthetic-only comparison of observed power at comparable HR and local power–HR interpolation, supporting R02/R07/R08/R11 and authority/privacy R03/R10/R12. This is an explicitly experimental observation, not completion or replacement of R05/R06. Physiological VO₂max/FTP remains model_not_approved. Execution and method/product admission require separate decisions; specification/publication only is authorized now.
+
+
+## T08a1 executed software experiment — 2026-11-11
+
+Owner approved [T08a1](../spdd/tasks/t08a1-power-hr-trend.md) after PR #35 merged. [H01–H07 evidence](../evidence/t08a1-power-hr-trend/README.md) records the synthetic A/B experiment through actual committed replay, scalar-v1/reopen, newest authority, fixed-baseline/raw reports and fault/cohort/resource checks. Ten new core tests and ten API 32/34 preview executions pass; full core 117 passes/one private-FIT skip, debug 92/preview 116, build/lint/release isolation and final focused checks pass. No production method/estimator, chart, schema, store or manifest was added.
+
+Both candidates reproduce injected observational changes but show confounder-driven false directions; neither is selected for physiological interpretation. Software H01–H07 does not close O1–O5, R05/R06/physiological V07/V08, T07/T07b, T08b/c or deferred T02c/T03e/parent T04 live gates. No participant data or hardware evidence. Smoothing and legacy trend-v0 numeric defaults remain unapproved for this route.

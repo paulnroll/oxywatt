@@ -106,3 +106,10 @@ Owner prioritizes useful trends over precise absolute laboratory agreement for R
 [T08a1 experimental comparable power–HR trend](tasks/t08a1-power-hr-trend.md) subdivides existing T08a. Dependencies are implemented T03/T04/T05a software plus T05b/T06a/T07a review contracts (PR #34 merged). Specification/publication is authorized; execution is pending a named owner decision. Smallest complete delivery: synthetic A/B comparative calculation from committed replay, raw session/baseline report, persisted scalar/reopen/generation regressions and H01–H07 evidence. No method automatically selected.
 
 T07 remains VO₂max research/selection and later T07b; T08a1 does not satisfy R06 or admit a physiological experiment. T08b/c product storage/deletion/chart follows later reviewed policy. Existing T08 dependency on T06/T07 applies to numerical physiological estimator acceptance, not this isolated nonphysiological software experiment. No chart/smoother, new storage/manifest/framework or live implementation; T02c/T03e/parent T04 live gates remain open.
+
+
+## T08a1 executed software experiment — 2026-11-11
+
+Owner approved [T08a1](tasks/t08a1-power-hr-trend.md) after PR #35 merged. [H01–H07 evidence](../evidence/t08a1-power-hr-trend/README.md) records the synthetic A/B experiment through actual committed replay, scalar-v1/reopen, newest authority, fixed-baseline/raw reports and fault/cohort/resource checks. Ten new core tests and ten API 32/34 preview executions pass; full core 117 passes/one private-FIT skip, debug 92/preview 116, build/lint/release isolation and final focused checks pass. No production method/estimator, chart, schema, store or manifest was added.
+
+Both candidates reproduce injected observational changes but show confounder-driven false directions; neither is selected for physiological interpretation. Software H01–H07 does not close O1–O5, R05/R06/physiological V07/V08, T07/T07b, T08b/c or deferred T02c/T03e/parent T04 live gates. No participant data or hardware evidence. Smoothing and legacy trend-v0 numeric defaults remain unapproved for this route.

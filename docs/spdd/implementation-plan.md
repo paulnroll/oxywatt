@@ -25,7 +25,7 @@ Review checkpoints: M0 architecture; T02 device feasibility; T04 first slice; ea
 
 ## Accepted simulation-first architecture — 2026-11-11
 
-Architecture ACCEPTED; T01d/T01e owner-approved. [ADR 0004](../architecture/adr/0004-simulation-first-testing.md) and the [change task](tasks/simulation-first-development.md) define dependencies, bounded files, acceptance and risks. T01d/T01e implementation is authorized; other packages retain named approval gates.
+Architecture ACCEPTED; T01d/T01e complete and T02d owner-approved. [ADR 0004](../architecture/adr/0004-simulation-first-testing.md) and the [change task](tasks/simulation-first-development.md) define dependencies, bounded files, acceptance and risks. See [T02d adapter tests](tasks/t02d-karoo-adapter-tests.md) for its scope and evidence; other packages retain named approval gates.
 
 Proposed order is T01d (source port, virtual clock and generators) → T01e (lawful real FIT replay) and T02d (SDK fake compatibility and mapping tests) → applicable T03a–d software packages. Existing T03a → T03b/T03c → T03d dependencies still apply. Hardware T02c evidence can proceed alongside that approved software work. T03e remains gated by the passed T02 acquisition decision. T04 still follows T03. T05–T07 scientific gates remain unchanged.
 

@@ -6,11 +6,11 @@ Date 2026-11-11. Architecture ACCEPTED and T01d/T01e owner-approved on 2026-11-1
 
 Repeated hardware sessions currently block SDK and collection regressions. Reuse canonical v1 and test fixtures to exercise the same collection path with generated and file inputs. [ADR 0004](../../architecture/adr/0004-simulation-first-testing.md) defines the proposed source port, clock semantics, source evaluation and tradeoffs. [Validation strategy](../../algorithms/validation-strategy.md) defines layer acceptance.
 
-Remaining unknowns are artifact/toolchain compatibility of the SDK fakes, availability of a redistributable real-FIT fixture, and real host/radio/lifetime behavior. T01e verified an owner-supplied private FIT and retains timer timestamps/types/triggers; see [T01e evidence](t01e-fit-replay.md). The testing library and replay app have been source-reviewed. No compatibility spike or installation of either tool has been performed.
+SDK-fake artifact/toolchain compatibility is now verified in [T02d](t02d-karoo-adapter-tests.md). Remaining unknowns are availability of a redistributable real-FIT fixture and real host/radio/lifetime behavior. T01e verified an owner-supplied private FIT and retains timer timestamps/types/triggers; see [T01e evidence](t01e-fit-replay.md). The testing library and replay app have been source-reviewed. T02d completed the SDK-fake compatibility spike; the external replay app has not been installed.
 
 ## Proposed packages
 
-T01d/T01e have named approval; every other row still requires named approval. Paths describe bounded work areas to finalize in the slice task before implementation.
+T01d/T01e/T02d have named approval; every other row still requires named approval. [T02d scope and evidence](t02d-karoo-adapter-tests.md). Paths describe bounded work areas to finalize in the slice task before implementation.
 
 | Package | Goal and dependencies | Expected files | Verification and Done evidence | Risk |
 |---|---|---|---|---|

@@ -93,3 +93,11 @@ T01d PR #10 additional review: reject recursive virtual-clock advances to preven
 T01e software verification: strict developer export and lazy simulator bridge pass eight synthetic Python checks and 33 JVM tests with the private opt-in enabled (one explicit skip without it). Owner FIT passes CRC/timestamp checks and replays identically at all speeds; original file/projection/hash stay private. Public CI uses generated fixtures only, with no redistribution claim. See the T01e task for limitations and commands.
 
 T01e additional review, 2026-11-11: reproduced and fixed platform newline/hash mismatch and unchecked manifest duration/count. Exact UTF-8 export plus fixture LF attributes preserve byte hashes; EOF validation rejects fabricated acquisition tails and count mismatches. Nine Python checks and 35 JVM tests (private opt-in enabled) pass. Scope remains T01e; see task evidence for streaming-validation limits.
+
+## T02d authorization
+
+2026-11-11: after updating main to merged PR #11, the owner accepted the proposed next package T02d ("no to jedziemy"). Scope: real SDK adapter mapping/lifecycle tests under fake 0.1.1, compatibility spike and test dependency isolation (R01/R02/R09/R11; V20/V22). Preserve probe behavior; no T02c/T03 implementation or hardware acceptance is authorized. [Task](tasks/t02d-karoo-adapter-tests.md).
+
+T02d implementation/evidence: KarooRideDataSource normalizes metrics, recording states and configured profiles without changing canonical v1. Published SDK 1.1.9/fake 0.1.1 with Robolectric 4.17 pass 22 app test executions at API 32/34 plus plain mapper tests; core, debug assembly, lint and release dependency isolation pass. The public JitPack SDK selection is explicit and default GitHub Packages coordinates remain unchanged. Core-library desugaring and bounded Gradle memory address actual compatibility/build failures. Opt-in Android CI is manual only and has not run remotely. [Evidence](tasks/t02d-karoo-adapter-tests.md); no hardware gate closes.
+
+T02d pre-publication self-review reproduced reentrant accept callbacks on API 32/34. Fail-closed rejection prevents nested delivery and preserves terminal acknowledgement after outer callback exit, without buffering or changing canonical v1 (V20). See T02d for red/green evidence.

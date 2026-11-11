@@ -1,6 +1,5 @@
 package com.oxywatt.diagnostic
 
-import android.os.RemoteException
 import android.os.SystemClock
 import android.util.Log
 import io.hammerhead.karooext.KarooSystemService
@@ -8,30 +7,42 @@ import io.hammerhead.karooext.extension.KarooExtension
 import io.hammerhead.karooext.internal.Emitter
 import io.hammerhead.karooext.models.DataType
 import io.hammerhead.karooext.models.FitEffect
-import io.hammerhead.karooext.models.OnStreamState
 import io.hammerhead.karooext.models.RideState
 import io.hammerhead.karooext.models.StreamState
 
 class DiagnosticExtension : KarooExtension("oxywatt-diagnostic", BuildConfig.VERSION_NAME) {
-    private lateinit var system: KarooSystemService
+    private lateinit var sourceHandle: AutoCloseable
 
     override fun onCreate() {
         super.onCreate()
         Log.i(TAG, "extension created")
-        system = KarooSystemService(this)
-        system.addConsumer<RideState>(onError = { Log.w(TAG, "ride state subscription failed") }) {
-            val state =
-                when (it) {
-                    RideState.Idle -> "IDLE"
-                    RideState.Recording -> "RECORDING"
-                    is RideState.Paused -> "PAUSED auto=${it.auto}"
-                }
-            Log.i(TAG, "ride=$state receiptMs=${SystemClock.elapsedRealtime()}")
-        }
-        observe("power", DataType.Type.POWER, DataType.Field.POWER)
-        observe("heart-rate", DataType.Type.HEART_RATE, DataType.Field.HEART_RATE, positive = true)
-        observe("cadence", DataType.Type.CADENCE, DataType.Field.CADENCE)
-        system.connect { connected -> Log.i(TAG, "karoo connected=$connected") }
+        val probes =
+            mapOf(
+                "power" to StreamProbe("power", DataType.Field.POWER, false),
+                "heart-rate" to StreamProbe("heart-rate", DataType.Field.HEART_RATE, true),
+                "cadence" to StreamProbe("cadence", DataType.Field.CADENCE, false),
+            )
+        sourceHandle =
+            KarooRideDataSource(
+                    KarooSystemService(this),
+                    onRide = {
+                        val state =
+                            when (it) {
+                                RideState.Idle -> "IDLE"
+                                RideState.Recording -> "RECORDING"
+                                is RideState.Paused -> "PAUSED auto=${it.auto}"
+                            }
+                        Log.i(TAG, "ride=$state receiptMs=${SystemClock.elapsedRealtime()}")
+                    },
+                    onStream = { label, state -> probes.getValue(label).record(state) },
+                    onConnection = { Log.i(TAG, "karoo connected=$it") },
+                )
+                .start(
+                    accept = {
+                        /* Diagnostic only: canonical observations are not persisted or logged. */
+                    },
+                    onStopped = { if (it != null) Log.w(TAG, "Karoo source stopped with error") },
+                )
     }
 
     override fun startFit(emitter: Emitter<FitEffect>) {
@@ -41,26 +52,10 @@ class DiagnosticExtension : KarooExtension("oxywatt-diagnostic", BuildConfig.VER
 
     override fun onDestroy() {
         try {
-            // The SDK disconnect removes all consumers registered by this service instance.
-            system.disconnect()
-        } catch (_: IllegalArgumentException) {
-            Log.w(TAG, "Karoo service already unbound")
-        } catch (_: RemoteException) {
-            Log.w(TAG, "Karoo service disconnected during teardown")
+            sourceHandle.close()
         } finally {
             Log.i(TAG, "extension destroyed")
             super.onDestroy()
-        }
-    }
-
-    private fun observe(label: String, type: String, field: String, positive: Boolean = false) {
-        val probe = StreamProbe(label, field, positive)
-        system.addConsumer<OnStreamState>(
-            OnStreamState.StartStreaming(type),
-            onError = { Log.w(TAG, "$label subscription failed") },
-            onComplete = { Log.i(TAG, "$label subscription completed") },
-        ) {
-            probe.record(it.state)
         }
     }
 

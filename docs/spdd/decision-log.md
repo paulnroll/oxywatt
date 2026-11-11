@@ -133,3 +133,9 @@ T03c evidence: 16 native file-backed SQLite cases pass on API 32/34, including a
 2026-11-11: owner approved T03d after PR #16 merged. [T03d](tasks/t03d-analysis-persistence.md) freezes additive v1 migration, idempotent generation requests, newest-only result reads and transactional whole-aggregate membership invalidation before code. Synthetic results only; T03p/T03e and physiology remain excluded.
 
 T03d software evidence: shared schema v2 additively migrates populated frozen v1 DDL without changing any legacy row. Seven result-storage cases pass on both API 32/34, covering supersession, reverse completion, retry, rollback, concurrent allocation, slot isolation and migration. Full checks pass (70 app tests; 68 core passes, one opt-in skip). No trend mathematics, physiology or hardware acceptance; see T03d for exact evidence and development limitations.
+
+
+T03p implementation authorized by the owner on 2026-11-11 after PR #17. Readiness: T03a–d contracts are implemented. Preview uses a dedicated application-scoped worker, separate demo database, bounded latest-value projection, and shared dependency-free simulator fixtures. Portable stream replay preserves exporter validation. No live acquisition, physiology or hardware acceptance is included. R02/R03/R07/R10/R11; V22/V23.
+
+
+T03p software implementation (2026-11-11, owner-approved after PR #17): isolated debug-derived preview consumes actual T03a/b/c pipeline and schema v2. Shared test fixtures and stream FIT reader remain outside release. Received versus committed values, virtual ages, pending/loss, interruption and storage errors are inspectable. Last committed receipt time is explicitly distinguished from an unavailable durable transaction timestamp. See [T03p evidence](tasks/t03p-diagnostic-preview.md). V22/V23 software checks do not close the on-Karoo screenshot/device claim, T02 or live T03e.

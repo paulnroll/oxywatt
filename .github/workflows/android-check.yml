@@ -22,7 +22,7 @@ jobs:
       - name: Install pinned Android tools
         run: sdkmanager 'platforms;android-36' 'build-tools;36.0.0'
       - name: Check adapter with public SDK tag build
-        run: ./gradlew -PkarooDiagnostic=true -PkarooSdkJitpack=true spotlessCheck :core:check :app:testDebugUnitTest :app:assembleDebug :app:lintDebug :app:verifyReleaseDependencyIsolation --console=plain
+        run: ./gradlew -PkarooDiagnostic=true -PkarooSdkJitpack=true spotlessCheck :core:check :app:testDebugUnitTest :app:assembleDebug :app:lintDebug :app:verifyReleaseDependencyIsolation :app:testPreviewUnitTest :app:assemblePreview :app:lintPreview :app:verifyPreviewIsolation --console=plain
       - name: Upload integration and lint reports
         if: ${{ !cancelled() }}
         uses: actions/upload-artifact@v4

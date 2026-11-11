@@ -78,3 +78,6 @@ T03b is owner-approved after PR #14; see [contract and executed evidence](t03b-b
 T03c is owner-approved after PR #15; see [transaction contract and evidence](t03c-transactional-inputs.md). T03d/e/p still require named approval; no result tables or live orchestration are included.
 
 T03d is owner-approved after PR #16; see [contract and evidence](t03d-analysis-persistence.md). T03p and live T03e remain outside this approval.
+
+
+T03p software implementation (2026-11-11, owner-approved after PR #17): isolated debug-derived preview consumes actual T03a/b/c pipeline and schema v2. Shared test fixtures and stream FIT reader remain outside release. Received versus committed values, virtual ages, pending/loss, interruption and storage errors are inspectable. Last committed receipt time is explicitly distinguished from an unavailable durable transaction timestamp. See [T03p evidence](t03p-diagnostic-preview.md). V22/V23 software checks do not close the on-Karoo screenshot/device claim, T02 or live T03e.

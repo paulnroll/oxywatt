@@ -85,3 +85,8 @@ T03p software implementation (2026-11-11, owner-approved after PR #17): isolated
 Current T04b sequencing is defined by [T04b1](t04b-persisted-curve.md); older references to live-gated T04b apply to live integration/parent acceptance, not the proposed synthetic software amendment. Implementation remains unapproved.
 
 T04b1 implemented after owner approval following merged PR #23: [terminal synthetic persisted curve](t04b-persisted-curve.md). Committed revision-bounded effects are converted with preview-silence-v1 hold/expiry to T04a; one typed T03d generation atomically stores all durations and partial/resource provenance. Existing preview reads saved results after reopen; synthetic curves cannot enter aggregate membership. Software evidence: core 90 passes/one private-FIT skip, debug 92 passes, preview 103 passes; builds/lint/release isolation pass. Dense scans have an explicit conservative pre-call work cap. No live T03e, device action, physiological model or private FIT read; T02c and parent T04 live acceptance remain open.
+
+
+## T04b2 proposal — 2026-11-11
+
+T04b2 / T04b / T04: proposed single package owning existing core/power integration/index and budget, narrowly affected app provenance/codec/readout and tests. Dependencies T04b1 and prior software contracts complete. R02/R03/R04/R07/R10/R11/R12; B2-01–08 map V06/V09/V13/V18/V19/V22/V23 and repository regressions. Risks: numerical regrouping, eviction candidates, bounded staging, stale generation. No delegation or implementation is authorized by this entry; named owner approval remains pending. See [T04b2 specification](t04b2-long-variable-scan.md).

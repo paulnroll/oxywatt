@@ -1,8 +1,6 @@
 package com.oxywatt.diagnostic.persistence
 
 import android.content.Context
-import android.database.sqlite.SQLiteDatabase
-import android.database.sqlite.SQLiteOpenHelper
 import com.oxywatt.core.collection.*
 import java.security.MessageDigest
 import java.util.UUID
@@ -34,35 +32,7 @@ data class StoredCollectorState(val revision: Long, val checkpoint: CollectorChe
 
 /** Blocking adapter: its owner must call it on a worker, never from a sensor or UI callback. */
 class InputRepository(context: Context, name: String) : AutoCloseable {
-    private val helper =
-        object : SQLiteOpenHelper(context.applicationContext, name, null, 1) {
-            override fun onConfigure(db: SQLiteDatabase) {
-                db.setForeignKeyConstraintsEnabled(true)
-            }
-
-            override fun onCreate(db: SQLiteDatabase) {
-                db.execSQL(
-                    "CREATE TABLE batches (id TEXT PRIMARY KEY NOT NULL, digest TEXT NOT NULL, revision INTEGER NOT NULL UNIQUE, epoch TEXT NOT NULL, document TEXT NOT NULL)"
-                )
-                db.execSQL(
-                    "CREATE TABLE sessions (id TEXT PRIMARY KEY NOT NULL, snapshot TEXT NOT NULL)"
-                )
-                db.execSQL(
-                    "CREATE TABLE observations (position INTEGER PRIMARY KEY, epoch TEXT NOT NULL, sequence INTEGER NOT NULL, batch TEXT NOT NULL REFERENCES batches(id), session TEXT REFERENCES sessions(id), segment INTEGER, data TEXT NOT NULL, UNIQUE(epoch,sequence))"
-                )
-                db.execSQL("CREATE INDEX observations_session ON observations(session,position)")
-                db.execSQL(
-                    "CREATE TABLE effects (batch TEXT NOT NULL REFERENCES batches(id), item INTEGER NOT NULL, data TEXT NOT NULL, PRIMARY KEY(batch,item))"
-                )
-                db.execSQL(
-                    "CREATE TABLE collector_state (id INTEGER PRIMARY KEY CHECK(id=1), revision INTEGER NOT NULL, checkpoint TEXT NOT NULL)"
-                )
-            }
-
-            override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
-                error("Unsupported input database migration")
-            }
-        }
+    private val helper = CollectorDatabase(context, name)
 
     fun state(): StoredCollectorState =
         helper.readableDatabase

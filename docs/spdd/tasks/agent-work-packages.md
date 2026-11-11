@@ -76,3 +76,5 @@ T03a follow-up: the owner approved the package after PR #13 merged. Its [impleme
 T03b is owner-approved after PR #14; see [contract and executed evidence](t03b-bounded-admission.md). T03c → T03d → T03p remains the later sequence; live T03e requires the T02 hardware gate.
 
 T03c is owner-approved after PR #15; see [transaction contract and evidence](t03c-transactional-inputs.md). T03d/e/p still require named approval; no result tables or live orchestration are included.
+
+T03d is owner-approved after PR #16; see [contract and evidence](t03d-analysis-persistence.md). T03p and live T03e remain outside this approval.

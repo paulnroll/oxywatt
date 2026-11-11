@@ -127,3 +127,9 @@ T03b self-review and evidence: twelve new tests pass; fixed repeated batch appli
 
 2026-11-11. OWNER-APPROVED after PR #15: transactional input batches/checkpoints and recovery, R03/R07/R10/R12, V04/V05/V09/V12 and partial V14/V17. [Contract](tasks/t03c-transactional-inputs.md) precedes code. Use platform SQLiteOpenHelper with no new dependency instead of the conditional Room recommendation; exact retry tokens and revision checks prevent duplicate rows or stale state. Schema v1 has no historical production predecessor; unsupported versions fail without data deletion. T03d/e/p remain gated.
 T03c evidence: 16 native file-backed SQLite cases pass on API 32/34, including actual SQLITE_FULL under a page ceiling and two concurrent repository writers. Self-review reproduced and fixed receipt replay before lifecycle and missing recovery effects on epoch change; full-storage cleanup now preserves the primary exception. Full Android/core/build/lint/isolation checks pass (56 app executions, 68 core passes and one private-FIT skip). See the T03c task for exact commands, first-schema migration limits and outstanding hardware/result gates.
+
+## T03d authorization and contract
+
+2026-11-11: owner approved T03d after PR #16 merged. [T03d](tasks/t03d-analysis-persistence.md) freezes additive v1 migration, idempotent generation requests, newest-only result reads and transactional whole-aggregate membership invalidation before code. Synthetic results only; T03p/T03e and physiology remain excluded.
+
+T03d software evidence: shared schema v2 additively migrates populated frozen v1 DDL without changing any legacy row. Seven result-storage cases pass on both API 32/34, covering supersession, reverse completion, retry, rollback, concurrent allocation, slot isolation and migration. Full checks pass (70 app tests; 68 core passes, one opt-in skip). No trend mathematics, physiology or hardware acceptance; see T03d for exact evidence and development limitations.

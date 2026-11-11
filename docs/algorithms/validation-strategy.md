@@ -97,3 +97,8 @@ Owner approved [T04b2](../spdd/tasks/t04b2-long-variable-scan.md) after specific
 ## T05a proposed software traceability
 
 [T05a A01–A07](../spdd/tasks/t05a-fixture-reproducibility.md) refine existing V IDs: rights/privacy and FIT references (V09/V12/V21/V22), generator mutation/time ordering (V01/V02/V09/V18/V19), separate absent/invalid profiles and no approved models (V07/V08/V09), independent numerical/coverage tables (V03/V06/V19), real persisted/reopened three-speed equality (V04/V09/V14/V18/V22/V23), refusal/ambiguity/no-fallback (V05/V12/V14/V15/V16/V22), and legacy/new hash vectors plus execution-metadata separation (V09/V18/V22). These are planned, unexecuted software checks; they do not complete physiological V07/V08, T05b evaluation/sensitivity/go-no-go or later live V11/V13. No private FIT read or new dataset claim.
+
+
+## T05a implementation — 2026-11-11
+
+Owner-approved T05a after PR #27: [software evidence](../evidence/t05a-software-2026-11-11/README.md) maps A01–A07 to actual fixture/profile/hash/refusal tests and native persisted virtual-timer replay. Numerical expectations are synthetic only; V07/V08 physiological acceptance and V11/device V13 remain open. Existing private-FIT opt-in stays disabled.

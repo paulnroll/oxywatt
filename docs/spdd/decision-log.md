@@ -178,3 +178,8 @@ Owner approved [T04b2](tasks/t04b2-long-variable-scan.md) after specification PR
 ## T05a proposal after PR #26 — 2026-11-11
 
 Owner requested a concrete specification and authorized its PR publication, not implementation. [T05a](tasks/t05a-fixture-reproducibility.md) extends existing RunManifest/fixture support with rights/recipe/profile descriptors and independent replay expectations. Existing FIT byte manifests, replay hash semantics and generation storage remain authoritative; reject a parallel registry/store or generic experiment runner. Separate fixed-identity semantic comparisons from execution metadata. FTP and VO₂max profiles record missing/unresolved inputs without choosing equations or default physiology. A01–A07 are planned software acceptance, not passed evidence. T05b evaluation/sensitivity/go-no-go, T06/T07 method decisions and lawful independent references remain required. Continue simulator work without private FIT/device access; deferring T02c/T03e/parent T04 live checks does not pass them. Named T05a implementation approval remains pending.
+
+
+## T05a implementation — 2026-11-11
+
+Owner approved named T05a after PR #27 merged. Reuse explicit development event tables and nullable descriptor linkage in RunManifest, preserving legacy hashes. Rights validation checks declarations, not actual consent; current fixture admission supports synthetic inputs only. Separate FTP/VO₂max profile schemas retain missing inputs and model_not_approved without estimator code. Existing typed replay hashing, generation storage and release isolation remain authoritative. [Evidence](../evidence/t05a-software-2026-11-11/README.md). T05b protocol/sensitivity/go-no-go and later scientific/live acceptance remain open.

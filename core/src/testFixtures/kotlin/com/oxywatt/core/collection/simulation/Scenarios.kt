@@ -18,9 +18,11 @@ data class RunManifest(
     val normalizationVersion: String = "canonical-v1",
     val profileVersion: String = "none",
     val schedulerPolicy: String = "timers-before-input-v1",
+    val fixtureDigest: String? = null,
 ) {
     init {
         require(endNanos >= 0)
+        require(fixtureDigest == null || fixtureDigest.matches(Regex("[0-9a-f]{64}")))
         listOf(scenario, generatorVersion, normalizationVersion, profileVersion, schedulerPolicy)
             .forEach {
                 require(it.isNotBlank())
@@ -41,8 +43,13 @@ data class RunManifest(
                 profileVersion,
                 schedulerPolicy,
             )
+        val versionedFields =
+            if (fixtureDigest == null) fields
+            else listOf("descriptor-linked-run-v1") + fields + fixtureDigest
         val canonical =
-            fields.joinToString("") { "${it.toByteArray(StandardCharsets.UTF_8).size}:$it" }
+            versionedFields.joinToString("") {
+                "${it.toByteArray(StandardCharsets.UTF_8).size}:$it"
+            }
         return MessageDigest.getInstance("SHA-256")
             .digest(canonical.toByteArray(StandardCharsets.UTF_8))
             .joinToString("") { "%02x".format(it) }

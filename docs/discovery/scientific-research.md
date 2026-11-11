@@ -46,3 +46,8 @@ Owner approved T06a after specification PR #32 merged. [F01–F08 report](../evi
 ## T07a executed independent audit — 2026-11-11
 
 Owner authorized T07a following T06a; PR #33 merged during work and local main/branch updated. [G01–G08 report](../evidence/t07a-vo2max-method-audit/README.md) centralizes primary equations, protocol/population/reference and rights/access findings, input compatibility and conditional sensitivity. Recommendation: retain model_not_approved for ordinary-ride VO₂max on present evidence. VO₂max O1–O5 remain unresolved/blocked; no method, experiment, dataset or T07b implementation admitted. Any optional controlled-protocol direction requires a separate scope decision. FTP remains independent; R06/physiological V08 and deferred T02c/T03e/parent T04 live acceptance remain open. No application code, private FIT, dataset download, device action or framework.
+
+
+## Comparable power–HR trend research — 2026-11-11
+
+[T08a1 source/claim review](../spdd/tasks/t08a1-power-hr-trend.md) adds a bounded primary-source basis: Lamberts 2010 single-person repeated LSCT case, Lamberts 2014 controlled performance associations and Fritzsche 1999 controlled cardiovascular-drift experiment. Access is abstract/indexed extraction with an explicit 2011 full-text 403; no validated passive coefficients, universal eligibility thresholds or dataset admission follows. Two descriptive equations are OxyWatt proposals, not published physiological estimators. Recommendation for review: compare fixed-band power with local interpolation on synthetic inputs; neither method selected. Unknown confounders and HR suppression prevent automatic fitness interpretation. No data downloaded or author contacted.

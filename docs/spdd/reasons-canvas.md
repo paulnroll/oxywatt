@@ -188,3 +188,12 @@ Owner authorized T07a following T06a; PR #33 merged during work and local main/b
 ## Owner direction: prioritize within-person change — 2026-11-11
 
 Owner prioritizes useful trends over precise absolute laboratory agreement for R05/R06/R08. [Requirements](../product/requirements.md) record this intended use; [validation strategy](../algorithms/validation-strategy.md) separates change tracking from absolute agreement. T05b O2 is narrowed, with numeric criteria still open. Next specification may define an explicitly labeled exploratory fitness trend; no method/estimator is approved. Repeated physiological references remain necessary for physiological change claims; smoothing and cross-sectional agreement alone do not establish longitudinal validity.
+
+
+## T08a1 — proposed comparable power–HR experiment
+
+Owner authorized specification/publication only. [Canonical scope and H01–H07](tasks/t08a1-power-hr-trend.md) subdivides T08a into a smallest complete synthetic comparative experiment: paired covered segments → two descriptive candidate session W observations → frozen baseline/change report → actual persisted replay/reopen/authority evidence. No production estimator, chart, schema, manifest or framework. T07/T07b physiological gates remain separate; R05/R06 are not completed.
+
+REASONS amendment: R02/R03/R07/R08/R10/R11/R12 apply; entities are retained observations/configuration and existing analysis slots, with transient report contributors. Approach compares A fixed-band power and B local interpolation without choosing a production method. Structure stays in existing test fixtures/tests and scalar-v1 storage. Operations use synthetic-only isolated replay, no live wiring. Norms require independent oracles and explicit recipe parameters. Safeguards prohibit physiological relabeling, uncertain context comparison, newest-generation fallback and synthetic real-history membership.
+
+The earlier trend-v0 42-day horizon, 14-day half-life/staleness and three-session minimum remain an unaccepted historical proposal, **not defaults for T08a1**. This experiment uses raw session observations and a recipe-named fixed baseline; smoothing/product thresholds stay open. Software Done is H01–H07 evidence, scientific Done requires repeated independent references, and live Done still requires T02c/T03e/parent T04.

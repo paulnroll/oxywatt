@@ -32,3 +32,8 @@ Owner authorized T07a following T06a; PR #33 merged during work and local main/b
 ## Owner intended use — 2026-11-11
 
 Prioritize within-person change tracking over precise absolute agreement. Follow-up method review must evaluate longitudinal sensitivity, repeatability, confounders and coverage; smoothing alone cannot establish validity. Retain physiological units only with reviewed support for that claim, or separately specify an exploratory fitness proxy with honest labeling. No equation or implementation is selected.
+
+
+## Separate observational experiment — proposed T08a1
+
+[T08a1](../spdd/tasks/t08a1-power-hr-trend.md) specifies candidate equations, joint coverage/lag/drift/context refusals and a synthetic comparative experiment. It belongs to T08a history policy and does not select a T07 physiological method or authorize T07b. Its W and baseline-relative observations must not use VO₂max or FTP labels. Longitudinal physiological change, stability of individual bias and real-world coverage require repeated independent references; neither synthetic recovery nor smoothing supplies them.

@@ -50,3 +50,8 @@ The owner prioritizes useful direction of change within one rider over exact agr
 Evaluate longitudinal change detection, repeatability and coverage in comparable rides as primary product questions. Report absolute accuracy separately when claiming FTP W or VO₂max mL/kg/min. Smoothing alone does not validate a trend. Preserve raw observations, refusals and staleness; separate incompatible method/profile/calibration/environment cohorts and distinguish measurement/configuration changes from fitness changes.
 
 An exploratory cycling fitness indicator may be a useful alternative for review; its observable definition, label and acceptance require a concrete specification. Do not silently call an unvalidated power/HR proxy FTP or VO₂max. No numeric trend threshold, observation horizon or confidence percentage is selected by this direction.
+
+
+## Experimental observational route — T08a1 proposal
+
+[T08a1](../spdd/tasks/t08a1-power-hr-trend.md) proposes a synthetic-only comparison of observed power at comparable HR and local power–HR interpolation, supporting R02/R07/R08/R11 and authority/privacy R03/R10/R12. This is an explicitly experimental observation, not completion or replacement of R05/R06. Physiological VO₂max/FTP remains model_not_approved. Execution and method/product admission require separate decisions; specification/publication only is authorized now.

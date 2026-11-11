@@ -70,7 +70,7 @@ data class ExperimentFixture(
                 manifest.normalizationVersion in setOf("canonical-v1", "fit-normalization-v1")
         )
         require(manifest.schedulerPolicy == "timers-before-input-v1")
-        require(profiles.size == 2)
+        require(profiles.size >= 2)
         require(schema == "experiment-fixture-v1" && origin == "SYNTHETIC")
         require(referenceStatus == "SYNTHETIC_ORACLE")
         require(units == "W,bpm,rpm,kg,ns,UTC")
@@ -83,7 +83,7 @@ data class ExperimentFixture(
             profiles.map { it.schema }.toSet() ==
                 setOf("ftp-input-profile-v1", "vo2-input-profile-v1")
         )
-        require(profiles.map { it.snapshot.version }.distinct() == listOf(manifest.profileVersion))
+        require(profiles.first().snapshot.version == manifest.profileVersion)
         events
             .mapNotNull { (it.payload as? InputPayload.Profile)?.snapshot }
             .forEach { snapshot ->
@@ -117,26 +117,27 @@ data class ExperimentFixture(
     fun digest(): String {
         validate()
         return semanticDigest(
-            schema,
-            listOf(
-                id,
-                revision,
-                manifest.hash(),
-                origin,
-                referenceStatus,
-                units,
-                recipe,
-                sourceRevision,
-                expectedCount.toString(),
-                expectedEnd.toString(),
-                expectation,
-                rights.creator,
-                rights.evidence,
-                rights.terms,
-                rights.privacyReview,
-                rights.processing.name,
-                rights.redistribution.name,
-            ) +
+            if (profiles.size == 2) schema else "experiment-fixture-profile-history-v1",
+            (if (profiles.size == 2) emptyList() else listOf(profiles.size.toString())) +
+                listOf(
+                    id,
+                    revision,
+                    manifest.hash(),
+                    origin,
+                    referenceStatus,
+                    units,
+                    recipe,
+                    sourceRevision,
+                    expectedCount.toString(),
+                    expectedEnd.toString(),
+                    expectation,
+                    rights.creator,
+                    rights.evidence,
+                    rights.terms,
+                    rights.privacyReview,
+                    rights.processing.name,
+                    rights.redistribution.name,
+                ) +
                 listOf(sourceReferences.size.toString()) +
                 sourceReferences +
                 profiles.map { it.digest() } +

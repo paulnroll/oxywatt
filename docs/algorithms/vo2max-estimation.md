@@ -37,3 +37,10 @@ Prioritize within-person change tracking over precise absolute agreement. Follow
 ## Separate observational experiment — proposed T08a1
 
 [T08a1](../spdd/tasks/t08a1-power-hr-trend.md) specifies candidate equations, joint coverage/lag/drift/context refusals and a synthetic comparative experiment. It belongs to T08a history policy and does not select a T07 physiological method or authorize T07b. Its W and baseline-relative observations must not use VO₂max or FTP labels. Longitudinal physiological change, stability of individual bias and real-world coverage require repeated independent references; neither synthetic recovery nor smoothing supplies them.
+
+
+## T08a1 executed software experiment — 2026-11-11
+
+Owner approved [T08a1](../spdd/tasks/t08a1-power-hr-trend.md) after PR #35 merged. [H01–H07 evidence](../evidence/t08a1-power-hr-trend/README.md) records the synthetic A/B experiment through actual committed replay, scalar-v1/reopen, newest authority, fixed-baseline/raw reports and fault/cohort/resource checks. Ten new core tests and ten API 32/34 preview executions pass; full core 117 passes/one private-FIT skip, debug 92/preview 116, build/lint/release isolation and final focused checks pass. No production method/estimator, chart, schema, store or manifest was added.
+
+Both candidates reproduce injected observational changes but show confounder-driven false directions; neither is selected for physiological interpretation. Software H01–H07 does not close O1–O5, R05/R06/physiological V07/V08, T07/T07b, T08b/c or deferred T02c/T03e/parent T04 live gates. No participant data or hardware evidence. Smoothing and legacy trend-v0 numeric defaults remain unapproved for this route.

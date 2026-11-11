@@ -1,6 +1,6 @@
 # T08a1 — Experimental comparable power–HR trend
 
-Status: PROPOSED, 2026-11-11. Owner authorized specification and PR publication only. Named execution approval is pending. No physiological method or estimator is selected.
+Status: owner approved named execution on 2026-11-11 after PR #35 merged. H01–H07 software evidence is complete and ready for owner review. No physiological method or estimator is selected.
 
 ## Problem, boundary and dependencies
 
@@ -127,7 +127,7 @@ Risks: selection/HR-distribution bias, confounded suppressed HR, error in both r
 
 ## Acceptance and R–T–V mappings
 
-All execution cases below are PLANNED / NOT RUN. Approval of this spec is not their completion.
+H01–H07 below are the acceptance baseline, now executed at the bounded software layer in the linked report. No scientific/live completion follows.
 
 | Case | Measurable acceptance for named execution | Mapping |
 |---|---|---|
@@ -147,3 +147,13 @@ Done for execution is the complete H01–H07 synthetic report and passing releva
 ## Specification review evidence — 2026-11-11
 
 Self-review checked scope/authorization, A/B equations and units, source-access limitations, canonical versus unavailable context, no physiological defaults, baseline/authority/race behavior and software/scientific/live separation. Corrected the 2014 source DOI against its primary index and retained abstract-only limits. Independent arithmetic verifies the invented 220 W weighted mean, 210 W interpolation and 5% baseline change; these are design anchors, not executed method tests. Relative links and H01–H07 mappings passed; `git diff --check` passed before publication. No application tests required/run for this documentation-only change. No code, skills, data, device or author-contact action. Remote PR/CI is reported separately after publication; H01–H07 remains unexecuted.
+
+
+Execution detail: profile-transition recipes extend the existing descriptor profile list to retain later immutable snapshots under the same two profile schemas. The manifest still names the initial profile version; every profile event must reference a listed snapshot. Legacy two-profile descriptor digests remain unchanged; profile-history descriptors have an explicit digest domain/count. No new manifest, profile schema or storage is introduced.
+
+
+## Executed evidence — 2026-11-11
+
+Owner approved T08a1 after PR #35 merged. [H01–H07 report](../../evidence/t08a1-power-hr-trend/README.md) records ten new core tests, ten native SQLite API 32/34 test executions, 18 mutation recipes, four policy variants and eight five-session series at three speeds. Independent numerical/refusal oracles, caps, profile/cohort/hash changes, actual scalar-v1 request/reopen/newest/no-fallback/report-race and release isolation checks pass. Core: 117 passes/one private-FIT skip; full debug 92/preview 116 passes; final focused preview ten passes. Full Android build/lint/isolation passes. Failed concurrent-artifact verification and the accepted sequential rerun are disclosed in the report.
+
+Raw, baseline-relative and q-sensitive false-direction/delay results are software observations only. Both candidates recover constructed changes and both can show a false increase under confounding. Neither is selected or admitted as physiological fitness, FTP or VO₂max. No production code/schema/dependency, new manifest/storage, live acquisition or participant experiment. Existing scalar storage does not enforce universal synthetic-origin exclusion: this development consumer uses dedicated synthetic databases and creates no real-history membership. T07/T07b, T08b/c and T02c/T03e/parent T04 remain open. Do not equate this H01–H07 completion with R05/R06/physiological V07/V08 or product/live acceptance.

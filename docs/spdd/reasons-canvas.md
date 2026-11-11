@@ -76,3 +76,5 @@ T01d evidence: the source-neutral port and test-only simulator are implemented; 
 T01d PR #10 review correction: virtual time cannot advance recursively inside a timer callback; this prevents time reversal. Timer scheduling/cancellation remains allowed. All 30 JVM tests pass; see the T01d task review evidence.
 
 T01e implements the pinned developer FIT exporter and test-only simulator bridge, with strict timestamp/integrity checks, explicit timer metadata and private owner-file verification. [Task/evidence](tasks/t01e-fit-replay.md) records V21/V01/V02/V18 scope and the absence of a redistributable real fixture. Public CI uses generated data only.
+
+T01e review correction (V18/V21): exported bytes and checked-out hashed fixtures use LF consistently; replay rejects inconsistent manifest end/count at streaming EOF before completing acquisition. See the T01e task for red/green evidence and private-file verification.

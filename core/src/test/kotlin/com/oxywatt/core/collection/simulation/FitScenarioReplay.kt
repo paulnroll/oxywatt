@@ -37,6 +37,9 @@ fun replayFitScenario(directory: Path, speed: Int?, accept: (SourceObservation) 
     }
     val end =
         checkNotNull(Regex("\"end_offset_nanos\": ([0-9]+)").find(manifest)).groupValues[1].toLong()
+    val expectedRows =
+        checkNotNull(Regex("\"projected_rows\": ([0-9]+)").find(manifest)).groupValues[1].toLong()
+    require(expectedRows > 0)
     val fileOrigin = Instant.parse(text("file_origin"))
     val receiptOrigin = Instant.parse("2026-01-01T00:00:00Z")
     val clock = VirtualTimeline()
@@ -46,7 +49,7 @@ fun replayFitScenario(directory: Path, speed: Int?, accept: (SourceObservation) 
                 "message_index\tfile_timestamp\toffset_nanos\tkind\tvalue\treason\ttimer_type"
         )
         var previousMessage = -1L
-        val events =
+        val decoded =
             reader.lineSequence().map { line ->
                 val cells = line.split('\t')
                 require(cells.size == 7)
@@ -78,6 +81,17 @@ fun replayFitScenario(directory: Path, speed: Int?, accept: (SourceObservation) 
                     }
                 ScheduledObservation(offset, payload)
             }
+        val events = sequence {
+            var rows = 0L
+            var lastOffset = -1L
+            for (event in decoded) {
+                rows++
+                lastOffset = event.offsetNanos
+                yield(event)
+            }
+            require(rows == expectedRows) { "Projection row count mismatch" }
+            require(lastOffset == end) { "Manifest end does not match the last file observation" }
+        }
         val source =
             SimulatedRideDataSource(
                 events,

@@ -105,7 +105,7 @@ def export(data, provenance, directory):
     # Decode fully before publishing either file; manifest hash also detects mismatched pairs.
     for name, content in (("observations.tsv", projection), ("manifest.json", json.dumps(manifest, sort_keys=True, indent=2) + "\n")):
         temporary = directory / (name + ".tmp")
-        temporary.write_text(content, encoding="utf-8")
+        temporary.write_bytes(content.encode("utf-8"))
         temporary.replace(directory / name)
     return manifest
 

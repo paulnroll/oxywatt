@@ -35,3 +35,12 @@ Gradle tracks the private-test opt-in and private fixture files as local test in
 - `:core:check :core:build` passed on JDK 25 / JVM release 17. Standard run: 33 tests, zero failures, one explicit private-test skip. Opt-in private run: 33 tests, zero failures/skips. Toggling the opt-in re-executed tests without forcing reruns. Formatting, relative documentation links, `git diff --check` and JAR exclusion of replay/simulation helpers passed. The new Python CI job has been authored and its commands passed locally; no remote T01e CI run is claimed.
 
 No redistribution permission was granted for the real file or derivatives. Public CI therefore has no real-ride fixture; the real-file acceptance evidence is local and cannot be reproduced from a fresh public clone alone. This establishes decoder/replay software behavior, not SDK equivalence, collection eligibility, a power curve or physiological validity. T02d/T03 and later implementation remain gated.
+
+## Additional code review — 2026-11-11
+
+Two integrity defects were reproduced before correction (R01/R07/R11; V18/V21):
+
+- Text-mode export could translate LF into CRLF on Windows after the projection hash was computed. Export now writes the exact UTF-8 bytes being hashed; Git attributes enforce LF for the byte-hashed public fixtures. The regression simulates Windows text-mode newline translation; no native Windows run is claimed.
+- The JVM bridge trusted manifest end time and projected-row count. Increasing the end time could manufacture an extra acquisition tail; a wrong count was silently accepted. Streaming EOF now checks a positive row count and exact agreement between the last file offset and declared end before source EOF can advance virtual time. Inconsistent metadata terminates replay with an error. Hash validation still precedes delivery; semantic EOF validation does not roll back already delivered observations.
+
+The new Python test and both JVM regression tests failed before their corrections. Afterward all nine Python tests and all 35 JVM tests pass with the private replay enabled; formatting and core build pass. Git attributes report LF for both fixture files. Public/private isolation remains in effect.

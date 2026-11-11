@@ -1,8 +1,10 @@
 """Synthetic-only decoder edge cases; never reads a personal ride."""
+import hashlib
 import json
 import struct
 import tempfile
 import unittest
+from unittest.mock import patch
 from pathlib import Path
 
 import fitdecode
@@ -72,6 +74,22 @@ class ExportTest(unittest.TestCase):
         tsv, manifest = self.decode(synthetic_fit())
         self.assertEqual(tsv, directory.joinpath("observations.tsv").read_text())
         self.assertEqual(manifest, json.loads(directory.joinpath("manifest.json").read_text()))
+
+    def test_export_hash_survives_windows_text_newline_translation(self):
+        original_open = Path.open
+
+        def windows_open(path, mode="r", *args, **kwargs):
+            if "w" in mode and "b" not in mode:
+                kwargs["newline"] = "\r\n"
+            return original_open(path, mode, *args, **kwargs)
+
+        with tempfile.TemporaryDirectory() as name:
+            directory = Path(name)
+            with patch.object(Path, "open", windows_open):
+                manifest = export(synthetic_fit(), "generated-synthetic-v1", directory)
+            raw = directory.joinpath("observations.tsv").read_bytes()
+            self.assertEqual(manifest["projection_sha256"], hashlib.sha256(raw).hexdigest())
+            self.assertNotIn(b"\r\n", raw)
 
     def test_private_export_cannot_escape_ignored_directory(self):
         with tempfile.TemporaryDirectory() as name:

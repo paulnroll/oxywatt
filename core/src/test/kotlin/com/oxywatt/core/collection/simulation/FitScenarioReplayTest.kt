@@ -63,6 +63,38 @@ class FitScenarioReplayTest {
     }
 
     @Test
+    fun manifestCannotExtendAcquisitionBeyondLastFileObservation() {
+        withChangedManifest(
+            "\"end_offset_nanos\": 9000000000",
+            "\"end_offset_nanos\": 19000000000",
+        ) {
+            assertFailsWith<IllegalArgumentException> { replayFitScenario(it, null) {} }
+        }
+    }
+
+    @Test
+    fun manifestRowCountMustMatchProjection() {
+        withChangedManifest("\"projected_rows\": 15", "\"projected_rows\": 16") {
+            assertFailsWith<IllegalArgumentException> { replayFitScenario(it, null) {} }
+        }
+    }
+
+    private fun withChangedManifest(before: String, after: String, verify: (Path) -> Unit) {
+        val directory = Files.createTempDirectory("oxywatt-replay-manifest")
+        try {
+            Files.copy(fixture.resolve("observations.tsv"), directory.resolve("observations.tsv"))
+            val original = Files.readString(fixture.resolve("manifest.json"))
+            check(before in original)
+            Files.writeString(directory.resolve("manifest.json"), original.replace(before, after))
+            verify(directory)
+        } finally {
+            Files.deleteIfExists(directory.resolve("observations.tsv"))
+            Files.deleteIfExists(directory.resolve("manifest.json"))
+            Files.delete(directory)
+        }
+    }
+
+    @Test
     fun privateOwnerProjectionReplaysAtEverySpeedWhenExplicitlyEnabled() {
         val location = System.getenv("OXYWATT_PRIVATE_FIT_REPLAY_DIR")
         assumeTrue("Private FIT verification is opt-in", location != null)

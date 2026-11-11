@@ -1,6 +1,6 @@
 # T06a — Primary-source FTP method audit
 
-Status: scope specification requested by the owner on 2026-11-11 after merged T05b PR #30. This specification does not select a method or authorize estimator implementation. Named audit execution approval remains pending.
+Status: owner approved named T06a audit execution on 2026-11-11 after specification PR #32 merged. Bounded F01–F08 audit completed with explicit source-access limitations; evidence ready for owner review. No method selected or estimator implementation authorized.
 
 ## Goal and boundaries
 
@@ -80,3 +80,11 @@ Risks: protocol conversion treated as universal, CP relabeled FTP, opportunistic
 ## Scope specification self-review — 2026-11-11
 
 Reviewed F01–F08 against R05/R07 and existing V07/V09, conditional input/privacy/synthetic mappings, T05b O1–O5 and independent T07/T06b gates. No new scientific claims or primary-source findings are asserted in this scope document. All 170 relative Markdown links in the seven affected documents resolve; `git diff --check` passes. No application tests run for this documentation-only specification. Existing unrelated `settings.gradle.kts` work is excluded from publication. Audit execution and F01–F08 evidence remain pending named approval.
+
+## Executed audit — 2026-11-11
+
+[Primary-source audit report](../../evidence/t06a-ftp-method-audit/README.md) records F01 dated searches across three groups, F02/F04 five full-body source sheets plus five partial-source exclusions and the unresolved S1 correction, F03 compatibility with existing canonical/profile/nine-duration contracts, F05 conditional sensitivity/oracle proposals, F06 availability/rights limits and F07 explicit FTP O1–O5/gate dispositions. F08 synchronizes task, algorithms/ledger, Canvas, backlog and traceability. Publication scopes remain documentation only.
+
+Recommendation: no audited candidate supports approving automatic FTP from ordinary rides on present evidence. Controlled-protocol investigation remains an optional separate owner decision; CP stays distinct. Audit completeness does not mean every source is reproducible: inaccessible corrections/protocols and precision differences are explicit exclusions/blockers. No lawful matched dataset secured, no method selected, no estimator or participant experiment run. Experiment admission remains NO-GO; parent T06/R05, physiological V07 and deferred live gates stay open. T07a remains independent.
+
+Verification/self-review: F01–F08 mapped to actual report sections and existing R/V definitions. Equations/units checked against primary-source locations; inconsistent source values and unverified correction not silently reconciled. Independent Python fractions checks confirm the invented 190 W and 300/275 W anchors without running an estimator. All 185 relative Markdown links in the eleven affected documents resolve; `git diff --check` passes. No application tests for documentation-only work; no skill files modified. No raw research data or private inputs retrieved.

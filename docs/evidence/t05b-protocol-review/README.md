@@ -147,3 +147,7 @@ T05a tests `permissionIsCheckedBeforeReplay`, `profilesPreserveMissingInputsAndN
 ## Review and verification
 
 Self-review checked every B01–B08 criterion against these sheets/tables, reviewed exclusion/reference labels, reconciled totals and checked participant assignments and leakage boundaries. Toy arithmetic was independently recalculated with Python standard-library fractions/math; the verification did not invoke any OxyWatt estimator or derive expected values from production code. Relative Markdown link checks, R/T/V traceability and `git diff --check` results are recorded in the task. No application tests are required for this documentation-only package; no private input was opened and no third party contacted.
+
+## FTP follow-up from T06a — 2026-11-11
+
+The [executed FTP audit](../t06a-ftp-method-audit/README.md) narrows O1/O5 with source-specific target/equation/input findings and explicit unresolved correction/protocol details. O1/O5 are not closed; O2/O3 remain unresolved and O4 lacks a secured lawful paired dataset. FTP experiment admission remains NO-GO, no method selected. Historical B01–B08 toy results above are unchanged. This follow-up does not resolve any VO₂max decision or live gate.

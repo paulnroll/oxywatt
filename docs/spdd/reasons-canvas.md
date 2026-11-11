@@ -166,3 +166,6 @@ T05a implementation approved after merged PR #27. Extend development RunManifest
 ## T05b executed protocol exercises — 2026-11-11
 
 Owner approved T05b after merged PR #29. [B01–B08 report](../evidence/t05b-protocol-review/README.md) completes the bounded documentation exercise: separate FTP/VO₂max estimands, ten invented qualification cases, participant split/freeze rehearsal, reconciled coverage/refusal/error arithmetic, conditional sensitivity and explicit O1–O5 decisions. Self-reviewed evidence is ready for owner review; it is not a physiological study. Both experiment admissions remain NO-GO; no lawful matched dataset, justified scientific thresholds/sample plan or method selected. T06/T07 retain independent research/selection and later implementation; no automatic authorization follows. T05 protocol/reproducibility deliverables are now recorded, while parent scientific acceptance and deferred T02c/T03e/parent T04 live gates remain open.
+
+
+CI tooling repair (2026-11-11): [T01a-format F03/F04](tasks/t01a-formatting-ci.md) explicitly configures Maven Central plus Plugin Portal for plugin dependency resolution after failed main run 43084264896. This preserves pinned tooling and existing JVM acceptance scope.

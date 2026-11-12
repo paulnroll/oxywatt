@@ -28,6 +28,29 @@ class DiagnosticExtensionTest {
                 RobolectricPump.invoke(),
             )
         karoo.awaitValue { true.takeIf { karoo.system.consumerCount == 5 } }
+        val duplicate =
+            DiagnosticRuntime.startLive(karoo.app) { _, _, _, _ -> error("Duplicate live source") }
+        assertTrue(DiagnosticRuntime.storage().restartBlocked)
+        duplicate.close()
+        assertEquals(5, karoo.system.consumerCount)
+        val before = DiagnosticRuntime.storage().received
+        repeat(10) {
+            karoo.system.setDataPoint(
+                io.hammerhead.karooext.models.DataPoint(
+                    io.hammerhead.karooext.models.DataType.Type.POWER,
+                    mapOf(io.hammerhead.karooext.models.DataType.Field.POWER to 0.0),
+                )
+            )
+        }
+        karoo.awaitValue { true.takeIf { DiagnosticRuntime.storage().received >= before + 10 } }
+        org.robolectric.shadows.ShadowSystemClock.advanceBy(java.time.Duration.ofSeconds(6))
+        karoo.awaitValue { true.takeIf { DiagnosticRuntime.storage().committed > 0 } }
+        val epoch = DiagnosticRuntime.storage().receipt!!.epochId
+        val screen = Robolectric.buildActivity(MainActivity::class.java).setup()
+        screen.recreate()
+        assertEquals(epoch, DiagnosticRuntime.storage().receipt!!.epochId)
+        assertEquals(5, karoo.system.consumerCount)
+        screen.pause().stop().destroy()
         val fit = host.startFit()
         karoo.awaitValue {
             true.takeIf {
@@ -47,6 +70,18 @@ class DiagnosticExtensionTest {
         // Host close cancels FIT; Android destruction releases the service subscriptions.
         controller.destroy()
         assertEquals(0, karoo.system.consumerCount)
+        karoo.awaitValue {
+            true.takeIf { DiagnosticRuntime.storage().status == LiveStorageStatus.DRAINED }
+        }
         assertTrue(fit.items.isEmpty())
+        karoo.awaitValue { true.takeIf { DiagnosticRuntime.readyForSource() } }
+        val replacement = Robolectric.buildService(DiagnosticExtension::class.java).create()
+        karoo.awaitValue { true.takeIf { karoo.system.consumerCount == 5 } }
+        org.robolectric.shadows.ShadowSystemClock.advanceBy(java.time.Duration.ofSeconds(6))
+        karoo.awaitValue { true.takeIf { DiagnosticRuntime.storage().committed > 0 } }
+        assertNotEquals(epoch, DiagnosticRuntime.storage().receipt!!.epochId)
+        replacement.destroy()
+        karoo.awaitValue { true.takeIf { DiagnosticRuntime.readyForSource() } }
+        assertEquals(0, karoo.system.consumerCount)
     }
 }

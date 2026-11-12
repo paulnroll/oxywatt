@@ -26,6 +26,7 @@ data class StoredBatchMetadata(
     val policy: AdmissionPolicy,
     val loss: AdmissionLoss?,
     val terminal: InterruptionReason?,
+    val acquisition: String? = null,
 )
 
 data class CommittedEffect(
@@ -39,8 +40,23 @@ data class CommittedEffect(
 data class StoredCollectorState(val revision: Long, val checkpoint: CollectorCheckpoint?)
 
 /** Blocking adapter: its owner must call it on a worker, never from a sensor or UI callback. */
-class InputRepository(context: Context, name: String) : AutoCloseable {
-    private val helper = CollectorDatabase(context, name)
+class InputRepository(
+    context: Context,
+    name: String,
+    maximumBytes: Long? = null,
+    acquisition: String? = null,
+) : AutoCloseable {
+    init {
+        maximumBytes?.let {
+            require(it > 0 && context.getDatabasePath(name).length() <= it) {
+                "Existing database exceeds live cap"
+            }
+        }
+    }
+
+    private val acquisitionDocument =
+        acquisition?.let(::JSONObject).also { it?.let(CollectorCodec::validateAcquisition) }
+    private val helper = CollectorDatabase(context, name, maximumBytes)
 
     fun state(): StoredCollectorState =
         helper.readableDatabase
@@ -123,6 +139,7 @@ class InputRepository(context: Context, name: String) : AutoCloseable {
                         CollectorCodec.loss(value),
                         if (value.isNull("terminal")) null
                         else InterruptionReason.valueOf(value.getString("terminal")),
+                        CollectorCodec.acquisition(value),
                     )
                 }
             }
@@ -195,6 +212,7 @@ class InputRepository(context: Context, name: String) : AutoCloseable {
                                     CollectorCodec.loss(m),
                                     if (m.isNull("terminal")) null
                                     else InterruptionReason.valueOf(m.getString("terminal")),
+                                    CollectorCodec.acquisition(m),
                                 ),
                             )
                         )
@@ -267,6 +285,12 @@ class InputRepository(context: Context, name: String) : AutoCloseable {
         expectedRevision: Long,
         batchId: UUID,
     ): PreparedInputWrite {
+        acquisitionDocument?.let {
+            require(it.getString("epoch") == checkpoint.epochId.toString()) {
+                "Acquisition provenance epoch mismatch"
+            }
+            metadata.put("acquisition", JSONObject(it.toString()))
+        }
         val document =
             JSONObject()
                 .put("codec", 1)
@@ -314,6 +338,7 @@ class InputRepository(context: Context, name: String) : AutoCloseable {
             val revision = Math.incrementExact(write.expectedRevision)
             val document = JSONObject(write.document)
             require(document.getInt("codec") == 1)
+            CollectorCodec.acquisition(document.getJSONObject("metadata"))
             val checkpoint = CollectorCodec.checkpoint(document.getJSONObject("checkpoint"))
             previous.checkpoint?.let { prior ->
                 if (prior.epochId == checkpoint.epochId) {

@@ -304,4 +304,31 @@ internal object CollectorCodec {
                 it.getLong("flushNanos"),
             )
         }
+
+    fun validateAcquisition(value: JSONObject) {
+        require(value.toString().length <= 8192)
+        require(value.getInt("version") == 1) { "Unsupported acquisition version" }
+        require(value.getString("origin") == "real-karoo-diagnostic")
+        for (key in
+            listOf(
+                "appVersion",
+                "codeRevision",
+                "epoch",
+                "ordering",
+                "retry",
+                "storage",
+                "silence",
+            )) require(value.getString(key).isNotBlank())
+        java.util.UUID.fromString(value.getString("epoch"))
+        value.getBoolean("dirty")
+        require(value.getLong("firstRetryNanos") == 1_000_000_000L)
+        require(value.getLong("subsequentRetryNanos") == 5_000_000_000L)
+        require(value.getLong("silenceNanos") > 0 && value.getLong("maximumBytes") > 0)
+    }
+
+    fun acquisition(metadata: JSONObject): String? {
+        require(metadata.getInt("codec") == 1) { "Unsupported metadata codec" }
+        return if (metadata.isNull("acquisition")) null
+        else metadata.getJSONObject("acquisition").also(::validateAcquisition).toString()
+    }
 }

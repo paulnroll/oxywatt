@@ -327,3 +327,27 @@ Owner asked for progress that does not require another full workout, deferring l
 
 
 T02c1 owner feedback/publication (2026-11-12): owner confirmed the installed live screen displays actual sensor readings and requested a PR plus a new-session prompt. Commit/push/PR cover scoped code/tests and aggregate device/FIT documentation only; private inputs/reports/screenshots/APKs stay outside Git. This feedback does not close full T02c/T03e/T04 or numerical/scientific acceptance; no merge or additional implementation authorized.
+
+
+## T03e1 diagnostic live persistence proposal — 2026-11-12
+
+**Proposed, not implementation-approved.** [T03e1](tasks/t03e1-live-diagnostic-persistence.md) reserves the checked-unused ID and supplies a concrete next decision. R02/R03/R07/R10/R11/R12: persist real canonical inputs through existing admission/lifecycle/InputRepository, including Idle out-of-session observations, and distinguish received callbacks from acknowledged committed events. Entities/contracts remain source-neutral; DiagnosticExtension owns the sole source, one coordinator owns the existing components, Activity reads bounded state. No second Collector/repository/measurement file.
+
+Proposed limited order exception to ADR 0003/0004: T02c1 + completed software contracts → named T03e1 approval → software fault/integration tests and optional short standstill check **before full T02c**. Full T03e/product live acceptance and parent T04 retain T02c residency/resource gates. This section supersedes the earlier blanket T03e ordering only for this proposed subdivision upon owner approval; it does not declare the exception accepted.
+
+Operations: one short gate covers receipt stamping/admission/timer cuts; one worker owns lifecycle/prepare/commit, one frozen write retries unchanged. New epoch per source run; five-second engineering silence policy, admission-v1 ceilings, rate-limited retry, 32 MiB main SQLite cap with explicit journal-space limitation and private versioned acquisition provenance. Norms/safeguards: timer-before-equal-input, no false saved counts, bounded loss/fail-closed controls, conservative restart, preview isolation, no analysis/fallback/physiology. E01–E09 are proposed software checks; E10 is optional short hardware evidence. No tests executed or new acquisition authorized by this specification.
+
+
+T03e1 owner authorization (2026-11-12): owner explicitly approved the specified diagnostic-only implementation, policies and ordering exception. Earlier proposal status is historical. Full T02c/T03e/product reliability, live T04 and science remain open; no installation/publication/merge approval inferred.
+
+
+T03e1 local implementation (2026-11-12, owner-approved): [actual structure and behavioral evidence](tasks/t03e1-live-diagnostic-persistence.md#implemented-structure-and-policy-refinements--2026-11-12) wires the sole real adapter through existing admission/lifecycle/InputRepository. One stamp/admission gate and one worker preserve timer cuts, exact retry, shared N01 bounds and loss-only drain; new epochs/clock origins, private versioned provenance and live-only 32 MiB main SQLite cap are explicit. Readout distinguishes received/current-run inputs from acknowledged commits and shows pending/loss/restart/storage states. Synthetic preview and analysis authority remain isolated. App is 0.4.0/code 4 locally, not installed. See task for final verification results; E10 and full T02c/N02/T03e/live T04/science remain open. No publication/merge.
+
+
+T03e1 final software verification: debug 138 PASS, preview 162 PASS; core check PASS with unchanged cached 117 passes/one private-FIT skip. Builds/lint and release/preview isolation PASS (4 min 40 s). E01–E09 software evidence is recorded in the task; E10 NOT RUN. Local 0.4.0/code 4 APK is not installed; existing 0.3.0 device provenance is unchanged. Full T02c/N02/T03e/live T04 and science remain open. Changes stay local/uncommitted/unpublished.
+
+
+T03e1 E10 short hardware check (2026-11-12): owner authorized installation/check after software completion. [Actual evidence](tasks/t03e1-live-diagnostic-persistence.md#e10-authorized-installation-and-short-karoo-check--2026-11-12) confirms matching-signer in-place 0.4.0/code 4 update on k24/API 32, exact installed prepared-APK hash and Connected/Idle zero-power/cadence plus unavailable HR. Screen received 213 / committed 203 / pending 10 matches SQLite revision 20 exactly; revision 21 retains all 213 unique observations, one epoch, zero sessions/analyses. HOME/reopen keeps the process and one source-start marker; timing/status report stays separate. E10 limited PASS supersedes earlier not-run/not-installed status. Raw SQLite/profile/report/screenshots/identifiers/timestamps stay private outside Git. No native ride or FIT replay; full T02c/N02/T03e/live T04 and science remain open. No publication/merge.
+
+
+T03e1 publication authorization (2026-11-12): owner requested commit/push/PR for the completed 29-file diagnostic slice and a next-session continuation prompt. Aggregate E10 evidence may be published; private artifacts/profile/identifiers/acquisition timestamps and APKs remain outside Git. Merge/release and further native recordings/new implementation slices are not authorized. Next recommended planning step is a minimal short standstill persisted recording/pause/resume/local-end verification package, with unused ID check and named device-scope approval before execution; full T02c/T03e/resource/science gates remain open.

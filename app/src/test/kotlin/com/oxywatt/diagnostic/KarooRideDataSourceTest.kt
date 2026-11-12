@@ -358,4 +358,63 @@ class KarooRideDataSourceTest {
         assertEquals(0, karoo.system.consumerCount)
         handle.close()
     }
+
+    @Test
+    fun `real SDK adapter feeds bounded coordinator and file backed canonical inputs`() {
+        val name = "sdk-live-${UUID.randomUUID()}.db"
+        val gateChecks = java.util.concurrent.atomic.AtomicInteger()
+        com.oxywatt.diagnostic.persistence.InputRepository(karoo.app, name).use { repo ->
+            val clock = java.util.concurrent.atomic.AtomicLong()
+            val owner = LiveDiagnosticCoordinator(repo, elapsed = clock::get)
+            val adapter =
+                KarooRideDataSource(
+                    KarooSystemService(karoo.app),
+                    stamp = {
+                        check(Thread.holdsLock(owner.gate))
+                        gateChecks.incrementAndGet()
+                        owner.stamp()
+                    },
+                    deliveryGate = owner.gate,
+                )
+            val handle = adapter.start(owner::accept) { owner.stopped() }
+            try {
+                ready()
+                val baseline = owner.snapshot().received
+                point(DataType.Type.POWER, 0.0)
+                point(DataType.Type.POWER, 0.0)
+                point(DataType.Type.HEART_RATE, 0.0)
+                point(DataType.Type.CADENCE, 0.0)
+                karoo.system.setStreamState(DataType.Type.POWER, StreamState.Searching)
+                karoo.system.setStreamState(DataType.Type.POWER, StreamState.NotAvailable)
+                karoo.awaitValue { true.takeIf { owner.snapshot().received == baseline + 6 } }
+                assertEquals(0L, owner.snapshot().committed)
+                owner.pump(true)
+                assertEquals(baseline + 6, owner.snapshot().committed)
+                val payloads = repo.observations().takeLast(6).map { it.observation.payload }
+                assertEquals(
+                    listOf(
+                        metric(Metric.POWER_W, 0.0),
+                        metric(Metric.POWER_W, 0.0),
+                        metric(Metric.HEART_RATE_BPM, null, MissingReason.INVALID_SOURCE_VALUE),
+                        metric(Metric.CADENCE_RPM, 0.0),
+                        metric(Metric.POWER_W, null, MissingReason.DROPOUT),
+                        metric(Metric.POWER_W, null, MissingReason.UNAVAILABLE),
+                    ),
+                    payloads,
+                )
+                assertEquals(owner.snapshot().received.toInt(), gateChecks.get())
+                assertTrue(
+                    repo.observations().all { it.observation.source == SourceRef("karoo", "1.1.9") }
+                )
+            } finally {
+                handle.close()
+                owner.pump(true)
+            }
+            assertEquals(0, karoo.system.consumerCount)
+        }
+        com.oxywatt.diagnostic.persistence.InputRepository(karoo.app, name).use {
+            assertTrue(it.observations().size >= 6)
+        }
+        karoo.app.deleteDatabase(name)
+    }
 }

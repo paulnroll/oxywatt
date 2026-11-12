@@ -504,4 +504,80 @@ class InputRepositoryTest {
             assertTrue(repo.observations().all { it.sessionId == null })
         }
     }
+
+    @Test
+    fun `live database cap and acquisition version fail closed without affecting defaults`() {
+        val name = databaseName()
+        InputRepository(context, name).use { repo ->
+            val write = repo.prepare(batch(power(0)), collector(), 0)
+            repo.commit(write)
+        }
+        assertThrows(IllegalArgumentException::class.java) {
+            InputRepository(context, name, maximumBytes = 1).use { it.state() }
+        }
+        InputRepository(context, name).use { assertEquals(1, it.observations().size) }
+        assertThrows(IllegalArgumentException::class.java) {
+            InputRepository(context, databaseName(), acquisition = "{\"version\":99}").use {
+                it.state()
+            }
+        }
+    }
+
+    private fun acquisition(epoch: UUID) =
+        org.json
+            .JSONObject()
+            .put("version", 1)
+            .put("origin", "real-karoo-diagnostic")
+            .put("appVersion", "fixture")
+            .put("codeRevision", "fixture")
+            .put("dirty", true)
+            .put("epoch", epoch.toString())
+            .put("ordering", "karoo-diagnostic-order-v1")
+            .put("retry", "karoo-diagnostic-retry-v1")
+            .put("storage", "karoo-diagnostic-storage-v1")
+            .put("silence", "karoo-diagnostic-silence-v1")
+            .put("silenceNanos", 5_000_000_000L)
+            .put("maximumBytes", 131072)
+            .put("firstRetryNanos", 1_000_000_000L)
+            .put("subsequentRetryNanos", 5_000_000_000L)
+            .toString()
+
+    @Test
+    fun `live provenance round trips and real cap failure preserves prior commit`() {
+        val name = databaseName()
+        val lifecycle = collector()
+        InputRepository(context, name, maximumBytes = 131072, acquisition = acquisition(epoch))
+            .use { repo ->
+                val first = repo.prepare(batch(power(0)), lifecycle, 0)
+                repo.commit(first)
+                val metadata =
+                    org.json.JSONObject(repo.batchMetadata(first.batchId)!!.acquisition!!)
+                assertEquals("real-karoo-diagnostic", metadata.getString("origin"))
+                assertEquals(epoch.toString(), metadata.getString("epoch"))
+                assertTrue(metadata.getBoolean("dirty"))
+                val admission = BoundedAdmission()
+                for (n in 1L..1000L) assertTrue(admission.offer(power(n)))
+                val write = repo.prepare(admission.takeBatch()!!, lifecycle, 1)
+                assertThrows(android.database.sqlite.SQLiteFullException::class.java) {
+                    repo.commit(write)
+                }
+                assertEquals(1L, repo.state().revision)
+                assertEquals(1, repo.observations().size)
+            }
+        InputRepository(context, name, maximumBytes = 131072).use {
+            assertEquals(1L, it.state().revision)
+        }
+        val file = context.getDatabasePath(name)
+        assertTrue(file.length() <= 131072)
+        android.database.sqlite.SQLiteDatabase.openDatabase(file.path, null, 0).use { db ->
+            db.execSQL(
+                "UPDATE batches SET document=?",
+                arrayOf("{\"codec\":1,\"acquisition\":{\"version\":99}}"),
+            )
+        }
+        assertThrows(IllegalArgumentException::class.java) {
+            InputRepository(context, name, maximumBytes = 131072).use { it.state() }
+        }
+        assertTrue(file.exists())
+    }
 }

@@ -4,10 +4,35 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 
-internal class CollectorDatabase(context: Context, name: String) :
-    SQLiteOpenHelper(context.applicationContext, name, null, 2) {
+internal class CollectorDatabase(
+    context: Context,
+    name: String,
+    private val maximumBytes: Long? = null,
+) : SQLiteOpenHelper(context.applicationContext, name, null, 2) {
     override fun onConfigure(db: SQLiteDatabase) {
         db.setForeignKeyConstraintsEnabled(true)
+    }
+
+    override fun onOpen(db: SQLiteDatabase) {
+        super.onOpen(db)
+        maximumBytes?.let { limit ->
+            val size =
+                db.rawQuery("PRAGMA page_count", null).use {
+                    it.moveToFirst()
+                    it.getLong(0)
+                } *
+                    db.rawQuery("PRAGMA page_size", null).use {
+                        it.moveToFirst()
+                        it.getLong(0)
+                    }
+            require(size <= limit) { "Existing database exceeds live cap" }
+            require(db.setMaximumSize(limit) == limit) { "Unexpected effective live cap" }
+            db.rawQuery("SELECT document FROM batches", null).use { cursor ->
+                while (cursor.moveToNext()) CollectorCodec.acquisition(
+                    org.json.JSONObject(cursor.getString(0))
+                )
+            }
+        }
     }
 
     override fun onCreate(db: SQLiteDatabase) {

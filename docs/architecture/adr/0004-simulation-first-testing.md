@@ -103,3 +103,11 @@ Hardware sessions concentrate on real radio data, host startup, hidden/no-field 
 Propose revising ADR 0003 to allow T03a–T03d simulation-backed development after the source contract and required simulator tests are accepted. T03e production wiring still requires the T02 hardware acquisition gate. A failed hardware hypothesis requires review of the live architecture. Pending hardware work remains visible in the parent T02/T03 acceptance.
 
 A broad data-source plugin framework would add configuration and domain types without a current need. Direct canonical-input simulation alone would leave SDK mapping and teardown untested. Hardware-only development would delay deterministic fault and regression coverage. The small port plus separate test layers addresses these concrete gaps.
+
+
+## Proposed diagnostic-only ordering exception — 2026-11-12
+
+[T03e1](../../spdd/tasks/t03e1-live-diagnostic-persistence.md) proposes bounded real-source diagnostic canonical persistence before the complete T02c matrix, using completed T03 software components and explicit received-versus-committed state. **Not accepted or implementation-approved.** Named approval would permit this subdivision's software work and leave full T03e/product acquisition, parent live T04, residency/death/resource and science acceptance behind existing gates. No new keep-alive, automatic session merge or full-ride guarantee. Canvas/decision log and task define the limited exception and E01–E10 evidence, rather than silently weakening this ADR.
+
+
+T03e1 owner authorization (2026-11-12): owner explicitly approved the specified diagnostic-only implementation, policies and ordering exception. Earlier proposal status is historical. Full T02c/T03e/product reliability, live T04 and science remain open; no installation/publication/merge approval inferred.

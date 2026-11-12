@@ -13,3 +13,11 @@ If no supported lifecycle meets R09, stop and propose an explicit mode/scope cha
 ## Proposed dependency amendment — 2026-11-11
 
 [ADR 0004](0004-simulation-first-testing.md) allows T03a–T03d software development after accepted simulated source and repository contracts, while T03e production wiring and live acceptance continue to require the T02 acquisition decision. The owner accepted this architecture on 2026-11-11; each implementation slice still needs named approval. Hardware still determines startup, sustained residency, radios, death/force-stop behavior and resource budgets. Failed feasibility triggers architecture review before live deployment.
+
+
+## Proposed diagnostic-only ordering exception — 2026-11-12
+
+[T03e1](../../spdd/tasks/t03e1-live-diagnostic-persistence.md) proposes bounded real-source diagnostic canonical persistence before the complete T02c matrix, using completed T03 software components and explicit received-versus-committed state. **Not accepted or implementation-approved.** Named approval would permit this subdivision's software work and leave full T03e/product acquisition, parent live T04, residency/death/resource and science acceptance behind existing gates. No new keep-alive, automatic session merge or full-ride guarantee. Canvas/decision log and task define the limited exception and E01–E10 evidence, rather than silently weakening this ADR.
+
+
+T03e1 owner authorization (2026-11-12): owner explicitly approved the specified diagnostic-only implementation, policies and ordering exception. Earlier proposal status is historical. Full T02c/T03e/product reliability, live T04 and science remain open; no installation/publication/merge approval inferred.

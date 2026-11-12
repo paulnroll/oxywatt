@@ -155,4 +155,18 @@ class DiagnosticCaptureTest {
         capture.accept(input(180.0))
         assertEquals(180.0, capture.snapshot().metrics[Metric.POWER_W]!!.value!!, 0.0)
     }
+
+    @Test
+    fun `new receipt origin ages locally and new source clears historical values`() {
+        val capture = DiagnosticCapture(File(temp.root, "origin.jsonl"), nowNanos = { now })
+        capture.accept(input(123.0))
+        now = 1000
+        capture.sourceStarted(1000)
+        assertTrue(capture.snapshot().metrics.isEmpty())
+        capture.accept(
+            input(0.0).copy(stamp = ReceiptStamp(Instant.EPOCH, UUID.randomUUID(), 0, 0))
+        )
+        now = 1020
+        assertEquals(20L, capture.snapshot().metrics[Metric.POWER_W]!!.ageNanos)
+    }
 }

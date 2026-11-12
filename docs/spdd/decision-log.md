@@ -308,3 +308,34 @@ Owner explicitly approved the complete T08a4 configuration and numerical executi
 
 
 T08a4 publication authorization (2026-11-12): owner explicitly requested commit, push and PR for the nine scoped documentation files. Earlier local-only statements are historical snapshots. Publish aggregate evidence/specification only; detailed data/scripts/results stay outside Git. No merge, further analysis, application implementation or physiological gate approval.
+
+
+## T08a5 approved 115 bpm stored-row descriptor — 2026-11-12
+
+**Authorization/freeze snapshot; completed execution evidence follows below.**
+
+Owner approved the described exact-at-115 / nearest-bracket linear interpolation variant, now reserved as [T08a5](tasks/t08a5-salford-anchor115.md) after checking the unused ID. Freeze the full rules and contributor endpoints before numerical execution. One output per fixed-primary column; direct/interpolated methods, counts, ranges and zero/quality flags stay explicit. Pairing and local linearity remain development assumptions, no A/B/trend/physiology or app implementation. L01–L06 define source/report arithmetic, complete denominators, independent checks, rerun/current-input/no-fallback/privacy evidence; pending execution. No new acquisition/contact or publication authorized; T08a3 and all live/scientific/product gates unchanged.
+
+
+## T08a5 executed 115 bpm descriptor — 2026-11-12
+
+[Executed results and verification](../evidence/t08a2-comparable-observations/README.md#t08a5-executed-115-bpm-stored-row-descriptor--2026-11-12): all 197 fixed-primary outputs available, 188 exact and nine interpolated, 206 HR nodes and 3,226 actual source-row contributors. Seventeen columns have a one-row used point; 132 include Power-zero in a used point, all retained. Complete independent source/rational checks, full byte-identical rerun and current/no-fallback/interruption checks PASS. Exact versus interpolated evidence remains explicit; local linearity, index pairing, artifact and context limits unchanged. L01–L06 report/source evidence only, no original A/B, chronological/physiological trend, app change or Git publication. Detailed scalars/contributors/scripts remain outside Git; all live/scientific/product gates stay open.
+
+
+## T08a6 approved single-row influence diagnostic — 2026-11-12
+
+**Authorization/freeze snapshot; executed evidence follows below.**
+
+Owner approved the described [T08a6](tasks/t08a6-salford-row-influence.md) diagnostic before ID reservation. Freeze all used T08a5 rows/nodes/weights/methods, omit each used row once without altering source, record exact W changes or required-node-empty refusal and complete per-column envelopes. M01–M06 require independent recomputation, full unavailable/partial denominators, deterministic rerun/current-input/no-fallback/interruption and privacy checks; execution pending. This is deterministic sensitivity, without physiological uncertainty or arbitrary adequacy thresholds. Recommend ending the present fixed-table numerical sensitivity route here, then deciding a separately scoped timing/context evidence route. No publication or further automatic experiment sequence authorized.
+
+
+## T08a6 executed single-row influence — 2026-11-12
+
+[Actual results and verification](../evidence/t08a2-comparable-observations/README.md#t08a6-executed-single-row-influence-diagnostic--2026-11-12): all 3,226 deletions enumerated, 3,204 numeric and 22 required-node-empty refusals; all 197 envelopes accounted for (180 complete, one partial, 16 all-unavailable). Exact independent full-recomputation checks, byte-identical rerun and current-input/no-fallback/interruption checks PASS. Deterministic sensitivity is not calibrated uncertainty or physiological repeatability; no adequacy threshold, cleaning or ranking. M01–M06 source/report only. Recommend ending this fixed-table numerical sensitivity route and deciding a separately scoped timing/context evidence route. Detailed W/identities/scripts stay outside Git; earlier local T08a5 work and all scientific/live/product gates preserved. No publication authorized.
+
+
+## T08a5/T08a6 publication authorization — 2026-11-12
+
+Owner explicitly requested a PR for the completed T08a5 and T08a6 documentation. This authorizes commit, push and publication of the ten scoped Markdown files, including both task specifications, aggregate results, verification and synchronized references. Earlier no-publication statements describe their preceding execution stages. Detailed source/column/row/Power values, research scripts and complete result tables remain outside Git. No merge, new numerical experiment, source acquisition/contact, application implementation or physiological/product admission authorized.
+
+Publication self-review covers the complete diff and both new tasks: fixed source/115-bpm anchor/method/endpoints, exact versus interpolated evidence, single-row and zero flags, complete 3,226-deletion/197-envelope denominators, unavailable versus zero and partial envelope labels, independent/rerun/current-input/no-fallback evidence, claim limits and privacy. Ten Markdown files only; no raw participant records, dates/notes, private contributor identifiers, local research tools/results, credentials or application code staged. Relative-link/anchor checks (314), requirement/validation and L01–L06/M01–M06 traceability, new-file whitespace and `git diff --check` PASS. No application/hardware tests rerun for documentation-only publication; actual external source/report checks remain the execution evidence. Verify remote PR head/base and CI separately after publication.

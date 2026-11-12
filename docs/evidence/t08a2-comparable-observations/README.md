@@ -606,3 +606,146 @@ Final T08a4 verification: independent all-cell/authority checks PASS after exter
 
 
 T08a4 publication authorization (2026-11-12): owner explicitly requested commit, push and PR for the nine scoped documentation files. Earlier local-only statements are historical snapshots. Publish aggregate evidence/specification only; detailed data/scripts/results stay outside Git. No merge, further analysis, application implementation or physiological gate approval.
+
+
+## T08a5 approved 115 bpm stored-row descriptor — 2026-11-12
+
+**Authorization/freeze snapshot; completed execution evidence follows below.**
+
+Owner approved the described exact-at-115 / nearest-bracket linear interpolation variant, now reserved as [T08a5](../../spdd/tasks/t08a5-salford-anchor115.md) after checking the unused ID. Freeze the full rules and contributor endpoints before numerical execution. One output per fixed-primary column; direct/interpolated methods, counts, ranges and zero/quality flags stay explicit. Pairing and local linearity remain development assumptions, no A/B/trend/physiology or app implementation. L01–L06 define source/report arithmetic, complete denominators, independent checks, rerun/current-input/no-fallback/privacy evidence; pending execution. No new acquisition/contact or publication authorized; T08a3 and all live/scientific/product gates unchanged.
+
+
+## T08a5 executed 115 bpm stored-row descriptor — 2026-11-12
+
+Owner approved the described exact-at-115 / nearest-bracket linear interpolation variant before its ID reservation as [T08a5](../../spdd/tasks/t08a5-salford-anchor115.md). Complete specification and `salford-anchor115-v1` plan/contributor freeze preceded all new anchor-power outputs. The 115 bpm choice is inherited from T08a3's HR-only support geometry, selected before T08a4 conditioned-power results, and is now accepted **for this separate raw-row descriptor only**. It does not freeze original A/B or establish a physiological target.
+
+### Actual outputs and denominators
+
+For the unchanged fixed-primary 197 columns, reconstruct the T08a4 equal-index/equal-row-weight empirical power mean directly from the actual selected XLS rows using exact rational arithmetic. Use actual 115-bpm rows when present. Otherwise use the means at the nearest stored HR strictly below/above 115, with linear HR-distance weights; round final W once. No extrapolation, slope/residual/n cutoff, window, clipping, time assignment or repair. Different endpoint counts do not change interpolation weights. No favorable power result selects an anchor, endpoint, method or subset.
+
+| Output/support category | Count |
+|---|---:|
+| Fixed primary columns / expected outputs | 197 |
+| Exact 115-bpm mean | 188 |
+| Nearest-bracket linear interpolation | 9 |
+| Unavailable / numerical errors | 0 / 0 |
+| Used column–HR nodes | 206 |
+| Actual selected stored rows across nodes | 3,226 |
+| Exact-method columns with one contributing row | 11 |
+| Interpolated columns with at least one one-row endpoint | 6 |
+| Exact-method columns whose used point includes Power-zero | 127 |
+| Interpolated columns whose used endpoints include Power-zero | 5 |
+| Columns retaining the inherited repeated-header flag | 5 |
+
+The support-frozen expectation of 188 exact plus nine interpolated columns is confirmed, not forced. All selected endpoints are within 112–118 bpm by inherited nearest-bracket geometry; this is not an HR-band averaging rule. The 206 nodes are 188 single-node exact descriptors plus two nodes for each of nine interpolations. The 3,226 rows are dependent stored-row contributions, not joint seconds, independent repeats or observed complete rides. All final stored rows remain eligible by the same technical value domain as any other row. Seventeen outputs rely on at least one one-row point; 132 outputs include zero power in a used point. Both facts are disclosed rather than used to discard columns. Positive extreme values remain uncleaned and source-specific sentinel/artifact meaning remains unknown.
+
+Detailed local `values.jsonl` contains all 197 scalars in source-coordinate order, method, actual HR nodes, row identities/counts, exact rational weights/means/value, raw within-node P ranges, zero counts and inherited flags. Exact-supported columns use only 115-bpm rows; they are not interpolated to improve a result. Interpolated values lie within the endpoint-mean convex hull as checked arithmetic, not physiological evidence. Neither direction nor positive slope is required. No power scalar, participant date/note, per-column identity or favorable example is added to Git.
+
+### Interpretation and remaining decision
+
+This delivers **one reproducible mathematical location descriptor at 115 recorded bpm for every fixed-primary column**, with exact versus interpolated evidence distinguished. It is a common coordinate, not standardized exposure or a qualified comparison series. Nine values additionally assume local linearity between empirical HR-level means; 188 remain raw exact-level means. Both inherit unverified index synchronization, unequal/serial row exposure, unknown calibration/context and uncleaned artifacts. Counts/ranges are not calibrated precision, confidence intervals or error bounds.
+
+No chronological sorting, column ranking, pairwise scalar differences, baseline, global scalar average, normalization, smoothing, anchor sweep, physiological fitness direction, FTP/VO₂max or original A/B was computed. Same recorded HR does not establish same true HR, workload history or physiological state. A complete 197-value table cannot close those gaps. The approved descriptor is delivered; a longitudinal or physiological interpretation would require its own explicit estimand/evidence/scope, not a favorable ordering or filter chosen from these values. T08a1, T08a3 J04–J07, T02c/T03e/parent T04, T08b/c, T06/T07 and O1–O5 remain unchanged/open.
+
+### Reproducibility, independent checks and integrity
+
+Artifacts retained outside Git at `/Users/pawelkozicki/Library/Caches/oxywatt/research/salford-3080560-v1/t08a5-anchor115-v1/`. Source attribution remains Scarf/University of Salford, DOI `10.17866/rd.salford.3080560.v1`, Figshare article 3080560/file 4787857, CC BY 4.0; archive SHA-256 `834e371c8aaf1e9fd04cf9c44619d045ac18dd3270ab7f2653e1f3692afe0c19`. No new acquisition/contact or archive download.
+
+| Local artifact | SHA-256 |
+|---|---|
+| `plan.json` | `4634900c353d8cabc525e6a0f325fafed9301178e83e0b65f69c38ae14ef1386` |
+| `contributors.json` | `4b7256d0a4d85db269b3751e1d1f81b665cc34aea69a37a43ceeee366ad5420c` |
+| `oxywatt-salford-anchor115.py` | `819fffa47cdf2194784bbd6955c76920677679439b74d411a6cd179c4433f24d` |
+| `oxywatt-salford-anchor115-check.py` | `3b3bc04cc82bbbc1d989d019614b81ca5bb678b20ddbddfc84f5db12850688f1` |
+| `final-1/values.jsonl` | `e0f2e0f209a97dc7c5b4d344d93a250acb41660cc248553e95854086168d5038` |
+| `final-1/summary.json` | `41849695a75003ed2f8b923e72fce8f19a381bba53a79b18a9c1f2faded77536` |
+| `final-1/check.json` | `ea1fd812c9267ca1cbe05a219615a087e5afdabfe775ebab7209547da9bb47c9` |
+| `rerun-check.json` | `970b326c5fa460647532471f3706682f39bd3ef03bd1a301fcbcfeace34565b0` |
+
+Plan freezes required archive/member/T08a4 current report/reader/check/table/contributor/helper identities, source-coordinate row contributors and endpoint selection before new x outputs. T08a4 source report must remain current and available; an absent/changed/pending/failed dependency cannot be replaced by another successful run. Both complete T08a5 runs are retained as `final-1/` and `final-2/`; `values.jsonl` and `summary.json` are byte-identical. Timestamps and relocated output locators live in separate execution/authority metadata. The current newest request remains authoritative; historical artifacts are never automatic substitutes.
+
+Commands used `/tmp/oxywatt-salford-time-env/bin/python` with xlrd 2.0.2: `freeze.py` once in `/tmp/oxywatt-t08a5-work/` before calculation; `oxywatt-salford-anchor115.py <final-1-directory>` and again with `<final-2-directory>`; `oxywatt-salford-anchor115-check.py <final-1-directory>`. After preservation in the retained root, semantic hashes and the independent checker were verified again to resolve relocated artifact locators. Existing checked T08a4 offline authority functions are reused with their source hash pinned; no new application store/framework or dependency.
+
+L01: current input/reader/plan/contributor identities and all 197 method/endpoint selections PASS. L02: independent source reconstruction checks every one of 197 outputs, 206 endpoint means and 3,226 row contributors. The checker derives HR-nearest endpoints from source HR, calculates exact reference sums using integer-scaled binary64 ratios and uses an independently arranged interpolation equation. Counts/ranges/zero flags/exact ratios agree and once-rounded values satisfy the accepted one-ULP engineering tolerance; no numerical error. L03: 197 = 188 + 9 + 0 + 0, support geometry/flags and full output identity reconcile. L04: full semantic-byte rerun PASS; current success, newest pending/failed/unavailable, late older completion, lost/changed input, changed contributor/plan and unavailable newest T08a4 dependency checks PASS. An actual producer write interruption after one output records expected 197/completed one, failed/incomplete status, no available summary and no fallback. These are local report checks, not V16 application integration or a measured hardware reliability guarantee.
+
+The checker's first startup encountered a string-versus-Path helper error before checking source values; corrected and rerun. That attempt is not a numerical/behavioral test pass. Accepted checker identity is the hash above; both accepted numerical runs use the same producer/config. No alternate numerical outcome, synthetic physiological series or filtered dataset replaced a failure.
+
+L05: detailed values remain local, method mix/raw artifact/single-row/context limits explicit; no physiological or chronological claim. L06: aggregate/task/Canvas/log/backlog/work-package/validation/scientific synchronization and final document checks recorded separately below. R02/R07/R10 → V02/V09/V12 source/report arithmetic and integrity only; R08 → report-only V10; R06 → V08 claim limits. No canonical/persistence/device/physiological acceptance or product history membership, no application/Android/hardware tests, commit/push/PR/merge.
+
+
+Final T08a5 documentation verification (2026-11-12): nine changed/new Markdown files, 292 relative links including anchors resolve; all 12 referenced R IDs and 23 V IDs resolve, L01–L06 contract and execution evidence present, six synchronized task links plus backbone/dossier cross-links checked. `git diff --check` and explicit new-task whitespace PASS. Self-review covers fixed source/anchor/nearest-endpoint selection, exact versus interpolated evidence, full output counts, retained zeros/single-row/artifact flags, privacy, unknown timing/context and unchanged canonical/profile/persistence/science gates. No application/hardware test appropriate or rerun; no app/core/build/skill change, commit/push/PR/merge. This completes the approved T08a5 source/report descriptor only.
+
+
+## T08a6 approved single-row influence diagnostic — 2026-11-12
+
+**Authorization/freeze snapshot; executed evidence follows below.**
+
+Owner approved the described [T08a6](../../spdd/tasks/t08a6-salford-row-influence.md) diagnostic before ID reservation. Freeze all used T08a5 rows/nodes/weights/methods, omit each used row once without altering source, record exact W changes or required-node-empty refusal and complete per-column envelopes. M01–M06 require independent recomputation, full unavailable/partial denominators, deterministic rerun/current-input/no-fallback/interruption and privacy checks; execution pending. This is deterministic sensitivity, without physiological uncertainty or arbitrary adequacy thresholds. Recommend ending the present fixed-table numerical sensitivity route here, then deciding a separately scoped timing/context evidence route. No publication or further automatic experiment sequence authorized.
+
+
+## T08a6 executed single-row influence diagnostic — 2026-11-12
+
+Owner approved the described diagnostic, now reserved as [T08a6](../../spdd/tasks/t08a6-salford-row-influence.md) after checking the unused ID. Full specification and `salford-row-influence-v1` plan/contributor freeze preceded new deletion outputs. The already local T08a5 work is preserved. This tests influence on the existing fixed 115-bpm table, with no change of HR nodes, method or interpolation weights, no source deletion/repair and no physiological uncertainty model.
+
+### Actual calculation and complete denominators
+
+Use the same 197 fixed-primary columns, 206 HR nodes and 3,226 used source rows as T08a5. Reconstruct exact source-node means and original descriptor. Omit each used row once from its own node. With frozen weight a, node mean m and n>1, compute exact deletion delta `a(m−p_i)/(n−1)` and add it to the exact original value. If n=1, record unavailable `required_node_empty`; do not change branch or replace the missing HR node. All Power-zero/extreme values and repeated source positions remain in the diagnostic; source data and original outputs stay unchanged.
+
+| Deletion scenario disposition | Count |
+|---|---:|
+| Every used source row once | 3,226 |
+| Available deletion value and signed W difference | 3,204 |
+| Unavailable: the deleted row was its node's only contributor | 22 |
+| Numerical errors | 0 |
+
+The 22 required-node-empty cases were predictable from node counts in the pre-output freeze, not chosen after a favorable power result. They affect 17 columns; a column can have more than one such scenario when both interpolation nodes each contain only one row. Scenario counts are dependent perturbations of reused data, not independently acquired observations or probabilities of acquisition failure.
+
+| Complete 197-column envelope inventory | Count |
+|---|---:|
+| Every deletion available | 180 |
+| Some deletion values available, some unavailable | 1 |
+| No deletion value available | 16 |
+| Of 181 columns with any finite deletion, exactly zero signed change in every finite deletion | 4 |
+
+For 180 columns the envelope spans all their deletion values. The one partial envelope explicitly excludes its unavailable variant and carries that refusal count; it must not look like a complete sensitivity range. The 16 all-unavailable columns have null envelopes, not zero change; original T08a5 value remains retained as a separate reference. Four exactly zero finite-influence cases are an algebraic observation, never a “stable/valid” physiological classification. No cutoff for acceptable sensitivity was introduced.
+
+Local `deletions.jsonl` retains every scenario identity/node/row/method, deleted power, baseline, exact rational/once-rounded deletion W and signed change, or explicit refusal. Local `column-envelopes.jsonl` retains all 197 identities, requested/available/unavailable counts, original value and minimum/maximum deletion W, signed-change range and maximum absolute change over available variants, with complete/partial/all-unavailable status. Full ranges in W are available locally; no per-column W, dates/notes, row identity, largest-effect example or outcome-selected subset is added to Git. The baseline is not an additional deletion variant.
+
+### Meaning and stopping decision
+
+This delivers **complete finite single-row influence**, exposing both value changes and loss of a required point without changing the data or method. It does not establish calibrated statistical uncertainty, physiological repeatability, a plausible artifact distribution or independence. A small finite range, a zero change or a numeric result for every deletion cannot establish fitness usefulness. A large change does not identify the removed row as an artifact or authorize cleaning it.
+
+Recommend ending the present fixed-table numerical sensitivity route here. There is no fixed number of additional experiments that would create missing source timing/synchronization/lifecycle/calibration/context. The next useful scope decision concerns a source/acquisition/reference route with that evidence, or accepting these outputs solely as archive-development descriptors. No new source, contact, private ride, acquisition plan execution or automatic follow-on experiment is authorized by T08a6. The owner's useful within-person trend remains unvalidated. T08a1/T08a3 J04–J07, T02c/T03e/parent T04, T08b/c, T06/T07 and O1–O5 remain unchanged/open.
+
+### Provenance and verification
+
+Retained artifacts: `/Users/pawelkozicki/Library/Caches/oxywatt/research/salford-3080560-v1/t08a6-row-influence-v1/`. Source remains Scarf/University of Salford, DOI `10.17866/rd.salford.3080560.v1`, Figshare article 3080560/file 4787857, CC BY 4.0; archive SHA-256 `834e371c8aaf1e9fd04cf9c44619d045ac18dd3270ab7f2653e1f3692afe0c19`. No redownload or repeated support/time audit. Required identities include current T08a5 input authority, all prior pinned source/member/reader/config/contributor/check/table dependencies and reused offline authority helper hash.
+
+| Local artifact | SHA-256 |
+|---|---|
+| `plan.json` | `c5e28559ffcf769dc49dbc747454d77ac8b20ef5104196644ff2e47f1ed78cb7` |
+| `contributors.json` | `2367b1b70c1d07c1ba2dfe565bd43f6ae2b6a64828be6ab93e52719d6fa13532` |
+| `oxywatt-salford-row-influence.py` | `f6c261e09a91af80b9deea8b99685efb68dc107083a39f7c8d56869cb0a20615` |
+| `oxywatt-salford-row-influence-check.py` | `93c0917374d9a4b55f0af64bd73e4527dcc8b32bb9b95b824b01f3f57c23527f` |
+| `final-1/deletions.jsonl` | `6bfe97eea0bb3061d706e9ca42e18965d9f1d78fa5d1fc9e04f216397592fd7c` |
+| `final-1/column-envelopes.jsonl` | `20051883a0bce12412a0ec32baf7e33ea4d0046f3e7cd23dab4acba8df9f098f` |
+| `final-1/summary.json` | `c52ec2571c541b56e48f5105cde446aa274d19216cc1403d7ac81be3b23d5158` |
+| `rerun-check.json` | `82fe0bcf9015929ae4182be93c5b96e0857acc41a965015f594b06b20e8b29fa` |
+
+Actual commands used `/tmp/oxywatt-salford-time-env/bin/python` with xlrd 2.0.2: `freeze.py` once in `/tmp/oxywatt-t08a6-work/` before deletion calculation; `oxywatt-salford-row-influence.py <final-1-directory>` and again with `<final-2-directory>`; `oxywatt-salford-row-influence-check.py <final-1-directory>`. Both full runs are retained. All three semantic output files are byte-identical across them; execution timestamps and relocated output locators remain separate metadata. Hashes and independent checks were verified after preservation in the external cache.
+
+M01: source/current-input/reader/plan/contributor identities, all 197 columns/206 nodes/3,226 rows and frozen n=1 refusal count PASS. M02: the independent checker reads all selected raw source rows, explicitly removes each candidate row from its list and rebuilds every weighted node mean and full descriptor using integer-scaled exact binary64 ratios. It does not reuse the producer's influence shortcut. All 3,226 scenarios, including 22 unavailable, match; once-rounded values/deltas meet the accepted one-ULP engineering tolerance. This tolerance is arithmetic conformance, not measurement precision. M03: all 197 envelopes independently checked for exact extrema, status, denominators and null-versus-zero behavior, no missing/favorable variants. Numeric errors zero.
+
+M04: full rerun byte identity PASS. Actual authority checks cover current success, newest pending/failed/unavailable, late older completion, missing/changed required input, changed contributor/config and the producer's actual rejection of a pending newest T08a5 source despite older success. A controlled producer write interruption after one of 3,226 deletion records and zero of 197 envelopes records failed/incomplete with exact expected/completed counts, no available summary and no current fallback. These are offline report integrity checks, not application V16/persistence or hardware reliability evidence. M05/M06: all detailed values/source identities stay local, raw assumptions/privacy/claim boundaries reviewed and synchronized document checks recorded below.
+
+R02/R07/R10 → V02/V09/V12 source/report arithmetic and integrity only; R08 → report-only V10; R06 → V08 claim limits. No independent test–retest/physiological reference, canonical replay, application/hardware test or synthetic replacement series; no importer/app/core/build/schema/UI/skill change, commit/push/PR/merge. Earlier local T08a5 documents and external results remain preserved.
+
+
+Final T08a6 verification (2026-11-12): independent all-scenario/envelope/authority checks PASS before and after external-cache preservation; retained `final-1/check.json` SHA-256 `3736ad3ea5bfe23bd12e7b28a7a510bd38a8430f4c03b61c034aab1368209876`. Full rerun byte identity PASS for all three semantic outputs. Ten changed/new Markdown files (including preserved local T08a5 scope), 314 relative links including anchors and referenced 12 R/23 V IDs resolve; M01–M06 and L01–L06 contract/evidence and synchronized backbone/task links checked. `git diff --check` and explicit untracked-task whitespace PASS. Self-review confirms full refusal/partial-envelope denominators, source/method/weight preservation, no threshold/physiological interval, no private per-column W/date/identity table in Git, unchanged contracts/gates. No app/core/build/skill change or application/hardware test, no commit/push/PR/merge.
+
+
+## T08a5/T08a6 publication authorization — 2026-11-12
+
+Owner explicitly requested a PR for the completed T08a5 and T08a6 documentation. This authorizes commit, push and publication of the ten scoped Markdown files, including both task specifications, aggregate results, verification and synchronized references. Earlier no-publication statements describe their preceding execution stages. Detailed source/column/row/Power values, research scripts and complete result tables remain outside Git. No merge, new numerical experiment, source acquisition/contact, application implementation or physiological/product admission authorized.
+
+Publication self-review covers the complete diff and both new tasks: fixed source/115-bpm anchor/method/endpoints, exact versus interpolated evidence, single-row and zero flags, complete 3,226-deletion/197-envelope denominators, unavailable versus zero and partial envelope labels, independent/rerun/current-input/no-fallback evidence, claim limits and privacy. Ten Markdown files only; no raw participant records, dates/notes, private contributor identifiers, local research tools/results, credentials or application code staged. Relative-link/anchor checks (314), requirement/validation and L01–L06/M01–M06 traceability, new-file whitespace and `git diff --check` PASS. No application/hardware tests rerun for documentation-only publication; actual external source/report checks remain the execution evidence. Verify remote PR head/base and CI separately after publication.

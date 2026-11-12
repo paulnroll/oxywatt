@@ -292,3 +292,19 @@ Owner approved the named support unit. [Evidence](../evidence/t08a2-comparable-o
 ## 2026-11-12 — Authorize report PR publication
 
 Owner explicitly requested a PR containing the completed T08a2 timing/availability/source reviews, T08a3 package and approved support-discovery results. Publish aggregate documentation only, preserving external source/artifact privacy and all numerical/scientific/live gates. No A/B execution, new data/contact, application implementation or merge authorized. Earlier local-only statements record prior phases and do not override this explicit publication request.
+
+
+## 2026-11-12 — Propose a distinct finite stored-row estimand
+
+OWNER-REQUESTED PLANNING, not execution approval. Reserve unused [T08a4](tasks/t08a4-salford-exact-hr-rows.md) after checking backlog/work packages. Recommend exact-HR conditional row means and complete same-level primary-column contrasts, retaining every recorded positive level instead of choosing the 115 bpm support proposal or inventing A/B windows/fit policies. No scalar across HR levels, outcome-selected subset, cleaning or temporal/physiological claim. Equal-index pairing, equal row weights and arithmetic means are explicit development assumptions. Named owner acceptance/execution must precede all HR-conditioned power calculations. T08a3 qualified-segment numerical freeze remains unchanged. No audit rerun, data processing, app change or publication performed.
+
+
+T08a4 execution authorization (2026-11-12): owner explicitly accepted the complete `salford-exact-hr-rows-v1` proposal and approved its local numerical execution with K01–K06 checks. Development assumptions remain assumptions; no original A/B, application code, physiological admission or Git publication authorized.
+
+
+## T08a4 executed stored-row description — 2026-11-12
+
+Owner explicitly approved the complete T08a4 configuration and numerical execution. [Aggregate results and verification](../evidence/t08a2-comparable-observations/README.md#t08a4-executed-exact-hr-stored-row-description--2026-11-12): fixed-primary 197 columns, all 201 exact HR levels, 15,189 raw means (2,271 one-row) and 1,074,462 same-level differences (187,894 with a one-row side); every unavailable cell retained. Equal-index pairing remains assumed, weights are equal stored rows and artifacts remain uncleaned. No anchor, A/B, qualified segment, cross-HR scalar, trend or physiology. Independent source/rational checks and full final rerun provide report-only evidence; exact data/scripts/results retained outside Git. T08a3 J04–J07 and all live/scientific/product gates unchanged. No application code authorized. Subsequent report-publication authorization is recorded in the T08a4 task.
+
+
+T08a4 publication authorization (2026-11-12): owner explicitly requested commit, push and PR for the nine scoped documentation files. Earlier local-only statements are historical snapshots. Publish aggregate evidence/specification only; detailed data/scripts/results stay outside Git. No merge, further analysis, application implementation or physiological gate approval.

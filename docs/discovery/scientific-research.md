@@ -107,3 +107,15 @@ Real-data/scientific admission remains blocked; N, qualification thresholds, mea
 ## T08a3 actual per-column HR support — 2026-11-12
 
 [Executed discovery](../evidence/t08a2-comparable-observations/README.md#t08a3-executed-support-discovery--2026-11-12) supplies real-column evidence: 718 exact HR distributions and 68,352 dependent within-stratum pair inventories. All pairs overlap at some recorded levels; the primary's all-column exact intersection is empty despite universal bracketing at 107–118 bpm. Support-only geometry suggests 115 bpm / 112–118 bpm, but counts vary from 2 to 729 per column and complete-record CDF differences remain descriptive. No independent repeatability, physiological validity, clipping, window/fit policy or A/B established. J04 numerical freeze NO-GO; source timing/context/qualification unknowns persist.
+
+
+## T08a4 proposed finite empirical description — 2026-11-12
+
+**Historical proposal snapshot; the executed description is recorded below.**
+
+[T08a4](../spdd/tasks/t08a4-salford-exact-hr-rows.md) proposes a different, narrower question using existing support evidence: conditional row means at every exact recorded positive HR and all same-level primary-column differences. No new literature claim or source-derived physiological parameter. Equal-index pairing, equal weights and uncleaned arithmetic are developmental assumptions requiring acceptance. Matching exact stored HR does not match physiological state or other exposure. No anchor, fit, baseline, smoothing, physiological trend or numerical result selected; original T08a1/T08a3 contracts remain intact.
+
+
+## T08a4 executed stored-row description — 2026-11-12
+
+Owner explicitly approved the complete T08a4 configuration and numerical execution. [Aggregate results and verification](../evidence/t08a2-comparable-observations/README.md#t08a4-executed-exact-hr-stored-row-description--2026-11-12): fixed-primary 197 columns, all 201 exact HR levels, 15,189 raw means (2,271 one-row) and 1,074,462 same-level differences (187,894 with a one-row side); every unavailable cell retained. Equal-index pairing remains assumed, weights are equal stored rows and artifacts remain uncleaned. No anchor, A/B, qualified segment, cross-HR scalar, trend or physiology. Independent source/rational checks and full final rerun provide report-only evidence; exact data/scripts/results retained outside Git. T08a3 J04–J07 and all live/scientific/product gates unchanged. No application code authorized. Subsequent report-publication authorization is recorded in the T08a4 task.

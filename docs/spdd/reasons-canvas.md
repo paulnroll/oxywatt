@@ -260,3 +260,18 @@ Smallest next scope: report-only source-index availability under that explicit a
 ## T08a3 support evidence and numerical refusal — 2026-11-12
 
 [Executed support discovery](../evidence/t08a2-comparable-observations/README.md#t08a3-executed-support-discovery--2026-11-12), owner-approved J01–J03/J08: fixed primary 197 columns all bracket 107–118 bpm but share no exact HR level across every column. Support-geometry candidate 115 bpm / 112–118 bpm contains 2–729 rows per column; geometry does not justify stability/windows or matched exposure. J04 remains NO-GO/not frozen and numerical execution unapproved/unperformed. Further progress requires an explicit scope choice (simpler source-row description versus independently timed/context-qualified observations), not more synthetic evidence or automatic A/B. Provenance/no-fallback/origin, T02c/T03e/parent T04, T08b/c and physiological gates unchanged.
+
+
+## T08a4 proposed exact-HR row description — 2026-11-12
+
+**Historical proposal snapshot; named approval and execution are recorded below.**
+
+[T08a4](tasks/t08a4-salford-exact-hr-rows.md) is a separate proposed T08a subdivision after completed support discovery. Recommend a finite stored-row estimand: equal-index, equal-row-weight mean power at every exact positive HR, separately for all 197 fixed-primary columns, and all same-level pair differences. No anchor/band/fit, segment timing, universal scalar or trend; raw artifacts and unmatched context remain explicit. The conventional weighting and unverified pairing need owner acceptance. Planning only authorized; K01–K06 pending, no calculation. T08a1 unchanged; T08a3 J04–J07, physiological/live/product gates remain open.
+
+
+T08a4 execution authorization (2026-11-12): owner explicitly accepted the complete `salford-exact-hr-rows-v1` proposal and approved its local numerical execution with K01–K06 checks. Development assumptions remain assumptions; no original A/B, application code, physiological admission or Git publication authorized.
+
+
+## T08a4 executed stored-row description — 2026-11-12
+
+Owner explicitly approved the complete T08a4 configuration and numerical execution. [Aggregate results and verification](../evidence/t08a2-comparable-observations/README.md#t08a4-executed-exact-hr-stored-row-description--2026-11-12): fixed-primary 197 columns, all 201 exact HR levels, 15,189 raw means (2,271 one-row) and 1,074,462 same-level differences (187,894 with a one-row side); every unavailable cell retained. Equal-index pairing remains assumed, weights are equal stored rows and artifacts remain uncleaned. No anchor, A/B, qualified segment, cross-HR scalar, trend or physiology. Independent source/rational checks and full final rerun provide report-only evidence; exact data/scripts/results retained outside Git. T08a3 J04–J07 and all live/scientific/product gates unchanged. No application code authorized. Subsequent report-publication authorization is recorded in the T08a4 task.

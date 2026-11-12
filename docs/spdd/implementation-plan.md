@@ -148,3 +148,15 @@ T08a2 source recording/export documentation continuation completed with owner ap
 ## T08a3 support discovery executed — 2026-11-12
 
 Owner approved **T08a3 support discovery**. [J01–J03/J08 evidence](../evidence/t08a2-comparable-observations/README.md#t08a3-executed-support-discovery--2026-11-12) completes the unit with exact per-column HR support, fixed primary/no fallback, all-pair inventories and independent deterministic checks. The 115 bpm / 112–118 bpm primary support-geometry proposal has sparse/unequal occupancy, not a frozen numerical configuration. J04 remains NO-GO/not frozen; J05–J07 unperformed/unapproved. Next is a scope choice between simpler row descriptors under assumptions and the original timed/context-qualified route, not automatic A/B execution. Full experiment, product/live/science gates remain open.
+
+
+## T08a4 — proposed exact-HR row description — 2026-11-12
+
+**Historical proposal snapshot; named approval and execution are recorded below.**
+
+[Named scope and K01–K06](tasks/t08a4-salford-exact-hr-rows.md), checked unused before reservation. Next proposed decision: accept `salford-exact-hr-rows-v1` and explicitly authorize T08a4 execution, or defer for a separately scoped timed/context-documented source. Complete proposal covers fixed primary, all exact HR levels, raw row means/same-level differences, no-cleaning assumptions, refusals, deterministic integrity and independent arithmetic checks. No original A/B configuration claimed ready; no numerical execution now, no T08b/c reassignment.
+
+
+## T08a4 executed stored-row description — 2026-11-12
+
+Owner explicitly approved the complete T08a4 configuration and numerical execution. [Aggregate results and verification](../evidence/t08a2-comparable-observations/README.md#t08a4-executed-exact-hr-stored-row-description--2026-11-12): fixed-primary 197 columns, all 201 exact HR levels, 15,189 raw means (2,271 one-row) and 1,074,462 same-level differences (187,894 with a one-row side); every unavailable cell retained. Equal-index pairing remains assumed, weights are equal stored rows and artifacts remain uncleaned. No anchor, A/B, qualified segment, cross-HR scalar, trend or physiology. Independent source/rational checks and full final rerun provide report-only evidence; exact data/scripts/results retained outside Git. T08a3 J04–J07 and all live/scientific/product gates unchanged. No application code authorized. Subsequent report-publication authorization is recorded in the T08a4 task.

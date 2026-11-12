@@ -116,3 +116,13 @@ Final support verification: independent source/CDF/set/bracketing checks and byt
 ## Publication authorization and review — 2026-11-12
 
 Owner explicitly requested publication of the nine documentation files covering the T08a2 follow-ups, T08a3 specification and completed J01–J03/J08 support evidence. Earlier local-only/no-PR statements are historical verification snapshots. J04 remains NO-GO/not frozen; J05–J07 numerical execution and merge remain unapproved. Self-review of the final diff confirms no raw workbooks/rows, participant dates/notes, per-column identities, local audit tools, app/core/build changes or credentials are included. Current origin/main was fetched and matches the starting main; prior local work is preserved. Repository GitHub identity verified as paulnroll. Publication uses a dedicated docs branch and a Conventional Commit subject/title; remote CI is verified separately from local source/document checks.
+
+
+## Separate raw-row scope proposed — 2026-11-12
+
+The owner requested specification of the smallest honest raw-row experiment, not further support audits or A/B execution. [T08a4 exact-HR row description](t08a4-salford-exact-hr-rows.md) defines a separate finite empirical estimand, complete proposed arithmetic/artifact/refusal rules and K01–K06 acceptance. Recommend all exact-HR conditional row means and same-level primary-column contrasts without a selected anchor, band, fit or cross-HR scalar. Unverified pairing, equal row weights and uncleaned data are explicit development assumptions awaiting owner acceptance. No numerical work performed; T08a1 unchanged, T08a3 J04 NO-GO/not frozen and J05–J07 unapproved/unperformed.
+
+
+## T08a4 executed stored-row description — 2026-11-12
+
+Owner explicitly approved the complete T08a4 configuration and numerical execution. [Aggregate results and verification](../../evidence/t08a2-comparable-observations/README.md#t08a4-executed-exact-hr-stored-row-description--2026-11-12): fixed-primary 197 columns, all 201 exact HR levels, 15,189 raw means (2,271 one-row) and 1,074,462 same-level differences (187,894 with a one-row side); every unavailable cell retained. Equal-index pairing remains assumed, weights are equal stored rows and artifacts remain uncleaned. No anchor, A/B, qualified segment, cross-HR scalar, trend or physiology. Independent source/rational checks and full final rerun provide report-only evidence; exact data/scripts/results retained outside Git. T08a3 J04–J07 and all live/scientific/product gates unchanged. No application code authorized. Subsequent report-publication authorization is recorded in the T08a4 task.

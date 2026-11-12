@@ -165,3 +165,15 @@ Real-data/scientific admission remains blocked; N, qualification thresholds, mea
 
 
 T08a3 support unit owner-approved and executed: [support dossier](../../evidence/t08a2-comparable-observations/README.md#t08a3-executed-support-discovery--2026-11-12), J01–J03/J08 complete. Actual exact-level support/overlap/concentration and quality findings do not resolve the qualified-segment policy; J04 is NO-GO/not frozen, J05–J07 remain unperformed/unapproved. No application or numerical worker dispatched; local research scripts/results retained outside Git, no new agent/delegation requirement. Any simplified row-based experiment needs an explicit scope decision; no silent change to T08a1 equations/admission.
+
+
+## T08a4 — proposed stored-row descriptive package — 2026-11-12
+
+**Historical proposal snapshot; named approval and execution are recorded below.**
+
+[T08a4 exact scope/files/K01–K06](t08a4-salford-exact-hr-rows.md) follows T08a3 support evidence under a separate estimand, not J04–J07 execution. Own only the listed documentation and, after named approval, external local research artifacts. Fixed primary/no fallback; all exact HR levels and primary-column pairs; uncleaned equal-index/equal-weight arithmetic; no app/core/canonical/storage change or agent delegation. Specification only authorized; numerical work awaits the explicit scope decision.
+
+
+## T08a4 executed stored-row description — 2026-11-12
+
+Owner explicitly approved the complete T08a4 configuration and numerical execution. [Aggregate results and verification](../../evidence/t08a2-comparable-observations/README.md#t08a4-executed-exact-hr-stored-row-description--2026-11-12): fixed-primary 197 columns, all 201 exact HR levels, 15,189 raw means (2,271 one-row) and 1,074,462 same-level differences (187,894 with a one-row side); every unavailable cell retained. Equal-index pairing remains assumed, weights are equal stored rows and artifacts remain uncleaned. No anchor, A/B, qualified segment, cross-HR scalar, trend or physiology. Independent source/rational checks and full final rerun provide report-only evidence; exact data/scripts/results retained outside Git. T08a3 J04–J07 and all live/scientific/product gates unchanged. No application code authorized. Subsequent report-publication authorization is recorded in the T08a4 task.

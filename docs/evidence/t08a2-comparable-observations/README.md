@@ -530,3 +530,79 @@ Final support document checks: nine affected Markdown files / 271 relative links
 ## Publication authorization — 2026-11-12
 
 Owner explicitly requested a PR for the completed documentation and support-discovery evidence. Earlier statements about local-only work describe the preceding stages. This authorization covers these aggregate reports, T08a3 task and synchronized documentation only; external source files/scripts/coordinate ledgers stay outside Git. No J04 numerical freeze, A/B execution, new acquisition/contact, application implementation or merge is authorized. The next-session decision remains the explicit scope/estimand choice recorded above.
+
+
+## Separate raw-row scope proposed — 2026-11-12
+
+The owner requested specification of the smallest honest raw-row experiment, not further support audits or A/B execution. [T08a4 exact-HR row description](../../spdd/tasks/t08a4-salford-exact-hr-rows.md) defines a separate finite empirical estimand, complete proposed arithmetic/artifact/refusal rules and K01–K06 acceptance. Recommend all exact-HR conditional row means and same-level primary-column contrasts without a selected anchor, band, fit or cross-HR scalar. Unverified pairing, equal row weights and uncleaned data are explicit development assumptions awaiting owner acceptance. No numerical work performed; T08a1 unchanged, T08a3 J04 NO-GO/not frozen and J05–J07 unapproved/unperformed.
+
+
+## T08a4 executed exact-HR stored-row description — 2026-11-12
+
+Owner explicitly approved **T08a4 exact-HR row description v1**, including the complete proposed configuration and K01–K06. [Canonical task](../../spdd/tasks/t08a4-salford-exact-hr-rows.md). This is a new finite empirical description on real retained cells, not T08a1 A/B or T08a3 J04–J07 execution. Plan `salford-exact-hr-rows-v1` and the 197-column local contributor list were hashed before any HR-conditioned power output. No anchor/band/fit/window, source-time reconstruction, cleaning or favorable power selection was introduced.
+
+### Actual calculation and reconciled results
+
+Use equal source-index pairs in the inherited fixed primary workbook's nominal 5 s structural stratum, with no fallback. The nominal grid is only a stratum label; no row receives measured or assumed seconds. For each column and every exact positive stored HR level, sum nonnegative stored Power using exact rational arithmetic, divide by its row count and round only the reported numerical value. Retain Power-zero and the last stored row; count HR-zero separately. Pair differences are exact mean(d) minus mean(c), rounded after subtraction, for all unordered source-ordered pairs at each HR both actually contain. No chronological direction is implied by c/d.
+
+Archive SHA-256 and pinned primary member, existing support/availability identities, frozen contributors, xlrd 2.0.2 and reader file identity pass. Reuse prior structural/support evidence rather than rerunning those audits; independently read only the fixed primary rows for the new arithmetic. Unchanged 394,026 paired rows reconcile as 390,252 positive-HR + 3,774 HR-zero. There are 34,104 stored Power-zero rows in all primary pairs; 30,500 remain in the positive-HR calculations. No claim is made about the cause of either zero category.
+
+| Column × exact-HR disposition | Count |
+|---|---:|
+| Complete enumeration: 197 columns × 201 HR levels | 39,597 |
+| Numeric raw means | 15,189 |
+| No exact-level rows; mean/range absent, not zero | 24,408 |
+| Of numeric means, exactly one contributing row | 2,271 |
+
+The 201-level union is the existing observed primary support, not a chosen HR band. The number of supporting columns at an exact level ranges from 1 to 195; 194 levels support at least one column pair and none supports all 197 columns. One-row means remain reportable raw descriptors (minimum = mean = maximum), never validated minimum evidence. The 2,271 one-row cells are 14.95% of available column-level cells, not a participant/ride proportion.
+
+| Pair × exact-HR disposition | Count |
+|---|---:|
+| Complete enumeration: 19,306 column pairs × 201 levels | 3,880,506 |
+| Both columns have exact-level rows; numeric difference | 1,074,462 |
+| c only; no difference | 303,128 |
+| d only; no difference | 524,992 |
+| Neither; no difference | 1,977,924 |
+| Of numeric differences, at least one side has one row | 187,894 |
+
+Thus 2,806,044 pair-level cells have no difference; absence remains explicit. The 187,894 thin-sided differences are 17.49% of numeric differences. These are dependent cell counts, not independent visits or repeatability trials. c-only versus d-only reflects source-coordinate order, not time or improvement. Numerical errors: **zero**. Every available difference has both row counts, both zero counts, both raw within-cell power ranges and both means locally. Detailed power values, differences, row/column identities, dates and notes remain outside Git; no selected effect/pair is promoted into this aggregate report.
+
+### What this establishes and what it does not
+
+The fixed real source supports **a complete, reproducible table of exact-recorded-HR conditional power means and same-level differences**, with sparse cells and missing comparisons disclosed. This answers the approved stored-cell question and provides actual numerical results for local inspection, beyond HR support alone. It does not supply one common-HR scalar for all columns or justify interpolation across missing levels. The table's numerical values are not an approval criterion, a winner or an indication of fitness direction.
+
+Raw pairing is assumed, equal row weights are conventional and data remain uncleaned. Matching an exact recorded HR does not match true HR, workload history, time-in-ride, calibration, settings, physiological state or other exposure. A difference can reflect artifacts, confounding or selection; within-cell range/count does not calibrate precision. No statistical uncertainty, common cross-HR reference distribution, largest-effect ranking, baseline, trend, meaningful-change threshold, settling/stability, smoothing or physiological interpretation was computed. No A/B, lag, correlation or canonical replay was run.
+
+**Next decision:** this finite descriptor is delivered; do not extend it into a trend by choosing a favorable HR/pair or inventing weights/filters. If the owner wants to inspect detailed numerical differences, use the complete retained local tables under their explicit source-coordinate identities and limits. A useful across-column scalar/physiological trend would require a separately approved estimand and defensible exposure/artifact/time/context evidence. Original T08a3 numerical freeze remains NO-GO/not frozen; J05–J07 remain unapproved/unperformed. T02c/T03e/parent T04, T08b/c, T06/T07 and O1–O5 remain open.
+
+### Local reproducibility and verification
+
+Retained root: `/Users/pawelkozicki/Library/Caches/oxywatt/research/salford-3080560-v1/t08a4-exact-hr-rows-v1/`. Source remains the previously attributed Scarf/Salford four-rider archive, DOI `10.17866/rd.salford.3080560.v1`, Figshare article 3080560/file 4787857, CC BY 4.0, archive SHA-256 `834e371c8aaf1e9fd04cf9c44619d045ac18dd3270ab7f2653e1f3692afe0c19`. No source redownload or additional dataset/contact.
+
+| Artifact relative to retained root | SHA-256 | Role |
+|---|---|---|
+| `plan.json` | `e559fd080af590beed4d73994d2f4c59150d5b8e3dc4b2e223240991c6a88d12` | Accepted configuration, pinned before HR-conditioned power |
+| `contributors.json` | `8a341aa53ba68c9f60905b3cd15b31ee501f35e07b7ecfd0c250fa7d77fa3ea7` | Fixed primary identities/support; local coordinates remain private |
+| `oxywatt-salford-exact-hr-rows.py` | `fc30cdc8788d29141c5c8546b94ead5c664169d07e05d53a3c11acb5a035be14` | Final exact arithmetic producer and offline report authority |
+| `oxywatt-salford-exact-hr-rows-check.py` | `d65b9e578ac5e6cf93f90904ac41c17d39f1de42db4d5066089096003cfcdc98` | Independent source/integer-ratio table and authority checker |
+| `final-1/column-levels.jsonl` | `5262f7b35642bb6732c7525bb487ec321b1abcaffeee83bcce0f97278f958d24` | All 39,597 column-level cells and exact local row contributors |
+| `final-1/pair-levels.csv.gz` | `3fd11185eed34b25939b73ab26c5bbea81818b89d8e31b8e4d904772b9b77861` | All 3,880,506 pair-level cells, deterministic compressed CSV |
+| `final-1/hr-zero-indices.json` | `ea84260edef2c8c59c7ce61ae5c62496af6c69edd22ea634e7f6321ea180be81` | Retained local HR-zero row indices |
+| `final-1/summary.json` | `fcd012a4c1413c504a5f30ef825485f50d9eecb3fc4fd7404c4a1e1b3842d8a8` | Aggregate support/disposition results |
+| `rerun-check.json` | `a09320be19dc119addc832eb7c4f8d7d6fd040e2923b8dbfc4bf2f3458f9da8f` | Byte identity of all four semantic output files across full final rerun |
+
+All source/member/column/reader/code/config identities are in the frozen local plan/contributor and execution/check metadata. `final-2/` retains a complete second final run: column table, pair table (including gzip bytes), zero-index table and summary are byte-identical to `final-1/`. Execution timestamps and relocated output locators are separate nonsemantic metadata. The latest requested final configuration is authoritative; earlier runs are development history, not fallback results.
+
+Actual commands used `/tmp/oxywatt-salford-time-env/bin/python` (xlrd 2.0.2): `freeze.py` once before calculation; `oxywatt-salford-exact-hr-rows.py <output-directory>` for each full run; `oxywatt-salford-exact-hr-rows-check.py <final-1-directory>` for independent checking. Initial working artifacts were under `/tmp/oxywatt-t08a4-work/`; final scripts/config and both full runs were preserved under the retained root. Exact commands, versions, current report manifests and artifact identities are recorded locally. No project dependency or application code changed.
+
+K01: all 197 identities, 201 levels and primary row/positive/zero totals reconcile. K02: all **39,597 column-level cells** checked against a separate source read, with integer-scaled binary64 input ratios supplying exact rational reference sums/means; exact counts, ranges, zero flags, contributors and one-row identities verified. K03: all **3,880,506 pair-level cells** checked for identity/order/status/value or explicit absence; every HR level independently satisfies k(k−1)/2 supported pairs and 19,306 total pair dispositions. Every reported sum/mean/difference agrees within the accepted one-binary64-ULP engineering tolerance; this is numerical conformance, not sensor uncertainty.
+
+K04: complete final rerun byte identity PASS. Actual report-authority checks cover current success, newest pending/failed/unavailable exclusion, late older completion, missing/changed required input, changed contributor list and changed plan. A controlled output-write interruption in the actual producer after 39,597 column cells and one pair cell records failed/incomplete, expected 39,597/3,880,506 versus completed 39,597/1, no available summary and no fallback. This is local failure-path evidence, not a measured storage reliability claim or an application V16 pass. Final self-review added explicit completed-output accounting and pinned-plan rechecks before the accepted final runs; initial successful arithmetic runs are not the final producer identity.
+
+K05/K06: raw uncleaned/index-paired labels, unequal support and context/claim/privacy boundaries retained; aggregate documentation synchronized and checked separately below. No per-column power/date/identity table enters Git; no synthetic data/history admission, application/Android/hardware tests, commit/push/PR/merge. R02/R07/R10 → V02/V09/V12 source/report arithmetic and integrity only; R08 → report-only V10; R06 → V08 claim limits. No canonical, persistence, physiological or hardware acceptance is claimed.
+
+
+Final T08a4 verification: independent all-cell/authority checks PASS after external-cache preservation; retained `final-1/check.json` SHA-256 `d1da33d080bd5e846a51b1d705b50bf799d95a4cf51e957ba8225835dd990bf5`. Both full final runs retain identical semantic hashes. Nine changed/new Markdown documents, 280 relative links including anchors and R/T/V/K/backlog traceability PASS; `git diff --check` and untracked-task whitespace PASS. K01–K06 complete for finite stored-row description only. No application/hardware test or Git publication.
+
+
+T08a4 publication authorization (2026-11-12): owner explicitly requested commit, push and PR for the nine scoped documentation files. Earlier local-only statements are historical snapshots. Publish aggregate evidence/specification only; detailed data/scripts/results stay outside Git. No merge, further analysis, application implementation or physiological gate approval.

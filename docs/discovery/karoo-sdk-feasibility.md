@@ -46,3 +46,8 @@ Evaluate acquisition started from the host's ride-scoped FIT binding, independen
 If host binding cannot support automatic whole-ride recording, test a compliant user-armed foreground collector using the actual device OS rules. If neither works acceptably, stop live-product implementation and ask for a scope decision (explicit recording mode or FIT-first). Do not silently weaken R09.
 
 T02 must record OS/software/SDK versions, startup triggers, callback intervals/latency, resource measurements, reconnect and process-death evidence. A killed process cannot collect; goal is bounded loss and honest recovery, not impossible continuity. Native saved/discarded reconciliation remains unsupported unless new evidence is found.
+
+
+## T02c1 current diagnostic readout/report — 2026-11-12
+
+[Standstill implementation and limited hardware evidence](../spdd/tasks/t02c1-standstill-diagnostics.md#execution-evidence--2026-11-12) uses unchanged SDK 1.1.9 and existing adapter. Diagnostic 0.3.0 displays real received values/age/status and retains bounded private timing/status metadata through a process-scoped background writer. Short k24/API 32 install/launch/connected-Idle/readout/report check passed, plus HOME/reopen with one source-start marker. No new API or keep-alive mechanism, sensor measurement time, historical access, numerical accuracy, full-ride residency/resource or T03e persistence capability is inferred. Parent conditional capabilities remain conditional; no model or release approval.

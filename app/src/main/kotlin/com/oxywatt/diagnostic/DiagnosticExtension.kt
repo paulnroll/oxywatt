@@ -12,9 +12,12 @@ import io.hammerhead.karooext.models.StreamState
 
 class DiagnosticExtension : KarooExtension("oxywatt-diagnostic", BuildConfig.VERSION_NAME) {
     private lateinit var sourceHandle: AutoCloseable
+    private lateinit var capture: DiagnosticCapture
 
     override fun onCreate() {
         super.onCreate()
+        capture = DiagnosticRuntime.capture(applicationContext)
+        capture.sourceStarted()
         Log.i(TAG, "extension created")
         val probes =
             mapOf(
@@ -35,18 +38,26 @@ class DiagnosticExtension : KarooExtension("oxywatt-diagnostic", BuildConfig.VER
                         Log.i(TAG, "ride=$state receiptMs=${SystemClock.elapsedRealtime()}")
                     },
                     onStream = { label, state -> probes.getValue(label).record(state) },
-                    onConnection = { Log.i(TAG, "karoo connected=$it") },
+                    onConnection = {
+                        capture.connection(it)
+                        Log.i(TAG, "karoo connected=$it")
+                    },
                 )
                 .start(
-                    accept = {
-                        /* Diagnostic only: canonical observations are not persisted or logged. */
+                    accept = capture::accept,
+                    onStopped = {
+                        capture.sourceStopped(it != null)
+                        if (it != null) Log.w(TAG, "Karoo source stopped with error")
                     },
-                    onStopped = { if (it != null) Log.w(TAG, "Karoo source stopped with error") },
                 )
     }
 
     override fun startFit(emitter: Emitter<FitEffect>) {
-        emitter.setCancellable { Log.i(TAG, "fit binding stopped") }
+        capture.fitBinding(true)
+        emitter.setCancellable {
+            capture.fitBinding(false)
+            Log.i(TAG, "fit binding stopped")
+        }
         Log.i(TAG, "fit binding started")
     }
 

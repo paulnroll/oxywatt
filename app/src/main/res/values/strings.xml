@@ -1,4 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="diagnostic_name">OxyWatt Diagnostics</string>
+    <string name="diagnostic_live_title">OxyWatt · Live diagnostics</string>
+    <string name="diagnostic_connected">Karoo connected</string>
+    <string name="diagnostic_disconnected">Karoo disconnected</string>
+    <string name="diagnostic_waiting_host">Waiting for Karoo</string>
+    <string name="diagnostic_state_unknown">Unknown</string>
+    <string name="diagnostic_state_idle">Idle</string>
+    <string name="diagnostic_state_recording">Recording</string>
+    <string name="diagnostic_state_paused">Paused</string>
+    <string name="diagnostic_source_running">Source running</string>
+    <string name="diagnostic_source_waiting">Source not running</string>
+    <string name="diagnostic_state_line">%1$s · %2$s\n%3$s</string>
+    <string name="diagnostic_power">Power</string>
+    <string name="diagnostic_hr">Heart rate</string>
+    <string name="diagnostic_cadence">Cadence</string>
+    <string name="diagnostic_watts">W</string>
+    <string name="diagnostic_bpm">bpm</string>
+    <string name="diagnostic_rpm">rpm</string>
+    <string name="diagnostic_value">%1$s %2$s</string>
+    <string name="diagnostic_searching">— Searching</string>
+    <string name="diagnostic_invalid">— Invalid source value</string>
+    <string name="diagnostic_unavailable">— Unavailable</string>
+    <string name="diagnostic_waiting_sensor">— Waiting for sensor</string>
+    <string name="diagnostic_age">%1$.1f s ago</string>
+    <string name="diagnostic_age_unknown">No receipt age</string>
+    <string name="diagnostic_metric_line">%1$s: %2$s\n%3$s · %4$d callbacks</string>
+    <string name="diagnostic_report_waiting">Report waiting to save</string>
+    <string name="diagnostic_report_saved">Report saved locally</string>
+    <string name="diagnostic_report_limit">Report limit reached · writing stopped</string>
+    <string name="diagnostic_report_error">Report storage error · writing stopped</string>
+    <string name="diagnostic_report_incomplete">Report incomplete · writing stopped</string>
+    <string name="diagnostic_report_line">%1$s\n%2$d bytes saved · %3$d events omitted</string>
+    <string name="diagnostic_report_scope">Readings are shown live. The report stores timing and status only. Long-run operation is still under test.</string>
+    <string name="diagnostic_build">Version %1$s · build %2$s</string>
 </resources>

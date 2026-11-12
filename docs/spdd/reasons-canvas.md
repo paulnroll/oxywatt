@@ -299,3 +299,31 @@ Owner approved the described [T08a6](tasks/t08a6-salford-row-influence.md) diagn
 ## T08a6 executed single-row influence — 2026-11-12
 
 [Actual results and verification](../evidence/t08a2-comparable-observations/README.md#t08a6-executed-single-row-influence-diagnostic--2026-11-12): all 3,226 deletions enumerated, 3,204 numeric and 22 required-node-empty refusals; all 197 envelopes accounted for (180 complete, one partial, 16 all-unavailable). Exact independent full-recomputation checks, byte-identical rerun and current-input/no-fallback/interruption checks PASS. Deterministic sensitivity is not calibrated uncertainty or physiological repeatability; no adequacy threshold, cleaning or ranking. M01–M06 source/report only. Recommend ending this fixed-table numerical sensitivity route and deciding a separately scoped timing/context evidence route. Detailed W/identities/scripts stay outside Git; earlier local T08a5 work and all scientific/live/product gates preserved. No publication authorized.
+
+
+## Current diagnostic adapter installed on Karoo — 2026-11-12
+
+[T02b installation/startup evidence](tasks/t02b-karoo-probe.md#current-adapter-diagnostic-update--2026-11-12): rebuilt existing main cf12e69, debug assembly/lint PASS, updated the old diagnostic in place with matching signer, verified installed APK hash/current-adapter marker/build revision and launch plus short host-connected/Idle observation. Version label remains 0.2.0/2; use pinned binary hash/revision. No application changes, numeric sensor validation, ride start or live persistence. R02/R09 setup/partial V02/V11 only; T02c/T03e/parent T04 and scientific gates remain open. No publication authorized by the USB/update request.
+
+
+## Current-adapter trainer log-tail evidence — 2026-11-12
+
+[T02b retained-tail findings](tasks/t02b-karoo-probe.md#current-adapter-owner-trainer-session-retained-log-tail--2026-11-12): owner reports approximately one hour of riding and native save; retained probe buffer covers only 20 min 50.113 s, with current-APK power/HR/cadence presence, manual pause → IDLE and FIT cancellation. Startup/RECORDING markers are missing, so no full-session duration or continuity claim. Receipt/log timing and throttled status presence remain distinct from sensor timestamps and numeric correctness. R02/R09 partial V02/V11 only. No FIT/native storage access or persistent canonical input; T02c/T03e/parent live T04 and scientific gates remain open. Raw identifiers/times stay in private external evidence, aggregate documentation only.
+
+
+## Owner's saved trainer FIT: bounded verification — 2026-11-12
+
+[Authorized single-file check](tasks/t02b-karoo-probe.md#owner-authorized-saved-fit-check--2026-11-12) found the newest USB-visible FIT and preserved it privately. CRC/length PASS; file reports 3608 s timer time/3612 s elapsed, with 3608 ordered one-second records, HR in 3608, power in 3602, cadence in 3496. File time/availability are distinct from live receipt/synchronization and numeric accuracy. No GPS/profile/physiology/canonical replay or application-private storage access. Source/report R02/R07/R10 → V02/V09/V12 only; all acquisition/persistence/scientific gates unchanged. Owner need not send another copy for this bounded check; redistribution is not authorized.
+
+
+## T02c1 standstill diagnostic increment approved — 2026-11-12
+
+Owner asked for progress that does not require another full workout, deferring long-run verification. [T02c1](tasks/t02c1-standstill-diagnostics.md) implements the existing source-backed live screen and bounded private timing/status report, not live Collector/database integration. Numeric readings display only; no new source, schema, physiology or SDK pin. P01–P06 cover missing/zero, report durability/privacy/bounds/errors, UI/source ownership, existing software/isolation checks and optional short device smoke. Parent T02c/T03e/T04/scientific gates remain open; no publication authorized. This is an observability slice, not a relaxation of full acquisition acceptance.
+
+
+## T02c1 implemented and checked on standstill Karoo — 2026-11-12
+
+[Actual scope and P01–P06 evidence](tasks/t02c1-standstill-diagnostics.md#execution-evidence--2026-11-12): existing source-owned real-value screen, receipt ages/missing reasons, callback counts and bounded private timing/status report implemented. Values display only; report excludes readings/profile/GPS. Zero/missing, reopen, storage/error/limit, queued-plus-in-flight overflow and Activity tests PASS; full debug 106/preview 130 PASS, unchanged core check cached 117 passes/one skip, build/lint and isolation PASS. Installed 0.3.0/code 3 on k24/API 32 and inspected connected/Idle UI plus private report after HOME/reopen. No full workout or native recording, no complete lifecycle/resource/scientific gate. Earlier local T02b/FIT evidence preserved, no publication performed.
+
+
+T02c1 owner feedback/publication (2026-11-12): owner confirmed the installed live screen displays actual sensor readings and requested a PR plus a new-session prompt. Commit/push/PR cover scoped code/tests and aggregate device/FIT documentation only; private inputs/reports/screenshots/APKs stay outside Git. This feedback does not close full T02c/T03e/T04 or numerical/scientific acceptance; no merge or additional implementation authorized.

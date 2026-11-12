@@ -143,3 +143,18 @@ No lawful dataset secured/admitted, no empirical repeatability/change measured, 
 Execution checks: self-review cross-checked primary-source/version/access limits, distinct claim targets, common pool versus actual retained HR exposure, per-comparison matching, mutually exclusive primary dispositions, coverage set identities, dependent visit pairs, reference onset/censoring, unset numerical decisions and scalar-v1 isolation limits. Corrected the reconciliation to include uncompleted attempts explicitly and clarified matching per contrast when support is not series-wide. Relative-link check: 10 changed documents, 238 local Markdown targets, zero broken. All R/V references resolve; seven I01–I07 evidence sections present. `git diff --check` passes; only scoped Markdown documents changed. No application tests, private FIT or hardware checks run; no source PDF committed.
 
 At 20:41 UTC, all six inherited remote runs remained queued with no conclusion: #36 pull_request 43095615450/push 43095608185/main 43095780996; #37 pull_request 43096566790/push 43096560344/main 43096948167. There is still no executed failing check to repair or remote pass to claim. Publication CI is monitored separately from document acceptance.
+
+
+## Public-data discovery follow-up — 2026-11-11
+
+[Search findings](../../evidence/t08a2-comparable-observations/README.md): Owner authorized a public-source search after PR #38 merged, then asked about age, sex and mass. The follow-up identifies candidates and a proposed bounded structural audit; the earlier participant-download restriction remains. This does not reopen T08a2 as a pilot or select a method.
+
+
+## Authorized Salford structural review — continuation 2026-11-12
+
+[Audit evidence](../../evidence/t08a2-comparable-observations/README.md): Owner expanded the metadata search to named Salford local structural inspection, lifting the earlier download restriction only for that archive. Archive acquired outside Git; 727 both-channel ordinal columns, 718 with matching date headers and equal extents, with timing/context limitations explicit. These are structural candidates, not eligible sessions. No code/import/A/B/pilot authorization inferred.
+
+
+Report publication authorization: owner requested the search/structural report as a PR for continuation in a new session. Scope remains these five documentation files, with no raw records or local audit tools in Git. Follow-up evidence maps R02/R07/R10 to V02/V09/V12 (source interpretation, provenance and privacy review only); it does not execute canonical V09 or scientific V08. Self-review checked source/measurement/inference distinctions, 727→725→718 reconciliation, mixed sampling ratios, date/cadence defects, demographic availability and preserved admission limits. Relative links and R/V references checked; whitespace checks pass. No application tests required for the document-only publication.
+
+Next-session entry: read this task and the evidence report's “Authorized Salford structural audit” section, then review the local retained source/audit artifacts at the documented cache path. The next decision is whether a bounded source-specific timing/alignment interpretation can be justified; do not invent missing lifecycle or silently repair dates. Discovery/planning remains authorized; import/replay/A/B code and real-observation pilot need separate concrete scope approval. Check remote CI before assuming any inherited or publication run passed.

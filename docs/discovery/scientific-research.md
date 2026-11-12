@@ -72,3 +72,13 @@ Specification/publication only is authorized; named execution awaits owner appro
 [Task/evidence](../evidence/t08a2-comparable-observations/README.md): The source register now includes recovered full primary thesis chapters and a full field-coupling article, with protocol/population, independence/coverage and longitudinal limits. Final-version reconciliation and other inaccessible bodies remain open. No article protocol, threshold or dataset is adopted.
 
 Real-data/scientific admission remains blocked; N, qualification thresholds, meaningful change, baseline horizon and smoothing remain unresolved without defaults. T05b O1–O5, T02c/T03e/parent T04 and T08b/c remain open. No new framework, storage, manifests or UI.
+
+
+## Public-data discovery follow-up — 2026-11-11
+
+[Search findings](../evidence/t08a2-comparable-observations/README.md): Metadata-only public-data search identified Salford four-rider/ten-rider archives, Borg/Osborne repeated 20TT data and GoldenCheetah as candidates with explicit catalog licenses. No participant records downloaded or dataset admitted; structural/context limitations remain. Full primary papers and documentation distinguish age/sex/mass descriptors from A/B calculation inputs.
+
+
+## Authorized Salford structural review — continuation 2026-11-12
+
+[Audit evidence](../evidence/t08a2-comparable-observations/README.md): Owner approved local download/structure review of the public Salford four-rider archive only. Checksums pass; repeated measured sequences exist, but mixed inferred sampling intervals, date/header and length mismatches, HR zero and absent lifecycle/context evidence prevent comparative-pilot admission. No A/B outputs or physiological results. Paper-level demographics are not verified per-visit profiles.

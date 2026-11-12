@@ -139,3 +139,15 @@ Owner explicitly requested a commit, push and PR for the completed T08a4 documen
 Self-review covers the complete diff including this new task: arithmetic/count reconciliation, all-level/all-pair selection, single-row/zero exposure, unknown pairing/context/artifacts, exact rational and deterministic-rerun evidence, current/no-fallback integrity, unchanged T08a1/T08a3 gates and English documentation. No raw workbooks, source rows, per-column power/difference tables, participant dates/notes/identities, local scripts/results or credentials are staged. Detailed artifacts remain in the external cache.
 
 Documentation checks: nine changed/new Markdown files, 280 relative links including anchors resolve; referenced R/V IDs and K01–K06 contract/evidence/backlog/work-package traceability PASS. `git diff --check` and new-task whitespace PASS. No application or hardware tests rerun for this documentation-only publication; prior source/report execution checks remain the recorded evidence. Repository GitHub identity and current base checked before publication; PR/remote CI state is read back after creation, never assumed passed.
+
+
+## T08a5 approved 115 bpm stored-row descriptor — 2026-11-12
+
+**Authorization/freeze snapshot; completed execution evidence follows below.**
+
+Owner approved the described exact-at-115 / nearest-bracket linear interpolation variant, now reserved as [T08a5](t08a5-salford-anchor115.md) after checking the unused ID. Freeze the full rules and contributor endpoints before numerical execution. One output per fixed-primary column; direct/interpolated methods, counts, ranges and zero/quality flags stay explicit. Pairing and local linearity remain development assumptions, no A/B/trend/physiology or app implementation. L01–L06 define source/report arithmetic, complete denominators, independent checks, rerun/current-input/no-fallback/privacy evidence; pending execution. No new acquisition/contact or publication authorized; T08a3 and all live/scientific/product gates unchanged.
+
+
+## T08a5 executed 115 bpm descriptor — 2026-11-12
+
+[Executed results and verification](../../evidence/t08a2-comparable-observations/README.md#t08a5-executed-115-bpm-stored-row-descriptor--2026-11-12): all 197 fixed-primary outputs available, 188 exact and nine interpolated, 206 HR nodes and 3,226 actual source-row contributors. Seventeen columns have a one-row used point; 132 include Power-zero in a used point, all retained. Complete independent source/rational checks, full byte-identical rerun and current/no-fallback/interruption checks PASS. Exact versus interpolated evidence remains explicit; local linearity, index pairing, artifact and context limits unchanged. L01–L06 report/source evidence only, no original A/B, chronological/physiological trend, app change or Git publication. Detailed scalars/contributors/scripts remain outside Git; all live/scientific/product gates stay open.

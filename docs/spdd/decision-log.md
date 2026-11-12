@@ -339,3 +339,31 @@ Owner approved the described [T08a6](tasks/t08a6-salford-row-influence.md) diagn
 Owner explicitly requested a PR for the completed T08a5 and T08a6 documentation. This authorizes commit, push and publication of the ten scoped Markdown files, including both task specifications, aggregate results, verification and synchronized references. Earlier no-publication statements describe their preceding execution stages. Detailed source/column/row/Power values, research scripts and complete result tables remain outside Git. No merge, new numerical experiment, source acquisition/contact, application implementation or physiological/product admission authorized.
 
 Publication self-review covers the complete diff and both new tasks: fixed source/115-bpm anchor/method/endpoints, exact versus interpolated evidence, single-row and zero flags, complete 3,226-deletion/197-envelope denominators, unavailable versus zero and partial envelope labels, independent/rerun/current-input/no-fallback evidence, claim limits and privacy. Ten Markdown files only; no raw participant records, dates/notes, private contributor identifiers, local research tools/results, credentials or application code staged. Relative-link/anchor checks (314), requirement/validation and L01–L06/M01–M06 traceability, new-file whitespace and `git diff --check` PASS. No application/hardware tests rerun for documentation-only publication; actual external source/report checks remain the execution evidence. Verify remote PR head/base and CI separately after publication.
+
+
+## 2026-11-12 — Update the original diagnostic to the current adapter
+
+Owner connected Karoo by USB and asked about updating the installed version. [Read-only baseline and update evidence](tasks/t02b-karoo-probe.md#current-adapter-diagnostic-update--2026-11-12) confirms the original probe remained installed. Rebuilt existing cf12e69 code and linted it, matched signing certificates, installed with `adb install -r`, verified installed binary bytes and launch/host connection/Idle. No new application behavior implemented; this is existing T02a/T02b setup verification, not authorization or completion of T02c/T03e. Keep 0.2.0/2 label ambiguity explicit through hash/revision. Numeric channels, lifecycle/long-run acquisition and persistence require their own evidence. No ride start or data publication performed.
+
+
+## 2026-11-12 — Preserve current-probe trainer evidence with bounded claims
+
+After the owner's trainer session and USB reconnection, [T02b evidence](tasks/t02b-karoo-probe.md#current-adapter-owner-trainer-session-retained-log-tail--2026-11-12) records actual current-adapter power/HR/cadence presence and manual pause/Idle/FIT-cancellation in the retained log tail. Owner-reported riding time is about one hour; available logs span only 20 min 50.113 s and lack recording/binding start. Do not interpret log truncation as proof of an acquisition failure or retained status counts as complete callbacks. This improves partial V02/V11 evidence without passing full T02c/T03e, numeric/synchronization or persistence gates. No FIT/private ride access or physiological inference. Preserve private raw logs and aggregate evidence; no publication authorization inferred from USB reconnection.
+
+
+## 2026-11-12 — Check one saved owner FIT through public USB storage
+
+Owner asked the agent to check the saved file or request it if needed. [Single public-folder FIT check](tasks/t02b-karoo-probe.md#owner-authorized-saved-fit-check--2026-11-12) copied only the uniquely newest-modified file, verified CRC/length and inspected original file-time/timer/session/channel availability. Native file covers approximately the owner-reported hour, while diagnostic logs retain only the tail; these are distinct evidence sources. No SDK history API/private storage scraping, GPS/profile output, other ride contents, canonical replay, physiology or publication. Retain the private file/report/script/provenance outside Git, publish only aggregate source evidence after separate authorization. T02c/T03e/parent live T04 remain open.
+
+
+## T02c1 standstill diagnostic increment approved — 2026-11-12
+
+Owner asked for progress that does not require another full workout, deferring long-run verification. [T02c1](tasks/t02c1-standstill-diagnostics.md) implements the existing source-backed live screen and bounded private timing/status report, not live Collector/database integration. Numeric readings display only; no new source, schema, physiology or SDK pin. P01–P06 cover missing/zero, report durability/privacy/bounds/errors, UI/source ownership, existing software/isolation checks and optional short device smoke. Parent T02c/T03e/T04/scientific gates remain open; no publication authorized. This is an observability slice, not a relaxation of full acquisition acceptance.
+
+
+## T02c1 implemented and checked on standstill Karoo — 2026-11-12
+
+[Actual scope and P01–P06 evidence](tasks/t02c1-standstill-diagnostics.md#execution-evidence--2026-11-12): existing source-owned real-value screen, receipt ages/missing reasons, callback counts and bounded private timing/status report implemented. Values display only; report excludes readings/profile/GPS. Zero/missing, reopen, storage/error/limit, queued-plus-in-flight overflow and Activity tests PASS; full debug 106/preview 130 PASS, unchanged core check cached 117 passes/one skip, build/lint and isolation PASS. Installed 0.3.0/code 3 on k24/API 32 and inspected connected/Idle UI plus private report after HOME/reopen. No full workout or native recording, no complete lifecycle/resource/scientific gate. Earlier local T02b/FIT evidence preserved, no publication performed.
+
+
+T02c1 owner feedback/publication (2026-11-12): owner confirmed the installed live screen displays actual sensor readings and requested a PR plus a new-session prompt. Commit/push/PR cover scoped code/tests and aggregate device/FIT documentation only; private inputs/reports/screenshots/APKs stay outside Git. This feedback does not close full T02c/T03e/T04 or numerical/scientific acceptance; no merge or additional implementation authorized.

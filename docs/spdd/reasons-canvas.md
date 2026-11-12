@@ -351,3 +351,25 @@ T03e1 E10 short hardware check (2026-11-12): owner authorized installation/check
 
 
 T03e1 publication authorization (2026-11-12): owner requested commit/push/PR for the completed 29-file diagnostic slice and a next-session continuation prompt. Aggregate E10 evidence may be published; private artifacts/profile/identifiers/acquisition timestamps and APKs remain outside Git. Merge/release and further native recordings/new implementation slices are not authorized. Next recommended planning step is a minimal short standstill persisted recording/pause/resume/local-end verification package, with unused ID check and named device-scope approval before execution; full T02c/T03e/resource/science gates remain open.
+
+
+## T03e2 proposed short lifecycle verification — 2026-11-12
+
+[PR #44](https://github.com/paulnroll/oxywatt/pull/44) is confirmed merged at 7e32e0f; four CI checks passed and no review/comments were present at read-back. Local main was safely fast-forwarded from 429495a. The installed 0.4.0 binary retains its pre-commit provenance from T03e1 E10; merge does not change device provenance.
+
+[T03e2](tasks/t03e2-standstill-lifecycle.md) reserves a previously unused ID for one proposed verification-only stationary Idle → Recording → Paused → Recording → Idle trial. Owner operates native controls; agent checks the existing single-source/single-worker canonical path with L01–L06 oracles for durable controls, one observed-start/local-end session, segment indices 0/1, timer effects and revision-filtered received/committed/pending reconciliation. About 45–90 seconds of state holds, ten-minute total window; no workout/new code/repository or further ordering exception. Raw evidence remains private; Idle is not native save. This complete proposal awaits named owner approval; no new recording/device check was performed. Full T02c/T03e, residency/fault/resource/live T04 and science gates remain open.
+
+
+T03e2 owner authorization (2026-11-12): owner approved the specified single stationary lifecycle verification and private canonical evidence inspection. Execution may proceed within its bounded procedure; earlier pending-approval status is historical. No publication, reinstall, additional ride or broader acceptance follows.
+
+
+T03e2 executed trial (2026-11-12): [actual results](tasks/t03e2-standstill-lifecycle.md#executed-stationary-trial--2026-11-12) are PARTIAL because native auto-pause changed the controlled manual procedure. Actual persisted Idle → Recording → Paused → Recording → Paused → Paused → Idle produces one OBSERVED_START/ENDED_LOCALLY session with segment indices 0/1, same epoch and no ambiguity/interruption; analyses remain zero. Final screen 2768 received / 2760 committed / 8 pending / zero loss/rejected matches revision 253 exactly; revision 257 retains all earlier screen receipts. Integrity/foreign-key/session-effect checks and unchanged source/process markers PASS. Hardware silence boundary is not exercised. Raw evidence remains owner-only outside Git; installed pre-commit APK provenance unchanged. No code, setting change, second recording or publication. Optional manual follow-up with temporarily disabled/restored native auto-pause is specified in the task and requires separate approval; broader gates remain open.
+
+
+T03e2 manual follow-up authorization (2026-11-12): owner explicitly approved one additional stationary trial with temporarily disabled/restored native auto-pause, as specified in the existing T03e2 amendment. Prior partial evidence remains unchanged. No reinstall, code, FIT access, broader matrix or publication authorized.
+
+
+T03e2 approved manual follow-up (2026-11-12): [actual extended-trace evidence](tasks/t03e2-standstill-lifecycle.md#executed-manual-follow-up--2026-11-12) verifies one additional observed-start/local-end session with manual-only pause logs, segment indices 0/1/2 and no ambiguity/interruption. Owner reported a double click and requested repeating the pause in the same recording; all controls remain retained. Original exact two-segment procedure stays PARTIAL; actual manual persistence/ordering/paused exclusion PASS. Receipt-monotonic hold lower bounds ≥15 s / ≥10 s / ≥15 s verified. Current-epoch screen 30 received = 30 committed, pending/loss/rejected zero, matches revision 313; lifetime 3524 rows are not run-local counts. Integrity/reopen and unchanged source/epoch markers PASS, analyses zero; hardware silence boundary not exercised. Owner confirmed auto-pause restored. Same installed pre-commit APK; private manual-follow-up evidence separate, no code/new build/FIT access/publication. No third trial proposed; broader device/scientific gates unchanged.
+
+
+T03e2 publication authorization (2026-11-12): owner explicitly requested GitHub publication of the six scoped documentation files with aggregate trial results. Commit/push/PR authorized; earlier no-publication statements are historical. Private evidence/profile/identifiers/times/APKs stay outside Git. Merge/release and further native recordings/device scope remain separate.

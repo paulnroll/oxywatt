@@ -17,7 +17,6 @@ class DiagnosticExtension : KarooExtension("oxywatt-diagnostic", BuildConfig.VER
     override fun onCreate() {
         super.onCreate()
         capture = DiagnosticRuntime.capture(applicationContext)
-        capture.sourceStarted()
         Log.i(TAG, "extension created")
         val probes =
             mapOf(
@@ -26,30 +25,54 @@ class DiagnosticExtension : KarooExtension("oxywatt-diagnostic", BuildConfig.VER
                 "cadence" to StreamProbe("cadence", DataType.Field.CADENCE, false),
             )
         sourceHandle =
-            KarooRideDataSource(
-                    KarooSystemService(this),
-                    onRide = {
-                        val state =
-                            when (it) {
-                                RideState.Idle -> "IDLE"
-                                RideState.Recording -> "RECORDING"
-                                is RideState.Paused -> "PAUSED auto=${it.auto}"
+            DiagnosticRuntime.startLive(applicationContext) { coordinator, capture, origin, signal
+                ->
+                capture.sourceStarted(origin)
+                var wasConnected = false
+                KarooRideDataSource(
+                        KarooSystemService(this),
+                        stamp = coordinator::stamp,
+                        deliveryGate = coordinator.gate,
+                        onRide = {
+                            val state =
+                                when (it) {
+                                    RideState.Idle -> "IDLE"
+                                    RideState.Recording -> "RECORDING"
+                                    is RideState.Paused -> "PAUSED auto=${it.auto}"
+                                }
+                            Log.i(TAG, "ride=$state receiptMs=${SystemClock.elapsedRealtime()}")
+                        },
+                        onStream = { label, state -> probes.getValue(label).record(state) },
+                        onConnection = {
+                            capture.connection(it)
+                            if (wasConnected && !it) {
+                                coordinator.stopped(
+                                    com.oxywatt.core.collection.InterruptionReason.TRANSPORT_LOSS
+                                )
+                                signal()
                             }
-                        Log.i(TAG, "ride=$state receiptMs=${SystemClock.elapsedRealtime()}")
-                    },
-                    onStream = { label, state -> probes.getValue(label).record(state) },
-                    onConnection = {
-                        capture.connection(it)
-                        Log.i(TAG, "karoo connected=$it")
-                    },
-                )
-                .start(
-                    accept = capture::accept,
-                    onStopped = {
-                        capture.sourceStopped(it != null)
-                        if (it != null) Log.w(TAG, "Karoo source stopped with error")
-                    },
-                )
+                            if (it) wasConnected = true
+                            Log.i(TAG, "karoo connected=$it")
+                        },
+                    )
+                    .start(
+                        accept = {
+                            capture.accept(it)
+                            coordinator.accept(it)
+                            signal()
+                        },
+                        onStopped = {
+                            capture.sourceStopped(it != null)
+                            coordinator.stopped(
+                                if (it != null)
+                                    com.oxywatt.core.collection.InterruptionReason.SOURCE_FAILED
+                                else com.oxywatt.core.collection.InterruptionReason.SOURCE_STOPPED
+                            )
+                            signal()
+                            if (it != null) Log.w(TAG, "Karoo source stopped with error")
+                        },
+                    )
+            }
     }
 
     override fun startFit(emitter: Emitter<FitEffect>) {

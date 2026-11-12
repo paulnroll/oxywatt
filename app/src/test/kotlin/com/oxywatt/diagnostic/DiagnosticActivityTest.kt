@@ -46,6 +46,13 @@ class DiagnosticActivityTest {
         val activity = Robolectric.buildActivity(MainActivity::class.java).setup()
         shadowOf(Looper.getMainLooper()).idleFor(Duration.ofMillis(600))
         assertTrue(text(activity.get().window.decorView).contains("Power: 321 W"))
+        assertTrue(
+            text(activity.get().window.decorView)
+                .contains("Committed canonical events (current epoch): 0")
+        )
+        assertTrue(
+            text(activity.get().window.decorView).contains("Pending events / payload bytes:")
+        )
         activity.recreate()
         shadowOf(Looper.getMainLooper()).idleFor(Duration.ofMillis(600))
         assertSame(capture, DiagnosticRuntime.capture(app))

@@ -7,9 +7,12 @@ import android.os.Looper
 import android.widget.LinearLayout
 import android.widget.ScrollView
 import android.widget.TextView
+import com.oxywatt.core.collection.InterruptionReason
 import com.oxywatt.core.collection.Metric
 import com.oxywatt.core.collection.MissingReason
 import com.oxywatt.core.collection.RecordingState
+import com.oxywatt.core.collection.SessionOrigin
+import com.oxywatt.core.collection.SessionPhase
 import java.util.Locale
 
 class MainActivity : Activity() {
@@ -17,6 +20,7 @@ class MainActivity : Activity() {
     private lateinit var capture: DiagnosticCapture
     private lateinit var status: TextView
     private lateinit var report: TextView
+    private lateinit var storage: TextView
     private val metrics = mutableMapOf<Metric, TextView>()
     private val refresh =
         object : Runnable {
@@ -43,13 +47,16 @@ class MainActivity : Activity() {
         line(24f).setText(R.string.diagnostic_live_title)
         status = line()
         for (metric in Metric.entries) metrics[metric] = line(21f)
+        storage = line()
         report = line()
         line(15f).setText(R.string.diagnostic_report_scope)
         line(14f).text =
             getString(
                 R.string.diagnostic_build,
                 BuildConfig.VERSION_NAME,
-                BuildConfig.CODE_REVISION.take(7),
+                if (BuildConfig.CODE_DIRTY)
+                    getString(R.string.diagnostic_dirty_build, BuildConfig.CODE_REVISION.take(7))
+                else BuildConfig.CODE_REVISION.take(7),
             )
         setContentView(ScrollView(this).apply { addView(root) })
     }
@@ -66,6 +73,73 @@ class MainActivity : Activity() {
 
     private fun render() {
         val state = capture.snapshot()
+        val saved = DiagnosticRuntime.storage()
+        val storageLabel =
+            getString(
+                when (saved.status) {
+                    LiveStorageStatus.WAITING -> R.string.canonical_waiting
+                    LiveStorageStatus.COLLECTING -> R.string.canonical_collecting
+                    LiveStorageStatus.SAVED -> R.string.canonical_saved
+                    LiveStorageStatus.RETRYING -> R.string.canonical_retrying
+                    LiveStorageStatus.FATAL -> R.string.canonical_fatal
+                    LiveStorageStatus.DRAINED -> R.string.canonical_drained
+                }
+            )
+        storage.text =
+            getString(
+                R.string.canonical_line,
+                storageLabel,
+                saved.received,
+                saved.committed,
+                saved.pending,
+                saved.bytes,
+                saved.loss,
+                saved.rejected,
+                saved.revision,
+                saved.receipt?.utc?.toString() ?: getString(R.string.canonical_none),
+                getString(
+                    when (saved.session?.phase) {
+                        SessionPhase.RECORDING -> R.string.diagnostic_state_recording
+                        SessionPhase.PAUSED -> R.string.diagnostic_state_paused
+                        SessionPhase.ENDED_LOCALLY -> R.string.canonical_ended
+                        SessionPhase.INTERRUPTED -> R.string.canonical_interrupted
+                        null -> R.string.canonical_none
+                    }
+                ),
+                getString(
+                    when (saved.session?.origin) {
+                        SessionOrigin.OBSERVED_START -> R.string.canonical_observed
+                        SessionOrigin.COLD_ATTACH -> R.string.canonical_cold
+                        SessionOrigin.RECOVERY_FRAGMENT -> R.string.canonical_fragment
+                        null -> R.string.canonical_none
+                    }
+                ),
+                getString(
+                    when (saved.session?.interruptionReason) {
+                        InterruptionReason.PROCESS_RESTART ->
+                            R.string.canonical_reason_process_restart
+                        InterruptionReason.SOURCE_STOPPED ->
+                            R.string.canonical_reason_source_stopped
+                        InterruptionReason.SOURCE_FAILED -> R.string.canonical_reason_source_failed
+                        InterruptionReason.UNKNOWN_STATE -> R.string.canonical_reason_unknown_state
+                        InterruptionReason.TRANSPORT_LOSS ->
+                            R.string.canonical_reason_transport_loss
+                        InterruptionReason.INVALID_ORDER -> R.string.canonical_reason_invalid_order
+                        InterruptionReason.SOURCE_CHANGED ->
+                            R.string.canonical_reason_source_changed
+                        InterruptionReason.CONTROL_OVERFLOW ->
+                            R.string.canonical_reason_control_overflow
+                        InterruptionReason.STORAGE_FAILURE ->
+                            R.string.canonical_reason_storage_failure
+                        null -> R.string.canonical_none
+                    }
+                ),
+                saved.error ?: getString(R.string.canonical_none),
+                getString(
+                    if (saved.restartBlocked) R.string.canonical_restart_blocked
+                    else R.string.canonical_restart_ready
+                ),
+            )
         val connection =
             getString(
                 when (state.connected) {

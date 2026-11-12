@@ -211,3 +211,22 @@ Owner asked for progress that does not require another full workout, deferring l
 ## T02c1 implemented and checked on standstill Karoo — 2026-11-12
 
 [Actual scope and P01–P06 evidence](t02c1-standstill-diagnostics.md#execution-evidence--2026-11-12): existing source-owned real-value screen, receipt ages/missing reasons, callback counts and bounded private timing/status report implemented. Values display only; report excludes readings/profile/GPS. Zero/missing, reopen, storage/error/limit, queued-plus-in-flight overflow and Activity tests PASS; full debug 106/preview 130 PASS, unchanged core check cached 117 passes/one skip, build/lint and isolation PASS. Installed 0.3.0/code 3 on k24/API 32 and inspected connected/Idle UI plus private report after HOME/reopen. No full workout or native recording, no complete lifecycle/resource/scientific gate. Earlier local T02b/FIT evidence preserved, no publication performed.
+
+
+## Proposed early T03e1 diagnostic increment — 2026-11-12
+
+[T03e1](t03e1-live-diagnostic-persistence.md) is reserved, specification complete for decision, implementation unapproved. Limited proposed order: existing T03a–d/T02d/T02c1 → named T03e1 approval → integrated software tests → optional short standstill persistence evidence, while full T02c/T03e/parent T04 acceptance stays open. This exception changes the earlier blanket live-wiring dependency only for the diagnostic subdivision if approved; full acquisition gates are retained.
+
+Scope: one service-owned source and coordinator over existing admission/lifecycle/InputRepository, received-versus-committed UI, serialized clock/timer/commit cuts, versioned policies/provenance, exact retry, bounded loss and conservative recovery. Files, concrete E01–E10 tests, caps, errors and Done evidence are in the task. No additional Collector/repository, analysis, physiology, private FIT processing or publication. No implementation or hardware test performed during planning.
+
+
+T03e1 owner authorization (2026-11-12): owner explicitly approved the specified diagnostic-only implementation, policies and ordering exception. Earlier proposal status is historical. Full T02c/T03e/product reliability, live T04 and science remain open; no installation/publication/merge approval inferred.
+
+
+T03e1 local implementation (2026-11-12, owner-approved): [actual structure and behavioral evidence](t03e1-live-diagnostic-persistence.md#implemented-structure-and-policy-refinements--2026-11-12) wires the sole real adapter through existing admission/lifecycle/InputRepository. One stamp/admission gate and one worker preserve timer cuts, exact retry, shared N01 bounds and loss-only drain; new epochs/clock origins, private versioned provenance and live-only 32 MiB main SQLite cap are explicit. Readout distinguishes received/current-run inputs from acknowledged commits and shows pending/loss/restart/storage states. Synthetic preview and analysis authority remain isolated. App is 0.4.0/code 4 locally, not installed. See task for final verification results; E10 and full T02c/N02/T03e/live T04/science remain open. No publication/merge.
+
+
+T03e1 final software verification: debug 138 PASS, preview 162 PASS; core check PASS with unchanged cached 117 passes/one private-FIT skip. Builds/lint and release/preview isolation PASS (4 min 40 s). E01–E09 software evidence is recorded in the task; E10 NOT RUN. Local 0.4.0/code 4 APK is not installed; existing 0.3.0 device provenance is unchanged. Full T02c/N02/T03e/live T04 and science remain open. Changes stay local/uncommitted/unpublished.
+
+
+T03e1 E10 short hardware check (2026-11-12): owner authorized installation/check after software completion. [Actual evidence](t03e1-live-diagnostic-persistence.md#e10-authorized-installation-and-short-karoo-check--2026-11-12) confirms matching-signer in-place 0.4.0/code 4 update on k24/API 32, exact installed prepared-APK hash and Connected/Idle zero-power/cadence plus unavailable HR. Screen received 213 / committed 203 / pending 10 matches SQLite revision 20 exactly; revision 21 retains all 213 unique observations, one epoch, zero sessions/analyses. HOME/reopen keeps the process and one source-start marker; timing/status report stays separate. E10 limited PASS supersedes earlier not-run/not-installed status. Raw SQLite/profile/report/screenshots/identifiers/timestamps stay private outside Git. No native ride or FIT replay; full T02c/N02/T03e/live T04 and science remain open. No publication/merge.

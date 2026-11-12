@@ -19,6 +19,7 @@ internal class KarooRideDataSource(
             sequence.getAndIncrement(),
         )
     },
+    private val deliveryGate: Any = Any(),
     private val onRide: (RideState) -> Unit = {},
     private val onStream: (String, StreamState) -> Unit = { _, _ -> },
     private val onConnection: (Boolean) -> Unit = {},
@@ -119,14 +120,16 @@ internal class KarooRideDataSource(
                 }
                 delivering = true
                 try {
-                    accept(
-                        SourceObservation(
-                            stamp(),
-                            SourceRef("karoo", "1.1.9"),
-                            "karoo-normalization-v1",
-                            payload(),
+                    synchronized(deliveryGate) {
+                        accept(
+                            SourceObservation(
+                                stamp(),
+                                SourceRef("karoo", "1.1.9"),
+                                "karoo-normalization-v1",
+                                payload(),
+                            )
                         )
-                    )
+                    }
                 } catch (error: Throwable) {
                     failure = error
                     stopping = true

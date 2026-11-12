@@ -64,6 +64,7 @@ internal class DiagnosticCapture(
     private var recording = RecordingState.UNKNOWN
     private var sourceActive = false
     private var accepting = true
+    private var receiptOriginNanos = 0L
     internal var beforeAppendForTest: () -> Unit = {}
 
     init {
@@ -71,11 +72,15 @@ internal class DiagnosticCapture(
         event("process_run_started", "prior continuity unknown")
     }
 
-    fun sourceStarted() =
+    fun sourceStarted(originNanos: Long = 0) =
         synchronized(lock) {
+            readings.clear()
+            recording = RecordingState.UNKNOWN
+            connected = null
+            receiptOriginNanos = originNanos
             accepting = true
             sourceActive = true
-            event("source_started")
+            event("source_started", "receipt_origin_nanos=$originNanos")
         }
 
     fun sourceStopped(failed: Boolean) =
@@ -142,7 +147,9 @@ internal class DiagnosticCapture(
                 readings.mapValues { (_, reading) ->
                     reading.copy(
                         ageNanos =
-                            reading.stamp?.let { (now - it.elapsedNanos).takeIf { n -> n >= 0 } }
+                            reading.stamp?.let {
+                                (now - receiptOriginNanos - it.elapsedNanos).takeIf { n -> n >= 0 }
+                            }
                     )
                 },
                 report,

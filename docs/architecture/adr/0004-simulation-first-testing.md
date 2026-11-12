@@ -111,3 +111,14 @@ A broad data-source plugin framework would add configuration and domain types wi
 
 
 T03e1 owner authorization (2026-11-12): owner explicitly approved the specified diagnostic-only implementation, policies and ordering exception. Earlier proposal status is historical. Full T02c/T03e/product reliability, live T04 and science remain open; no installation/publication/merge approval inferred.
+
+
+## T02c2 deferred; diagnostic T04b3 proposal — 2026-11-12
+
+Owner requested skipping T02c2 now and continuing development, with possible later return. Record the test as owner-deferred/NOT RUN; earlier device evidence retains its limited scope. [T04b3](../../spdd/tasks/t04b3-live-diagnostic-curve.md) proposes the next complete software slice: explicit latest-ended-session calculation using existing committed replay/engine/AnalysisRepository and a durable diagnostic nine-duration readout. Exact live policy support, distinct real provenance/cohort and codec compatibility, canonical-priority cooperative work on the same worker, cancellation/cap/newest-result safeguards and C01–C08 acceptance are specified. No second Collector/repository system, private FIT, physiology or smoothing. The limited diagnostic T04 ordering amendment and implementation await named approval; full T02c/T03e/product live T04, hidden/screen-off/resources and science are not accepted. No device action, application code or publication in this planning step.
+
+
+T04b3 owner authorization (2026-11-12): owner approved the specified software implementation, including its limited diagnostic ordering amendment. T02c2 remains deferred, broader hardware/scientific gates open. No installation/private-data evaluation/publication inferred.
+
+
+T04b3 local software completion (2026-11-12, owner-approved): [implementation/evidence](../../spdd/tasks/t04b3-live-diagnostic-curve.md#final-verification-and-disposition--2026-11-12) delivers explicit latest-ended diagnostic curve calculation/save/readout through the existing worker and repositories. Shared stepped replay, exact live policy and real-origin codec/slot, canonical priority/cancellation and cap/newest-result safeguards are verified with synthetic inputs only. Final full debug 170 PASS; full preview 192 PASS before the final cancellation cleanup, followed by 54 focused preview passes; core check/build 120 passes/one private-FIT skip cached, build/lint/format/isolation PASS. Version 0.5.0/code 5 built locally, not installed. No private data/FIT/device analysis or publication. T02c2 remains deferred; full acquisition/resources/product live T04 and physiology remain open.

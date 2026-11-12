@@ -488,4 +488,26 @@ class PowerCurvePersistenceTest {
             }
         }
     }
+
+    @Test
+    fun `cancellation before request does not retain a poisoned synchronous preview job`() {
+        val n = name()
+        InputRepository(context, n).use { inputs ->
+            fill(inputs)
+            AnalysisRepository(context, n).use { results ->
+                val calculation = PowerCurveCalculation(inputs, results)
+                assertThrows(java.util.concurrent.CancellationException::class.java) {
+                    calculation.prepare(id, "SYNTHETIC:cancel-before-request", "test") { true }
+                }
+                assertFalse(calculation.hasPreparedRequest)
+                val retry = calculation.prepare(id, "SYNTHETIC:cancel-before-request", "test")
+                assertEquals(AnalysisStatus.AVAILABLE, retry.terminal.status)
+                assertEquals(
+                    200.0,
+                    retry.terminal.curve!!.snapshot.durations.first().record!!.meanWatts,
+                    1e-9,
+                )
+            }
+        }
+    }
 }

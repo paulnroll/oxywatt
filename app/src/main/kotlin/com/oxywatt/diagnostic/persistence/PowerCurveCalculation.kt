@@ -14,20 +14,27 @@ class PowerCurveCalculation(
     private val inputs: InputRepository,
     private val analyses: AnalysisRepository,
 ) {
-    private data class FrozenRequest(
-        val session: UUID,
-        val inputHash: String,
-        val requestId: UUID,
-        val provenance: AnalysisProvenance,
-    )
-
-    private var request: FrozenRequest? = null
-    val hasPreparedRequest: Boolean
-        get() = request != null
+    private var pending: Job? = null
+    val hasPreparedRequest
+        get() = pending?.awaitingRequest == true
 
     companion object {
+        const val REAL = "REAL_KAROO_DIAGNOSTIC:v1"
+
         fun slot(id: UUID) =
             AnalysisSlot(id, "observed-power-curve", "synthetic-canonical-power-hold-v1-budget-v1")
+
+        fun realSlot(id: UUID) =
+            AnalysisSlot(id, "observed-power-curve", "real-karoo-diagnostic-power-hold-v1-work-v2")
+    }
+
+    fun beginReal(id: UUID, codeVersion: String, cancelled: () -> Boolean = { false }): Job =
+        Job(id, REAL, codeVersion, true, cancelled)
+
+    fun prepareReal(id: UUID, codeVersion: String): PreparedPowerCompletion {
+        val job = beginReal(id, codeVersion)
+        while (job.completion == null) job.step()
+        return job.completion!!
     }
 
     fun prepare(
@@ -37,118 +44,264 @@ class PowerCurveCalculation(
         cancelled: () -> Boolean = { false },
     ): PreparedPowerCompletion {
         require(manifest.startsWith("SYNTHETIC:"))
-        val revision = inputs.state().revision
-        var terminalSession: SessionSnapshot? = null
-        var first = 0L
-        var last = 0L
-        var count = 0L
-        val hash = PowerReplayHash()
-        val profile = PowerReplayHash()
-        hash.token(id.toString())
-        hash.token(
-            "canonical-power-hold-v1:power-range-means-v2:power-replay-work-v2:16384:100000000"
-        )
-        hash.token(manifest)
-        scan(revision, cancelled) { row ->
-            if (relevant(row.update, id)) {
-                row.update.sessionChanges.singleOrNull { it.id == id }?.let { terminalSession = it }
-                if (first == 0L) first = row.revision
-                last = row.revision
-                count++
-                hash.document(selectedDocument(row, id))
-                row.update.checkpoint.profileObservation?.let {
-                    profile.document(CollectorCodec.observation(it))
-                }
-            }
+        val job =
+            pending?.also {
+                require(it.id == id && it.manifest == manifest && it.codeVersion == codeVersion)
+            } ?: Job(id, manifest, codeVersion, false, cancelled).also { pending = it }
+        try {
+            while (job.completion == null) job.step()
+        } catch (failure: Exception) {
+            // Only an allocated-or-uncertain request needs its frozen identity on retry.
+            // A cancelled hash pass must not retain the previous cancellation callback.
+            if (!job.awaitingRequest) pending = null
+            throw failure
         }
-        val session = checkNotNull(terminalSession) { "No committed session" }
-        require(session.phase in setOf(SessionPhase.ENDED_LOCALLY, SessionPhase.INTERRUPTED)) {
-            "Session is still active"
-        }
-        val inputHash = hash.finish()
-        val provenance =
-            AnalysisProvenance(
-                inputHash,
-                "${session.source.adapterId}:${session.source.adapterVersion}:${session.normalizationVersion}",
-                profile.finish(),
-                "power-range-means-v2",
-                "canonical-power-hold-v1",
-                "power-replay-work-v2:16384:100000000:${session.policy.version}:${session.policy.channelSilenceNanos}",
-                "not-applicable-v1",
-                "not-applicable-v1",
-                Instant.now(),
-                codeVersion,
-            )
-        val frozen =
-            request?.also {
-                check(
-                    it.session == id &&
-                        it.inputHash == inputHash &&
-                        it.provenance.codeVersion == codeVersion
-                ) {
-                    "Prepared request input changed"
-                }
-            } ?: FrozenRequest(id, inputHash, UUID.randomUUID(), provenance).also { request = it }
-        val generation = analyses.request(slot(id), frozen.requestId, frozen.provenance)
-        val terminal =
-            try {
-                val engine = BudgetedPowerCurve(id, cancelled = cancelled)
-                val replay =
-                    CanonicalPowerReplay(id) { part ->
-                        if (cancelled()) throw CancellationException()
-                        engine.accept(part)
-                    }
-                scan(revision, cancelled) { row ->
-                    // Metadata applies before every affected update; min boundary is idempotent.
-                    if (relevant(row.update, id)) {
-                        require(row.metadata.policy.version == "admission-v1") {
-                            "Unsupported admission policy"
-                        }
-                        replay.accept(row.update, row.metadata.loss)
-                    }
-                }
-                check(replay.session == session)
-                AnalysisTerminal(
-                    AnalysisStatus.AVAILABLE,
-                    Instant.now(),
-                    curve =
-                        StoredPowerCurve(
-                            session,
-                            engine.snapshot(),
-                            revision,
-                            first,
-                            last,
-                            inputHash,
-                            manifest,
-                            engine.reserved,
-                            engine.limited,
-                            count,
-                            engine.intervalCount,
-                        ),
-                )
-            } catch (failure: Exception) {
-                AnalysisTerminal(
-                    AnalysisStatus.FAILED,
-                    Instant.now(),
-                    reason =
-                        if (failure is CancellationException) "CANCELLED"
-                        else "INVALID_OR_UNSUPPORTED_POWER_REPLAY",
-                )
-            }
-        request = null
-        return PreparedPowerCompletion(generation, terminal)
+        pending = null
+        return job.completion!!
     }
 
-    private fun scan(revision: Long, cancelled: () -> Boolean, consume: (CommittedEffect) -> Unit) {
-        var afterRevision = 0L
-        var index = -1
-        while (true) {
-            if (cancelled()) throw CancellationException()
-            val page = inputs.replay(revision, afterRevision, index)
-            if (page.isEmpty()) return
-            page.forEach { consume(it) }
-            afterRevision = page.last().revision
-            index = page.last().index
+    /**
+     * One effect per step; at most one 256-effect page retained across both frozen-revision passes.
+     */
+    inner class Job
+    internal constructor(
+        val id: UUID,
+        val manifest: String,
+        val codeVersion: String,
+        val live: Boolean,
+        private val cancelled: () -> Boolean,
+    ) {
+        val revision = inputs.state().revision
+        private var session: SessionSnapshot? = null
+        private var first = 0L
+        private var last = 0L
+        private var count = 0L
+        private val hash = PowerReplayHash()
+        private val profile = PowerReplayHash()
+        private var inputHash = ""
+        private var acquisition: String? = null
+        private var acquisitionHash: String? = null
+        private var provenance: AnalysisProvenance? = null
+        private val requestId = UUID.randomUUID()
+        private var generation: Long? = null
+        private var phase = 0
+        private var cursor = Cursor()
+        private val engine =
+            BudgetedPowerCurve(
+                id,
+                cancelled = cancelled,
+                coverageOrigin =
+                    if (live) "committed-real-karoo-diagnostic-effects-v1"
+                    else "committed-synthetic-effects-v1",
+            )
+        private val replay =
+            CanonicalPowerReplay(id) { part ->
+                if (cancelled()) throw CancellationException()
+                engine.accept(part)
+            }
+        var completion: PreparedPowerCompletion? = null
+            private set
+
+        val awaitingRequest
+            get() = phase == 1
+
+        val allocatedGeneration
+            get() = generation
+
+        internal val retainedPageSize
+            get() = cursor.page.size
+
+        init {
+            hash.token(id.toString())
+            hash.token(
+                "canonical-power-hold-v1:power-range-means-v2:power-replay-work-v2:16384:100000000"
+            )
+            hash.token(manifest)
+        }
+
+        private inner class Cursor {
+            var page = emptyList<CommittedEffect>()
+            private var offset = 0
+            private var afterRevision = 0L
+            private var index = -1
+
+            fun next(): CommittedEffect? {
+                if (offset == page.size) {
+                    if (cancelled()) throw CancellationException()
+                    page = inputs.replay(revision, afterRevision, index)
+                    offset = 0
+                    if (page.isEmpty()) return null
+                }
+                return page[offset++].also {
+                    afterRevision = it.revision
+                    index = it.index
+                }
+            }
+        }
+
+        fun step() {
+            if (completion != null) return
+            when (phase) {
+                0 -> {
+                    if (live && cancelled()) throw CancellationException()
+                    val row = cursor.next()
+                    if (row != null) {
+                        if (relevant(row.update, id)) {
+                            row.update.sessionChanges
+                                .singleOrNull { it.id == id }
+                                ?.let { session = it }
+                            if (first == 0L) first = row.revision
+                            last = row.revision
+                            count++
+                            hash.document(selectedDocument(row, id))
+                            if (live) {
+                                val text =
+                                    requireNotNull(row.metadata.acquisition) {
+                                        "Missing acquisition provenance"
+                                    }
+                                val j = JSONObject(text)
+                                CollectorCodec.validateLivePowerAcquisition(j)
+                                require(j.getString("origin") == "real-karoo-diagnostic")
+                                require(row.metadata.policy == AdmissionPolicy())
+                                require(
+                                    j.getString("epoch") ==
+                                        (session ?: row.update.checkpoint.latestSession)!!
+                                            .epochId
+                                            .toString()
+                                )
+                                val digest = PowerReplayHash().also { it.document(j) }.finish()
+                                require(acquisitionHash == null || acquisitionHash == digest) {
+                                    "Mixed acquisition provenance"
+                                }
+                                acquisition = text
+                                acquisitionHash = digest
+                                hash.document(j)
+                            }
+                            if (!live) {
+                                require(row.metadata.acquisition == null) {
+                                    "Real acquisition cannot use a synthetic calculation"
+                                }
+                            }
+                            row.update.checkpoint.profileObservation?.let {
+                                profile.document(CollectorCodec.observation(it))
+                            }
+                        }
+                    } else {
+                        val s = checkNotNull(session) { "No committed session" }
+                        require(
+                            s.phase in setOf(SessionPhase.ENDED_LOCALLY, SessionPhase.INTERRUPTED)
+                        ) {
+                            "Session is still active"
+                        }
+                        if (live) {
+                            require(
+                                s.phase == SessionPhase.ENDED_LOCALLY &&
+                                    s.origin == SessionOrigin.OBSERVED_START &&
+                                    s.ambiguityGroupId == null
+                            )
+                            require(
+                                s.policy ==
+                                    LifecyclePolicy("karoo-diagnostic-silence-v1", 5_000_000_000)
+                            )
+                            require(
+                                s.source.adapterId == "karoo" &&
+                                    s.source.adapterVersion == "1.1.9" &&
+                                    s.normalizationVersion == "karoo-normalization-v1"
+                            )
+                        }
+                        inputHash = hash.finish()
+                        provenance =
+                            AnalysisProvenance(
+                                inputHash,
+                                "${s.source.adapterId}:${s.source.adapterVersion}:${s.normalizationVersion}",
+                                profile.finish(),
+                                "power-range-means-v2",
+                                "canonical-power-hold-v1",
+                                "power-replay-work-v2:16384:100000000:${s.policy.version}:${s.policy.channelSilenceNanos}",
+                                "not-applicable-v1",
+                                "not-applicable-v1",
+                                Instant.now(),
+                                codeVersion,
+                            )
+                        cursor = Cursor()
+                        phase = 1
+                    }
+                }
+                1 -> {
+                    if (live && cancelled()) throw CancellationException()
+                    generation =
+                        analyses.request(
+                            if (live) realSlot(id) else slot(id),
+                            requestId,
+                            provenance!!,
+                        )
+                    phase = 2
+                }
+                2 ->
+                    try {
+                        if (live && cancelled()) throw CancellationException()
+                        val row = cursor.next()
+                        if (row != null) {
+                            if (relevant(row.update, id)) {
+                                require(row.metadata.policy.version == "admission-v1") {
+                                    "Unsupported admission policy"
+                                }
+                                if (!live)
+                                    require(session!!.policy.version == "preview-silence-v1") {
+                                        "Real policy cannot use a synthetic calculation"
+                                    }
+                                replay.accept(row.update, row.metadata.loss)
+                            }
+                        } else {
+                            check(replay.session == session)
+                            finish(
+                                AnalysisTerminal(
+                                    AnalysisStatus.AVAILABLE,
+                                    Instant.now(),
+                                    curve =
+                                        StoredPowerCurve(
+                                            session!!,
+                                            engine.snapshot(),
+                                            revision,
+                                            first,
+                                            last,
+                                            inputHash,
+                                            manifest,
+                                            engine.reserved,
+                                            engine.limited,
+                                            count,
+                                            engine.intervalCount,
+                                            acquisition,
+                                        ),
+                                )
+                            )
+                        }
+                    } catch (failure: Exception) {
+                        fail(
+                            if (failure is CancellationException) "CANCELLED"
+                            else "INVALID_OR_UNSUPPORTED_POWER_REPLAY"
+                        )
+                    }
+            }
+        }
+
+        fun cancel(replacePrepared: Boolean = false): PreparedPowerCompletion? {
+            if (
+                (completion == null || replacePrepared) &&
+                    generation != null &&
+                    completion?.terminal?.reason != "CANCELLED"
+            )
+                fail("CANCELLED")
+            return completion
+        }
+
+        private fun fail(reason: String) =
+            finish(AnalysisTerminal(AnalysisStatus.FAILED, Instant.now(), reason = reason))
+
+        private fun finish(terminal: AnalysisTerminal) {
+            completion = PreparedPowerCompletion(checkNotNull(generation), terminal)
+            cursor = Cursor()
+            phase = 3
         }
     }
 

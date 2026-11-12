@@ -45,6 +45,36 @@ internal class LiveDiagnosticCoordinator(
             LifecyclePolicy("karoo-diagnostic-silence-v1", 5_000_000_000),
             recovered = repository.checkpoint(),
         )
+    private var receivedState = RecordingState.UNKNOWN
+    private var receivedControl: ReceiptStamp? = null
+    private var analysisCancelled = true
+
+    fun canAnalyze(): Boolean =
+        synchronized(gate) {
+            accepting &&
+                terminal == null &&
+                !admission.stopped &&
+                receivedState == RecordingState.IDLE &&
+                receivedControl?.let { control ->
+                    view.receipt?.let { committed ->
+                        committed.epochId == control.epochId &&
+                            committed.ingestSequence >= control.ingestSequence
+                    }
+                } == true &&
+                view.status in setOf(LiveStorageStatus.SAVED, LiveStorageStatus.COLLECTING)
+        }
+
+    fun armAnalysis(): Boolean =
+        synchronized(gate) {
+            if (!canAnalyze()) false
+            else {
+                analysisCancelled = false
+                true
+            }
+        }
+
+    fun analysisMustCancel(): Boolean = synchronized(gate) { analysisCancelled || !canAnalyze() }
+
     private var sequence = 0L
     private var oldestQueued: Long? = null
     @Volatile
@@ -105,6 +135,11 @@ internal class LiveDiagnosticCoordinator(
 
     fun accept(input: SourceObservation) =
         synchronized(gate) {
+            (input.payload as? InputPayload.Recording)?.let {
+                receivedState = it.state
+                receivedControl = input.stamp
+                if (it.state != RecordingState.IDLE) analysisCancelled = true
+            }
             view = view.copy(received = increment(view.received))
             if (!accepting || admission.stopped) {
                 view = view.copy(rejected = increment(view.rejected))
@@ -247,6 +282,7 @@ internal class LiveDiagnosticCoordinator(
     fun stopped(reason: InterruptionReason = InterruptionReason.SOURCE_STOPPED) =
         synchronized(gate) {
             accepting = false
+            analysisCancelled = true
             if (terminal == null) {
                 terminal = reason
                 terminalAt = elapsed()

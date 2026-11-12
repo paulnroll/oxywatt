@@ -31,6 +31,75 @@ class CanonicalPowerReplayTest {
         CollectorLifecycle(epoch, LifecyclePolicy("preview-silence-v1", ttl), { id })
 
     @Test
+    fun `live irregular integral has independent seventy watt five second winner`() {
+        val l =
+            CollectorLifecycle(
+                epoch,
+                LifecyclePolicy("karoo-diagnostic-silence-v1", 5_000_000_000),
+                { id },
+            )
+        val engine =
+            BudgetedPowerCurve(id, coverageOrigin = "committed-real-karoo-diagnostic-effects-v1")
+        val replay = CanonicalPowerReplay(id, engine::accept)
+        listOf(
+                input(0, 0, recording(RecordingState.RECORDING)),
+                input(0, 1, power(0.0)),
+                input(1_500_000_000, 2, power(100.0)),
+                input(3_500_000_000, 3, power(50.0)),
+                input(7_500_000_000, 4, recording(RecordingState.IDLE)),
+            )
+            .forEach { replay.accept(l.accept(it)) }
+        // [1.5,6.5): 2*100 + 3*50 = 350 joules over five seconds.
+        val record = assertNotNull(engine.snapshot().durations.first().record)
+        assertEquals(70.0, record.meanWatts)
+        assertEquals(1_500_000_000, record.startNanos)
+    }
+
+    @Test
+    fun `unknown live timeout and policy cannot silently become preview holds`() {
+        for (policy in
+            listOf(
+                LifecyclePolicy("karoo-diagnostic-silence-v1", 4_000_000_000),
+                LifecyclePolicy("karoo-diagnostic-silence-v2", 5_000_000_000),
+            )) {
+            val l = CollectorLifecycle(epoch, policy, { id })
+            assertFailsWith<IllegalArgumentException> {
+                CanonicalPowerReplay(id) {}
+                    .accept(l.accept(input(0, 0, recording(RecordingState.RECORDING))))
+            }
+        }
+    }
+
+    @Test
+    fun `live five second policy expires before equal receipt without extending the last value`() {
+        val l =
+            CollectorLifecycle(
+                epoch,
+                LifecyclePolicy("karoo-diagnostic-silence-v1", 5_000_000_000),
+                { id },
+            )
+        val parts = mutableListOf<PowerInterval?>()
+        val replay = CanonicalPowerReplay(id) { parts.add(it) }
+        replay.accept(l.accept(input(0, 0, recording(RecordingState.IDLE))))
+        replay.accept(l.accept(input(0, 1, recording(RecordingState.RECORDING))))
+        replay.accept(l.accept(input(0, 2, power(0.0))))
+        assertTrue(parts.filterNotNull().isEmpty())
+        replay.accept(l.accept(input(5_000_000_000, 3, power(200.0))))
+        assertEquals(
+            listOf(0L to 5_000_000_000L),
+            parts.filterNotNull().map { it.startNanos to it.endNanos },
+        )
+        assertEquals(0.0, parts.filterNotNull().single().watts)
+        assertTrue(parts.any { it == null })
+        replay.accept(l.accept(input(6_000_000_000, 4, recording(RecordingState.PAUSED))))
+        replay.accept(l.accept(input(7_000_000_000, 5, power(999.0))))
+        assertEquals(
+            listOf(0L to 5_000_000_000L, 5_000_000_000L to 6_000_000_000L),
+            parts.filterNotNull().map { it.startNanos to it.endNanos },
+        )
+    }
+
+    @Test
     fun `last value needs committed evidence and repeated readings confirm five seconds`() {
         val l = lifecycle()
         val intervals = mutableListOf<PowerInterval>()

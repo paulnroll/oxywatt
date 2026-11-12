@@ -373,3 +373,25 @@ T03e2 approved manual follow-up (2026-11-12): [actual extended-trace evidence](t
 
 
 T03e2 publication authorization (2026-11-12): owner explicitly requested GitHub publication of the six scoped documentation files with aggregate trial results. Commit/push/PR authorized; earlier no-publication statements are historical. Private evidence/profile/identifiers/times/APKs stay outside Git. Merge/release and further native recordings/device scope remain separate.
+
+
+## T02c2 proposed short background check — 2026-11-12
+
+PR #45 is confirmed merged at fb810cf (four successful checks, no review/comments); clean local main fast-forwarded safely. [T02c2](tasks/t02c2-short-background-check.md) is reserved after an unused-ID check: proposed verification-only visible 30 s → native page 45 s → verified display-off 45 s → visible 30 s during one stationary recording. Require a present already-paired channel, preferably HR; T03e2's missing-channel manual trial cannot establish present delivery in the background. B01–B06 cover phase evidence, committed receipt counts/gaps, same epoch/source/session, current-epoch counters and private SQLite consistency. Owner handles sensor wake, auto-pause disable/restore and native buttons. No new code, workout, source/repository or ordering exception. Named execution approval pending; no device action or publication in this planning step. USB/charging/ADB limits remain explicit; full T02c/T03e, residency/fault/resource/live T04 and science gates stay open.
+
+
+## T02c2 deferred; diagnostic T04b3 proposal — 2026-11-12
+
+Owner requested skipping T02c2 now and continuing development, with possible later return. Record the test as owner-deferred/NOT RUN; earlier device evidence retains its limited scope. [T04b3](tasks/t04b3-live-diagnostic-curve.md) proposes the next complete software slice: explicit latest-ended-session calculation using existing committed replay/engine/AnalysisRepository and a durable diagnostic nine-duration readout. Exact live policy support, distinct real provenance/cohort and codec compatibility, canonical-priority cooperative work on the same worker, cancellation/cap/newest-result safeguards and C01–C08 acceptance are specified. No second Collector/repository system, private FIT, physiology or smoothing. The limited diagnostic T04 ordering amendment and implementation await named approval; full T02c/T03e/product live T04, hidden/screen-off/resources and science are not accepted. No device action, application code or publication in this planning step.
+
+
+T04b3 owner authorization (2026-11-12): owner approved the specified software implementation, including its limited diagnostic ordering amendment. T02c2 remains deferred, broader hardware/scientific gates open. No installation/private-data evaluation/publication inferred.
+
+
+T04b3 local software completion (2026-11-12, owner-approved): [implementation/evidence](tasks/t04b3-live-diagnostic-curve.md#final-verification-and-disposition--2026-11-12) delivers explicit latest-ended diagnostic curve calculation/save/readout through the existing worker and repositories. Shared stepped replay, exact live policy and real-origin codec/slot, canonical priority/cancellation and cap/newest-result safeguards are verified with synthetic inputs only. Final full debug 170 PASS; full preview 192 PASS before the final cancellation cleanup, followed by 54 focused preview passes; core check/build 120 passes/one private-FIT skip cached, build/lint/format/isolation PASS. Version 0.5.0/code 5 built locally, not installed. No private data/FIT/device analysis or publication. T02c2 remains deferred; full acquisition/resources/product live T04 and physiology remain open.
+
+
+T04b3 installation/publication authorization (2026-11-12): owner requested same-signer in-place 0.5.0 installation and commit/push/PR, with code review first. Review reproduced/fixed pending-control selection of the preceding session; 172 debug/196 full preview tests and relevant build/lint/isolation pass. Earlier no-install/publication statements are historical. No real Calculate/Retry action, native recording, FIT analysis, merge or broader device acceptance authorized. Private artifacts remain outside Git.
+
+
+T04b3 reviewed installation/publication (2026-11-12): [actual install evidence](tasks/t04b3-live-diagnostic-curve.md#reviewed-050-installation--2026-11-12) supersedes earlier not-installed status. Pre-PR review fixed analysis selection before latest control acknowledgement; 172 debug/196 full preview and relevant checks PASS. Same-signer 0.5.0/code 5 installed with -r, exact reviewed APK hash read back, Connected/Idle/Ready and version footer observed. Binary provenance remains fb810cf plus reviewed pre-commit changes. No real Calculate/native recording/FIT analysis or controlled hidden/screen-off claim. Private artifacts outside Git; owner authorized PR publication, not merge.

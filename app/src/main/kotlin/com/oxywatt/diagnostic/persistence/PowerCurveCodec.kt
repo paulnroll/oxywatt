@@ -19,8 +19,29 @@ data class StoredPowerCurve(
     val workLimited: Boolean,
     val effectCount: Long,
     val intervalCount: Long,
+    val acquisition: String? = null,
 ) {
     init {
+        acquisition?.let {
+            val metadata = JSONObject(it)
+            CollectorCodec.validateLivePowerAcquisition(metadata)
+            require(metadata.getString("epoch") == session.epochId.toString())
+            require(session.policy == LifecyclePolicy("karoo-diagnostic-silence-v1", 5_000_000_000))
+            require(
+                session.phase == SessionPhase.ENDED_LOCALLY &&
+                    session.origin == SessionOrigin.OBSERVED_START &&
+                    session.ambiguityGroupId == null
+            )
+            require(manifest == PowerCurveCalculation.REAL)
+            require(
+                snapshot.provenance.coverageOrigin == "committed-real-karoo-diagnostic-effects-v1"
+            )
+        }
+        if (acquisition == null)
+            require(
+                manifest.startsWith("SYNTHETIC:") &&
+                    snapshot.provenance.coverageOrigin == "committed-synthetic-effects-v1"
+            )
         require(session.phase in setOf(SessionPhase.ENDED_LOCALLY, SessionPhase.INTERRUPTED))
         require(
             snapshot.sessionId == session.id &&
@@ -55,7 +76,13 @@ internal object PowerCurveCodec {
     fun encode(v: StoredPowerCurve): JSONObject {
         val s = v.snapshot
         return JSONObject()
-            .put("codec", 1)
+            .put("codec", if (v.acquisition == null) 1 else 3)
+            .apply {
+                v.acquisition?.let {
+                    put("acquisition", JSONObject(it))
+                    put("acquisitionOrigin", "real-karoo-diagnostic")
+                }
+            }
             .put("session", CollectorCodec.session(v.session))
             .put("revision", v.revision)
             .put("firstRevision", v.firstRevision)
@@ -98,7 +125,9 @@ internal object PowerCurveCodec {
     }
 
     fun decode(j: JSONObject): StoredPowerCurve {
-        require(j.getInt("codec") == 1)
+        require(j.getInt("codec") in setOf(1, 3))
+        if (j.getInt("codec") == 3)
+            require(j.getString("acquisitionOrigin") == "real-karoo-diagnostic")
         val session = CollectorCodec.session(j.getJSONObject("session"))
         val ds = j.getJSONArray("durations")
         val durations =
@@ -147,6 +176,7 @@ internal object PowerCurveCodec {
             j.getBoolean("workLimited"),
             j.getLong("effects"),
             j.getLong("intervals"),
+            if (j.getInt("codec") == 3) j.getJSONObject("acquisition").toString() else null,
         )
     }
 }

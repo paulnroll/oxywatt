@@ -326,6 +326,16 @@ internal object CollectorCodec {
         require(value.getLong("silenceNanos") > 0 && value.getLong("maximumBytes") > 0)
     }
 
+    fun validateLivePowerAcquisition(value: JSONObject) {
+        validateAcquisition(value)
+        require(value.getString("ordering") == "karoo-diagnostic-order-v1")
+        require(value.getString("retry") == "karoo-diagnostic-retry-v1")
+        require(value.getString("storage") == "karoo-diagnostic-storage-v1")
+        require(value.getLong("maximumBytes") == 32L * 1024 * 1024)
+        require(value.getString("silence") == "karoo-diagnostic-silence-v1")
+        require(value.getLong("silenceNanos") == 5_000_000_000L)
+    }
+
     fun acquisition(metadata: JSONObject): String? {
         require(metadata.getInt("codec") == 1) { "Unsupported metadata codec" }
         return if (metadata.isNull("acquisition")) null

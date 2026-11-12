@@ -2,6 +2,7 @@ package com.oxywatt.diagnostic
 
 import android.content.Context
 import android.os.SystemClock
+import com.oxywatt.diagnostic.persistence.AnalysisRepository
 import com.oxywatt.diagnostic.persistence.InputRepository
 import java.io.File
 import java.util.UUID
@@ -34,6 +35,18 @@ internal object DiagnosticRuntime {
     fun storage(): LiveStorageSnapshot =
         (run?.snapshot() ?: LiveStorageSnapshot()).copy(restartBlocked = restartBlocked)
 
+    @Synchronized
+    fun curve(): LiveCurveSnapshot =
+        run?.let { live ->
+            val snapshot = live.curveSnapshot()
+            if (live.finished) snapshot.copy(canCalculate = false) else snapshot
+        } ?: LiveCurveSnapshot()
+
+    @Synchronized
+    fun calculateCurve() {
+        run?.requestCurve()
+    }
+
     @Synchronized fun readyForSource(): Boolean = run == null || run!!.finished
 
     @Synchronized
@@ -63,6 +76,15 @@ internal object DiagnosticRuntime {
         @Volatile private var handle: AutoCloseable? = null
         @Volatile private var owner: LiveDiagnosticCoordinator? = null
         @Volatile private var failure: String? = null
+        @Volatile private var curveController: LiveCurveController? = null
+
+        fun curveSnapshot() = curveController?.snapshot() ?: LiveCurveSnapshot()
+
+        fun requestCurve() {
+            curveController?.request()
+            signal()
+        }
+
         @Volatile
         var finished = false
             private set
@@ -83,6 +105,7 @@ internal object DiagnosticRuntime {
 
         private fun execute() {
             var repository: InputRepository? = null
+            var analyses: AnalysisRepository? = null
             try {
                 val epoch = UUID.randomUUID()
                 val origin = SystemClock.elapsedRealtimeNanos()
@@ -116,6 +139,23 @@ internal object DiagnosticRuntime {
                         { SystemClock.elapsedRealtimeNanos() - origin },
                     )
                 owner = coordinator
+                // Result storage failure must not prevent canonical acquisition.
+                try {
+                    analyses =
+                        AnalysisRepository(context, "oxywatt-live-diagnostic.db", 32L * 1024 * 1024)
+                    curveController =
+                        LiveCurveController(
+                            repository,
+                            analyses,
+                            coordinator,
+                            BuildConfig.CODE_REVISION +
+                                if (BuildConfig.CODE_DIRTY) "+local" else "",
+                            SystemClock::elapsedRealtimeNanos,
+                        )
+                } catch (_: Exception) {
+                    analyses?.close()
+                    analyses = null
+                }
                 var started = false
                 while (true) {
                     if (requestedStop || coordinator.shouldStopSource) handle?.close()
@@ -127,8 +167,10 @@ internal object DiagnosticRuntime {
                     }
                     if (requestedStop && !started) coordinator.stopped()
                     if (coordinator.finished) break
+                    curveController?.pump()
                     // One reusable waiter; notifications never retain events or enqueue tasks.
-                    val delay = coordinator.waitMillis()
+                    val delay =
+                        if (curveController?.hasWork == true) 1L else coordinator.waitMillis()
                     synchronized(wake) { wake.wait(delay) }
                 }
             } catch (error: Exception) {
@@ -138,7 +180,11 @@ internal object DiagnosticRuntime {
                     handle?.close()
                 } finally {
                     try {
-                        repository?.close()
+                        try {
+                            analyses?.close()
+                        } finally {
+                            repository?.close()
+                        }
                     } finally {
                         finished = true
                     }

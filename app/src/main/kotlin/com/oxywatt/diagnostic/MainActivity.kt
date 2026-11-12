@@ -4,6 +4,7 @@ import android.app.Activity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.ScrollView
 import android.widget.TextView
@@ -21,6 +22,8 @@ class MainActivity : Activity() {
     private lateinit var status: TextView
     private lateinit var report: TextView
     private lateinit var storage: TextView
+    private lateinit var curve: TextView
+    private lateinit var calculate: Button
     private val metrics = mutableMapOf<Metric, TextView>()
     private val refresh =
         object : Runnable {
@@ -48,6 +51,13 @@ class MainActivity : Activity() {
         status = line()
         for (metric in Metric.entries) metrics[metric] = line(21f)
         storage = line()
+        calculate =
+            Button(this).apply {
+                setText(R.string.live_curve_calculate)
+                setOnClickListener { DiagnosticRuntime.calculateCurve() }
+                root.addView(this)
+            }
+        curve = line()
         report = line()
         line(15f).setText(R.string.diagnostic_report_scope)
         line(14f).text =
@@ -72,6 +82,14 @@ class MainActivity : Activity() {
     }
 
     private fun render() {
+        val curveState = DiagnosticRuntime.curve()
+        curve.text = liveCurveText(this, curveState)
+        calculate.isEnabled = curveState.canCalculate
+        calculate.setText(
+            if (curveState.status in setOf(LiveCurveStatus.PENDING, LiveCurveStatus.FAILED))
+                R.string.live_curve_retry
+            else R.string.live_curve_calculate
+        )
         val state = capture.snapshot()
         val saved = DiagnosticRuntime.storage()
         val storageLabel =

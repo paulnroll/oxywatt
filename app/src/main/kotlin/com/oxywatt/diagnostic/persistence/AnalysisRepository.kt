@@ -126,9 +126,15 @@ data class StoredAnalysis(
 }
 
 /** Blocking storage port; call from an owner worker. No estimator or trend calculation. */
-class AnalysisRepository(context: Context, name: String) : AutoCloseable {
-    private val helper = CollectorDatabase(context, name)
+class AnalysisRepository(context: Context, name: String, maximumBytes: Long? = null) :
+    AutoCloseable {
+    private val helper = CollectorDatabase(context, name, maximumBytes)
     internal var beforeCommit: () -> Unit = {}
+    internal var afterCommit: () -> Unit = {}
+
+    internal fun maximumBytesForTest() = helper.writableDatabase.maximumSize
+
+    internal fun limitStorageForTest(bytes: Long) = helper.writableDatabase.setMaximumSize(bytes)
 
     private fun <T> transaction(action: (SQLiteDatabase) -> T): T {
         val db = helper.writableDatabase
@@ -145,6 +151,7 @@ class AnalysisRepository(context: Context, name: String) : AutoCloseable {
         } finally {
             try {
                 db.endTransaction()
+                if (failure == null) afterCommit()
             } catch (cleanup: Throwable) {
                 if (failure != null) failure.addSuppressed(cleanup) else throw cleanup
             }
@@ -198,6 +205,10 @@ class AnalysisRepository(context: Context, name: String) : AutoCloseable {
         val old = checkNotNull(run(generation)) { "Unknown generation" }
         terminal.curve?.let {
             check(it.session.id == old.slot.session) { "Curve session does not own generation" }
+            val expected =
+                if (it.acquisition == null) PowerCurveCalculation.slot(it.session.id)
+                else PowerCurveCalculation.realSlot(it.session.id)
+            check(old.slot == expected) { "Curve acquisition does not own result slot" }
         }
         if (old.terminal != null) check(old.terminal == terminal) { "Conflicting terminal retry" }
         else {

@@ -21,7 +21,11 @@ class CanonicalPowerReplay(
         val changed = update.sessionChanges.singleOrNull { it.id == sessionId }
         val prior = session
         if (changed != null) {
-            require(changed.policy.version == "preview-silence-v1") {
+            require(
+                changed.policy.version == "preview-silence-v1" ||
+                    (changed.policy.version == "karoo-diagnostic-silence-v1" &&
+                        changed.policy.channelSilenceNanos == 5_000_000_000)
+            ) {
                 "Unsupported lifecycle policy"
             }
             if (prior != null)
@@ -147,11 +151,12 @@ class BudgetedPowerCurve(
     policy: PowerCurvePolicy = PowerCurvePolicy(),
     val budget: Long = 100_000_000,
     cancelled: () -> Boolean = { false },
+    coverageOrigin: String = "committed-synthetic-effects-v1",
 ) {
     private val engine =
         PowerCurveEngine(
             sessionId,
-            PowerProvenance("canonical-power-hold-v1", "committed-synthetic-effects-v1"),
+            PowerProvenance("canonical-power-hold-v1", coverageOrigin),
             policy,
             budget,
             cancelled,

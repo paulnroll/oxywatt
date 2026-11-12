@@ -260,3 +260,35 @@ Real-data/scientific admission remains blocked; N, qualification thresholds, mea
 ## Authorized Salford structural review — continuation 2026-11-12
 
 [Audit evidence](../evidence/t08a2-comparable-observations/README.md): Owner explicitly approved public Salford four-rider archive download and local structure/quality audit. Acquisition/inspection executed outside Git; no other archives or participant contact authorized. Decision: retain raw source, reconcile timing/date/alignment before proposing any bounded development analysis; current comparative and physiological gates remain NO-GO. No private rides or app changes. Owner subsequently authorized report-only PR publication; no merge or later analysis approval follows.
+
+
+## 2026-11-12 — Salford timing hypothesis remains distinct from canonical time
+
+Owner authorized concrete inspection and documentation on the retained named archive. [T08a2 evidence](../evidence/t08a2-comparable-observations/README.md#source-specific-timealignment-inspection--2026-11-12) now verifies that stored duration formulas multiply count by an interval. Ratio agreement is therefore not independent evidence for actual clocks. Same-date/equal-extent columns support only a conditional index-pair hypothesis (711 at 5 s, 7 at 1 s), not synchronization or observed ride boundaries.
+
+Recommendation: next investigate source-index availability with disclosed nominal-time assumptions and all exclusions, retaining records/coordinates outside Git. This is existing T08a2 discovery; no application/importer/replay/A/B or new implementation ID needed for that report. Comparative pilot remains NO-GO; numeric qualification, baseline/smoothing and physiological gates remain unresolved. PR #39 was verified merged and local main updated; its merge grants no next-experiment/publication permission. No further PR merged or published here.
+
+
+## 2026-11-12 — Execute authorized Salford availability summary
+
+Owner approved the preceding report-only proposal. [Actual evidence](../evidence/t08a2-comparable-observations/README.md#executed-source-index-availability-report--2026-11-12) retains all source dispositions and the 718-column subset, split by nominal grid. Numeric material is abundant, but positive-HR availability and marginal distributions do not establish synchronization, independent visits, context, stable windows or physiological repeatability. Decision: preserve pilot NO-GO; seek contemporaneous source timing/export/artifact evidence before proposing stronger use. No repair, application/import/replay/A/B or publication authorized/performed in this continuation.
+
+
+## 2026-11-12 — Bound Salford source-documentation conclusions
+
+Owner approved the proposed documentation review. [Source matrix](../evidence/t08a2-comparable-observations/README.md#executed-source-recordingexport-semantics-review--2026-11-12) independently confirms the paper's nominal 5 s statement while retaining the workbook's 1 s evidence. Official SRM storage/stop/export descriptions are model/version-dependent, without an established Salford device/configuration/transformation chain; no sentinel or clock reconstruction becomes verified. Decision: stop archive-only comparable-pilot qualification pending source-linked timing/settings/row evidence. A deliberately assumption-limited future A/B experiment needs its own concrete named review/approval; none authorized or executed here. No source contact, other participant archive, code or publication. Useful within-person trend remains an unmeasured goal, with scientific/live/product gates unchanged.
+
+
+## 2026-11-12 — Prepare T08a3 with a support-first numerical gate
+
+Owner requested preparation of the proposed bounded Salford experiment package. [T08a3](tasks/t08a3-salford-index-ab.md) is checked/reserved as the next unused subdivision; no execution/publication approval inferred. Recommendation: approve named support discovery first, delivering per-column support/refusals and an evidence-backed numerical-plan proposal. Require an accepted complete freeze and explicit A/B execution scope before outputs, rather than transplanting synthetic parameters. All archive material is exploratory development; fixed primary workbook/stratum and no fallback prevent favorable-result selection. Reconstructed timing remains an assumption, not canonical or physiological acceptance. No numeric policy/model, new acquisition/contact, app implementation or T08b/c change authorized.
+
+
+## 2026-11-12 — Complete approved T08a3 support discovery with numerical NO-GO
+
+Owner approved the named support unit. [Evidence](../evidence/t08a2-comparable-observations/README.md#t08a3-executed-support-discovery--2026-11-12): all within-stratum column pairs share some observed HR, yet support overlap and whole-record distributions differ; fixed primary/no fallback retained. A support-only minimax geometry yields 115 bpm with 112–118 bpm neighborhood, but 2–729 rows per column and unresolved time/artifact/segment policy prevent a complete J04 freeze. Decision: record J01–J03/J08 complete, J04 NO-GO/not frozen, J05–J07 unperformed/unapproved. No invented A band/windows/fit defaults, no A/B or app changes. A simpler raw-row question would need a separately reviewed estimand/scope; current qualified/comparative/physiological gates remain open.
+
+
+## 2026-11-12 — Authorize report PR publication
+
+Owner explicitly requested a PR containing the completed T08a2 timing/availability/source reviews, T08a3 package and approved support-discovery results. Publish aggregate documentation only, preserving external source/artifact privacy and all numerical/scientific/live gates. No A/B execution, new data/contact, application implementation or merge authorized. Earlier local-only statements record prior phases and do not override this explicit publication request.

@@ -157,3 +157,11 @@ Specification/publication only is authorized; named execution awaits owner appro
 [Task/evidence](t08a2-comparable-observations.md): Owner-approved T08a2 I01–I07 document execution completed; exact scoped documents only. The dossier contains qualification/disposition, freeze-plan, metrics/denominators and open-decision/admission evidence. No software, participant activity or additional agent package was dispatched. Lawful data/context acquisition needs its own concrete review and authorization.
 
 Real-data/scientific admission remains blocked; N, qualification thresholds, meaningful change, baseline horizon and smoothing remain unresolved without defaults. T05b O1–O5, T02c/T03e/parent T04 and T08b/c remain open. No new framework, storage, manifests or UI.
+
+
+## T08a3 — Salford support discovery and conditional index-time A/B
+
+[Canonical scope/files/acceptance](t08a3-salford-index-ab.md). ID checked unused before reservation; J01–J08 are task-local cases. Specification preparation only authorized. Next proposed execution unit: **T08a3 support discovery**, J01–J03/J08, per-column exact HR support and J04 parameter proposal using retained Salford only. Later accepted J04 and explicit **T08a3 A/B execution** approval gate J05–J08. No new agent/delegation requirement. Output is local external research artifacts plus aggregate evidence in existing documentation; no core/app or canonical/storage/profile change. Keep person/grid/column provenance distinct; assumptions cannot satisfy T08a2 pilot admission. T08b/c retain existing meanings.
+
+
+T08a3 support unit owner-approved and executed: [support dossier](../../evidence/t08a2-comparable-observations/README.md#t08a3-executed-support-discovery--2026-11-12), J01–J03/J08 complete. Actual exact-level support/overlap/concentration and quality findings do not resolve the qualified-segment policy; J04 is NO-GO/not frozen, J05–J07 remain unperformed/unapproved. No application or numerical worker dispatched; local research scripts/results retained outside Git, no new agent/delegation requirement. Any simplified row-based experiment needs an explicit scope decision; no silent change to T08a1 equations/admission.

@@ -161,3 +161,22 @@ Specification/publication only is authorized; named execution awaits owner appro
 [Task/evidence](../evidence/t08a2-comparable-observations/README.md): I01–I07 document review is complete: native/intersection coverage uses explicit set denominators; visit differences remain descriptive under serial dependence. False direction and delay are not assessable without independent labels/onset and a frozen declaration rule. No participant or application tests were executed.
 
 Real-data/scientific admission remains blocked; N, qualification thresholds, meaningful change, baseline horizon and smoothing remain unresolved without defaults. T05b O1–O5, T02c/T03e/parent T04 and T08b/c remain open. No new framework, storage, manifests or UI.
+
+
+## T08a2 Salford source-index evidence limit — 2026-11-12
+
+[Time/alignment inspection](../evidence/t08a2-comparable-observations/README.md#source-specific-timealignment-inspection--2026-11-12) extends I02/I03/I05–I07, R02/R07/R10 → V02/V09/V12 as documentation/source evidence only. Archive/extracted hashes, extent counts and BIFF/shared formulas were inspected. Formula-derived duration is not independent measured time; 718 consistent P/HR grid hypotheses do not pass synchronization, lifecycle or real-use qualification. Reconstructed index span and nominal represented duration must remain distinct from confirmed joint seconds, time-in-ride, canonical V09 replay and A/B coverage. No code tests or physiological V07/V08 executed; no qualification/default thresholds selected.
+
+
+T08a2 owner-approved source-index availability report: [evidence](../evidence/t08a2-comparable-observations/README.md#executed-source-index-availability-report--2026-11-12). R02/R07/R10 → V02/V09/V12, I02/I03/I05–I07 are source/document review only. All 1,344 dispositions reconcile; independent excluded-prefix subtraction matches the 718-column row/HR-zero totals, and ledger/count/quartile checks pass. No timestamp/lifecycle/window, A/B, canonical or physiological test executed. Row counts and positive-HR fractions are conditional availability measures, not confirmed time coverage or eligibility.
+
+
+T08a2 [source recording/export review](../evidence/t08a2-comparable-observations/README.md#executed-source-recordingexport-semantics-review--2026-11-12) maps I01–I03/I05–I07 to R02/R07/R10 → V02/V09/V12 source/document review; R06/R08 → V08/V10 claim limits only. Independent nominal cadence, generic storage averaging and documented export time fields are distinct from archive-specific clock/support/synchronization evidence. Unverified original rows/settings/conversion and artifact rules keep the comparative pilot blocked. No new numerical policy, application/replay/A/B or physiological test executed.
+
+
+## T08a3 proposed source-index experiment — 2026-11-12
+
+[T08a3 J01–J08](../spdd/tasks/t08a3-salford-index-ab.md) were initially proposed as report/source cases: J01–J03 source identities, per-column HR support and timing/artifact limitations (R02/R07/R10 → V02/V09/V12, R06 → V08 claim limits); J04 full parameter/freeze decision before numerical work; J05–J06 conditional same-pool A/B arithmetic/refusals, actual retained distributions, native/intersection counts and fixed contrasts/sensitivity (R02/R07/R08 → V02/V09/report-only V10); J07 report revision/no-fallback/reproduction/origin checks (R07/R10 → V09/V12, no new persistence pass); J08 actual verification/claim/privacy review. At proposal time neither unit was approved; the subsequently approved support execution is recorded below. Numerical A/B remains unapproved. No physiological, canonical replay, hardware or product gate closes; synthetic recipe thresholds are not real-use defaults.
+
+
+T08a3 support unit owner-approved/executed: [J01–J03/J08 evidence](../evidence/t08a2-comparable-observations/README.md#t08a3-executed-support-discovery--2026-11-12). Independent scalar-column reads verify all 718 histograms, 61,601 CDF points, 68,352 pair intersections and bracketing diagnostics; source totals reconcile and deterministic rerun is byte-identical. R02/R07/R10 → V02/V09/V12 source/report only, R08 → report-only V10, R06 → V08 claim limits. Complete qualified-segment configuration remains unsupported: J04 NO-GO/not frozen, J05–J07 unperformed/unapproved. No A/B, canonical/persistence/device or physiological acceptance newly passes.

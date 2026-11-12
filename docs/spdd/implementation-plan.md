@@ -127,3 +127,24 @@ Specification/publication only is authorized; named execution awaits owner appro
 [Task/evidence](tasks/t08a2-comparable-observations.md): T08a2 I01–I07 execution is complete as a bounded design dossier, ready for owner review. Next evidence dependency is an actual lawful repeated-observation acquisition path with adequate context, then separately approved development observations; no such dataset is admitted. Numeric qualification/precision/usefulness decisions block frozen evaluation. This is not authorization for a new implementation slice.
 
 Real-data/scientific admission remains blocked; N, qualification thresholds, meaningful change, baseline horizon and smoothing remain unresolved without defaults. T05b O1–O5, T02c/T03e/parent T04 and T08b/c remain open. No new framework, storage, manifests or UI.
+
+
+## T08a2 source-index discovery continuation — 2026-11-12
+
+[Executed timing/alignment inspection and next scope](../evidence/t08a2-comparable-observations/README.md#source-specific-timealignment-inspection--2026-11-12): source-duration formulas justify only a nominal index-grid hypothesis, not synchronized or lifecycle-qualified visits. Smallest next work remains a report-only availability summary in T08a2 discovery, with explicit reconstructed-time limits and excluded/unresolved denominators. No new task ID, importer/replay/A/B implementation or method approval; T08b/c keep their existing meanings. A later implementation/A/B proposal must reserve an unused subdivision and gain named approval first. T02c/T03e/parent T04 and scientific/pilot gates remain open.
+
+
+T08a2 source-index availability continuation executed with owner approval: [report](../evidence/t08a2-comparable-observations/README.md#executed-source-index-availability-report--2026-11-12). Frozen descriptive plan, reconciled counts and row/column distributions delivered without implementation or A/B. Next evidence dependency is original timing/export and artifact semantics; comparative pilot remains blocked. Existing T08a2 ID retained; T08b/c and later implementation gates unchanged.
+
+
+T08a2 source recording/export documentation continuation completed with owner approval: [source matrix/disposition](../evidence/t08a2-comparable-observations/README.md#executed-source-recordingexport-semantics-review--2026-11-12). Stop archive-only comparable-pilot qualification at the missing original timing/settings/row-transformation boundary. Further source-linked acquisition/contact or an assumption-limited A/B experiment requires its own scope/authorization; no new implementation ID reserved or executed here. Current report-only discovery is complete; T08b/c, live gates and scientific admission remain unchanged.
+
+
+## Proposed T08a3 — conditional Salford index-time A/B experiment — 2026-11-12
+
+[T08a3 canonical package](tasks/t08a3-salford-index-ab.md) reserves the next unused T08a subdivision. At proposal time the owner requested specification preparation, not execution. The initially proposed next unit was **T08a3 support discovery**: actual per-column exact-level HR support, separate workbooks/grids, fixed outcome-independent primary identity, all-position reasons and a concrete numerical-plan proposal. No A/B in this unit. After support evidence, a complete configuration must be accepted and **T08a3 A/B execution** explicitly approved before calculations. No synthetic defaults or invented numerical thresholds; no app/importer/replay/storage/UI. J01–J08 define report-layer acceptance; subsequent execution status is recorded below. All Salford is exploratory development, not held-out validation. T08b/c and live/scientific gates unchanged.
+
+
+## T08a3 support discovery executed — 2026-11-12
+
+Owner approved **T08a3 support discovery**. [J01–J03/J08 evidence](../evidence/t08a2-comparable-observations/README.md#t08a3-executed-support-discovery--2026-11-12) completes the unit with exact per-column HR support, fixed primary/no fallback, all-pair inventories and independent deterministic checks. The 115 bpm / 112–118 bpm primary support-geometry proposal has sparse/unequal occupancy, not a frozen numerical configuration. J04 remains NO-GO/not frozen; J05–J07 unperformed/unapproved. Next is a scope choice between simpler row descriptors under assumptions and the original timed/context-qualified route, not automatic A/B execution. Full experiment, product/live/science gates remain open.

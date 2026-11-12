@@ -223,3 +223,13 @@ Specification/publication only is authorized; named execution awaits owner appro
 [Task/evidence](tasks/t08a2-comparable-observations.md): Owner-approved I01–I07 documentation execution delivers the qualification and frozen-plan dossier. Common input pool versus actual A/B exposure and visit-level coverage are explicit; measured observations, declarations and physiological claims remain separate. Existing source-neutral contracts, provenance, newest/no-fallback and development-only synthetic isolation remain unchanged.
 
 Real-data/scientific admission remains blocked; N, qualification thresholds, meaningful change, baseline horizon and smoothing remain unresolved without defaults. T05b O1–O5, T02c/T03e/parent T04 and T08b/c remain open. No new framework, storage, manifests or UI.
+
+
+## Public-data discovery follow-up — 2026-11-11
+
+[Search findings](../evidence/t08a2-comparable-observations/README.md): Public-data discovery now identifies candidate acquisition routes; no data are secured/admitted. Age/sex/mass do not enter current A/B raw-W algebra; lawful descriptors, dated mass/context and unknown states should remain explicit without adding schema or physiological corrections.
+
+
+## Authorized Salford structural review — continuation 2026-11-12
+
+[Audit evidence](../evidence/t08a2-comparable-observations/README.md): Actual public-source acquisition now supplies repeated real sequences for limited structural research. It exposes missing sample timestamps, mixed inferred intervals and source alignment/context uncertainty; do not fabricate canonical lifecycle or equate row order with verified joint time coverage. Numeric observation availability remains separate from comparable observation and physiological claims.

@@ -250,3 +250,13 @@ Specification/publication only is authorized; named execution awaits owner appro
 [Task/evidence](tasks/t08a2-comparable-observations.md): After owner merged PR #37 and explicitly approved T08a2, executed the documentation-only I01–I07 review. Decision: document-design deliverable ready for owner review, real-observation pilot NO-GO pending lawful source/context and separately authorized acquisition; frozen evaluation and physiological method/claims also NO-GO. No code, method selection or participant research follows automatically.
 
 Real-data/scientific admission remains blocked; N, qualification thresholds, meaningful change, baseline horizon and smoothing remain unresolved without defaults. T05b O1–O5, T02c/T03e/parent T04 and T08b/c remain open. No new framework, storage, manifests or UI.
+
+
+## Public-data discovery follow-up — 2026-11-11
+
+[Search findings](../evidence/t08a2-comparable-observations/README.md): Owner authorized metadata/documentation search and requested assessment of age/sex/mass. Recommend Salford four-rider material for a later bounded structural audit, subject to a separate decision lifting the earlier participant-download restriction. No raw records, implementation, method selection, participant contact or publication performed.
+
+
+## Authorized Salford structural review — continuation 2026-11-12
+
+[Audit evidence](../evidence/t08a2-comparable-observations/README.md): Owner explicitly approved public Salford four-rider archive download and local structure/quality audit. Acquisition/inspection executed outside Git; no other archives or participant contact authorized. Decision: retain raw source, reconcile timing/date/alignment before proposing any bounded development analysis; current comparative and physiological gates remain NO-GO. No private rides or app changes. Owner subsequently authorized report-only PR publication; no merge or later analysis approval follows.

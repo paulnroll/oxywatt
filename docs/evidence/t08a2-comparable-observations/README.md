@@ -158,3 +158,127 @@ Inspected existing `CanonicalInput.kt`, Collector identity/effects, `CanonicalPo
 | Product/live acceptance | **OPEN, outside package** | T08b/c and T02c/T03e/parent T04 gates; no chart/UI/store or live wiring delivered |
 
 The next useful evidence is a rights-and-context-qualified acquisition path followed, only with separate authorization, by independently repeated observations from the same person. No such lawful source is available today. Without it, neither more synthetic fixtures nor a document approval demonstrates personal usefulness. Do not launch a study, contact authors or request private FITs as an automatic continuation. A future proposal must identify the actual lawful source and minimal context capture before acquisition or code is approved.
+
+## Public-data discovery follow-up — 2026-11-11
+
+Owner authorized searching public data documentation and additionally asked whether age, sex and mass are needed. Search/read-only scope: catalog metadata, public documentation, data dictionaries and primary papers only. No participant CSV/ZIP/FIT, previews of participant rows, private rides or participant records downloaded; no author contact. Temporary catalog responses and article text are outside the repository. No new package ID, manifest, storage or application implementation. Publication of this follow-up is not performed here.
+
+Queries covered repeated cycling power/HR datasets on Mendeley, Figshare, Zenodo and Dryad; GoldenCheetah's original project; exact dataset titles and related papers. Secondary indexes were discovery leads only. The primary catalog APIs resolved pages that returned 403; no authentication bypass or participant endpoint used. Search stopped with the candidates below and explicit exclusions, rather than treating every exercise dataset as relevant.
+
+### Candidate shortlist, metadata-level only
+
+| Candidate / primary catalog | Verified public evidence | Potential use and unresolved admission |
+|---|---|---|
+| **First choice: [Salford four riders](https://doi.org/10.17866/rd.salford.3080560.v1)**; [catalog API](https://api.figshare.com/v2/articles/3080560) | CC BY 4.0; power, HR and cadence in field sessions for four riders, mostly five-second recording. Catalog lists a ZIP archive, not metadata-only. Description dates collection to 2007–2008. | Best small field-data candidate for an input/comparability audit. Actual archive schema, session identity/timing, missingness, environmental evidence and completeness have not been inspected. No independent repeated physiological reference established; not admitted for fitness change validation. |
+| **Second: [Salford ten riders](https://doi.org/10.17866/rd.salford.5993053.v1)**; [catalog API](https://api.figshare.com/v2/articles/5993053) | CC BY 4.0; power and HR collected by ten riders; catalog lists `ten riders.zip`. Description is sparse. | Candidate longitudinal field archive, not ten confirmed usable participants. Related paper lead below requires archive-to-paper linkage verification. Possible overlap with four-rider material: do not count the corpora as independent or join people by demographics. Cadence/context and dated mass not verified. |
+| **Controlled-repeat candidate: [Borg/Osborne 20TT v3](https://data.mendeley.com/datasets/zxrdvwp6yr/3)** | DOI 10.17632/zxrdvwp6yr.3, CC BY 4.0; 30 trained cyclists, two trials, power/HR/cadence; separate feedback/no-feedback groups. Public file-list metadata lists `20TT_Deidentified.csv` (~80 kB), with no separate codebook. Use v3, cited by the paper, rather than search result v2. | Useful lead for repeated controlled acquisitions. File schema and temporal resolution remain unknown; no participant file opened. A single small CSV is not proof full time series are supplied. All-out time trials are not prescribed steady submaximal observations, and two trials do not supply long-term change truth. |
+| **Broader reserve: [GoldenCheetah OpenData](https://github.com/GoldenCheetah/OpenData)**; [OSF project](https://osf.io/6hfpz/), [public node metadata](https://api.osf.io/v2/nodes/6hfpz/) | Official README describes one archive per athlete with activity CSVs; OSF node is public with project license CC0 1.0 Universal, verified through its license relationship. OSF HTML returned 403, public API metadata was accessible. Original README says collection server offline and former S3 public access closed. | Repeated ordinary-ride candidate with substantially weaker acquisition/calibration/context control. Current archive availability, applicable file-level terms, completeness and compatible context require inspection. Do not use a repackaged mirror as proof of original consent/rights or sensor continuity. No participant archive fetched. |
+
+Dataset-license labels establish an explicit reuse route worth reviewing; they are not proof of every record's provenance, de-identification or scientific suitability. The discovery result changes “no candidate identified” to “public candidates identified”, **not** “dataset secured/admitted” or “pilot passed”. No number of usable sessions, common HR support or coverage has been measured.
+
+### Primary-paper and documentation cross-checks
+
+**[Reed et al. 2016](https://onlinelibrary.wiley.com/doi/full/10.1080/17461391.2016.1146336), full text, Methods and Conclusions.** Explicitly links the four-rider deposit. Describes male riders with ages and baseline masses/heights, SRM cranks serviced/calibrated before collection and checked partway through. Training/racing classification and complete ride capture were unknown. Paper dates data to 2006–2008, versus catalog 2007–2008; reconcile before use. No dated mass trajectory, environmental matching or repeated independent fitness references established here. Its cadence model/lag/selection are not adopted. Demographic values are described in the paper, but archive field/linkage availability is unverified.
+
+**[Scarf et al., arXiv:1902.02061](https://arxiv.org/pdf/1902.02061), full preprint, §2/Table 1.** Describes ten male riders, SRM power/HR every five seconds over 6–14 months, with age and baseline mass/height. Absent sessions could mean no ride or unrecorded activity. This is a plausible related lead for the sparse ten-rider deposit, not a verified archive mapping. The paper's proxy is derived from the same channels, not independent physiological trend truth. No Banister model, temperature correction, lag or full-history anchor is adopted.
+
+**[Borg et al., full manuscript](https://pure.port.ac.uk/ws/files/18071798/The_availability_of_task_specific_feedback.pdf), Methods pp. 5–7 and Table 1.** Describes a calibrated Velotron, Polar HR, consistent setup, laboratory conditions and pre-visit context; demographics include both sexes, age and mass summaries. Ergometer measurements were collected at high frequency but analysis used distance bins; that does not establish the deposited CSV's resolution. Familiarization followed incremental testing and was not equivalent to later trials. Reported performance reliability is not A/B reliability. A single initial gas test is not repeated VO₂max-change validation. Individual demographics/context may not be in the deposit; do not infer their availability from group summaries.
+
+**[GoldenCheetah official sharing documentation](https://github.com/GoldenCheetah/GoldenCheetah/wiki/About-GoldenCheetah)** describes opt-in OpenData sharing and year-of-birth/gender/UUID fields. [Official client documentation](https://github.com/GoldenCheetah/OpenData/blob/master/opendata-python/README.md) shows per-activity data flags, dates and a weight metric. These examples are schema evidence, not evidence of accurate/complete age, sex or measured dated mass for any rider. Do not install/run the client: accessing its metadata/activities can trigger archive downloads.
+
+### Rejected or limited leads
+
+- [Zenodo graded tests v2](https://zenodo.org/records/10841412), CC BY 4.0 in catalog API: documents age/gender/body mass and cycling HR/workload/gases, but attendance on one occasion and stage-aggregated observations. Useful cross-sectional/protocol lead, not established repeated-person observation or trend dataset. Its separate education/research usage wording must be reconciled before any use beyond that purpose.
+- [Zenodo e-bike reproducibility package](https://zenodo.org/records/22917361), CC BY 4.0: apparently relevant repeated rides, but its public README/data dictionary explicitly exclude HR. `calibration_results` concerns prediction probabilities, not power-meter calibration. Reject for A/B, without opening the observation CSV.
+- [HEFMOB](https://zenodo.org/records/15322883): HR/speed/pedal-resistance levels, no measured external W established. Do not convert resistance labels into power.
+- [ECG high-intensity cycling](https://zenodo.org/records/5727800): selected ECG excerpts from graded tests, not established repeated jointly covered power/HR visits.
+- [HRV comparison deposit](https://data.mendeley.com/datasets/d4kypz3m77/1): HRV target, with explicit permission language despite a displayed license; no contact requested and no power–HR admission.
+- Search leads for heat-test Figshare 24994242 returned unavailable/404 metadata; no repeatability/data-access claim retained from the citation alone.
+
+### Age, sex and mass: required versus descriptive
+
+| Field | Current A/B observed W at fixed absolute HR | When needed / what not to infer |
+|---|---|---|
+| Age | Not an algebraic input or mandatory eligibility field for this descriptive calculation | Useful to describe support and later long-term context; required only if a separately reviewed method uses it. No age-predicted HRmax fallback, no date-of-birth collection by default |
+| Sex / source “gender” field | Not an algebraic input or automatic correction | Describe represented population and source variable definition; do not equate ambiguous source labels with measured biological traits, infer from names or fill missing values. Any sex-specific future model requires its own reviewed input definition |
+| Mass in kg | Not required for A/B in W; mass changes can still matter to interpretation of longitudinal context | Dated mass is required for W/kg or relative VO₂ units, which are different outputs. Baseline mass is not a measured trajectory; never carry it forward silently. Existing full-profile cohort pinning remains unchanged |
+
+Recommendation: retain lawful source-supplied descriptors and missingness as metadata; prioritize dated mass/context when available, but do not reject an otherwise usable raw-W descriptive dataset solely for missing age/sex/mass. That is not permission to ignore their physiological relevance or to generalize outside represented people. Current canonical profiles have optional mass but no age/sex fields; no schema or profile modification is authorized by this question.
+
+### Concrete next review, conditional on lifting the download restriction
+
+Start with the four-rider Salford archive. A bounded local structural audit would check license/readme, column units, person/session boundaries and elapsed-time semantics, actual P/HR joint coverage, sensor/calibration/context gaps, and whether demographic linkage exists without identifying people. Report native data availability and qualification blockers; no A/B calculation, physiological conclusions or invented stable-window thresholds yet. No archive or individual records in Git. Do not pool the ten-rider archive until overlap/linkage is resolved. The earlier explicit instruction not to download participant data remains in force; search authorization alone does not lift it.
+
+## Authorized Salford structural audit — continuation 2026-11-12
+
+After the metadata search, the owner explicitly approved downloading the public four-rider archive and a local structure/quality review. This lifts the earlier participant-download restriction **for this named archive and audit only**. It does not authorize other datasets, private records, participant contact, application code, canonical import, A/B execution or physiological claims. The earlier metadata-only/no-download statements above describe that earlier phase.
+
+### Acquisition and reproducibility
+
+Source: Scarf, *Power, heart rate, cadence field data, 4 riders*, version 1, DOI [10.17866/rd.salford.3080560.v1](https://doi.org/10.17866/rd.salford.3080560.v1), file ID 4787857, `data for cadence paper.zip`. Catalog snapshot rechecked through the [public Figshare API](https://api.figshare.com/v2/articles/3080560): CC BY 4.0. Attribution is retained here; the records are real measurements, not synthetic fixtures or licensed proof of scientific validity.
+
+Downloaded archive: 13,577,164 bytes. Published and calculated MD5 match: `e706eca8dc9c9c5aa0645cfcab621c05`. Calculated archive SHA-256: `834e371c8aaf1e9fd04cf9c44619d045ac18dd3270ab7f2653e1f3692afe0c19`. ZIP CRC validation passes. Four legacy XLS workbooks, 48,616,960 expanded bytes, with 21 sheets in total. No archive README or independent data dictionary is included.
+
+All archive, extracted workbooks, catalog snapshot, aggregate audit JSON and local audit scripts are retained **outside the repository** at `/Users/pawelkozicki/Library/Caches/oxywatt/research/salford-3080560-v1/`. No raw cells, dates, event labels or workbooks are added to Git. Reader: Python standard-library ZIP/JSON plus `xlrd==2.0.2` in an isolated temporary environment, with no project dependency change and no spreadsheet formula recalculation. Cached summary cells are observations of the workbook, not independently executed source formulas.
+
+Local audit scripts retained with the archive: `oxywatt-salford-audit.py` SHA-256 `fa2007db9e2f10ad57fc7091dae7f5e6db7411830e1d9f3a970469fa600029cb`; `oxywatt-salford-audit-extra.py` SHA-256 `74f63baff3723476afd8d6c04b36d0405bb9a4abea92e0f36092a33da4ba31e8`. The scripts are exploratory inspection tools outside Git, not a new repository runner/framework. Reproduction requires the named source archive, reader version and the interpretation below; no canonical normalization has been executed.
+
+### Workbook interpretation and actual audit method
+
+- One workbook per source rider label. Three workbooks split each metric across A/B sheets; one uses a single sheet per metric. Sheet suffix A/B is an Excel continuation, **not** the experimental candidate A/B.
+- Each dated column contains a recording-like sequence. Dates can repeat; a date is not a unique session identity. Blank dated columns and one-channel columns are present. Do not infer a rest day, a completed session or a missed transmission from an empty column.
+- Summary rows precede the sequences. Zero-based date rows: Power 14, Heart Rate 10, Cadence 2; candidate sample arrays start at rows 15, 11 and 3 respectively. Only columns whose date-row cell is Excel date-typed were included. Date alignment was checked by ordinal within each workbook/continuation block, retaining actual column positions; no join on date alone. One Power sheet has an extra leading metadata column, so absolute Excel column equality is not a safe mapping rule.
+- Trim only trailing empty cells to identify stored extent; retain internal empties, numeric zeros and errors distinctly. Count numeric finite cells and compare with cached channel count summaries. Do not fill blanks or recalculate derived summary rows. All numeric sample counts match the inspected cached Power/HR count summaries; this supports the row-boundary interpretation but does not prove synchronized acquisition.
+- The first exploratory check assumed every channel's date sequence matched and stopped on an assertion. Follow-up inspection found real header discrepancies; the completed audit explicitly counts them instead of silently fixing dates. Index-pair counts below require matching P/HR column-date headers but still do not certify within-column timing alignment.
+
+Units W, bpm and rpm come from the linked primary source and workbook metric labels; they are not recovered sensor-unit metadata. Rows are sample order, with no independent per-sample timestamp column found. Column dates and cached durations cannot establish original recording start/end, pause boundaries, missing packets, source clock meaning or HR/power latency.
+
+### Structural counts (not eligible visits)
+
+| Quantity, across all four workbooks | Observed count | Interpretation |
+|---|---:|---|
+| Date-typed Power column headers | 1,344 | Includes blank dates, repeated dates and anomalous headers; not 1,344 rides |
+| Columns with numeric P and HR sequences at the corresponding ordinal | 727 | Merely both channels present; samples may include HR zero |
+| Above with matching P/HR header dates | 725 | Two populated paired columns fail the header-date match |
+| Above also with equal stored P/HR array lengths | 718 | Structural review candidates only; no T08a2 comparability or scientific pass |
+| Header-matched populated columns with unequal lengths | 7 | Must not align by silent truncation or infer missing-tail duration |
+| P/HR header discrepancies over all dated columns | 3 | Includes a discrepancy outside the both-populated subset; reason counts must retain the denominator |
+| Finite numeric P/HR pairs at equal row offsets in header-matched columns | 1,268,236 | Includes common prefixes of unequal-length sequences; **not time-qualified joint coverage** |
+| Those pairs with HR exactly zero | 16,717 | Not a positive-HR observation; no zero filling or physiological interpretation |
+
+Of the 1,344 ordinal columns, 734 have numeric Power sequences and 783 numeric HR sequences. Their intersection is 727, union 790; 554 have neither numeric channel at that ordinal. This reconciles the presence counts and does not identify whether absent recordings were rest, nonrecording or channel loss. Cadence's date mismatch in one block means raw ordinal cadence membership cannot be promoted to synchronized three-channel coverage.
+
+The sample-cell scan found 1,277,583 numeric Power cells (155,370 zeros), 1,344,096 numeric HR cells (17,272 zeros), and 1,276,432 numeric Cadence cells (141,541 zeros). No negative, nonfinite, text or Excel-error cells were found **in the inspected sample regions**. Summary areas do contain formula errors; these must not be read as samples or mistaken for missingness-free physiology. There are 3,292 internal empty cadence cells in one block. No internal empty P/HR cells were found under this row/extent interpretation, but zeros or removed observations could conceal acquisition loss; this is not proof of uninterrupted time coverage.
+
+Observed HR and cadence maxima include values up to 255. These need source-specific artifact/sentinel review; no physiological clipping threshold or replacement rule is selected. Numeric does not mean reliable, and HR zero is not equivalent to a known dropout duration. Zero power remains a measured value whose acquisition meaning is not inferred from coasting assumptions.
+
+### Time, date and alignment findings
+
+Cached duration divided by numeric sample count implies 5 s for 725 Power columns and 1 s for 9 Power columns. The corresponding HR ratios are 772 at 5 s, 8 at 1 s and 3 other ratios. These are **inferences from workbook summaries**, not recovered measurement timestamps. One workbook contains the explicit annotation `Storage int changed to 1s` in Power and HR sheets. Therefore a universal five-second reconstruction is demonstrably unsuitable; no per-column conversion rule has been admitted.
+
+Power/HR length differences and header mismatches remain unresolved. Cadence headers match Power in the other blocks, but 203/238 ordinal headers differ in one continuation block. Some date headers repeat, and one Power header decodes to year 1900 with a fractional day. Do not guess the intended date, shift columns to maximize agreement, merge repeated dates or replace the anomalous header with a neighbor.
+
+All other inspected Power date headers decode to years 2006/2007. Thus the actual archive does not substantiate the catalog's 2007–2008 wording or the paper's full 2006–2008 span. Keep the catalog, paper and observed archive facts separate; no exact participant timestamps are published here. Even correct dates would not supply physiological-change onset.
+
+### Context, demographics and derived fields
+
+The archive has metric/summary sheets but no separate rider-profile/context sheet or data dictionary. A text-cell scan for age/sex/gender/mass/weight labels found none; no machine-readable per-visit demographics or mass trajectory was established. The article's demographic descriptions remain **paper-level baseline evidence**, not values automatically attached to workbook identities. No identity inference or demographic cross-archive join is performed.
+
+Age and sex are not A/B raw-W algebra inputs. Dated mass would be needed for a separately reviewed W/kg output, and may matter to longitudinal context even for raw W. No new required inputs, schema, HRmax age formula, sex correction or carried-forward mass is introduced. The cached spreadsheet CP/threshold power/TRIMP/HRmax/resting-HR summaries are source-derived/configured quantities with incomplete provenance, not approved FTP, maximality, independent references or verified physiology. None is used in a calculation here.
+
+Paper-level power-meter calibration evidence remains useful context, but the workbooks do not provide independently verified per-visit sensor continuity/calibration logs. Environmental matching, warm-up/settling, illness/fatigue/hydration/medication context, recording-state transitions and independent repeated fitness references are not established by this audit. Occasional free-text activity notes do not close those gaps.
+
+### Updated admission and concrete next step
+
+| Activity | Status after owner-approved local review |
+|---|---|
+| Public-source acquisition and structural/quality inspection | Executed; archive checksums and actual structure verified |
+| Availability of repeated real measured sequences | Confirmed, with missing-channel/date/length/time limitations; not a repeatability result |
+| Canonical replay or A/B calculation | Not executed or authorized in this follow-up; requires a concrete reviewed conversion/qualification scope |
+| Comparable-observation/repeatability pilot | NO-GO on current evidence: elapsed-time reconstruction, lifecycle/context and real-use qualification remain unresolved |
+| Physiological direction, meaningful change, false-direction accuracy or detection delay | Not assessable; no independent repeated truth/onset and no approved declaration policy |
+| Production method/UI/storage and T02c/T03e/parent T04, T08b/c | Unchanged/open |
+
+A useful next bounded proposal would assess whether a defensible **source-specific time/alignment interpretation** can be established for a disclosed subset, retaining unresolved columns as excluded and labeling reconstructed sample-index time. It must not fabricate canonical observed-start/end or pause events from a spreadsheet column. If original timing/context cannot be established, the data may still support explicitly limited development/coverage exploration, but cannot pass the current comparative-pilot gate. No need to collect private FITs or add a generic XLS importer/framework to reach this decision.
+
+Checks for this audit: archive size/MD5/ZIP CRC pass; sample-region counts independently cross-checked against cached channel counts; full text-cell metadata scan and second aggregate pass performed; no raw records copied into the repo. Report counts are structural, not acceptance thresholds, chosen N or A/B outputs. Owner subsequently authorized publishing this report in a PR. Publication contains documentation and aggregate structural evidence only; source records and local audit artifacts remain outside Git. This authorization does not admit replay, A/B calculation, a method or a pilot.

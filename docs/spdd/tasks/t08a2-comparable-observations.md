@@ -122,7 +122,7 @@ Exact files for the proposed named execution: this task; `docs/evidence/t08a2-co
 | T08a1 software | Local H01–H07 recorded; remote checks separately monitored, never assumed passed |
 | T08a2 specification | PR #37 merged by owner at 30795346649134d648f57e7e00800a8fef9fcfe1 |
 | T08a2 named execution | Owner approved; [I01–I07 dossier](../../evidence/t08a2-comparable-observations/README.md) complete for review, not pilot evidence |
-| Real-observation pilot | NO-GO: lawful records unavailable, full-source/qualification/precision decisions unresolved, acquisition not authorized |
+| Real-observation pilot | NO-GO: named Salford archive acquired for authorized local audit only; synchronization/lifecycle/context and real-use qualification/precision remain unresolved. Pilot acquisition/execution not authorized |
 | Physiological trend / method / product | NO-GO: no method selected, no repeated independent references, O1–O5 open; T08b/c separate |
 
 Done for T08a2 execution means a reviewed qualification/pilot decision dossier with explicit justified decisions or blockers, not a pilot launch or empirical usefulness claim. If access/data remain blocked, identify the precise missing evidence and next permissible step. Design completion cannot be reported as scientific readiness.
@@ -158,3 +158,41 @@ At 20:41 UTC, all six inherited remote runs remained queued with no conclusion: 
 Report publication authorization: owner requested the search/structural report as a PR for continuation in a new session. Scope remains these five documentation files, with no raw records or local audit tools in Git. Follow-up evidence maps R02/R07/R10 to V02/V09/V12 (source interpretation, provenance and privacy review only); it does not execute canonical V09 or scientific V08. Self-review checked source/measurement/inference distinctions, 727→725→718 reconciliation, mixed sampling ratios, date/cadence defects, demographic availability and preserved admission limits. Relative links and R/V references checked; whitespace checks pass. No application tests required for the document-only publication.
 
 Next-session entry: read this task and the evidence report's “Authorized Salford structural audit” section, then review the local retained source/audit artifacts at the documented cache path. The next decision is whether a bounded source-specific timing/alignment interpretation can be justified; do not invent missing lifecycle or silently repair dates. Discovery/planning remains authorized; import/replay/A/B code and real-observation pilot need separate concrete scope approval. Check remote CI before assuming any inherited or publication run passed.
+
+
+## Executed source-specific time/alignment inspection — 2026-11-12
+
+Owner requested concrete inspection on the existing Salford data, with no import/replay/A/B. [Time/alignment evidence](../../evidence/t08a2-comparable-observations/README.md#source-specific-timealignment-inspection--2026-11-12) records rechecked archive/extracted hashes, independent extent/ratio counts and BIFF/shared-formula inspection. Duration is calculated from count × spreadsheet interval; it is not independent clock evidence. The 718 structural candidates split into 711 same-ratio 5 s and 7 same-ratio 1 s columns. This supports a source-index grid hypothesis only; synchronization, lifecycle and context remain unverified. All remain outside the comparative pilot.
+
+Next smallest scope is a report-only source-index availability summary under the explicit hypothesis, retaining denominators, flags and reconstruction caveats. This stays T08a2 discovery; backlog/work-package IDs checked, no new implementation subdivision or T08b/c reassignment. No application/A/B work is necessary for that summary. Any later such work requires a named approved package first. I02/I03/I05–I07 and R02/R07/R10 → V02/V09/V12 map source interpretation/provenance/privacy review only; no new canonical/software/science pass.
+
+Remote state verified in this session: PR #39 MERGED at 2026-11-12 07:55:12 UTC, supplied head `70873678667fffe78835b04cf7c2ee39ae2d910a`; all four checks across runs 43178482505 and 43178518379 SUCCESS. Local main fast-forwarded to `e42ff25`; working tree was clean. Main run 43178824136 also completed successfully. Older runs 43095615450, 43095608185, 43095780996, 43096566790, 43096560344, 43096948167, 43097566082, 43097541824 and 43097770138 still queued without conclusions at verification. No merge or new PR performed by this session.
+
+
+Continuation verification: source/hash/extent/formula inspections and self-review completed; seven changed Markdown files, 198 relative targets including anchors resolve, referenced R/V definitions and I02/I03/I05–I07 mapping checked, denominator identities reconcile, `git diff --check` PASS. No application tests required or rerun. Only documentation changes in Git; raw records, exact dates, notes and inspection artifacts remain outside the repository. No commit/push/new PR.
+
+
+## Authorized source-index availability report — 2026-11-12
+
+Owner approved the proposed report-only follow-up in this session. Frozen descriptive plan `salford-index-availability-v1`: retain all 1,344 positions and the ordered absence/header/extent/grid/date dispositions from the timing review; report the unchanged 718-column hypothesis set separately at 1 s / 5 s. Summarize stored-row counts, finite/nonmissing cells, positive-HR and zero flags, raw channel marginal distributions and column-length/positive-HR-fraction distributions. Use linear-interpolated quartiles at index `(n−1)p`; these are descriptive statistics, not eligibility cutoffs. Pooled row distributions weight rows equally, per-column distributions weight columns equally; neither implies independent observations or time weighting. No HR-conditioned power, correlation, fitting, lag adjustment, A/B, stable windows or physiological inference. Prefer row counts; any nominal seconds must disclose the support assumption and remain distinct from measured time. No repaired values, shifted channels, concatenation or removed zero-containing columns. Keep source/member hashes, exact column coordinates, script/reader/report revisions and the detailed reason ledger outside Git; publish only aggregate documentation locally. No new task ID, dependency, application code or publication authorized. Expected files are the existing dossier and its synchronized task/Canvas/decision/backlog/scientific/validation documents. Done requires reconciled counts, independent checks against prior aggregates, limitations, link/traceability and whitespace verification; scientific/pilot gates remain open.
+
+
+Executed result: [source-index availability report](../../evidence/t08a2-comparable-observations/README.md#executed-source-index-availability-report--2026-11-12). All 718 columns retained (711 at 5 s / 7 at 1 s); 1,256,470 finite paired rows, 1,240,572 with positive HR, 15,898 HR-zero rows. Zero internal sample blanks do not prove measured completeness. Row/column distributions and zero-run counts remain descriptive; no A/B or independent-visit inference. Separate excluded-prefix/previous-audit reconciliation and quartile/ledger checks pass. Next useful evidence is source recording/export timing and artifact semantics, not another synthetic series. All comparative/scientific/live/product gates unchanged.
+
+
+Availability-report checks: seven changed Markdown files, 204 relative links including anchors resolve, R/V and I-case traceability checked, `git diff --check` PASS. Archive/member bytes and independent excluded-prefix/count/ledger/quartile checks pass; scripts/results retained outside Git. No application or hardware tests, commit, push or PR performed.
+
+
+## Executed source recording/export documentation review — 2026-11-12
+
+Owner approved continuing to the proposed source-timing/artifact review. [Primary-source matrix and decisions](../../evidence/t08a2-comparable-observations/README.md#executed-source-recordingexport-semantics-review--2026-11-12) inspect the linked paper, official legacy SRM setup/export documentation, dated PC VI guide and period ergometer manual with applicability limits. Paper independently supports nominal 5 s acquisition; manufacturer docs distinguish storage averaging/display smoothing and configurable stop/export semantics. None supplies the archive-specific device/settings, original row/time linkage, conversion history or sentinel rules. No metadata repair or A/B performed; all preceding subsets/denominators remain unchanged.
+
+Bounded result: stop archive-only qualification here; more counts/newer manuals do not fill the omitted provenance. Reopening needs source-linked original timing/settings/transformation evidence or a separately scoped, explicitly assumption-limited experiment. No record acquisition/contact/A/B/implementation/publication approval inferred. I01–I03/I05–I07 and R02/R07/R10 → V02/V09/V12 source-review mappings; R06/R08 → V08/V10 claim limits only. Comparative/scientific/live/product gates remain open.
+
+
+Source-review checks: seven affected Markdown documents / 210 relative links including anchors resolve, R/V and I-case mappings checked, `git diff --check` PASS. Primary sources and version/applicability/access limits self-reviewed. No app/hardware tests rerun; no records/PDFs/code or Git publication added.
+
+
+## Proposed next named package — T08a3
+
+Owner requested preparation of [T08a3](t08a3-salford-index-ab.md), support discovery and conditional index-time A/B. This is a separate assumption-limited development proposal, not reopening T08a2's blocked real-observation pilot. Preparation only authorized; proposed support discovery needs named approval, numerical outputs additionally need an accepted complete freeze/execution scope. No T08a3 analysis or new implementation performed here.

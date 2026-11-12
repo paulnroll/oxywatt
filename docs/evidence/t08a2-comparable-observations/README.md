@@ -1,6 +1,6 @@
 # T08a2 — Executed qualification and pilot-readiness review
 
-Review date: 2026-11-11. Owner approved named T08a2 execution after PR #37 merged at `30795346649134d648f57e7e00800a8fef9fcfe1`. [Canonical task and I01–I07](../../spdd/tasks/t08a2-comparable-observations.md). This is the completed documentation/qualification-design review for owner review, not participant analysis or empirical pilot evidence. No participant files downloaded, authors contacted or private rides used. Article access does not grant participant-data rights. No lawful repeated-observation dataset secured/admitted.
+Review date: 2026-11-11. Owner approved named T08a2 execution after PR #37 merged at `30795346649134d648f57e7e00800a8fef9fcfe1`. [Canonical task and I01–I07](../../spdd/tasks/t08a2-comparable-observations.md). This is the completed documentation/qualification-design review for owner review, not participant analysis or empirical pilot evidence. At the initial dossier stage, no participant files were downloaded, authors contacted or private rides used. Article access does not grant participant-data rights. No lawful repeated-observation dataset secured/admitted at the initial dossier stage. Later owner-authorized acquisition and inspection of the named Salford archive are recorded below; it remains unqualified for the comparative pilot.
 
 ## Bounded primary-source review
 
@@ -282,3 +282,251 @@ Paper-level power-meter calibration evidence remains useful context, but the wor
 A useful next bounded proposal would assess whether a defensible **source-specific time/alignment interpretation** can be established for a disclosed subset, retaining unresolved columns as excluded and labeling reconstructed sample-index time. It must not fabricate canonical observed-start/end or pause events from a spreadsheet column. If original timing/context cannot be established, the data may still support explicitly limited development/coverage exploration, but cannot pass the current comparative-pilot gate. No need to collect private FITs or add a generic XLS importer/framework to reach this decision.
 
 Checks for this audit: archive size/MD5/ZIP CRC pass; sample-region counts independently cross-checked against cached channel counts; full text-cell metadata scan and second aggregate pass performed; no raw records copied into the repo. Report counts are structural, not acceptance thresholds, chosen N or A/B outputs. Owner subsequently authorized publishing this report in a PR. Publication contains documentation and aggregate structural evidence only; source records and local audit artifacts remain outside Git. This authorization does not admit replay, A/B calculation, a method or a pilot.
+
+
+## Source-specific time/alignment inspection — 2026-11-12
+
+Owner authorized concrete inspection of the retained Salford archive and documentation, not canonical import/replay or A/B. Interpretation revision: `salford-index-hypothesis-review-v1` (report revision only, not approved preprocessing). Archive SHA-256 and ZIP CRC were rechecked successfully without downloading it again; all four extracted XLS byte hashes match their ZIP members. Reader restored outside the project: `xlrd==2.0.2`, `/tmp/oxywatt-salford-time-env/`.
+
+Two additional local scripts and aggregate outputs are retained in the same external cache as the archive: `oxywatt-salford-time-inspect.py` / `oxywatt-salford-time-inspection.json`, script SHA-256 `ba44f73e17f821644d46bbf6ae1f89f5cc094d5a03f554278cbc479587061dd3`; `oxywatt-salford-formula-inspect.py` / `oxywatt-salford-formula-inspection.json`, script SHA-256 `ff8bb22bc9c8cb9caf5665618dc422dfdf9eaeef4155ef1c7726283926ee7445`. No raw records, participant dates or activity notes enter Git. The inspection uses ordinal date-column mapping from the earlier audit, trims trailing empties only, and independently rescans extents and summary cells. A second pass reads BIFF FORMULA/SHRFMLA records using xlrd's decompiler, resolving shared formulas without evaluating them. Cached values remain distinct from formula expressions; no spreadsheet recalculation or data repair occurred.
+
+### Stored evidence versus inference
+
+| Question | Concrete stored evidence | Defensible interpretation and limit |
+|---|---|---|
+| Where does a sequence begin? | Date row and metric-specific summary labels precede numeric cells; first candidate sample rows are Power 16 / HR 12, one-based. Numeric counts agree with cached count summaries in the previous audit | These are boundaries of stored arrays. The first sample need not be original ride start, acquisition start or first jointly acquired sample |
+| Where does it end? | Last nonempty cell after retaining internal empties; counts and extents can be inspected separately | End of stored extent only. No observed stop, saved/discarded ride, pause, complete capture or last-sample hold duration follows |
+| Is duration an independent clock? | All inspected numeric duration cells at date-typed columns have BIFF formulas: Power 860 use count × 5 / 60 and 9 use count × 1 / 60; HR 902 use count × 5 / 60, 8 use count × 1 / 60, and 3 use count × 60 / 60 | **No.** The ratio largely recovers a spreadsheet multiplier, not independent elapsed-time evidence. These formula counts include columns outside the paired subset; they are not ride counts. The three 60 s HR expressions remain unexplained, not corrected to 5 s |
+| What does the 1 s note establish? | `Storage int changed to 1s` occurs in the label column of the single-block workbook, Power row 18 / HR row 14, one-based; nine Power and eight HR duration formulas explicitly use 1 rather than 5 | Stored evidence of an intended recording-interval change. The note is not a dated per-column transition marker or sample clock. Per-column formulas disclose intended grid assignments; neither establishes actual uniform timing within a sequence |
+| How are P and HR associated? | Same workbook/block, ordinal among date-typed columns, matching date headers, matching stored extents; account for the extra leading metadata column rather than equating absolute Excel columns | Supports a **putative same-recording, equal-index pairing hypothesis**, not verified synchronization. No common sample timestamps, channel clock/latency evidence or independent start offset is present. Equal lengths can coexist with shifted/dropped samples |
+| Are days or suffixes identities? | Repeated dates, empty dated columns, continuation sheets and header discrepancies exist | Keep workbook/sheet/column coordinates and hashes as local source identities. Never join by date alone, concatenate A/B continuations into one ride or infer independent visits from columns |
+
+The formula pass changes the strength of the earlier duration/count finding: it supplies a source-authored grid convention, while showing why agreement of the ratio is circular evidence for actual timing. Published mostly-five-second acquisition and the workbook note support that convention, not verified per-sample clocks. No per-column clock or lifecycle interpretation is admitted.
+
+### Explicit subset and unresolved/excluded cases
+
+Define the **718 source-column hypothesis set** by the unchanged ordered gates: 1,344 dated Power ordinal positions → 727 with both numeric P/HR sequences → 725 with matching P/HR date headers → 718 with equal stored extents. The last gate also has ordinary integral-day headers in the observed 2006/2007 range. Within that set, the cached per-channel duration/count ratios agree: **711 at 5/5 s and 7 at 1/1 s**. Ratios were classified with the original audit's 1e-6 s arithmetic tolerance, not a physiological or timing-error acceptance threshold. This is a disclosed subset for structural availability research only; it is not 718 synchronized or qualified rides.
+
+Additional checks: 569 of the 718 have date headers unique within each metric's continuation block; 149 do not. This is a duplicate-header flag, not a uniqueness check across the whole workbook or proof that either group contains distinct sessions. **702 of the 718 contain at least one HR zero**. All remain in the structural denominator with that flag; selecting the remaining 16 as usable rides would be unjustified. No HR=255 cell was found in this subset; artifact/sentinel validity of its other values remains unresolved. The earlier HR maximum warning concerns the broader population, not an established sentinel in every column.
+
+| Case | Disposition for any proposed index-grid availability summary |
+|---|---|
+| 617 positions without both numeric channels | Remain outside the paired subset; retain 554 neither / 7 Power-only / 56 HR-only in the all-position denominator. Do not infer rest, dropout or unrecorded duration |
+| Two both-populated header mismatches | Exclude from paired interpretation without changing dates or shifting channels. The third header mismatch lies outside the both-populated denominator |
+| Seven date-matched unequal extents | Exclude from the equal-extent grid set; report separately. Do not truncate to a common prefix, pad tails, or infer which channel lost data |
+| Anomalous/fractional header, repeated dates | Do not repair anomalous dates or merge repeated dates. The anomalous Power header does not enter the 718 set; repeated headers still require coordinate identity and unresolved visit linkage |
+| Three exceptional HR duration expressions; any discordant/unsupported grid assignment | Unresolved; exclude from a common-grid interpretation, retain in source inventory. No such ratio discordance occurs within the 718 set |
+| HR zero or other suspect numeric values | Flag and count separately, with any later value-level exclusion and denominator explicit; no positive-HR observation or known dropout seconds at HR zero. No clipping, interpolation or sentinel reinterpretation selected |
+| Cadence mismatch/internal blanks | No inferred three-channel pairing. Keep cadence outside this P/HR hypothesis until separately resolved; do not shift its columns |
+| All 718 candidates | Actual synchronization, original start/end, pauses/gaps, removed rows, sample support/averaging, latency and context remain unresolved. All remain ineligible for the current comparative-observation pilot |
+
+### What reconstructed time could support
+
+A later bounded **source-index availability/coverage report**, within T08a2 discovery, could use these exact coordinate-defined columns and keep 1 s / 5 s strata separate. Freeze the interpretation and reason ledger before summarizing. Report all-position and subset denominators, stored row counts, nonmissing/numeric/positive-HR counts, zero/suspect flags and distributions of available P and HR values. Putative paired-row availability must be labeled conditional on same-index alignment. Report source-column distributions separately from any visit-level claim; repeated dates and columns are not independent observations. This requires no canonical importer or application implementation and no A/B output.
+
+For any duration display, describe `t_i = i × Δ` as a **reconstructed index coordinate**, with an arbitrary zero at the first stored row. `n × Δ` is nominal represented storage duration under a cell-support assumption; `(n−1) × Δ` is the first-to-last index span. Neither is measured wall time or confirmed joint coverage, and the last sample has no independently known support. Prefer row counts; if nominal seconds are shown, disclose the convention and unknown pauses, omissions, support/averaging and synchronization alongside them. Do not calculate observed-start/end, canonical receipt/FILE_RECORD timestamps, pause events, time since original ride start or continuous windows from this coordinate. A shifted-channel sensitivity exercise could not verify synchronization and would require a separate plan; do not optimize a lag for agreement.
+
+Such a report could answer how much *stored candidate material* exists and where availability fails under the disclosed grid hypothesis. It could not establish stable-window eligibility, matched time-in-ride or HR exposure, native A/B or paired-method coverage, observational repeatability, physiological direction, useful change, false-direction accuracy or detection delay. A/B, real-use qualification windows/thresholds, N, baseline and smoothing remain unapproved. No further synthetic series resolves these empirical gaps.
+
+### Contract and next-scope decision
+
+Read-only contract check: `ReceiptStamp` is acquisition-epoch receipt time; `SourceTime` admits MEASUREMENT or FILE_RECORD UTC, not a reconstructed sample-index clock. `CollectorLifecycle` trend eligibility requires observed start/local end without identity ambiguity; a column cannot supply these events. `CanonicalPowerReplay` needs persisted coverage breaks/hold semantics. `ExperimentProfiles` permit optional declared settings, not verified instrument/context continuity. Therefore routing these arrays through the existing contracts by inventing events/timestamps would overstate evidence. No contract or code changed. Age/sex remain descriptive rather than new A/B inputs; dated mass is needed only for a separately reviewed mass-normalized output.
+
+Smallest justified next scope is the report-only source-index availability summary above, with source identities/artifacts outside Git and aggregate results in this dossier. It remains **T08a2 discovery**, not a new implementation ID or a renamed T08b/c; checked against `implementation-plan.md` and `agent-work-packages.md`. No application implementation or A/B is needed to answer it. Any later proposal requiring either must first define a new unused named subdivision, exact input/time assumptions, files, acceptance and authorization in the backlog. No automatic execution/publication approval follows from PR #39's merge.
+
+Retain source archive/member hashes, local column coordinates, reader/script/interpretation versions and unknown context in provenance. Synthetic records remain excluded from real observations; scalar-v1 alone does not enforce origin. Any future consumer must preserve newest-requested authority/no-fallback, explicit failed/unavailable states, named contributor identity and refusal after required input deletion. None of these persistence guarantees is newly tested here. R02/R07/R10 → V02/V09/V12 and T08a2 I02/I03/I05–I07 are document/source-inspection mappings only, not canonical/scientific test passes. T02c/T03e/parent T04, T08b/c, physiological V07/V08 and O1–O5 remain open.
+
+
+Verification for this continuation: archive SHA-256/ZIP CRC and four extracted-member hashes PASS; separate extent/ratio and BIFF/shared-formula passes completed with the retained scripts above. Self-review checked denominator reconciliation, formula circularity, grid versus clock/support, unverified synchronization/lifecycle, no repairs or candidate selection, contract/provenance/authority limits and privacy. Seven changed Markdown documents / 198 relative links including anchors checked, no broken targets; referenced R/V IDs resolve and I02/I03/I05–I07 mappings are retained. `git diff --check` PASS. No application tests rerun for this documentation/source-inspection change; no hardware, canonical replay or A/B execution. Changes remain local, without a commit, push or new PR.
+
+
+## Executed source-index availability report — 2026-11-12
+
+Owner approved this report-only follow-up after the time/alignment inspection. The plan was recorded in the task before calculation: `salford-index-availability-v1`, applying `salford-index-hypothesis-review-v1`. Same archive/member hashes and xlrd 2.0.2; archive SHA-256, ZIP CRC and extracted bytes rechecked successfully, without another download. No canonical events, A/B, regression/correlation, lag optimization, HR-conditioned power, qualification windows, physiological thresholds, baseline or smoothing were calculated. This describes stored material conditional on equal-index pairing, not synchronized coverage or independent rides.
+
+Local source-coordinate ledger, scripts and outputs remain outside Git in the existing Salford cache. `oxywatt-salford-availability.py` / `.json`, script SHA-256 `b30b9784756b2ec739301ad88d44366286f74b73a4bc56435605e7d4a886193e`; `oxywatt-salford-availability-check.py` / `.json`, check-script SHA-256 `5cb4dbc1ca9378dc23a6718e04ac18bf9a317e9deec902799f748db298dcc8b1`. The ledger retains member SHA-256, sheet names, actual columns, ordinal, extents, numeric counts, disposition, grid assignment and duplicate-header flags. It contains no copied raw sequences; originals remain in the archive. The local reader environment is temporary; pinned version/scripts and archive permit recreation. Neither script is an application importer or project dependency.
+
+### Denominators and actual availability
+
+Mutually exclusive source-position dispositions are unchanged: **1,344 = 554 neither + 7 Power-only + 56 HR-only + 2 populated header mismatches + 7 date-matched extent mismatches + 711 five-second hypotheses + 7 one-second hypotheses**. No additional column was selected by value distributions. Unsupported-grid/anomalous-date dispositions add zero *after* the earlier gates; the anomalous header in the full source remains excluded by those earlier gates. All zero-containing columns remain in the structural set.
+
+| Stored-material quantity | 5 s hypothesis | 1 s hypothesis |
+|---|---:|---:|
+| Source columns | 711 | 7 |
+| Contributing workbooks | 4 | 1 |
+| Stored equal-index rows | 1,214,860 | 41,610 |
+| Nonempty finite Power cells | 1,214,860 | 41,610 |
+| Nonempty finite HR cells | 1,214,860 | 41,610 |
+| Internal empty / text / Excel-error sample cells, either channel | 0 / 0 / 0 | 0 / 0 / 0 |
+| Nonnegative-P / positive-HR rows | 1,199,225 | 41,347 |
+| HR-zero rows | 15,635 | 263 |
+| Power-zero rows (retained as observed values) | 142,985 | 10,156 |
+| Both Power and HR zero | 13,253 | 244 |
+| Positive Power and HR zero | 2,382 | 19 |
+| Columns containing HR zero | 695 / 711 | 7 / 7 |
+| Columns containing Power zero | 709 / 711 | 7 / 7 |
+| Columns flagged with repeated header within block | 145 / 711 | 4 / 7 |
+
+There are **1,256,470 numeric paired rows**, of which **1,240,572 have positive HR and nonnegative Power**, and **15,898 have HR zero**. “Positive HR” is only a value-level condition, not physiological plausibility, qualified work, settled response or common HR support. Both channels are finite/nonnegative in this subset. Missing transmissions, deleted rows or zero-encoded missingness remain possible despite zero internal blank-cell counts. Do not call this 100% measured coverage. The 2,401 positive-P/zero-HR rows do not identify a failure cause or outage time; neither do the 13,497 both-zero rows.
+
+### Distribution descriptions, without eligibility rules
+
+Entries are **minimum / Q25 / median / Q75 / maximum**. Quartiles use linear interpolation at `(n−1)p`, with no eligibility thresholds. Pooled channel marginals weight stored rows equally; column summaries weight source columns equally. Neither is a time-weighted estimate, a sample of independent visits or an HR-conditioned power measure. Decimal fractions of rows in quartiles reflect interpolation, not fractional source samples.
+
+| Description | 5 s hypothesis | 1 s hypothesis |
+|---|---|---|
+| Rows per source column | 156 / 863 / 1,495 / 2,323 / 9,119 | 3,778 / 5,086 / 5,255 / 5,677 / 11,051 |
+| Positive-HR fraction per column, % (rounded) | 73.14 / 98.32 / 99.02 / 99.51 / 100 | 98.23 / 99.28 / 99.48 / 99.57 / 99.74 |
+| Pooled Power, W, including zero | 0 / 111 / 184 / 244 / 1,763 | 0 / 8 / 141 / 226 / 1,153 |
+| Pooled HR, bpm, including zero | 0 / 111 / 131 / 145 / 253 | 0 / 101 / 113 / 139 / 240 |
+| Pooled positive HR, bpm | 29 / 112 / 131 / 145 / 253 | 56 / 101 / 113 / 139 / 240 |
+| Consecutive HR-zero run length, stored rows | 1 / 1 / 4 / 7 / 324 | 2 / 4 / 6 / 8.5 / 22 |
+
+Zero runs: 3,025 in the 5 s group and 35 in the 1 s group, counted separately within each column without bridging column boundaries. These are runs of stored values, not verified dropouts, pauses or contiguous-time episodes. All seven 1 s columns contain HR zero; in the 5 s group only 16 columns have no HR zero. Neither those 16 nor their remaining values have been qualified. No HR=255 appears here, but positive extremes including 240/253 bpm still need source-specific artifact assessment. The absence of an exact sentinel does not validate other values; no clipping or replacement was applied. Power=255 is counted as a stored W value, without treating it as an HR sentinel or certifying its accuracy.
+
+The 1 s material comes from only one workbook, which also contributes 5 s material. Differences in these pooled distributions cannot isolate sampling-interval effects: people, recording occasions, context and source selection differ, and the groups are not independent. Longer/denser recordings have greater weight in the pooled marginals. No cross-stratum performance or physiological comparison is made. Value distributions do not establish that a given column brackets a common HR anchor, matches time-in-ride or has stable windows; pooled ranges cannot establish visit-level common support.
+
+No seconds-based availability total is reported. `n × Δ` would depend on a per-cell support assumption; `(n−1) × Δ` is an index span. Neither supplies measured elapsed time, last-sample support, original start/end, pause boundaries, synchronization or canonical continuous coverage. Positive-HR fractions above use stored-row denominators only.
+
+### Independent reconciliation and disposition
+
+The older 725-header-matched audit counted 1,268,236 finite common-prefix pairs and 16,717 HR-zero pairs, including seven unequal-extent columns. A separate check read only those excluded columns and found 11,766 common-prefix numeric pairs / 819 HR-zero pairs: **1,268,236 − 11,766 = 1,256,470** and **16,717 − 819 = 15,898**. This arithmetic reconciles audit populations; it does not admit truncated sequences. Checks also reconcile positive-HR plus HR-zero rows, joint-zero plus positive-P/zero-HR counts, every ledger disposition, and inclusive quartiles of column length using Python's independent `statistics.quantiles` implementation. All pass.
+
+**Result:** abundant numeric stored material exists for bounded source development, but none of the 718 columns has become a synchronized, lifecycle/context-qualified comparable visit. Availability is not empirical A/B coverage or observation repeatability. A source-specific review of original recording/export timing semantics and artifact encoding would be the smallest useful next evidence step; further cell counting cannot resolve those missing facts. If contemporaneous evidence is unavailable, retain the index-time limitation rather than relaxing the current pilot gate. Any A/B-on-reconstructed-time proposal would need a concrete named scope and authorization, and could only target explicitly limited exploratory observations; it would not establish within-person fitness change. No new implementation package is necessary or authorized for this report. T02c/T03e/parent T04 and T08b/c remain open.
+
+R02/R07/R10 → V02/V09/V12; T08a2 I02/I03/I05–I07 remain document/source-inspection mappings. No scientific V07/V08, canonical replay, production origin enforcement or persistence/authority test newly passes. Future consumption still requires retained input/member identities, pinned reader/interpretation/policy/profile/code provenance, synthetic exclusion and newest-requested/no-fallback; deletion of required inputs makes reproducibility unavailable. No mass/age/sex input or physiological default was added.
+
+
+Availability-report verification: archive/member checks, independent population subtraction, ledger identities and column-length quartiles PASS. Self-review checked the frozen selection, unequal row/column weighting, grid/person confounding, HR-positive versus plausible/qualified distinctions, zero-run versus event semantics, source privacy and preserved authority/origin gates. Seven affected Markdown files / 204 relative links including anchors resolve; R/V definitions and I-case mappings checked; `git diff --check` PASS. No application tests required or rerun. All four new audit/check artifacts retained in the external cache; no participant records or audit scripts added to Git. Changes remain local, without commit/push/PR.
+
+
+## Executed source recording/export semantics review — 2026-11-12
+
+Owner requested the next source-documentation step after the availability report. This is a bounded primary-source review under T08a2 discovery; no additional participant archive, private ride, author contact, application code, importer/replay or A/B authorized or executed. Previous local changes are preserved. Review revision: `salford-source-semantics-review-v1`; source access date 2026-11-12. Existing archive/member identities and the two preceding interpretation/report revisions remain pinned; no values or grid assignments changed.
+
+### Sources actually inspected and applicability
+
+| Primary source and exact location | Verified content | Applicability limit |
+|---|---|---|
+| [Reed et al. 2016, DOI 10.1080/17461391.2016.1146336](https://onlinelibrary.wiley.com/doi/full/10.1080/17461391.2016.1146336), full publisher body, Methods “Description of the participating riders and their field data”, “Power output and heart-rate relationship”, “Data processing”; Funding/data link | Names SRM cranks and a 5 s interval for the three variables, describes calibration checks and unknown completeness/racing status, and links this exact four-rider deposit. Model preparation systematically subsamples to 120 s, combines sessions, removes misrecording outliers and retains observations above each rider's mean HR. Tested response lags concern physiology/model fitting | Exact archive linkage is verified. Head-unit model/firmware, clock/stop settings, export/XLS transformation and reproducible artifact criteria are not specified in these sections. Model cleaning is not proof the deposited XLS are cleaned or contain the modeled sample. Do not adopt its filtering, aggregation or lag |
+| [SRM legacy wiki, “Calibration of the Ergometer”](https://wiki.srm.de/ErgoOld/index.php?title=Calibration_of_the_Ergometer), “SRMWin – Software: PowerControl Setup”, “Interval of storage”, “Special” | For the described PC IV/ergometer setup, storage uses an interval average; display update/smoothing settings are separate. Options affect staying awake when speed/cadence are zero and allow HR-only operation. HR change/transmitter-signal settings are exposed | Manufacturer evidence of possible storage/stop/filter semantics, not evidence those settings were used in Salford. No recovered per-channel averaging kernel, phase, missing-value encoding or verified stop policy for these XLS |
+| [SRM legacy “Data Export”](https://wiki.srm.de/ErgoOld/index.php?title=Data_Export) and [German “Datenexport”](https://wiki.srm.de/ErgoOld_De/index.php?title=Datenexport), SRMWin text/marker export subsections | Document headers with count/storage interval and joint metric rows including time and sample numbering. German instructions distinguish old text layout (time/number columns 5/6) and new layout (7/8, after height/temperature). Marker export can select a portion rather than all training data | Source formats vary. No identified export format/version or original exported text is retained in the reviewed four-XLS archive. These docs cannot prove which steps produced separate metric sheets or whether rows were independently edited/removed. Neither documented column layout is an XLS schema specification |
+| [Official SRM manual index](https://www.srm.de/manuals-documents/) → [PowerControl VI Getting Started, 4 May 2009](https://srm.de/wp-content/uploads/2022/12/3_pcvi_short_manual_EN.pdf), printed p. 7 / PDF page index 6, “Setup Menu” | Manufacturer manual explicitly offers 0.5–5.0 s storage intervals | A 2009 PC VI guide does not identify the device/settings behind 2006/2007 workbook columns. Supports model/version dependence only, not the nine Power/eight HR 1 s formula assignments as verified clocks. Text extraction inspected; attempted PDF screenshot failed with a cache-miss error |
+| [SRM 2006 fourth-edition manual on the manufacturer wiki](https://wiki.srm.de/ErgoOld/images/b/b5/2006_SRM_User_Manual_Ergometer%2C_4th_Edition%2C_Andrea_Wooles.pdf), title/contents, “Using the Online Option”, printed pp. 7–15 | Retrieved document is **Online Option & Ergometer**, 27 PDF pages, not the full field PowerControl V manual. Describes optional computer-guided acquisition | Correct period alone does not establish device applicability. Do not import its online start/end controls into field sessions or label it the recovered field PC V manual |
+
+Bounded searches covered the paper DOI/title, official SRM manual index, `site:srm.de` / manufacturer-wiki PowerControl V manuals, storage/averaging, SRMWin text exports, zero HR and 255/sentinel terms. Secondary/manual-mirror and reverse-engineered parser results were leads only; no claim relies on them. No authoritative archive-linked sentinel table or complete field-PC-V acquisition/export chain was recovered. The live Figshare API request failed through the browsing tool; the previously retained catalog snapshot remains the metadata evidence, not a fresh API verification. No download of another participant dataset or replacement archive occurred.
+
+### Decisions from the source cross-check
+
+| Question | Finding and disposition |
+|---|---|
+| Is 5 s only a duration/count guess? | No: the linked paper independently states a shared 5 s sampling interval. This strengthens the *intended acquisition cadence* for the documented study; it does not prove each deposited column is uniformly sampled. The archive's explicit 1 s note/formulas conflict with treating the paper's statement as universal. Retain 711/7 hypothesis strata and unresolved source-version differences |
+| Can a stored number be treated as an instantaneous measurement held forward? | Not established. Manufacturer documentation shows interval averaging in one legacy setup; display smoothing is a distinct setting. Neither the device match nor per-channel support/phase is known here. Do not interpolate, deconvolve, apply hold-v1 or attach interval-average support to these XLS as fact |
+| Does simultaneous-looking row order certify P/HR synchronization? | No. Documented native exports can keep metrics/time/sample number in one row, but those original rows and a verified conversion to these sheets are missing. Same date/extent and nominal interval cannot recover channel offsets or independent omissions. Physiological HR response lag is distinct from logging/clock alignment; optimizing lag cannot verify either |
+| Can zero runs reveal pauses or true elapsed time? | No. Device behavior can depend on stop/HR-only settings, and actual settings/time columns are absent. The 3,060 stored HR-zero runs remain value sequences, not pause/dropout events. No inferred breaks, continuous segments, local start/end or time since ride start |
+| Is HR=0 a known SRM dropout code? Are 240/253/255 bpm proven sentinels? | No archive-linked authoritative encoding was found. HR=0 is unusable as a positive-HR observation, but its cause/duration is unknown; positive extremes are unvalidated. Do not borrow FIT/ANT/Bluetooth encodings, apply source-unspecified physiological clipping, or claim a universally recognized sentinel |
+| Does the paper supply a reproducible cleaning/eligibility rule? | It acknowledges outlier removal but does not identify a deterministic archive-cell rule in the reviewed methods. Above-mean-HR selection and fitted response lag serve its cadence model, not an approved A/B qualification protocol. No outcome-informed repair/filtering or borrowed 120 s window |
+| Could original native material resolve anything? | Intact source records/export headers, timestamps/sample numbers, recording boundaries, device/software versions/settings and the XLS transformation could test storage interval, removed rows and channel mapping. They would still need their own clock/support/context review; a file boundary is not automatically observed whole-ride identity. None is newly obtained or authorized for download/contact |
+
+### Bounded conclusion and next decision
+
+This review recovers **independent nominal 5 s acquisition evidence and documented reasons to distinguish storage averages, display smoothing, stop behavior and export layouts**. It does not recover the archive-specific clocks, original row linkage, lifecycle or artifact encoding. The seven 1 s structural columns and exceptional HR duration expressions remain unresolved against the paper's broad 5 s description. All prior exclusions, row denominators and quality flags stay unchanged; no candidate becomes a qualified comparable visit.
+
+**Stop the archive-only qualification route at this boundary.** Repeating counts or consulting a newer head-unit manual cannot recover metadata omitted by the deposited transformation. Source-linked original timing/settings/transformation evidence would reopen this route, but obtaining records or contacting authors needs a separate explicit scope. Alternatively, a later deliberately limited A/B-on-index-time experiment could be proposed under a new named unused subdivision, with explicit support/artifact/qualification assumptions frozen and approved before calculations. It would be development evidence under assumptions, not a repeatability or fitness-validation study. No such calculation is necessary to finish this review, no A/B package is silently admitted, and no numerical policies are invented here.
+
+The owner's goal of a useful within-person trend remains open. To evaluate observation repeatability rather than only software behavior or stored-row availability, the missing dependency is repeated acquisitions with source-verifiable timing and adequate measurement/context history. Physiological change additionally needs independent claim-matched references. Do not replace either with another synthetic series. Current pilot remains NO-GO; T02c/T03e/parent T04, T08b/c, T06/T07 and O1–O5 remain open. Canonical time/profile/persistence contracts, newest-requested/no-fallback, versioned provenance and synthetic exclusion remain unchanged.
+
+Traceability: T08a2 I01 (source review), I02/I03 (qualification/time/provenance), I05–I07 (blockers/contracts/admission); R02/R07/R10 → V02/V09/V12 as document/source review only, R06/R08 → V08/V10 as claim limits only. No canonical replay or physiological acceptance test executed, no new task ID or application implementation authorized. Public source links/locations and limitations are the deliverable; no participant dates, workbook cells, device identifiers or source documents are added to Git.
+
+
+Source-review verification: exact publisher/deposit linkage and manufacturer source locations inspected; model/date/online-versus-field applicability and failed API/screenshot access disclosed. Self-review checked acquisition cadence versus clock proof, storage averaging versus display smoothing, physiology versus logging lag, undocumented preprocessing/encoding and no silent contract/admission changes. Seven affected Markdown documents / 210 relative links including anchors resolve; referenced R/V IDs and I-case mappings checked; `git diff --check` PASS. No application/hardware tests appropriate or rerun. No new participant data, raw cells, source PDFs, application code, commit/push/PR. Earlier authorized local work remains intact.
+
+
+## Next package prepared — T08a3
+
+[Reviewable T08a3 specification](../../spdd/tasks/t08a3-salford-index-ab.md) follows the owner's request to prepare a bounded experiment. It first proposes per-column exact HR support discovery on retained Salford, with a frozen primary workbook/grid and all other workbooks reported separately; no support or A/B results added in this preparation. Any later numerical configuration must justify anchor/support, segmentation/artifact/fit/matching and finite sensitivity choices before explicit execution approval. This deliberately limited source-index route does not convert the archive into synchronized comparable visits or revise T08a2's NO-GO. No app/import/replay, physiological claim or publication authorized.
+
+
+## T08a3 executed support discovery — 2026-11-12
+
+Owner explicitly approved **T08a3 support discovery**, J01–J03/J08. [Named task](../../spdd/tasks/t08a3-salford-index-ab.md). Numerical freeze and A/B execution remain unapproved and unperformed. This is actual per-column HR support on the retained real archive, not another synthetic series or an extension of the canonical pilot. Revision `salford-support-discovery-v1`; same attributed Scarf/Salford DOI/archive and source-index limitations above. Archive SHA-256, ZIP CRC, all extracted-member bytes, xlrd 2.0.2 and prior availability-script identity verified again without a new download. The primary workbook/member hash and 5 s stratum were pinned before this support pass, by the specified lexicographic path rule; no fallback to a more favorable person.
+
+### Actual method and local reproducibility
+
+The pass reconciles every one of the 1,344 source positions with the retained availability ledger using member hash, sheets, actual column coordinates, numeric counts and extents. It rechecks retained dates/extents and both channel duration/count grid assignments. All dispositions and the 718-column hypothesis set remain unchanged. For every retained column, it counts exact positive HR levels only at finite/nonnegative-P index pairs, retaining Power-zero and HR-zero flags separately. It stores exact-level counts/fractions/CDF numerators, first/last source indices, adjacent observed-level gaps, maximum-HR/zero positions, duplicate-header flags and local source-coordinate identities. No bins, quantization, clipping, source-row repair or power-conditioned support/anchor selection.
+
+Every unordered within-workbook/within-grid column pair is explicitly identified locally, with shared exact levels and each side's mass on those levels. The maximum absolute difference between their empirical CDFs is a descriptive distance only: no p-value, independence assumption or acceptance threshold. It describes the complete positive-HR distributions before a local support restriction, not matched distributions after any future selection. All-column intersections are exact-level sets, not continuous intervals. Row-pooled and equal-column-weighted HR marginals are retained separately. First/last positions remain indices, not elapsed ride phases or evidence of settling.
+
+Artifacts in the existing external cache, outside Git:
+
+| Artifact | Identity / role |
+|---|---|
+| `oxywatt-salford-support.py` | SHA-256 `4fbdd2cd4240153ce345a231b4b369e1b66f19cbea0f6e1a9e1e7fe189cb32f5`; actual source/support reader, no A/B |
+| `salford-support-plan.json` | SHA-256 `23c38a52eac8c79c858bbac631359bec3564ac5e3c5e20b9928444c9b33ca79f`; pre-pass primary identity, exact-level conditions, pair enumeration and prohibited operations |
+| `salford-support.json` | SHA-256 `5939c601290b66b48ff855bacab982af89ecdb29ff325514798a8ff003b9f83f`; detailed per-column CDF/position/reason and all-pair contributor ledger, kept local |
+| `oxywatt-salford-support-check.py` / `salford-support-check.json` | Check script SHA-256 `fc69cbfababd58b597a7d1b8879ab8f0bc99b969f944115f6df3b93964d54cf1`; independent scalar-column/histogram/CDF/set/bracketing verification |
+| `oxywatt-salford-support-interpret.py` / `salford-support-interpretation.json` | Script SHA-256 `eaafd99f1bdbafa480078407ee18adabb7d4f56b96a92878bcd952c30542f31b`; disclosed post-discovery support-geometry proposal and position summaries, referencing the support-result hash |
+
+Commands executed with `/tmp/oxywatt-salford-time-env/bin/python`: `/tmp/oxywatt-salford-support.py`; `/tmp/oxywatt-salford-support-check.py`; `/tmp/oxywatt-salford-support-interpret.py`; and a second discovery pass with output `/tmp/salford-support-rerun.json`. These temporary script copies and the retained cache copies have the pinned identities above. The two discovery outputs are byte-identical. No project dependency/code, source documents, raw records, participant dates or per-column identities added to Git.
+
+### Source and support denominators
+
+The exclusive source-position ledger is still 554 neither + 7 Power-only + 56 HR-only + 2 populated-header mismatches + 7 extent mismatches + 711 five-second hypotheses + 7 one-second hypotheses = 1,344. Retained groups contain 1,256,470 numeric pairs, 1,240,572 positive-HR pairs and 15,898 HR-zero rows. Per-workbook source-position counts are 337 / 351 / 176 / 480. All rows/columns remain dependent source material, not independently qualified visits.
+
+| Workbook ordinal / nominal grid | Structural columns | Positive-HR rows | HR-zero rows | Union of exact HR levels | Exact levels shared by every column | Unordered column pairs |
+|---|---:|---:|---:|---:|---:|---:|
+| 1 / 5 s — fixed primary | 197 | 390,252 | 3,774 | 201 | 0 | 19,306 |
+| 2 / 5 s | 162 | 287,592 | 2,605 | 214 | 9 | 13,041 |
+| 3 / 5 s | 104 | 167,877 | 2,787 | 211 | 4 | 5,356 |
+| 3 / 1 s | 7 | 41,347 | 263 | 152 | 44 | 21 |
+| 4 / 5 s | 248 | 353,504 | 6,469 | 212 | 0 | 30,628 |
+
+All **68,352 within-stratum pairs** share at least one exact observed positive-HR level. This does not imply a level common to all columns, dense local support or matched exposure. Pair counts are combinations of reused columns, not independent repeats or a chosen study N. No person/grid is substituted for the fixed primary.
+
+| Workbook / grid | Shared exact levels per pair: min / median / max | Whole-distribution ECDF distance: median (rounded) | Largest column's share of positive rows |
+|---|---|---:|---:|
+| 1 / 5 s | 8 / 55 / 160 | 0.519 | 1.12% |
+| 2 / 5 s | 33 / 85 / 170 | 0.219 | 1.48% |
+| 3 / 5 s | 12 / 60 / 158 | 0.556 | 5.32% |
+| 3 / 1 s | 46 / 69 / 102 | 0.767 | 26.59% |
+| 4 / 5 s | 2 / 63 / 148 | 0.458 | 1.29% |
+
+There is no distance threshold or claim that a large value proves noncomparability under an as-yet-unspecified local rule. The distinction is concrete: extensive exact-level overlap coexists with different complete-record HR exposure. The one-second group is particularly concentrated in individual columns; it remains separate and is not a control for sampling interval.
+
+### Primary support geometry and position/quality limits
+
+For the primary's 197 columns, every observed level from **107 through 118 bpm** is strictly bracketed by recorded HR in every column, while the intersection of their exact-level sets is empty. Strict bracketing uses observed values below and above the candidate, not the candidate's presence. Exact membership is highest at 124/127/131 bpm (195 columns), but those are not universally bracketed: maximizing presence is a different criterion. This is not a reason to select a favorable subset or silently discard the remaining columns.
+
+A **post-discovery proposal**, based only on HR support geometry, considers all universally bracketed observed levels and minimizes the worst-column distance to the nearer observed value on each strict side. The unique minimizer is **115 bpm**, worst required symmetric radius **3 bpm**, giving the raw support neighborhood **112–118 bpm**. At least one observed value on each strict side is present in all 197 columns within that neighborhood; the anchor itself occurs in 188. This describes raw stored HR, not mean HR of future segments or a frozen A/B anchor/band.
+
+Inside that neighborhood, per-column positive-row count minimum / Q25 / median / Q75 / maximum is **2 / 25 / 62 / 143 / 729**. The fraction of each column's positive-HR rows there is **0.176% / 1.473% / 3.356% / 7.598% / 43.989%** (rounded). Ten columns have exactly one row on at least one strict side. A geometric bracket can therefore rest on very little and very unequal material; this is not a justified minimum-duration, fit-precision or band rule. Neither the 3 bpm radius nor these counts is a validated physiological parameter or universal eligibility threshold. No A band is selected from them.
+
+Stored-level gaps are also nonuniform: the primary's per-column largest adjacent-observed-level gap has min / median / max **1 / 6 / 71 bpm**. A gap in an empirical HR value set is not a time gap. Maximum-HR and zero-position summaries were inspected in every column; in the primary, the first maximum appears across normalized indices approximately **0.005–0.995**, median **0.465** (`index/(n−1)`). No repeatable index region can thereby be declared a true warm-up, known pause, artifact interval or settled regime. High values are still unvalidated; no high-HR cutoff, sentinel reinterpretation or row deletion was applied. All 702 zero-containing columns and 149 repeated-header flags remain in the structural denominator.
+
+### Numerical-plan disposition — explicit NO-GO, not an executable blank configuration
+
+| J04 decision | Support-stage result / remaining blocker |
+|---|---|
+| Primary source/contributors | Fixed workbook 1 / 5 s; all 197 structural columns kept as development inventory. All other persons/grids separately reported; no fallback. Actual numeric contrast membership still needs a frozen policy |
+| Anchor/local neighborhood | 115 bpm and 112–118 bpm are a concrete **support-geometry proposal**, not accepted parameters; sparse/unequal occupancy and segment-level support unresolved. Exact all-column intersection absent does not make interpolation mathematically impossible |
+| A band and HR exposure matching | Not justified by raw support alone. A smaller band, a widened band, distribution standardization or selective subset would change coverage/target; no band or matching tolerance chosen |
+| Cell support, windows/reset/settling/stability | Source averaging/clock/lifecycle uncertainty unchanged. HR-level occupancy does not justify window length, last-cell support, real gap/reset or settling/drift limits. No synthetic TTL/window inherited |
+| Artifact/work policy | HR-zero counted/refused as positive HR; Power-zero retained. No authoritative encoding or justified high-value clipping/work-suitability rule recovered. Cannot call the remaining values physiologically valid |
+| B conditioning/residual/slope admission | Raw bracketing is only geometric. No approved segment pool, conditioning/residual threshold or valid sensitivity bounds; no fit performed |
+| Contrasts/sensitivity/work/result policy | Primary identity/order and reproducible source ledger fixed; no outcome-driven contrasts or numeric policies selected. Engineering limits and a finite assumption-sensitivity set must accompany a complete future numerical plan; report-layer version/no-fallback and origin rules remain requirements |
+
+**Decision:** support discovery J01–J03/J08 is complete; the J04 numerical gate remains **NO-GO / not frozen**, and J05–J07 A/B execution is unperformed and unapproved. The support-geometry proposal is useful evidence but does not supply a complete qualified-segment experiment. It would be dishonest to ask approval of an “executable A/B configuration” with these fields unset. This is not proof that A/B is impossible, nor that a raw row-based descriptor is validated: the latter would be a different explicit scope/estimand and must not silently replace T08a1's qualified-segment equations.
+
+The smallest remaining decision is whether to define a deliberately simpler source-row descriptive experiment under acknowledged unverified timing/context, or require independently timed/context-documented observations for the original qualified-segment route. That is a scope/claim choice, not something additional HR counting can resolve. No new acquisition, contact, extra synthetic series, app code or numerical experiment performed here. Physiological change/repeatability/usefulness remain unassessed; O1–O5, T02c/T03e/parent T04 and T08b/c stay open.
+
+### Verification and evidence layer
+
+Independent reader checks every one of 718 column histograms, 61,601 exact-level CDF points, all 68,352 pair intersections, all-column intersections and candidate-level bracketing against the source. Positive/zero/disposition totals reconcile to the previous audit. Archive/member/reader identities pass; complete second discovery output is byte-identical. Exact source/member/column/script/plan/result identities remain local; required-input changes/loss invalidate reproduction. These are source/report software checks, not canonical replay, actual synchronization, persistence generation integration or physiological validation. Synthetic origin remains separate; no real/synthetic history membership written. R02/R07/R10 → V02/V09/V12, R08 → report-only V10, R06 → V08 claim limits; T08a3 J01–J03/J08 only.
+
+
+Final support document checks: nine affected Markdown files / 271 relative links including anchors resolve, R/V/J-case/backlog traceability checked, `git diff --check` and new-file whitespace PASS. Self-review distinguishes empirical level intersection/bracketing, distribution exposure, raw-row geometry and unknown segment/lifecycle/physiological validity. Retained artifact identities match the report; no private source coordinates/records in Git. No app/hardware tests, A/B, commit/push/PR.
+
+
+## Publication authorization — 2026-11-12
+
+Owner explicitly requested a PR for the completed documentation and support-discovery evidence. Earlier statements about local-only work describe the preceding stages. This authorization covers these aggregate reports, T08a3 task and synchronized documentation only; external source files/scripts/coordinate ledgers stay outside Git. No J04 numerical freeze, A/B execution, new acquisition/contact, application implementation or merge is authorized. The next-session decision remains the explicit scope/estimand choice recorded above.

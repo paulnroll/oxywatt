@@ -233,3 +233,30 @@ Real-data/scientific admission remains blocked; N, qualification thresholds, mea
 ## Authorized Salford structural review — continuation 2026-11-12
 
 [Audit evidence](../evidence/t08a2-comparable-observations/README.md): Actual public-source acquisition now supplies repeated real sequences for limited structural research. It exposes missing sample timestamps, mixed inferred intervals and source alignment/context uncertainty; do not fabricate canonical lifecycle or equate row order with verified joint time coverage. Numeric observation availability remains separate from comparable observation and physiological claims.
+
+
+## Salford source-index timing review — 2026-11-12
+
+[T08a2 inspection](../evidence/t08a2-comparable-observations/README.md#source-specific-timealignment-inspection--2026-11-12): duration formulas encode count × interval, so duration/count is not an independent clock check. The 718 column candidates divide into 711 matching 5 s and 7 matching 1 s grid hypotheses, without verified channel synchronization or original lifecycle. Column extents cannot become canonical observed-start/end or continuity. All remain outside comparative-pilot admission.
+
+Smallest next scope: report-only source-index availability under that explicit assumption, within T08a2 discovery, with no importer/replay/A/B or numeric qualification defaults. Preserve provenance/versions, newest-requested/no-fallback and synthetic exclusion. No new implementation/package approval, production method or physiological claim; T02c/T03e/parent T04 and T08b/c remain open.
+
+
+## Salford source-index availability executed — 2026-11-12
+
+[Report](../evidence/t08a2-comparable-observations/README.md#executed-source-index-availability-report--2026-11-12): owner approved report-only T08a2 continuation. The unchanged 718 columns contain 1,256,470 numeric paired rows, including 15,898 HR-zero rows. Positive-HR row availability is not synchronized/qualified time or comparable visits; distributions mix unequal column lengths and contexts. No A/B, physiological inference or new code/contracts. Source timing/artifact semantics remain the next evidence dependency; T02c/T03e/parent T04 and T08b/c remain open.
+
+
+## Salford source recording/export review — 2026-11-12
+
+[T08a2 source matrix](../evidence/t08a2-comparable-observations/README.md#executed-source-recordingexport-semantics-review--2026-11-12) finds independent nominal 5 s study evidence and manufacturer distinctions between storage averages, display smoothing, stop settings and export layouts. These generic capabilities do not establish the device/settings or original time/row linkage of the deposited XLS. Stop archive-only comparable-pilot qualification at this boundary; retain index-time limits and all quality/exclusion flags. Source-linked timing/settings/transformation evidence is the missing dependency; no further participant acquisition/contact or A/B authorized. Contracts, newest-requested/no-fallback and synthetic exclusion unchanged; all deferred live/scientific/product gates remain open.
+
+
+## T08a3 conditional Salford experiment proposal — 2026-11-12
+
+[Named package](tasks/t08a3-salford-index-ab.md): owner requested a concrete specification following T08a2's archive-only evidence boundary. Proposed next authorization is support discovery on exact per-column HR distributions, separately by person/grid, yielding a concrete numerical-plan freeze proposal without A/B values. Numerical A/B remains gated on accepted evidence-backed configuration and explicit execution approval. Scope deliberately studies reconstructed-index observations under declared assumptions; it does not relax canonical lifecycle/context eligibility or admit T08a2's comparative pilot. No app/import/replay, framework, storage, UI or numeric defaults. J01–J08 are unexecuted; T06/T07/O1–O5, T02c/T03e/parent T04 and T08b/c remain open. Newest-requested/no-fallback, provenance and synthetic exclusion retained at the report boundary.
+
+
+## T08a3 support evidence and numerical refusal — 2026-11-12
+
+[Executed support discovery](../evidence/t08a2-comparable-observations/README.md#t08a3-executed-support-discovery--2026-11-12), owner-approved J01–J03/J08: fixed primary 197 columns all bracket 107–118 bpm but share no exact HR level across every column. Support-geometry candidate 115 bpm / 112–118 bpm contains 2–729 rows per column; geometry does not justify stability/windows or matched exposure. J04 remains NO-GO/not frozen and numerical execution unapproved/unperformed. Further progress requires an explicit scope choice (simpler source-row description versus independently timed/context-qualified observations), not more synthetic evidence or automatic A/B. Provenance/no-fallback/origin, T02c/T03e/parent T04, T08b/c and physiological gates unchanged.

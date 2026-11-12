@@ -82,3 +82,28 @@ Real-data/scientific admission remains blocked; N, qualification thresholds, mea
 ## Authorized Salford structural review — continuation 2026-11-12
 
 [Audit evidence](../evidence/t08a2-comparable-observations/README.md): Owner approved local download/structure review of the public Salford four-rider archive only. Checksums pass; repeated measured sequences exist, but mixed inferred sampling intervals, date/header and length mismatches, HR zero and absent lifecycle/context evidence prevent comparative-pilot admission. No A/B outputs or physiological results. Paper-level demographics are not verified per-visit profiles.
+
+
+## Salford time/alignment inspection — 2026-11-12
+
+[Concrete retained-source inspection](../evidence/t08a2-comparable-observations/README.md#source-specific-timealignment-inspection--2026-11-12) reads BIFF/shared duration formulas as well as cached summaries: duration/count recovers spreadsheet multipliers rather than an independent clock. All 718 structural candidates have consistent P/HR ratios (711 at 5 s, 7 at 1 s), supporting a conditional source-index hypothesis only. Equal dates/extents do not verify synchronization; no observed start/end, pauses, continuous canonical coverage or comparable visits established. A report-only source-index availability summary is the smallest next scope; no A/B or physiological calculation performed or admitted.
+
+
+## Salford stored-row availability — 2026-11-12
+
+[Executed report](../evidence/t08a2-comparable-observations/README.md#executed-source-index-availability-report--2026-11-12): 718 unchanged structural columns contain 1,256,470 finite paired rows, 1,240,572 with positive HR and 15,898 HR-zero rows. Raw marginal/column distributions and stored zero runs are descriptive; positive HR does not certify plausibility or common support. The 1 s subset comes from one workbook and cannot isolate an interval effect against the four-workbook 5 s pool. No verified synchronization, measured coverage, observational repeatability, A/B or physiological claim follows. Original timing/export and artifact evidence remains unresolved.
+
+
+## Salford recording/export primary-source review — 2026-11-12
+
+[Bounded source review](../evidence/t08a2-comparable-observations/README.md#executed-source-recordingexport-semantics-review--2026-11-12) adds the linked study's independent nominal 5 s acquisition statement and official legacy SRM storage/stop/export documentation. Generic interval averaging, display smoothing and export time/number fields cannot be assigned to the actual XLS without model/settings/conversion evidence. Neither response-lag fitting nor source-unspecified outlier removal validates synchronization or supplies a cleaning rule. No archive-linked HR-zero/high-value encoding recovered. Stop archive-only qualification pending the missing source provenance; no A/B or physiological inference admitted.
+
+
+## T08a3 proposed assumption-limited development — 2026-11-12
+
+[Concrete package](../spdd/tasks/t08a3-salford-index-ab.md) proposes exact per-column HR support discovery before freezing any anchor, band, windows, artifact/fit/matching or sensitivity rules. Later A/B requires the accepted complete freeze and explicit numerical approval; none executed now. Salford may expose feasibility/refusal and fragility under declared index-time assumptions, not independently qualified observation repeatability or fitness change. Unknown synchronization/lifecycle/context remains unknown; no new source data, correction, threshold, N, baseline or smoothing.
+
+
+## T08a3 actual per-column HR support — 2026-11-12
+
+[Executed discovery](../evidence/t08a2-comparable-observations/README.md#t08a3-executed-support-discovery--2026-11-12) supplies real-column evidence: 718 exact HR distributions and 68,352 dependent within-stratum pair inventories. All pairs overlap at some recorded levels; the primary's all-column exact intersection is empty despite universal bracketing at 107–118 bpm. Support-only geometry suggests 115 bpm / 112–118 bpm, but counts vary from 2 to 729 per column and complete-record CDF differences remain descriptive. No independent repeatability, physiological validity, clipping, window/fit policy or A/B established. J04 numerical freeze NO-GO; source timing/context/qualification unknowns persist.

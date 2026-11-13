@@ -76,3 +76,8 @@ Specification/publication only is authorized; named execution awaits owner appro
 [Task/evidence](../spdd/tasks/t08a2-comparable-observations.md): The dossier operationalizes the R08 observational route with visit-level qualifications and measured/declaration/unknown evidence. Personal usefulness remains unmeasured; no R05/R06 completion or physiological meaning follows.
 
 Real-data/scientific admission remains blocked; N, qualification thresholds, meaningful change, baseline horizon and smoothing remain unresolved without defaults. T05b O1–O5, T02c/T03e/parent T04 and T08b/c remain open. No new framework, storage, manifests or UI.
+
+
+## Completed-training timeline clarification — 2026-11-13
+
+Owner clarified R08: the Karoo plugin should present data from completed training sessions and show their evolution on a chronological timeline. The T08b1 explicitly bound single-session saved curve is an intermediate presentation capability, not completion of this history/trend requirement. Specify session eligibility, metric/time semantics, unavailable data and provenance before the next implementation slice; FTP and VO2max method approvals remain separate. See [F08 and owner clarification](../spdd/tasks/t08b1-saved-curve-field.md#f08-authorized-presentation-trial--2026-11-13).

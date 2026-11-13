@@ -8,6 +8,8 @@ Owner approved T04b4 S18–S20 software implementation on 2026-11-13 after PR #4
 
 Owner subsequently authorized same-signer in-place 0.7.0 installation/launch/limited UI readout after fresh Idle/storage checks and commit/push/PR publication of T04b4 S18–S20 on 2026-11-13. Real Calculate/Retry, private canonical-input/oracle S21–S22, FIT, recordings, merge and release remain separate.
 
+The authorized 0.7.0 installation preflight on 2026-11-13 found Connected/Idle but canonical SQLiteFullException near the 32 MiB database cap; installation was NOT RUN. Clean-commit 4d8502c APK/signature verification passed. Installed 0.6.0 remains unchanged. Storage remediation/deletion/cap changes and full S21–S22 analysis remain separate; software publication is authorized.
+
 ## Routing
 
 - Product intent: `docs/product/requirements.md`.

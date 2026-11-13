@@ -46,6 +46,8 @@ class DiagnosticActivityTest {
         val activity = Robolectric.buildActivity(MainActivity::class.java).setup()
         shadowOf(Looper.getMainLooper()).idleFor(Duration.ofMillis(600))
         assertTrue(text(activity.get().window.decorView).contains("Power: 321 W"))
+        assertTrue(text(activity.get().window.decorView).contains("Local sessions unavailable"))
+        assertFalse(DiagnosticRuntime.curve().canCalculate)
         assertTrue(
             text(activity.get().window.decorView)
                 .contains("Committed canonical events (current epoch): 0")

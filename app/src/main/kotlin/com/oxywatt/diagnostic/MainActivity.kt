@@ -24,6 +24,12 @@ class MainActivity : Activity() {
     private lateinit var storage: TextView
     private lateinit var curve: TextView
     private lateinit var calculate: Button
+    private lateinit var sessionStatus: TextView
+    private lateinit var sessionRows: LinearLayout
+    private lateinit var refreshSessions: Button
+    private var renderedCards: List<LocalSessionCard>? = null
+    private var renderedSelection: java.util.UUID? = null
+    private var renderedEnabled = false
     private val metrics = mutableMapOf<Metric, TextView>()
     private val refresh =
         object : Runnable {
@@ -51,6 +57,19 @@ class MainActivity : Activity() {
         status = line()
         for (metric in Metric.entries) metrics[metric] = line(21f)
         storage = line()
+        line(21f).setText(R.string.local_sessions_title)
+        refreshSessions =
+            Button(this).apply {
+                setText(R.string.local_sessions_refresh)
+                setOnClickListener { DiagnosticRuntime.refreshSessions() }
+                root.addView(this)
+            }
+        sessionStatus = line()
+        sessionRows =
+            LinearLayout(this).apply {
+                orientation = LinearLayout.VERTICAL
+                root.addView(this)
+            }
         calculate =
             Button(this).apply {
                 setText(R.string.live_curve_calculate)
@@ -81,8 +100,58 @@ class MainActivity : Activity() {
         super.onPause()
     }
 
+    private fun renderSessions(snapshot: LocalSessionsSnapshot, selected: java.util.UUID?) {
+        refreshSessions.isEnabled = snapshot.canChange
+        sessionStatus.text =
+            buildList {
+                    if (snapshot.unavailable) add(getString(R.string.local_sessions_unavailable))
+                    else {
+                        if (snapshot.error) add(getString(R.string.local_sessions_error))
+                        if (snapshot.loading) add(getString(R.string.local_sessions_loading))
+                        if (!snapshot.loading && !snapshot.error && snapshot.cards.isEmpty())
+                            add(getString(R.string.local_sessions_empty))
+                        add(getString(R.string.local_sessions_revision, snapshot.revision))
+                        if (snapshot.truncated) add(getString(R.string.local_sessions_truncated))
+                        if (snapshot.dirty) add(getString(R.string.local_sessions_dirty))
+                        if (selected != null && snapshot.cards.none { it.session.id == selected })
+                            add(getString(R.string.local_sessions_outside))
+                    }
+                }
+                .joinToString("\n")
+        if (
+            renderedCards == snapshot.cards &&
+                renderedSelection == selected &&
+                renderedEnabled == snapshot.canChange
+        )
+            return
+        renderedCards = snapshot.cards
+        renderedSelection = selected
+        renderedEnabled = snapshot.canChange
+        sessionRows.removeAllViews()
+        snapshot.cards.forEachIndexed { index, card ->
+            sessionRows.addView(
+                Button(this).apply {
+                    tag = card.session.id
+                    text =
+                        getString(
+                            R.string.local_sessions_row,
+                            index + 1,
+                            if (card.session.id == selected)
+                                getString(R.string.local_sessions_selected)
+                            else "",
+                            sessionCardText(this@MainActivity, card),
+                        )
+                    isAllCaps = false
+                    isEnabled = snapshot.canChange
+                    setOnClickListener { DiagnosticRuntime.selectCurve(card.session.id) }
+                }
+            )
+        }
+    }
+
     private fun render() {
         val curveState = DiagnosticRuntime.curve()
+        renderSessions(DiagnosticRuntime.sessions(), curveState.session?.id)
         curve.text = liveCurveText(this, curveState)
         calculate.isEnabled = curveState.canCalculate
         calculate.setText(

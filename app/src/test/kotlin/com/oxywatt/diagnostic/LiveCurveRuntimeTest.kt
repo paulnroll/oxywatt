@@ -60,14 +60,35 @@ class LiveCurveRuntimeTest {
             ShadowSystemClock.advanceBy(Duration.ofSeconds(6))
             karoo.awaitValue {
                 true.takeIf {
-                    DiagnosticRuntime.storage().session?.phase == SessionPhase.ENDED_LOCALLY &&
-                        DiagnosticRuntime.curve().canCalculate
+                    DiagnosticRuntime.storage().session?.phase == SessionPhase.ENDED_LOCALLY
                 }
             }
             assertNull(DiagnosticRuntime.curve().saved)
             screen.setup()
             shadowOf(Looper.getMainLooper()).idleFor(Duration.ofMillis(600))
-            val button = views(screen.get().window.decorView).filterIsInstance<Button>().single()
+            assertFalse(DiagnosticRuntime.curve().canCalculate)
+            views(screen.get().window.decorView)
+                .filterIsInstance<Button>()
+                .single { it.text == screen.get().getString(R.string.local_sessions_refresh) }
+                .performClick()
+            karoo.awaitValue {
+                true.takeIf {
+                    DiagnosticRuntime.sessions().cards.isNotEmpty() &&
+                        !DiagnosticRuntime.sessions().loading
+                }
+            }
+            shadowOf(Looper.getMainLooper()).idleFor(Duration.ofMillis(600))
+            val target = DiagnosticRuntime.storage().session!!.id
+            views(screen.get().window.decorView)
+                .filterIsInstance<Button>()
+                .single { it.tag == target }
+                .performClick()
+            karoo.awaitValue { true.takeIf { DiagnosticRuntime.curve().canCalculate } }
+            shadowOf(Looper.getMainLooper()).idleFor(Duration.ofMillis(600))
+            val button =
+                views(screen.get().window.decorView).filterIsInstance<Button>().single {
+                    it.text == screen.get().getString(R.string.live_curve_calculate)
+                }
             assertTrue(button.isEnabled)
             button.performClick()
             karoo.awaitValue {
@@ -88,6 +109,7 @@ class LiveCurveRuntimeTest {
             screen.recreate()
             shadowOf(Looper.getMainLooper()).idleFor(Duration.ofMillis(600))
             assertEquals(saved.generation, DiagnosticRuntime.curve().saved!!.generation)
+            assertEquals(target, DiagnosticRuntime.curve().session!!.id)
             assertEquals(5, karoo.system.consumerCount)
         } finally {
             screen.pause().stop().destroy()

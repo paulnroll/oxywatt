@@ -47,6 +47,24 @@ internal object DiagnosticRuntime {
         run?.requestCurve()
     }
 
+    @Synchronized
+    fun sessions(): LocalSessionsSnapshot =
+        run?.let { live ->
+            live.sessionSnapshot().let {
+                if (live.finished) it.copy(unavailable = true, canChange = false) else it
+            }
+        } ?: LocalSessionsSnapshot()
+
+    @Synchronized
+    fun selectCurve(id: UUID) {
+        run?.selectCurve(id)
+    }
+
+    @Synchronized
+    fun refreshSessions() {
+        run?.refreshSessions()
+    }
+
     @Synchronized fun readyForSource(): Boolean = run == null || run!!.finished
 
     @Synchronized
@@ -82,6 +100,18 @@ internal object DiagnosticRuntime {
 
         fun requestCurve() {
             curveController?.request()
+            signal()
+        }
+
+        fun sessionSnapshot() = curveController?.sessions() ?: LocalSessionsSnapshot()
+
+        fun selectCurve(id: UUID) {
+            curveController?.select(id)
+            signal()
+        }
+
+        fun refreshSessions() {
+            curveController?.refreshSessions()
             signal()
         }
 

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="field_name">OxyWatt · Saved power curve</string>
+    <string name="field_description">Observed power curve from an explicitly chosen saved local session.</string>
+    <string name="field_header">Saved power · %1$s</string>
+    <string name="field_header_compact">Saved · %1$s</string>
+    <string name="field_seconds">%1$d s</string>
+    <string name="field_minutes">%1$d min</string>
+    <string name="field_session_date">Session · %1$s</string>
+    <string name="field_saved">Saved session</string>
+    <string name="field_best">Best covered window</string>
+    <string name="field_missing">No covered window</string>
+    <string name="field_limited">Limited scan</string>
+    <string name="field_setup">Choose a saved session in OxyWatt</string>
+    <string name="field_loading">Loading saved result</string>
+    <string name="field_removed">Session removed</string>
+    <string name="field_pending">New result pending</string>
+    <string name="field_failed">Latest result failed</string>
+    <string name="field_unavailable">Latest result unavailable</string>
+    <string name="field_invalid">Unsupported saved result</string>
+    <string name="field_read_error">Storage read error</string>
+    <string name="field_settings_error">Ride field settings error · clear to reset</string>
+    <string name="field_no_worker">Open OxyWatt · history unavailable</string>
+    <string name="field_enlarge">Enlarge field</string>
+    <string name="field_dash">—</string>
+    <string name="field_watts">W</string>
+    <string name="field_accessibility">%1$s. %2$s W. %3$s. %4$s.</string>
+    <string name="field_controls_title">Ride field · Saved power</string>
+    <string name="field_bind">Use saved curve in ride field</string>
+    <string name="field_bind_error">Could not bind selected session: %1$s</string>
+    <string name="field_clear">Clear ride field selection</string>
+    <string name="field_duration_label">Duration</string>
+    <string name="field_appearance_label">Appearance</string>
+    <string name="field_light">Light</string>
+    <string name="field_dark">Dark</string>
+    <string name="field_configuration">Bound session: %1$s\nFirst local receipt date (UTC): %2$s\n%3$s · %4$s\n%5$s</string>
+    <string name="field_controls_hint">Select a supported saved local curve above, choose duration and appearance, then apply. Selecting another diagnostic session does not change the ride field. Showing the field never calculates or records.</string>
+    <string name="field_preview_description">Preview of the configured saved power ride field</string>
+</resources>

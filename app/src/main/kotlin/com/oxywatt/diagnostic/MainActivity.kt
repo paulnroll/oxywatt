@@ -28,6 +28,8 @@ class MainActivity : Activity() {
     private lateinit var sessionStatus: TextView
     private lateinit var sessionRows: LinearLayout
     private lateinit var refreshSessions: Button
+    private lateinit var historyControls: HistoryControls
+    private var historySubscription: AutoCloseable? = null
     private lateinit var savedFieldControls: SavedFieldControls
     private var renderedCards: List<LocalSessionCard>? = null
     private var renderedSelection: java.util.UUID? = null
@@ -81,6 +83,8 @@ class MainActivity : Activity() {
         curve = line()
         savedFieldControls = SavedFieldControls(this)
         root.addView(savedFieldControls)
+        historyControls = HistoryControls(this)
+        root.addView(historyControls)
         timing = line(15f)
         report = line()
         line(15f).setText(R.string.diagnostic_report_scope)
@@ -97,10 +101,13 @@ class MainActivity : Activity() {
 
     override fun onResume() {
         super.onResume()
+        historySubscription = DiagnosticRuntime.subscribeHistory()
         handler.post(refresh)
     }
 
     override fun onPause() {
+        historySubscription?.close()
+        historySubscription = null
         handler.removeCallbacks(refresh)
         super.onPause()
     }
@@ -162,6 +169,7 @@ class MainActivity : Activity() {
             curveState,
             !DiagnosticRuntime.readyForSource(),
         )
+        historyControls.render(DiagnosticRuntime.history())
         curve.text = liveCurveText(this, curveState)
         val timingText = curveTimingText(this, DiagnosticRuntime.curveTiming())
         if (timing.text.toString() != timingText) timing.text = timingText

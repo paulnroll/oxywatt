@@ -115,49 +115,55 @@ internal class SavedFieldController(
         }
     }
 
-    private fun load(b: SavedFieldBinding): SavedFieldSnapshot {
-        fun state(s: SavedFieldStatus, date: Instant? = null, generation: Long? = null) =
-            SavedFieldSnapshot(s, b, date, generation)
-        val session = inputs.session(b.session) ?: return state(SavedFieldStatus.REMOVED)
-        require(
-            session.phase == SessionPhase.ENDED_LOCALLY &&
-                session.origin == SessionOrigin.OBSERVED_START &&
-                session.ambiguityGroupId == null
-        )
-        require(session.source.adapterId == "karoo" && session.source.adapterVersion == "1.1.9")
-        require(
-            session.normalizationVersion == "karoo-normalization-v1" &&
-                session.policy == LifecyclePolicy("karoo-diagnostic-silence-v1", 5_000_000_000)
-        )
-        val saved =
-            readRealSavedCurve(analyses, session)
-                ?: return state(SavedFieldStatus.UNAVAILABLE, session.firstReceipt.utc)
-        if (saved.status != AnalysisStatus.AVAILABLE)
-            return state(
-                when (saved.status) {
-                    AnalysisStatus.PENDING -> SavedFieldStatus.PENDING
-                    AnalysisStatus.FAILED -> SavedFieldStatus.FAILED
-                    else -> SavedFieldStatus.UNAVAILABLE
-                },
-                session.firstReceipt.utc,
-                saved.generation,
-            )
-        val curve = checkNotNull(saved.terminal?.curve).snapshot
-        return SavedFieldSnapshot(
-            SavedFieldStatus.SAVED,
-            b,
+    private fun load(b: SavedFieldBinding) = loadSavedField(inputs, analyses, b)
+}
+
+internal fun loadSavedField(
+    inputs: InputRepository,
+    analyses: AnalysisRepository,
+    b: SavedFieldBinding,
+): SavedFieldSnapshot {
+    fun state(s: SavedFieldStatus, date: Instant? = null, generation: Long? = null) =
+        SavedFieldSnapshot(s, b, date, generation)
+    val session = inputs.session(b.session) ?: return state(SavedFieldStatus.REMOVED)
+    require(
+        session.phase == SessionPhase.ENDED_LOCALLY &&
+            session.origin == SessionOrigin.OBSERVED_START &&
+            session.ambiguityGroupId == null
+    )
+    require(session.source.adapterId == "karoo" && session.source.adapterVersion == "1.1.9")
+    require(
+        session.normalizationVersion == "karoo-normalization-v1" &&
+            session.policy == LifecyclePolicy("karoo-diagnostic-silence-v1", 5_000_000_000)
+    )
+    val saved =
+        readRealSavedCurve(analyses, session)
+            ?: return state(SavedFieldStatus.UNAVAILABLE, session.firstReceipt.utc)
+    if (saved.status != AnalysisStatus.AVAILABLE)
+        return state(
+            when (saved.status) {
+                AnalysisStatus.PENDING -> SavedFieldStatus.PENDING
+                AnalysisStatus.FAILED -> SavedFieldStatus.FAILED
+                else -> SavedFieldStatus.UNAVAILABLE
+            },
             session.firstReceipt.utc,
             saved.generation,
-            java.util.Collections.unmodifiableList(
-                curve.durations.map {
-                    FieldPower(
-                        it.durationSeconds,
-                        it.record?.meanWatts,
-                        it.unavailableReason == PowerUnavailableReason.RESOURCE_LIMIT,
-                    )
-                }
-            ),
-            curve.resourceLimited,
         )
-    }
+    val curve = checkNotNull(saved.terminal?.curve).snapshot
+    return SavedFieldSnapshot(
+        SavedFieldStatus.SAVED,
+        b,
+        session.firstReceipt.utc,
+        saved.generation,
+        java.util.Collections.unmodifiableList(
+            curve.durations.map {
+                FieldPower(
+                    it.durationSeconds,
+                    it.record?.meanWatts,
+                    it.unavailableReason == PowerUnavailableReason.RESOURCE_LIMIT,
+                )
+            }
+        ),
+        curve.resourceLimited,
+    )
 }

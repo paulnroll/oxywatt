@@ -171,7 +171,7 @@ class SavedFieldRuntimeTest {
                 assertEquals(5, karoo.system.consumerCount)
                 assertEquals(result.generation, fixture.results.newest(result.slot)!!.generation)
                 assertNull(DiagnosticRuntime.curveTiming())
-                assertEquals(1, service.get().types.size)
+                assertEquals(2, service.get().types.size)
                 val xml = karoo.app.resources.getXml(R.xml.extension_info)
                 while (
                     xml.eventType != org.xmlpull.v1.XmlPullParser.END_DOCUMENT &&

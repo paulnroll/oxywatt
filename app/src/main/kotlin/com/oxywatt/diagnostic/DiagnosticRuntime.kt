@@ -17,6 +17,40 @@ internal object DiagnosticRuntime {
     private var model: DiagnosticCapture? = null
     private var run: LiveRun? = null
     private var restartBlocked = false
+    private var historySubscribers = 0
+
+    @Synchronized
+    fun history(): HistorySnapshot =
+        run?.let { live ->
+            live.historySnapshot().let {
+                if (live.finished) it.copy(status = HistoryStatus.NO_WORKER, entries = emptyList())
+                else it
+            }
+        } ?: HistorySnapshot()
+
+    @Synchronized
+    fun refreshHistory(config: HistoryConfig? = null) {
+        run?.refreshHistory(config)
+    }
+
+    @Synchronized
+    fun subscribeHistory(): AutoCloseable {
+        historySubscribers++
+        return object : AutoCloseable {
+            private var closed = false
+
+            override fun close() =
+                synchronized(this@DiagnosticRuntime) {
+                    if (!closed) {
+                        closed = true
+                        historySubscribers--
+                    }
+                }
+        }
+    }
+
+    @Synchronized private fun hasHistorySubscribers() = historySubscribers > 0
+
     private var fieldSubscribers = 0
 
     @Synchronized
@@ -140,6 +174,15 @@ internal object DiagnosticRuntime {
         @Volatile private var curveController: LiveCurveController? = null
         @Volatile private var fieldController: SavedFieldController? = null
 
+        @Volatile private var historyController: HistoryController? = null
+
+        fun historySnapshot() = historyController?.snapshot() ?: HistorySnapshot()
+
+        fun refreshHistory(config: HistoryConfig?) {
+            historyController?.refresh(config)
+            signal()
+        }
+
         fun fieldSnapshot() = fieldController?.snapshot() ?: SavedFieldSnapshot()
 
         fun bindField(binding: SavedFieldBinding) {
@@ -251,6 +294,13 @@ internal object DiagnosticRuntime {
                             SavedFieldSettings(context),
                             SystemClock::elapsedRealtimeNanos,
                         )
+                    historyController =
+                        HistoryController(
+                            repository,
+                            analyses,
+                            HistorySettings(context),
+                            SystemClock::elapsedRealtimeNanos,
+                        )
                 } catch (_: Exception) {
                     analyses?.close()
                     analyses = null
@@ -270,11 +320,26 @@ internal object DiagnosticRuntime {
                     if (coordinator.finished) break
                     curveController?.pump()
                     fieldController?.pump(hasFieldSubscribers(), curveController?.snapshot()?.saved)
+                    val curveState = curveController?.snapshot()
+                    historyController?.pump(
+                        hasHistorySubscribers(),
+                        curveState?.saved,
+                        curveState?.session?.id?.takeIf {
+                            curveState.status in
+                                setOf(
+                                    LiveCurveStatus.CALCULATING,
+                                    LiveCurveStatus.PENDING,
+                                    LiveCurveStatus.RETRYING,
+                                )
+                        },
+                    )
                     // Continue through the outer canonical/stop checks, never a Job-internal loop.
                     if (controller?.shouldWaitAfterTurn() == false) continue
                     // One reusable waiter; notifications never retain events or enqueue tasks.
                     val delay =
-                        if (curveController?.hasWork == true) 1L else coordinator.waitMillis()
+                        if (curveController?.hasWork == true || historyController?.hasWork == true)
+                            1L
+                        else coordinator.waitMillis()
                     if (controller == null) synchronized(wake) { wake.wait(delay) }
                     else controller.waitForWorker { synchronized(wake) { wake.wait(delay) } }
                 }

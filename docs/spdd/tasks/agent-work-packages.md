@@ -386,3 +386,11 @@ Owner approved [T08b1](t08b1-saved-curve-field.md) F01–F07 synthetic software 
 
 
 T08b1 F01–F07 software COMPLETE: [final evidence](t08b1-saved-curve-field.md#final-software-verification-and-disposition--2026-11-13) records 262 debug/286 preview PASS, build/lint/format/isolation, unchanged core and source/ownership review on merged main a23f074. Software is uncommitted in the isolated feature worktree. F08 hardware and publication/device/private-input/merge/release remain separate; no further task scope is inferred.
+
+
+## T08b2 completed-session power timeline proposal — 2026-11-13
+
+Owner requested progression from completed trainings in the plugin. [T08b2](t08b2-power-history-timeline.md) is the concrete next software decision: app plus separate Power history ride field, raw saved observed-power points by receipt UTC, nine durations, explicit bounded 20 recently persisted snapshots (not necessarily latest workouts), structural eligibility/current-generation/provenance gates, missing/error rows and incremental canonical-first projection. No smoothing, physiology, automatic calculation, schema, storage or SDK change. P01–P08 synthetic-only implementation and narrow diagnostic ordering exception await named approval; P09/device/private input, installation, publication and full automatic/history acceptance remain separate. Existing T08b1 evidence preserved; no application code or device action in this preparation.
+
+
+T08b2 software approval / documentation publication first — 2026-11-13: owner explicitly approved the concrete P01–P08 synthetic-only scope, including the 20-recently-persisted snapshot bound and diagnostic presentation ordering exception, and requested a PR for the documentation already prepared before implementation. This authorizes commit/push/PR of installation/F08 evidence, product clarification, T08b2 specification and approval synchronization. No implementation is included in this documentation PR. T08b2 application implementation follows PR publication; its later publication, installation/P09/device/private-input work, merge/release and broader history/automatic/scientific gates remain separate. Earlier pending-approval wording describes the proposal stage.

@@ -43,3 +43,8 @@ Owner requested skipping T02c2 now and continuing development, with possible lat
 
 
 T04b3 local software completion (2026-11-12, owner-approved): [implementation/evidence](../spdd/tasks/t04b3-live-diagnostic-curve.md#final-verification-and-disposition--2026-11-12) delivers explicit latest-ended diagnostic curve calculation/save/readout through the existing worker and repositories. Shared stepped replay, exact live policy and real-origin codec/slot, canonical priority/cancellation and cap/newest-result safeguards are verified with synthetic inputs only. Final full debug 170 PASS; full preview 192 PASS before the final cancellation cleanup, followed by 54 focused preview passes; core check/build 120 passes/one private-FIT skip cached, build/lint/format/isolation PASS. Version 0.5.0/code 5 built locally, not installed. No private data/FIT/device analysis or publication. T02c2 remains deferred; full acquisition/resources/product live T04 and physiology remain open.
+
+
+## Proposed raw historical presentation — T08b2
+
+[T08b2](../spdd/tasks/t08b2-power-history-timeline.md) proposes plotting authoritative existing complete-search power observations across structurally eligible locally ended sessions, with receipt-UTC chronology, exact selected duration and explicit missing/incompatible/limited entries. No engine, curve formula, smoothing, fitness trend inference or FTP/VO2max estimator is selected. A point is an observed effort; no point does not mean zero. Owner subsequently approved P01–P08 synthetic-only software, with documentation publication first; execution remains NOT RUN. This is not scientific or hardware validation.

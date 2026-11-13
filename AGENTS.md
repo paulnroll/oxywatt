@@ -20,6 +20,12 @@ Owner approved T08b1 synthetic-only software implementation on 2026-11-13 after 
 
 Owner subsequently authorized T08b1 commit/push/PR and one same-signer data-preserving 0.9.0/code 9 installation/launch/limited readout on 2026-11-13. Inherited storage-v2/64 MiB is retained, including the known old-cap FULL recovery context. No real Calculate/Retry, private input/FIT/oracle, recording, binding/clear, native profile change, deletion, merge or release. Full F08 remains separate; see the T08b1 task.
 
+T08b1 0.9.0/code 9 is now actually installed, clean source 7b3fb08, same signer and exact prepared/installed APK hash verified on 2026-11-13. Later Connected/Idle/source running and canonical commits without a visible storage error, retained session cards and new configuration/footer readout are verified. PR #52 is merged as da7f20a with four CI SUCCESS. No Bind/Clear, real Calculate/Retry, native field/profile placement or recording was performed; full F08 remains separate. Installation follow-up evidence is local documentation pending publication; see the task. Earlier installed-0.7.0/not-installed status is historical.
+
+Owner subsequently authorized and executed the limited T08b1 F08 presentation trial on 2026-11-13: explicit older saved-session binding at 5 s, new Road page preserving original fields, physical native editor large/smaller Dark and smaller Light, matching rounded value/date and app HOME/reopen. F08 remains PARTIAL; see the task for untested recording-time/error/tiny/process-death cases. No Calculate/Retry, new recording or installation in that trial.
+
+Owner approved T08b2 P01–P08 synthetic-only software on 2026-11-13, including its explicit bounded history/presentation scope and diagnostic ordering exception, but requested a PR for existing documentation first. See `docs/spdd/tasks/t08b2-power-history-timeline.md`. Commit/push/PR publication of current installation/F08 documentation, timeline specification and approval is authorized. T08b2 implementation follows that PR publication. Later T08b2 software publication, P09/device/private-input actions, installation, merge/release, automatic calculation and full-history paging remain separate.
+
 ## Routing
 
 - Product intent: `docs/product/requirements.md`.

@@ -10,6 +10,8 @@ Owner subsequently authorized same-signer in-place 0.7.0 installation/launch/lim
 
 The authorized 0.7.0 installation preflight on 2026-11-13 found Connected/Idle but canonical SQLiteFullException near the 32 MiB database cap; installation was NOT RUN. Clean-commit 4d8502c APK/signature verification passed. Installed 0.6.0 remains unchanged. Storage remediation/deletion/cap changes and full S21–S22 analysis remain separate; software publication is authorized.
 
+Owner then explicitly requested 0.7.0 installation despite the reported SQLiteFullException on 2026-11-13. This superseded the healthy-storage gate for that one same-signer update only. Actual install-r, exact installed/prepared APK hash equality, clean 4d8502c provenance, launch and limited new readout are verified in T04b4. Storage remains blocked/FULL; no Calculate/Retry or remediation was performed. Earlier NOT RUN/installed-0.6.0 statuses are historical. Full S21–S22, deletion/cap changes, recordings/FIT and merge/release remain separate.
+
 ## Routing
 
 - Product intent: `docs/product/requirements.md`.

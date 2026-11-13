@@ -94,6 +94,12 @@ class LiveCurveRuntimeTest {
             screen.setup()
             shadowOf(Looper.getMainLooper()).idleFor(Duration.ofMillis(600))
             assertFalse(DiagnosticRuntime.curve().canCalculate)
+            assertNull(DiagnosticRuntime.curveTiming())
+            assertTrue(
+                views(screen.get().window.decorView).filterIsInstance<TextView>().any {
+                    it.text.contains("No runtime timing available")
+                }
+            )
             views(screen.get().window.decorView)
                 .filterIsInstance<Button>()
                 .single { it.text == screen.get().getString(R.string.local_sessions_refresh) }
@@ -140,11 +146,23 @@ class LiveCurveRuntimeTest {
                     it.text.contains("5 s: 200.0 W")
                 }
             )
+            val expectedTiming = curveTimingText(screen.get(), timing)
+            assertTrue(
+                views(screen.get().window.decorView).filterIsInstance<TextView>().any {
+                    it.text.toString() == expectedTiming
+                }
+            )
             screen.recreate()
             shadowOf(Looper.getMainLooper()).idleFor(Duration.ofMillis(600))
             assertEquals(saved.generation, DiagnosticRuntime.curve().saved!!.generation)
             assertEquals(target, DiagnosticRuntime.curve().session!!.id)
             assertEquals(5, karoo.system.consumerCount)
+            assertEquals(timing, DiagnosticRuntime.curveTiming())
+            assertTrue(
+                views(screen.get().window.decorView).filterIsInstance<TextView>().any {
+                    it.text.toString() == expectedTiming
+                }
+            )
         } finally {
             screen.pause().stop().destroy()
             service.destroy()

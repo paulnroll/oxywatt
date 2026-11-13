@@ -10,4 +10,10 @@
         description="@string/field_description"
         graphical="true"
         icon="@drawable/ic_diagnostic" />
+    <DataType
+        typeId="power-history"
+        displayName="@string/history_name"
+        description="@string/history_description"
+        graphical="true"
+        icon="@drawable/ic_diagnostic" />
 </ExtensionInfo>

@@ -12,8 +12,9 @@ import io.hammerhead.karooext.models.StreamState
 
 class DiagnosticExtension : KarooExtension("oxywatt-diagnostic", BuildConfig.VERSION_NAME) {
     private val savedCurveField = SavedCurveDataType()
+    private val historyField = HistoryDataType()
     override val types: List<io.hammerhead.karooext.extension.DataTypeImpl> =
-        listOf(savedCurveField)
+        listOf(savedCurveField, historyField)
     private lateinit var sourceHandle: AutoCloseable
     private lateinit var capture: DiagnosticCapture
 
@@ -90,6 +91,7 @@ class DiagnosticExtension : KarooExtension("oxywatt-diagnostic", BuildConfig.VER
     override fun onDestroy() {
         try {
             savedCurveField.close()
+            historyField.close()
             sourceHandle.close()
         } finally {
             Log.i(TAG, "extension destroyed")

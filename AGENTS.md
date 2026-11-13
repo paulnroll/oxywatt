@@ -26,6 +26,10 @@ Owner subsequently authorized and executed the limited T08b1 F08 presentation tr
 
 Owner approved T08b2 P01–P08 synthetic-only software on 2026-11-13, including its explicit bounded history/presentation scope and diagnostic ordering exception, but requested a PR for existing documentation first. See `docs/spdd/tasks/t08b2-power-history-timeline.md`. Commit/push/PR publication of current installation/F08 documentation, timeline specification and approval is authorized. T08b2 implementation follows that PR publication. Later T08b2 software publication, P09/device/private-input actions, installation, merge/release, automatic calculation and full-history paging remain separate.
 
+T08b2 P01–P08 synthetic-only software is locally complete and verified on 2026-11-13: 294 debug / 318 preview PASS; core 120 passes/one opt-in private-FIT skip; build/lint/format/isolation PASS. Final test-only canonical-progress strengthening passes four debug/four preview executions. See `docs/spdd/tasks/t08b2-power-history-timeline.md`. Source is isolated in `/private/tmp/oxywatt-t08b2`, based on merged specification b79d8d4, uncommitted/unpublished. Version remains inherited 0.9.0/code 9 locally, not installed; installed clean 7b3fb08 is unchanged. T08b2 implementation publication, P09/device/private input/installation, merge/release and broader automatic/history/scientific gates remain separate.
+
+Owner subsequently authorized commit/push/PR publication of completed T08b2 P01–P08 on 2026-11-13. Reviewed software/test/documentation scope and verification remain as recorded in the task. Installation, P09/device/private-input execution, merge/release and broader automatic/history/scientific work remain separate.
+
 ## Routing
 
 - Product intent: `docs/product/requirements.md`.

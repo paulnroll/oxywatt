@@ -59,6 +59,51 @@ class LiveCurveRuntimeTest {
             else emptyList()
 
     @Test
+    fun `live runtime opens data beyond the historical cap and publishes exact storage v2 metadata`() {
+        val name = "oxywatt-live-diagnostic.db"
+        val path = karoo.app.getDatabasePath(name)
+        com.oxywatt.diagnostic.persistence.InputRepository(karoo.app, name).use { it.state() }
+        android.database.sqlite.SQLiteDatabase.openDatabase(path.path, null, 0).use { db ->
+            db.execSQL("CREATE TABLE capacity_fixture (data BLOB NOT NULL)")
+            db.execSQL(
+                "INSERT INTO capacity_fixture VALUES (zeroblob(?))",
+                arrayOf(33L * 1024 * 1024),
+            )
+        }
+        assertTrue(path.length() > 33554432L)
+        val service = Robolectric.buildService(DiagnosticExtension::class.java).create()
+        try {
+            karoo.awaitValue {
+                true.takeIf {
+                    karoo.system.consumerCount == 5 && DiagnosticRuntime.storage().received > 0
+                }
+            }
+            ShadowSystemClock.advanceBy(Duration.ofSeconds(6))
+            karoo.awaitValue {
+                true.takeIf {
+                    DiagnosticRuntime.storage().committed > 0 &&
+                        !DiagnosticRuntime.sessions().unavailable
+                }
+            }
+            com.oxywatt.diagnostic.persistence.InputRepository(karoo.app, name).use { inputs ->
+                val rows = inputs.replay(inputs.state().revision)
+                assertTrue(rows.isNotEmpty())
+                rows.forEach { row ->
+                    val metadata = org.json.JSONObject(row.metadata.acquisition!!)
+                    assertEquals("karoo-diagnostic-storage-v2", metadata.getString("storage"))
+                    assertEquals(67108864L, metadata.getLong("maximumBytes"))
+                }
+            }
+            assertFalse(DiagnosticRuntime.curve().canCalculate)
+            assertNull(DiagnosticRuntime.curveTiming())
+        } finally {
+            service.destroy()
+            karoo.awaitValue { true.takeIf { DiagnosticRuntime.readyForSource() } }
+            karoo.app.deleteDatabase(name)
+        }
+    }
+
+    @Test
     fun `screen button computes real adapter inputs on the existing runtime and recreation reloads without a new generation`() {
         val service = Robolectric.buildService(DiagnosticExtension::class.java).create()
         val screen = Robolectric.buildActivity(MainActivity::class.java)

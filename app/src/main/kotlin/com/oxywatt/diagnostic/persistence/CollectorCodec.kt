@@ -330,8 +330,14 @@ internal object CollectorCodec {
         validateAcquisition(value)
         require(value.getString("ordering") == "karoo-diagnostic-order-v1")
         require(value.getString("retry") == "karoo-diagnostic-retry-v1")
-        require(value.getString("storage") == "karoo-diagnostic-storage-v1")
-        require(value.getLong("maximumBytes") == 32L * 1024 * 1024)
+        val storage = value.getString("storage")
+        val maximumBytes = value.getLong("maximumBytes")
+        require(
+            (storage == "karoo-diagnostic-storage-v1" && maximumBytes == 32L * 1024 * 1024) ||
+                (storage == "karoo-diagnostic-storage-v2" && maximumBytes == 64L * 1024 * 1024)
+        ) {
+            "Unsupported live storage policy/cap"
+        }
         require(value.getString("silence") == "karoo-diagnostic-silence-v1")
         require(value.getLong("silenceNanos") == 5_000_000_000L)
     }

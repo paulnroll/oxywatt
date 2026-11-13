@@ -187,7 +187,7 @@ class LiveDiagnosticCoordinatorTest {
     fun `restart discards unknown tail and preserves distinct ambiguous sessions`() {
         val name = "restart-${UUID.randomUUID()}.db"
         var old: UUID? = null
-        InputRepository(context, name).use { repo ->
+        InputRepository(context, name, maximumBytes = 131072).use { repo ->
             val owner = LiveDiagnosticCoordinator(repo, elapsed = { now })
             input(owner, InputPayload.Recording(RecordingState.IDLE))
             input(owner, InputPayload.Recording(RecordingState.RECORDING))
@@ -195,7 +195,7 @@ class LiveDiagnosticCoordinatorTest {
             old = repo.checkpoint()!!.latestSession!!.id
             input(owner, InputPayload.MetricReading(Metric.POWER_W, 234.0))
         }
-        InputRepository(context, name).use { repo ->
+        InputRepository(context, name, maximumBytes = 262144).use { repo ->
             val owner = LiveDiagnosticCoordinator(repo, elapsed = { now })
             repo.beforeCheckpoint = { throw android.database.sqlite.SQLiteFullException() }
             owner.pump()

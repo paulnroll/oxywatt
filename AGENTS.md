@@ -10,6 +10,12 @@ Owner subsequently authorized same-signer in-place 0.7.0 installation/launch/lim
 
 The authorized 0.7.0 installation preflight on 2026-11-13 found Connected/Idle but canonical SQLiteFullException near the 32 MiB database cap; installation was NOT RUN. Clean-commit 4d8502c APK/signature verification passed. Installed 0.6.0 remains unchanged. Storage remediation/deletion/cap changes and full S21–S22 analysis remain separate; software publication is authorized.
 
+Owner then explicitly requested 0.7.0 installation despite the reported SQLiteFullException on 2026-11-13. This superseded the healthy-storage gate for that one same-signer update only. Actual install-r, exact installed/prepared APK hash equality, clean 4d8502c provenance, launch and limited new readout are verified in T04b4. Storage remains blocked/FULL; no Calculate/Retry or remediation was performed. Earlier NOT RUN/installed-0.6.0 statuses are historical. Full S21–S22, deletion/cap changes, recordings/FIT and merge/release remain separate.
+
+Owner approved T03e1 E11–E14 on 2026-11-13: non-destructive storage-v2/64 MiB bounded capacity recovery, strict v1/32 MiB compatibility, 0.8.0/code 8 and synthetic software verification. Software is locally verified as 0.8.0/code 8 (234 debug / 258 preview PASS; build/lint/isolation PASS), not installed. See the existing T03e1 task. Installation, real device/private-input analyses, Idle filtering/deletion/retention, publication/merge/release remain separate.
+
+Owner subsequently authorized commit/push/PR publication of completed T03e1 E11–E14/0.8.0 on 2026-11-13, including preserved 0.7.0 installation evidence. 0.8.0 installation/device/private-input checks, merge/release and retention/Idle filtering remain separate.
+
 ## Routing
 
 - Product intent: `docs/product/requirements.md`.

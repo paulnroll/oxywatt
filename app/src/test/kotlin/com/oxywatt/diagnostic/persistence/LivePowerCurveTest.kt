@@ -76,7 +76,13 @@ class LivePowerCurveTest {
     }
 
     /** Literal first-ride facts and an independent typed-token SHA-256 encoder. */
-    private fun timingHashOracle(): String {
+    private fun timingHashOracle(
+        acquisition: String = metadata(),
+        targetId: UUID = id,
+        receiptEpoch: UUID = epoch,
+    ): String {
+        val id = targetId
+        val epoch = receiptEpoch
         val digest = java.security.MessageDigest.getInstance("SHA-256")
         fun token(text: String?) {
             digest.update(
@@ -151,7 +157,7 @@ class LivePowerCurveTest {
                     """{"envelope":{"session":"$id","input":{"stamp":${stamp(second,sequence)},"source":$source,"normalization":"karoo-normalization-v1","payload":$payload}},"segment":${if(ended) "null" else "0"},"sessions":[$session],"breaks":$breaks,"rejection":null,"checkpointSchema":"collector-checkpoint-v1","profile":null,"horizonReceipt":${second * 1_000_000_000L},"metadata":{"codec":1,"policy":{"version":"admission-v1","events":4096,"bytes":4194304,"reservedEvents":64,"reservedBytes":65536,"envelopeBytes":1024,"flushNanos":5000000000},"terminal":null,"loss":null}}"""
                 )
             document(selected)
-            document(JSONObject(metadata()))
+            document(JSONObject(acquisition))
         }
         return digest.digest().joinToString("") { "%02x".format(it) }
     }
@@ -646,11 +652,17 @@ class LivePowerCurveTest {
         return l
     }
 
-    private fun rides(repo: InputRepository, count: Int, baseWatts: Double = 100.0): List<UUID> {
-        var number = 202L
+    private fun rides(
+        repo: InputRepository,
+        count: Int,
+        baseWatts: Double = 100.0,
+        receiptEpoch: UUID = epoch,
+        firstId: Long = 202L,
+    ): List<UUID> {
+        var number = firstId
         val lifecycle =
             CollectorLifecycle(
-                epoch,
+                receiptEpoch,
                 LifecyclePolicy("karoo-diagnostic-silence-v1", 5_000_000_000),
                 { UUID(0, number++) },
             )
@@ -663,7 +675,7 @@ class LivePowerCurveTest {
                     SourceObservation(
                         ReceiptStamp(
                             Instant.EPOCH.plusSeconds(t),
-                            epoch,
+                            receiptEpoch,
                             t * 1_000_000_000,
                             sequence++,
                         ),
@@ -683,7 +695,7 @@ class LivePowerCurveTest {
             repo.commit(repo.prepare(batch, lifecycle, repo.state().revision))
             queue.committed(batch)
         }
-        return (0 until count).map { UUID(0, 202L + it) }
+        return (0 until count).map { UUID(0, firstId + it) }
     }
 
     @Test
@@ -1369,6 +1381,237 @@ class LivePowerCurveTest {
                     AnalysisStatus.PENDING,
                     results.newest(PowerCurveCalculation.realSlot(id))!!.status,
                 )
+            }
+        }
+    }
+
+    @Test
+    fun `larger live capacity recovers a native full transaction without changing committed prefix or saved curve`() {
+        val n = name()
+        val oldCap = 32L * 1024 * 1024
+        lateinit var pending: PreparedInputWrite
+        lateinit var prefix: List<StoredObservation>
+        lateinit var checkpoint: StoredCollectorState
+        lateinit var saved: StoredAnalysis
+        InputRepository(context, n, oldCap, metadata()).use { inputs ->
+            val lifecycle = fill(inputs)
+            AnalysisRepository(context, n, oldCap).use { results ->
+                val calculation = PowerCurveCalculation(inputs, results).prepareReal(id, "test")
+                results.complete(calculation.generation, calculation.terminal)
+                saved = results.newest(PowerCurveCalculation.realSlot(id))!!
+            }
+            prefix = inputs.observations()
+            checkpoint = inputs.state()
+            android.database.sqlite.SQLiteDatabase.openDatabase(
+                    context.getDatabasePath(n).path,
+                    null,
+                    0,
+                )
+                .use { db ->
+                    db.setMaximumSize(oldCap)
+                    db.execSQL("CREATE TABLE capacity_fixture (data BLOB NOT NULL)")
+                    db.execSQL(
+                        "INSERT INTO capacity_fixture VALUES (zeroblob(?))",
+                        arrayOf(oldCap - 262144),
+                    )
+                }
+            val q = BoundedAdmission()
+            repeat(1000) { i ->
+                assertTrue(
+                    q.offer(
+                        SourceObservation(
+                            ReceiptStamp(Instant.EPOCH, epoch, 7_000_000_000L + i, 9L + i),
+                            SourceRef("karoo", "1.1.9"),
+                            "karoo-normalization-v1",
+                            InputPayload.MetricReading(Metric.POWER_W, 0.0),
+                        )
+                    )
+                )
+            }
+            pending = inputs.prepare(q.takeBatch()!!, lifecycle, checkpoint.revision)
+            assertThrows(android.database.sqlite.SQLiteFullException::class.java) {
+                inputs.commit(pending)
+            }
+            assertEquals(prefix, inputs.observations())
+            assertEquals(checkpoint, inputs.state())
+        }
+        // The retained write retains its original metadata; only connection capacity changes.
+        InputRepository(context, n, LiveDiagnosticStorage.MAXIMUM_BYTES).use { inputs ->
+            AnalysisRepository(context, n, LiveDiagnosticStorage.MAXIMUM_BYTES).use { results ->
+                assertEquals(saved, results.newest(PowerCurveCalculation.realSlot(id)))
+                assertEquals(prefix, inputs.observations())
+                assertEquals(checkpoint, inputs.state())
+                assertEquals(checkpoint.revision + 1, inputs.commit(pending))
+                assertEquals(checkpoint.revision + 1, inputs.commit(pending))
+                assertEquals(prefix, inputs.observations(limit = 256).take(prefix.size))
+                assertEquals(saved, results.newest(PowerCurveCalculation.realSlot(id)))
+            }
+        }
+        assertTrue(context.getDatabasePath(n).length() > oldCap)
+        android.database.sqlite.SQLiteDatabase.openDatabase(
+                context.getDatabasePath(n).path,
+                null,
+                0,
+            )
+            .use { db ->
+                assertEquals(67108864L, db.setMaximumSize(LiveDiagnosticStorage.MAXIMUM_BYTES))
+                assertEquals(
+                    oldCap - 262144,
+                    db.rawQuery("SELECT length(data) FROM capacity_fixture", null).use {
+                        it.moveToFirst()
+                        it.getLong(0)
+                    },
+                )
+                assertThrows(android.database.sqlite.SQLiteFullException::class.java) {
+                    db.execSQL(
+                        "INSERT INTO capacity_fixture VALUES (zeroblob(?))",
+                        arrayOf(67108864L),
+                    )
+                }
+            }
+        InputRepository(context, n, LiveDiagnosticStorage.MAXIMUM_BYTES).use { inputs ->
+            assertEquals(checkpoint.revision + 1, inputs.state().revision)
+            assertEquals(
+                1000 + prefix.size,
+                inputs.observations(limit = 256).size +
+                    inputs.observations(afterPosition = 256, limit = 256).size +
+                    inputs.observations(afterPosition = 512, limit = 256).size +
+                    inputs.observations(afterPosition = 768, limit = 256).size,
+            )
+        }
+    }
+
+    @Test
+    fun `storage v2 real curve matches independent power window and reopens without rewriting v1`() {
+        val n = name()
+        val nextEpoch = UUID(0, 301)
+        val nextId = UUID(0, 302)
+        val acquisition =
+            JSONObject(metadata(nextEpoch))
+                .put("storage", "karoo-diagnostic-storage-v2")
+                .put("maximumBytes", 64L * 1024 * 1024)
+                .toString()
+        lateinit var historical: StoredAnalysis
+        lateinit var originalRows: List<CommittedEffect>
+        InputRepository(context, n, 32L * 1024 * 1024, metadata()).use { inputs ->
+            rides(inputs, 2)
+            originalRows = inputs.replay(inputs.state().revision)
+            AnalysisRepository(context, n, 32L * 1024 * 1024).use { results ->
+                val c = PowerCurveCalculation(inputs, results).prepareReal(id, "test")
+                assertEquals(timingHashOracle(), c.terminal.curve!!.inputHash)
+                results.complete(c.generation, c.terminal)
+                historical = results.newest(PowerCurveCalculation.realSlot(id))!!
+            }
+        }
+        lateinit var newer: StoredAnalysis
+        InputRepository(context, n, LiveDiagnosticStorage.MAXIMUM_BYTES, acquisition).use { inputs
+            ->
+            rides(inputs, 2, receiptEpoch = nextEpoch, firstId = 302L)
+            assertEquals(originalRows, inputs.replay(2))
+            AnalysisRepository(context, n, LiveDiagnosticStorage.MAXIMUM_BYTES).use { results ->
+                assertEquals(historical, results.newest(PowerCurveCalculation.realSlot(id)))
+                val c = PowerCurveCalculation(inputs, results).prepareReal(nextId, "test")
+                assertEquals(
+                    timingHashOracle(acquisition, nextId, nextEpoch),
+                    c.terminal.curve!!.inputHash,
+                )
+                val record = c.terminal.curve!!.snapshot.durations.first().record!!
+                assertEquals(100.0, record.meanWatts, 0.0)
+                assertEquals(0L, record.startNanos)
+                assertEquals(5_000_000_000L, record.endNanos)
+                assertTrue(
+                    c.terminal.curve!!.snapshot.durations.drop(1).all {
+                        it.record == null &&
+                            it.unavailableReason ==
+                                com.oxywatt.core.power.PowerUnavailableReason
+                                    .INSUFFICIENT_CONTIGUOUS_COVERAGE
+                    }
+                )
+                assertEquals(2L, c.generation)
+                results.complete(c.generation, c.terminal)
+                newer = results.newest(PowerCurveCalculation.realSlot(nextId))!!
+            }
+        }
+        AnalysisRepository(context, n, LiveDiagnosticStorage.MAXIMUM_BYTES).use { results ->
+            InputRepository(context, n, LiveDiagnosticStorage.MAXIMUM_BYTES).use { inputs ->
+                assertEquals(originalRows, inputs.replay(2))
+                assertEquals(historical, results.newest(PowerCurveCalculation.realSlot(id)))
+                assertEquals(newer, results.newest(PowerCurveCalculation.realSlot(nextId)))
+            }
+        }
+    }
+
+    @Test
+    fun `live curves reject unknown mismatched and mixed storage policy metadata without creating a generation`() {
+        for ((policy, cap) in
+            listOf(
+                "karoo-diagnostic-storage-v1" to 67108864L,
+                "karoo-diagnostic-storage-v2" to 33554432L,
+                "karoo-diagnostic-storage-v3" to 67108864L,
+                "karoo-diagnostic-storage-v2" to 67112960L,
+            )) {
+            val n = name()
+            val acquisition =
+                JSONObject(metadata()).put("storage", policy).put("maximumBytes", cap).toString()
+            InputRepository(context, n, acquisition = acquisition).use { inputs ->
+                fill(inputs)
+                val prefix = inputs.replay(inputs.state().revision)
+                AnalysisRepository(context, n).use { results ->
+                    assertThrows(IllegalArgumentException::class.java) {
+                        PowerCurveCalculation(inputs, results).prepareReal(id, "test")
+                    }
+                    assertNull(results.newest(PowerCurveCalculation.realSlot(id)))
+                    assertEquals(prefix, inputs.replay(inputs.state().revision))
+                }
+            }
+        }
+        val n = name()
+        val lifecycle =
+            CollectorLifecycle(
+                epoch,
+                LifecyclePolicy("karoo-diagnostic-silence-v1", 5_000_000_000),
+                { id },
+            )
+        fun part(first: Boolean): AdmissionBatch {
+            val q = BoundedAdmission()
+            fun put(t: Long, seq: Long, payload: InputPayload) {
+                assertTrue(
+                    q.offer(
+                        SourceObservation(
+                            ReceiptStamp(Instant.EPOCH, epoch, t * 1_000_000_000, seq),
+                            SourceRef("karoo", "1.1.9"),
+                            "karoo-normalization-v1",
+                            payload,
+                        )
+                    )
+                )
+            }
+            if (first) {
+                put(0, 0, InputPayload.Recording(RecordingState.IDLE))
+                put(0, 1, InputPayload.Recording(RecordingState.RECORDING))
+                put(0, 2, InputPayload.MetricReading(Metric.POWER_W, 100.0))
+            } else {
+                for (t in 1L..5L) put(t, t + 2, InputPayload.MetricReading(Metric.POWER_W, 100.0))
+                put(6, 8, InputPayload.Recording(RecordingState.IDLE))
+            }
+            return q.takeBatch()!!
+        }
+        InputRepository(context, n, acquisition = metadata()).use {
+            it.commit(it.prepare(part(true), lifecycle, 0))
+        }
+        val mixed =
+            JSONObject(metadata())
+                .put("storage", "karoo-diagnostic-storage-v2")
+                .put("maximumBytes", 67108864L)
+                .toString()
+        InputRepository(context, n, acquisition = mixed).use { inputs ->
+            inputs.commit(inputs.prepare(part(false), lifecycle, 1))
+            AnalysisRepository(context, n).use { results ->
+                assertThrows(IllegalArgumentException::class.java) {
+                    PowerCurveCalculation(inputs, results).prepareReal(id, "test")
+                }
+                assertNull(results.newest(PowerCurveCalculation.realSlot(id)))
+                assertEquals(9, inputs.observations().size)
             }
         }
     }

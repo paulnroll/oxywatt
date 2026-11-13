@@ -16,6 +16,10 @@ Owner approved T03e1 E11–E14 on 2026-11-13: non-destructive storage-v2/64 MiB 
 
 Owner subsequently authorized commit/push/PR publication of completed T03e1 E11–E14/0.8.0 on 2026-11-13, including preserved 0.7.0 installation evidence. 0.8.0 installation/device/private-input checks, merge/release and retention/Idle filtering remain separate.
 
+Owner approved T08b1 synthetic-only software implementation on 2026-11-13 after the concrete saved-curve ride-field scope and mockup: durable explicit session UUID/duration/appearance binding, bounded existing-worker newest-result projection and graphical Karoo field. See `docs/spdd/tasks/t08b1-saved-curve-field.md`. Installation/device/private-input actions, publication, merge and release remain separate. Work is isolated from the storage session.
+
+Owner subsequently authorized T08b1 commit/push/PR and one same-signer data-preserving 0.9.0/code 9 installation/launch/limited readout on 2026-11-13. Inherited storage-v2/64 MiB is retained, including the known old-cap FULL recovery context. No real Calculate/Retry, private input/FIT/oracle, recording, binding/clear, native profile change, deletion, merge or release. Full F08 remains separate; see the T08b1 task.
+
 ## Routing
 
 - Product intent: `docs/product/requirements.md`.

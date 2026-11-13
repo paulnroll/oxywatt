@@ -17,6 +17,45 @@ internal object DiagnosticRuntime {
     private var model: DiagnosticCapture? = null
     private var run: LiveRun? = null
     private var restartBlocked = false
+    private var fieldSubscribers = 0
+
+    @Synchronized
+    fun savedField(): SavedFieldSnapshot =
+        run?.let { live ->
+            val snapshot = live.fieldSnapshot()
+            if (live.finished)
+                snapshot.copy(status = SavedFieldStatus.NO_WORKER, points = emptyList())
+            else snapshot
+        } ?: SavedFieldSnapshot()
+
+    @Synchronized
+    fun bindSavedField(binding: SavedFieldBinding) {
+        run?.bindField(binding)
+    }
+
+    @Synchronized
+    fun clearSavedField() {
+        run?.clearField()
+    }
+
+    /** View attachment observes the existing worker; it cannot start or retain a source. */
+    @Synchronized
+    fun subscribeSavedField(): AutoCloseable {
+        fieldSubscribers++
+        return object : AutoCloseable {
+            private var closed = false
+
+            override fun close() =
+                synchronized(this@DiagnosticRuntime) {
+                    if (!closed) {
+                        closed = true
+                        fieldSubscribers--
+                    }
+                }
+        }
+    }
+
+    @Synchronized private fun hasFieldSubscribers() = fieldSubscribers > 0
 
     @Synchronized
     fun capture(context: Context): DiagnosticCapture {
@@ -99,6 +138,19 @@ internal object DiagnosticRuntime {
         @Volatile private var owner: LiveDiagnosticCoordinator? = null
         @Volatile private var failure: String? = null
         @Volatile private var curveController: LiveCurveController? = null
+        @Volatile private var fieldController: SavedFieldController? = null
+
+        fun fieldSnapshot() = fieldController?.snapshot() ?: SavedFieldSnapshot()
+
+        fun bindField(binding: SavedFieldBinding) {
+            fieldController?.bind(binding)
+            signal()
+        }
+
+        fun clearField() {
+            fieldController?.clear()
+            signal()
+        }
 
         fun timingSnapshot() = curveController?.timingSnapshot()
 
@@ -192,6 +244,13 @@ internal object DiagnosticRuntime {
                                 if (BuildConfig.CODE_DIRTY) "+local" else "",
                             SystemClock::elapsedRealtimeNanos,
                         )
+                    fieldController =
+                        SavedFieldController(
+                            repository,
+                            analyses,
+                            SavedFieldSettings(context),
+                            SystemClock::elapsedRealtimeNanos,
+                        )
                 } catch (_: Exception) {
                     analyses?.close()
                     analyses = null
@@ -210,6 +269,7 @@ internal object DiagnosticRuntime {
                     if (requestedStop && !started) coordinator.stopped()
                     if (coordinator.finished) break
                     curveController?.pump()
+                    fieldController?.pump(hasFieldSubscribers(), curveController?.snapshot()?.saved)
                     // Continue through the outer canonical/stop checks, never a Job-internal loop.
                     if (controller?.shouldWaitAfterTurn() == false) continue
                     // One reusable waiter; notifications never retain events or enqueue tasks.

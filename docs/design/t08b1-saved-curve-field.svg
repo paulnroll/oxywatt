@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900"><rect width="1200" height="900" fill="#edece7"/><g font-family="Arial, sans-serif">
+<text x="48" y="54" fill="#17272c" font-size="24" font-weight="700">oxywatt / ride field</text>
+<text x="910" y="54" fill="#17272c" font-size="12" font-weight="700">DESIGN STUDY / 01</text>
+<line x1="48" y1="78" x2="1152" y2="78" stroke="#c9d2cc"/>
+<text x="48" y="145" fill="#17272c" font-size="45" font-weight="700">Your power. A clearer picture.</text>
+<text x="48" y="183" fill="#53646a" font-size="18" font-weight="400">One saved session. A readable number. An honest power curve.</text>
+<rect x="48" y="230" width="536" height="340" rx="3" fill="#10262b"/>
+<text x="72" y="262" fill="#a7bfc0" font-size="11" font-weight="700">SAVED POWER · 5 MIN</text>
+<text x="72" y="360" fill="#f3f8f7" font-size="92" font-weight="700">318</text>
+<text x="253" y="360" fill="#a7bfc0" font-size="22" font-weight="400">W</text>
+<text x="74" y="388" fill="#a7bfc0" font-size="13" font-weight="400">Best covered window</text>
+<line x1="78" y1="496" x2="552" y2="496" stroke="#314b50"/>
+<circle cx="78.0" cy="415.9" r="2.5" fill="#61dfb9" stroke="#61dfb9" stroke-width="2.5"/>
+<line x1="78.0" y1="415.9" x2="207.08672446854646" y2="441.1" stroke="#61dfb9" stroke-width="3"/>
+<circle cx="207.08672446854646" cy="441.1" r="2.5" fill="#61dfb9" stroke="#61dfb9" stroke-width="2.5"/>
+<line x1="207.08672446854646" y1="441.1" x2="257.02428620591536" y2="451.9" stroke="#61dfb9" stroke-width="3"/>
+<circle cx="257.02428620591536" cy="451.9" r="2.5" fill="#61dfb9" stroke="#61dfb9" stroke-width="2.5"/>
+<line x1="257.02428620591536" y1="451.9" x2="336.17344893709287" y2="462.7" stroke="#61dfb9" stroke-width="3"/>
+<circle cx="336.17344893709287" cy="462.7" r="2.5" fill="#61dfb9" stroke="#61dfb9" stroke-width="2.5"/>
+<line x1="336.17344893709287" y1="462.7" x2="372.9757137940846" y2="467.38" stroke="#61dfb9" stroke-width="3"/>
+<circle cx="372.9757137940846" cy="467.38" r="5" fill="#10262b" stroke="#61dfb9" stroke-width="2.5"/>
+<line x1="372.9757137940846" y1="467.38" x2="422.9132755314536" y2="469.9" stroke="#61dfb9" stroke-width="3"/>
+<circle cx="422.9132755314536" cy="469.9" r="2.5" fill="#61dfb9" stroke="#61dfb9" stroke-width="2.5"/>
+<line x1="422.9132755314536" y1="469.9" x2="472.85083726882254" y2="472.15" stroke="#61dfb9" stroke-width="3"/>
+<circle cx="472.85083726882254" cy="472.15" r="2.5" fill="#61dfb9" stroke="#61dfb9" stroke-width="2.5"/>
+<line x1="472.85083726882254" y1="472.15" x2="502.0624382626311" y2="473.41" stroke="#61dfb9" stroke-width="3"/>
+<circle cx="502.0624382626311" cy="473.41" r="2.5" fill="#61dfb9" stroke="#61dfb9" stroke-width="2.5"/>
+<line x1="502.0624382626311" y1="473.41" x2="552.0" y2="475.12" stroke="#61dfb9" stroke-width="3"/>
+<circle cx="552.0" cy="475.12" r="2.5" fill="#61dfb9" stroke="#61dfb9" stroke-width="2.5"/>
+<text x="71.0" y="516" fill="#a7bfc0" font-size="10" font-weight="400">5s</text>
+<text x="250.02428620591536" y="516" fill="#a7bfc0" font-size="10" font-weight="400">1m</text>
+<text x="365.9757137940846" y="516" fill="#a7bfc0" font-size="10" font-weight="400">5m</text>
+<text x="465.85083726882254" y="516" fill="#a7bfc0" font-size="10" font-weight="400">20m</text>
+<text x="545.0" y="516" fill="#a7bfc0" font-size="10" font-weight="400">60m</text>
+<line x1="72" y1="530" x2="560" y2="530" stroke="#314b50"/>
+<text x="72" y="552" fill="#a7bfc0" font-size="12" font-weight="400">Session · 12 Nov 2026</text>
+<text x="464" y="552" fill="#61dfb9" font-size="12" font-weight="700">Saved session</text>
+<rect x="616" y="230" width="536" height="340" rx="3" fill="#ffffff"/>
+<text x="640" y="262" fill="#526c70" font-size="11" font-weight="700">SAVED POWER · 5 MIN</text>
+<text x="640" y="360" fill="#112c31" font-size="92" font-weight="700">318</text>
+<text x="821" y="360" fill="#526c70" font-size="22" font-weight="400">W</text>
+<text x="642" y="388" fill="#526c70" font-size="13" font-weight="400">Best covered window</text>
+<line x1="646" y1="496" x2="1120" y2="496" stroke="#dce7e5"/>
+<circle cx="646.0" cy="415.9" r="2.5" fill="#087f72" stroke="#087f72" stroke-width="2.5"/>
+<line x1="646.0" y1="415.9" x2="775.0867244685464" y2="441.1" stroke="#087f72" stroke-width="3"/>
+<circle cx="775.0867244685464" cy="441.1" r="2.5" fill="#087f72" stroke="#087f72" stroke-width="2.5"/>
+<line x1="775.0867244685464" y1="441.1" x2="825.0242862059154" y2="451.9" stroke="#087f72" stroke-width="3"/>
+<circle cx="825.0242862059154" cy="451.9" r="2.5" fill="#087f72" stroke="#087f72" stroke-width="2.5"/>
+<line x1="825.0242862059154" y1="451.9" x2="904.1734489370929" y2="462.7" stroke="#087f72" stroke-width="3"/>
+<circle cx="904.1734489370929" cy="462.7" r="2.5" fill="#087f72" stroke="#087f72" stroke-width="2.5"/>
+<line x1="904.1734489370929" y1="462.7" x2="940.9757137940846" y2="467.38" stroke="#087f72" stroke-width="3"/>
+<circle cx="940.9757137940846" cy="467.38" r="5" fill="#ffffff" stroke="#087f72" stroke-width="2.5"/>
+<line x1="940.9757137940846" y1="467.38" x2="990.9132755314536" y2="469.9" stroke="#087f72" stroke-width="3"/>
+<circle cx="990.9132755314536" cy="469.9" r="2.5" fill="#087f72" stroke="#087f72" stroke-width="2.5"/>
+<line x1="990.9132755314536" y1="469.9" x2="1040.8508372688225" y2="472.15" stroke="#087f72" stroke-width="3"/>
+<circle cx="1040.8508372688225" cy="472.15" r="2.5" fill="#087f72" stroke="#087f72" stroke-width="2.5"/>
+<line x1="1040.8508372688225" y1="472.15" x2="1070.062438262631" y2="473.41" stroke="#087f72" stroke-width="3"/>
+<circle cx="1070.062438262631" cy="473.41" r="2.5" fill="#087f72" stroke="#087f72" stroke-width="2.5"/>
+<line x1="1070.062438262631" y1="473.41" x2="1120.0" y2="475.12" stroke="#087f72" stroke-width="3"/>
+<circle cx="1120.0" cy="475.12" r="2.5" fill="#087f72" stroke="#087f72" stroke-width="2.5"/>
+<text x="639.0" y="516" fill="#526c70" font-size="10" font-weight="400">5s</text>
+<text x="818.0242862059154" y="516" fill="#526c70" font-size="10" font-weight="400">1m</text>
+<text x="933.9757137940846" y="516" fill="#526c70" font-size="10" font-weight="400">5m</text>
+<text x="1033.8508372688225" y="516" fill="#526c70" font-size="10" font-weight="400">20m</text>
+<text x="1113.0" y="516" fill="#526c70" font-size="10" font-weight="400">60m</text>
+<line x1="640" y1="530" x2="1128" y2="530" stroke="#dce7e5"/>
+<text x="640" y="552" fill="#526c70" font-size="12" font-weight="400">Session · 12 Nov 2026</text>
+<text x="1032" y="552" fill="#087f72" font-size="12" font-weight="700">Saved session</text>
+<text x="48" y="599" fill="#17272c" font-size="11" font-weight="700">01 / DARK</text>
+<text x="616" y="599" fill="#17272c" font-size="11" font-weight="700">02 / LIGHT</text>
+<rect x="48" y="630" width="260" height="174" rx="3" fill="#10262b"/>
+<text x="72" y="662" fill="#a7bfc0" font-size="11" font-weight="700">SAVED POWER · 5 MIN</text>
+<text x="72" y="730" fill="#f3f8f7" font-size="62" font-weight="700">318</text>
+<text x="218" y="730" fill="#a7bfc0" font-size="22" font-weight="400">W</text>
+<line x1="72" y1="764" x2="284" y2="764" stroke="#314b50"/>
+<text x="72" y="786" fill="#a7bfc0" font-size="10" font-weight="400">Session · 12 Nov 2026</text>
+<rect x="336" y="630" width="260" height="174" rx="3" fill="#ffffff"/>
+<text x="360" y="662" fill="#526c70" font-size="11" font-weight="700">SAVED POWER · 5 MIN</text>
+<text x="360" y="730" fill="#112c31" font-size="62" font-weight="700">—</text>
+<text x="506" y="730" fill="#526c70" font-size="22" font-weight="400">W</text>
+<line x1="360" y1="764" x2="572" y2="764" stroke="#dce7e5"/>
+<text x="360" y="755" fill="#526c70" font-size="11">No covered window</text>
+<text x="360" y="786" fill="#526c70" font-size="10" font-weight="400">Session · 12 Nov 2026</text>
+<text x="638" y="658" fill="#17272c" font-size="20" font-weight="700">Smaller field. Same essential context.</text>
+<text x="638" y="692" fill="#53646a" font-size="14" font-weight="400">Keep the value, duration and session date.</text>
+<text x="638" y="718" fill="#53646a" font-size="14" font-weight="400">Drop the chart when space is tight.</text>
+<text x="638" y="760" fill="#087f72" font-size="14" font-weight="700">Missing is never zero. Gaps break the curve.</text>
+<line x1="48" y1="838" x2="1152" y2="838" stroke="#c9d2cc"/>
+<text x="48" y="868" fill="#53646a" font-size="12" font-weight="400">T08b1 · Illustrative values and date · Not a Karoo screenshot · Device rendering not verified</text>
+</g></svg>

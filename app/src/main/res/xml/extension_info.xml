@@ -3,4 +3,11 @@
     displayName="@string/diagnostic_name"
     icon="@drawable/ic_diagnostic"
     id="oxywatt-diagnostic"
-    fitFile="true" />
+    fitFile="true">
+    <DataType
+        typeId="saved-power-curve"
+        displayName="@string/field_name"
+        description="@string/field_description"
+        graphical="true"
+        icon="@drawable/ic_diagnostic" />
+</ExtensionInfo>

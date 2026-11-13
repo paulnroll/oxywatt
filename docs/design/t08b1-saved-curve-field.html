@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>OxyWatt — Saved power field concept</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#edece7;color:#17272c;font-family:system-ui,-apple-system,sans-serif}main{max-width:1160px;margin:auto;padding:54px 32px}header{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #ccd2cf;padding-bottom:22px}.brand{font-weight:800;letter-spacing:-1px;font-size:24px}.brand i{font-style:normal;color:#087f72}.tag{font-size:11px;font-weight:700;letter-spacing:1.7px;text-transform:uppercase}h1{font-size:clamp(32px,5vw,58px);line-height:1.05;letter-spacing:-2px;max-width:740px;margin:35px 0 16px}p{line-height:1.6;color:#53646a;max-width:670px}.studio{display:grid;grid-template-columns:1fr 300px;gap:48px;align-items:start;margin-top:36px}.preview{background:#dbe0dc;border-radius:24px;padding:34px;min-height:510px;display:flex;flex-direction:column;justify-content:center;gap:22px}.field{--bg:#10262b;--ink:#f3f8f7;--muted:#a7bfc0;--accent:#61dfb9;--line:#314b50;background:var(--bg);color:var(--ink);border-radius:3px;padding:22px 26px;width:100%;max-width:530px;margin:auto}.field.light{--bg:#fff;--ink:#112c31;--muted:#526c70;--accent:#087f72;--line:#dce7e5}.top{display:flex;justify-content:space-between;gap:10px;align-items:center;font-size:12px;font-weight:750;letter-spacing:.7px;text-transform:uppercase;color:var(--muted)}.sig{color:var(--accent);font-size:12px}.reading{display:flex;align-items:baseline;gap:12px;margin-top:8px;line-height:1}.number{font-size:88px;letter-spacing:-5px;font-weight:750;font-variant-numeric:tabular-nums}.unit{font-size:24px;font-weight:550;color:var(--muted)}.explain{font-size:13px;color:var(--muted);min-height:20px;margin:4px 0 0}.chart{width:100%;height:auto;display:block;margin:14px 0 4px}.foot{border-top:1px solid var(--line);padding-top:12px;display:flex;justify-content:space-between;gap:8px;font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}.foot strong{color:var(--accent);font-weight:650}.compact .chart,.compact .explain{display:none}.compact{max-width:280px;padding:18px}.compact .number{font-size:65px;letter-spacing:-3px}.compact .reading{margin:14px 0}.compact .top{font-size:10px}.compact .foot{font-size:10px;flex-direction:column;gap:5px}.foot strong{overflow-wrap:anywhere}.caption{text-align:center;margin:0;font-size:11px;color:#53646a;letter-spacing:.5px}.controls h2{font-size:17px;margin:0 0 20px}.controls label{display:block;font-size:12px;font-weight:700;margin:20px 0 8px}select,button{font:inherit;font-size:14px;border:1px solid #bdc9c6;background:#f8f9f6;border-radius:8px;padding:11px 12px;color:#17272c;width:100%}select:focus-visible,button:focus-visible{outline:3px solid #087f72;outline-offset:2px}.switches{display:flex;gap:8px}.switches button.active{background:#13383b;color:white;border-color:#13383b}.hint{font-size:12px;line-height:1.6;margin-top:22px}.note{border-top:1px solid #ccd2cf;margin-top:36px;padding-top:20px;display:grid;grid-template-columns:repeat(3,1fr);gap:26px}.note b{display:block;font-size:13px}.note p{font-size:12px;margin:6px 0}.badge{display:inline-block;margin-top:16px;background:#e0e5dc;padding:7px 10px;border-radius:5px;font-size:10px;font-weight:750;letter-spacing:.6px}@media(max-width:800px){main{padding:24px 18px}.studio{grid-template-columns:1fr;gap:24px}.preview{padding:24px 16px;min-height:400px}.controls{max-width:530px;width:100%;margin:auto}.note{grid-template-columns:1fr}header .tag{font-size:9px}.number{font-size:72px}.field{padding:18px}.foot{font-size:10px}}
+</style>
+<main>
+<header><div class="brand">oxy<i>watt</i><span style="font-weight:400;font-size:14px;margin-left:14px">/ ride field</span></div><span class="tag">Design study · 01</span></header>
+<h1>Your power.<br>A clearer picture.</h1>
+<p>A saved session, one readable number, and its power curve. Designed for a quick glance from your Karoo ride page.</p>
+<div class="studio">
+ <div class="preview">
+  <section class="field" id="field" aria-label="Saved power field design preview" aria-live="polite">
+   <div class="top"><span id="heading">Saved power · 5 min</span><span class="sig" aria-hidden="true">↗ OW</span></div>
+   <div class="reading"><span class="number" id="value">318</span><span class="unit">W</span></div>
+   <p class="explain" id="reason">Best covered window</p>
+   <svg class="chart" id="chart" viewBox="0 0 440 150" role="img" aria-label="Illustrative saved power curve"></svg>
+   <div class="foot"><span id="date">Session · 12 Nov 2026</span><strong id="status">Saved session</strong></div>
+  </section>
+  <p class="caption">ILLUSTRATIVE FIELD · NOT A KAROO SCREENSHOT</p>
+ </div>
+ <aside class="controls">
+  <h2>Try the field</h2>
+  <label>Appearance</label><div class="switches"><button type="button" id="dark" class="active" aria-pressed="true">Dark</button><button type="button" id="light" aria-pressed="false">Light</button></div>
+  <label for="duration">Duration</label><select id="duration"><option value="0">5 s</option><option value="1">30 s</option><option value="2">1 min</option><option value="3">3 min</option><option value="4" selected>5 min</option><option value="5">10 min</option><option value="6">20 min</option><option value="7">30 min</option><option value="8">60 min</option></select>
+  <label for="size">Field size</label><select id="size"><option value="large">Large · value + curve</option><option value="compact">Compact · value</option></select>
+  <label for="state">Display state</label><select id="state"><option value="saved">Saved curve</option><option value="missing">No covered 5 min window</option><option value="limited">Limited scan</option><option value="empty">No session bound</option><option value="loading">Loading saved result</option><option value="pending">New result pending</option><option value="deleted">Session removed</option><option value="error">Storage read error</option><option value="worker">Worker unavailable</option><option value="zero">Valid zero at 5 min</option></select>
+  <p class="hint">Session and duration are configured in OxyWatt. The ride field displays the saved result; it never starts a calculation.</p>
+  <span class="badge">MOCK DATA · NO DEVICE CONNECTION</span>
+ </aside>
+</div>
+<div class="note"><div><b>A result you can place.</b><p>The session date stays visible. This is saved power, with no implied update from the current ride.</p></div><div><b>Honest gaps.</b><p>Missing windows break the curve. Missing power is never drawn as zero.</p></div><div><b>Readable at a glance.</b><p>The compact field drops the chart, keeping the value, duration and session date.</p></div></div>
+<p style="font-size:11px;margin-top:26px">T08b1 concept · Every number, date and curve point is invented for visual review. Host sizing, typography and RemoteViews rendering still require software and Karoo verification. The proposed default appearance is Light; this board opens Dark to show both options.</p>
+</main>
+<script>
+const seconds=[5,30,60,180,300,600,1200,1800,3600],labels=['5 s','30 s','1 min','3 min','5 min','10 min','20 min','30 min','60 min'];
+const points=[890,610,490,370,318,290,265,251,232];
+const $=id=>document.getElementById(id);
+function appearance(light){$('field').classList.toggle('light',light);for(const id of ['light','dark']){const on=(id==='light')===light;$(id).classList.toggle('active',on);$(id).setAttribute('aria-pressed',String(on));}}
+$('light').onclick=()=>appearance(true);$('dark').onclick=()=>appearance(false);
+function render(){
+ const i=Number($('duration').value),state=$('state').value;
+ $('field').classList.toggle('compact',$('size').value==='compact');
+ const values=points.slice();if(state==='missing')values[4]=null;if(state==='zero')values[4]=0;
+ const show=['saved','missing','limited','zero'].includes(state);
+ const messages={empty:'Choose a saved session in OxyWatt',loading:'Loading saved result',pending:'New result pending',deleted:'Session removed',error:'Storage read error',worker:'Open OxyWatt'};
+ $('heading').textContent='Saved power · '+labels[i];
+ $('value').textContent=show&&values[i]!==null?String(values[i]):'—';
+ $('reason').textContent=show?(values[i]===null?'No covered window':state==='limited'?'Best covered window · limited scan':'Best covered window'):messages[state];
+ $('date').textContent=['empty','worker'].includes(state)?'Setup in OxyWatt':'Session · 12 Nov 2026';
+ $('status').textContent=state==='limited'?'Limited scan':show&&values[i]===null?'No covered window':show?'Saved session':state==='worker'?'History unavailable':messages[state];
+ $('chart').style.visibility=show?'visible':'hidden';
+ const x=s=>18+(Math.log(s)-Math.log(5))/(Math.log(3600)-Math.log(5))*404,y=w=>112-w/1000*96;
+ let svg='<line x1="18" y1="112" x2="422" y2="112" stroke="var(--line)"/><line x1="18" y1="64" x2="422" y2="64" stroke="var(--line)" stroke-dasharray="2 6"/>';
+ let previous=null;
+ values.forEach((v,j)=>{if(v===null){previous=null;return;}const xx=x(seconds[j]),yy=y(v);if(previous)svg+=`<line x1="${previous[0]}" y1="${previous[1]}" x2="${xx}" y2="${yy}" stroke="var(--accent)" stroke-width="2.5"/>`;svg+=`<circle cx="${xx}" cy="${yy}" r="${j===i?5:2.5}" fill="${j===i?'var(--bg)':'var(--accent)'}" stroke="var(--accent)" stroke-width="2.5"/>`;previous=[xx,yy];});
+ if(values[i]!==null)svg+=`<line x1="${x(seconds[i])}" y1="${y(values[i])+8}" x2="${x(seconds[i])}" y2="112" stroke="var(--muted)" stroke-dasharray="2 4"/>`;
+ [[5,'5s'],[60,'1m'],[300,'5m'],[1200,'20m'],[3600,'60m']].forEach(([s,l])=>svg+=`<text x="${x(s)}" y="137" fill="var(--muted)" font-size="10" font-family="system-ui,sans-serif" text-anchor="middle">${l}</text>`);
+ $('chart').innerHTML=svg;
+ $('chart').setAttribute('aria-label','Invented example power curve; '+labels[i]+': '+(values[i]===null?'no covered window':values[i]+' watts')+'. Zero-baseline watts; logarithmic duration axis.');
+}
+for(const id of ['duration','size','state'])$(id).onchange=render;
+render();
+</script>
+</html>

@@ -378,3 +378,11 @@ T03e1 E11–E14 software complete — 2026-11-13: [final capacity-recovery evide
 
 
 T03e1 E11–E14 publication authorized — 2026-11-13: owner explicitly requested a PR for the completed 0.8.0 capacity-recovery package. This authorizes commit/push/PR of the thirteen reviewed tracked paths, including preserved db6000b post-merge 0.7.0 installation evidence and proposal/software verification. Fresh repository-account check confirms paulnroll, fetched base main 450683d, no existing PR for fix/t03e1-storage-capacity-recovery. Full self-review of current source/tests/policy/provenance and scope/privacy found no additional source defect; final 234 debug/258 preview evidence remains unchanged. Unrelated untracked docs/design and T08b1 work is excluded and untouched. Installation/device/private-input actions, merge/release and retention/Idle filtering remain separate. Prepared local APK remains db6000b plus reviewed local source, not the future publication commit; no rebuild or device action during publication. Remote head/base/title/check state is read after publication.
+
+
+## T08b1 implementation authorized — 2026-11-13
+
+Owner approved [T08b1](t08b1-saved-curve-field.md) F01–F07 synthetic software after its concrete scope/mockup. Existing app owns saved-field configuration/controller/renderer/DataTypeImpl, resource-backed controls and SDK/runtime hooks; shared newest-result validation is reused by diagnostics. Isolated feature worktree is based on fetched merged main a23f074, including the other session's 0.8.0 storage fix. No storage/repository/engine change belongs to this slice. F08 hardware/private inputs/installation and commit/push/PR/merge/release remain separately authorized; actual verification and limitations are in the task.
+
+
+T08b1 F01–F07 software COMPLETE: [final evidence](t08b1-saved-curve-field.md#final-software-verification-and-disposition--2026-11-13) records 262 debug/286 preview PASS, build/lint/format/isolation, unchanged core and source/ownership review on merged main a23f074. Software is uncommitted in the isolated feature worktree. F08 hardware and publication/device/private-input/merge/release remain separate; no further task scope is inferred.

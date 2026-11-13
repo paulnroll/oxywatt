@@ -28,6 +28,7 @@ class MainActivity : Activity() {
     private lateinit var sessionStatus: TextView
     private lateinit var sessionRows: LinearLayout
     private lateinit var refreshSessions: Button
+    private lateinit var savedFieldControls: SavedFieldControls
     private var renderedCards: List<LocalSessionCard>? = null
     private var renderedSelection: java.util.UUID? = null
     private var renderedEnabled = false
@@ -78,6 +79,8 @@ class MainActivity : Activity() {
                 root.addView(this)
             }
         curve = line()
+        savedFieldControls = SavedFieldControls(this)
+        root.addView(savedFieldControls)
         timing = line(15f)
         report = line()
         line(15f).setText(R.string.diagnostic_report_scope)
@@ -154,6 +157,11 @@ class MainActivity : Activity() {
     private fun render() {
         val curveState = DiagnosticRuntime.curve()
         renderSessions(DiagnosticRuntime.sessions(), curveState.session?.id)
+        savedFieldControls.render(
+            DiagnosticRuntime.savedField(),
+            curveState,
+            !DiagnosticRuntime.readyForSource(),
+        )
         curve.text = liveCurveText(this, curveState)
         val timingText = curveTimingText(this, DiagnosticRuntime.curveTiming())
         if (timing.text.toString() != timingText) timing.text = timingText

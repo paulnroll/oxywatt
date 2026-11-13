@@ -461,3 +461,6 @@ T04b4 S14–S17 final software verification — 2026-11-13: COMPLETE. Full final
 
 
 T04b4 S09–S17 publication authorized — 2026-11-13: owner explicitly requested the PR for the completed eleven-file timing/pacing software/documentation scope. Existing local evidence remains 218 debug / 242 preview PASS with full checks in the task; fresh origin/main is 61e26bd, repository account paulnroll, no existing PR for this head. Final diff/privacy/traceability review found no additional source defect; no application change or new device claim. Commit/push/PR publication is authorized, with remote read-back after execution. Merge/release and device/private-input actions remain separate.
+
+
+T04b4 S09–S17 PR created — 2026-11-13: PR #48 (https://github.com/paulnroll/oxywatt/pull/48), OPEN, `perf(android): measure and pace diagnostic power curve analysis`, base main 61e26bd, source/publication commit 8a3cc44. Commit/push/creation and matching remote head/base/title read-back verified with the repository account. Initial CI snapshot was one SUCCESS/three running, reviews empty; final head/check state is read after this documentation follow-up. Existing 218 debug/242 preview and software-only evidence unchanged; no new device/private-data claim, merge or release.

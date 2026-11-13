@@ -59,17 +59,17 @@
     <string name="canonical_restart_blocked">Source restart waiting for previous drain</string>
     <string name="canonical_restart_ready">One service-owned source</string>
     <string name="diagnostic_dirty_build">%1$s + local changes</string>
-    <string name="live_curve_calculate">Calculate latest ended session</string>
-    <string name="live_curve_retry">Retry latest ended session</string>
+    <string name="live_curve_calculate">Calculate selected session</string>
+    <string name="live_curve_retry">Retry selected session</string>
     <string name="live_curve_scope">Observed best mean power · diagnostic
 Acquisition verification incomplete. Local end does not confirm native save.</string>
-    <string name="live_curve_ready">Ready to calculate the latest locally ended session</string>
+    <string name="live_curve_ready">Ready to calculate the selected locally ended session</string>
     <string name="live_curve_calculating">Calculating · canonical input writes take priority</string>
     <string name="live_curve_saved">Saved observed curve</string>
     <string name="live_curve_pending">Previous calculation incomplete · explicit retry required</string>
     <string name="live_curve_failed">Calculation failed · no older result shown</string>
     <string name="live_curve_retrying">Result storage blocked · exact retry pending</string>
-    <string name="live_curve_no_session">No eligible latest session with an observed start and local end</string>
+    <string name="live_curve_no_session">Selected session is unavailable or has no eligible observed local end</string>
     <string name="live_curve_not_idle">Waiting for an acknowledged Idle state</string>
     <string name="live_curve_storage">Canonical or result storage unavailable</string>
     <string name="live_curve_cancelled">Calculation cancelled</string>
@@ -86,4 +86,27 @@ Input hash: %2$s
     <string name="live_curve_watts">%1$.1f W</string>
     <string name="live_curve_no_window">Unavailable · insufficient confirmed coverage</string>
     <string name="live_curve_duration_limited">Unavailable · search resource limit</string>
+    <string name="local_sessions_title">Local sessions · recently persisted</string>
+    <string name="local_sessions_refresh">Refresh sessions</string>
+    <string name="local_sessions_select">Select a local session</string>
+    <string name="local_sessions_active">Session is recording or paused · calculation unavailable</string>
+    <string name="local_sessions_recording">Recording</string>
+    <string name="local_sessions_paused">Paused</string>
+    <string name="local_sessions_ambiguous">Ambiguous continuity</string>
+    <string name="local_sessions_unambiguous">No recorded ambiguity</string>
+    <string name="local_sessions_identity">Local session: %1$s\nFirst local receipt (UTC): %2$s\nObserved receipt span: %3$.1f s (includes pauses and gaps)\n%4$s · %5$s · %6$s</string>
+    <string name="local_sessions_loading">Loading saved status</string>
+    <string name="local_sessions_error">Session or saved-result unavailable · refresh explicitly</string>
+    <string name="local_sessions_unavailable">Local sessions unavailable · source worker is not running</string>
+    <string name="local_sessions_empty">No locally persisted sessions</string>
+    <string name="local_sessions_truncated">Showing only the 20 most recently persisted session snapshots</string>
+    <string name="local_sessions_not_calculated">Not calculated</string>
+    <string name="local_sessions_coverage_unknown">Power coverage unknown</string>
+    <string name="local_sessions_coverage">Saved durations with confirmed coverage: %1$d of 9</string>
+    <string name="local_sessions_row">Session %1$d%2$s
+%3$s</string>
+    <string name="local_sessions_selected"> · selected</string>
+    <string name="local_sessions_outside">Selected session is outside this recent list</string>
+    <string name="local_sessions_revision">Session list revision: %1$d</string>
+    <string name="local_sessions_dirty">New canonical commits · refresh to update the list</string>
 </resources>

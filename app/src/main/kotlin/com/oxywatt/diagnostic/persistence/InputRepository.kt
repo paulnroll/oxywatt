@@ -39,6 +39,12 @@ data class CommittedEffect(
 
 data class StoredCollectorState(val revision: Long, val checkpoint: CollectorCheckpoint?)
 
+data class StoredSessionPage(
+    val revision: Long,
+    val sessions: List<SessionSnapshot>,
+    val truncated: Boolean,
+)
+
 /** Blocking adapter: its owner must call it on a worker, never from a sensor or UI callback. */
 class InputRepository(
     context: Context,
@@ -69,6 +75,32 @@ class InputRepository(
                         CollectorCodec.checkpoint(JSONObject(it.getString(1))),
                     )
             }
+
+    /** Recently persisted snapshots; replacement row order is not session creation order. */
+    fun recentSessions(): StoredSessionPage {
+        val db = helper.readableDatabase
+        db.beginTransactionNonExclusive()
+        try {
+            val revision = state().revision
+            val rows =
+                db.rawQuery("SELECT snapshot FROM sessions ORDER BY rowid DESC LIMIT 21", null)
+                    .use { cursor ->
+                        buildList {
+                            while (cursor.moveToNext()) add(
+                                CollectorCodec.session(JSONObject(cursor.getString(0)))
+                            )
+                        }
+                    }
+            db.setTransactionSuccessful()
+            return StoredSessionPage(
+                revision,
+                java.util.Collections.unmodifiableList(rows.take(20)),
+                rows.size > 20,
+            )
+        } finally {
+            db.endTransaction()
+        }
+    }
 
     fun checkpoint(): CollectorCheckpoint? = state().checkpoint
 

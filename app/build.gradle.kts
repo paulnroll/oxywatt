@@ -37,8 +37,8 @@ android {
         applicationId = "com.oxywatt.diagnostic"
         minSdk = 23
         targetSdk = 34
-        versionCode = 7
-        versionName = "0.7.0"
+        versionCode = 8
+        versionName = "0.8.0"
         val codeRevision =
             providers
                 .exec { commandLine("git", "rev-parse", "HEAD") }

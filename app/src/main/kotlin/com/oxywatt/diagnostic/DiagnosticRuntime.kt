@@ -157,15 +157,15 @@ internal object DiagnosticRuntime {
                         .put("retry", "karoo-diagnostic-retry-v1")
                         .put("firstRetryNanos", 1_000_000_000L)
                         .put("subsequentRetryNanos", 5_000_000_000L)
-                        .put("storage", "karoo-diagnostic-storage-v1")
-                        .put("maximumBytes", 32L * 1024 * 1024)
+                        .put("storage", LiveDiagnosticStorage.POLICY)
+                        .put("maximumBytes", LiveDiagnosticStorage.MAXIMUM_BYTES)
                         .put("silence", "karoo-diagnostic-silence-v1")
                         .put("silenceNanos", 5_000_000_000L)
                 repository =
                     InputRepository(
                         context,
                         "oxywatt-live-diagnostic.db",
-                        32L * 1024 * 1024,
+                        LiveDiagnosticStorage.MAXIMUM_BYTES,
                         metadata.toString(),
                     )
                 val coordinator =
@@ -178,7 +178,11 @@ internal object DiagnosticRuntime {
                 // Result storage failure must not prevent canonical acquisition.
                 try {
                     analyses =
-                        AnalysisRepository(context, "oxywatt-live-diagnostic.db", 32L * 1024 * 1024)
+                        AnalysisRepository(
+                            context,
+                            "oxywatt-live-diagnostic.db",
+                            LiveDiagnosticStorage.MAXIMUM_BYTES,
+                        )
                     curveController =
                         LiveCurveController(
                             repository,
@@ -261,4 +265,10 @@ internal class AnalysisPacing(val maximumTurns: Int = 16) {
         turns = 0
         return true
     }
+}
+
+/** Main-file capacity only; journal/temp overhead and retention are separate. */
+internal object LiveDiagnosticStorage {
+    const val POLICY = "karoo-diagnostic-storage-v2"
+    const val MAXIMUM_BYTES = 64L * 1024 * 1024
 }

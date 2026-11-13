@@ -48,6 +48,8 @@ class DiagnosticActivityTest {
         assertTrue(text(activity.get().window.decorView).contains("Power: 321 W"))
         assertTrue(text(activity.get().window.decorView).contains("Local sessions unavailable"))
         assertFalse(DiagnosticRuntime.curve().canCalculate)
+        assertNull(DiagnosticRuntime.curveTiming())
+        assertTrue(text(activity.get().window.decorView).contains("No runtime timing available"))
         assertTrue(
             text(activity.get().window.decorView)
                 .contains("Committed canonical events (current epoch): 0")

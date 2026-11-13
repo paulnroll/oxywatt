@@ -23,6 +23,7 @@ class MainActivity : Activity() {
     private lateinit var report: TextView
     private lateinit var storage: TextView
     private lateinit var curve: TextView
+    private lateinit var timing: TextView
     private lateinit var calculate: Button
     private lateinit var sessionStatus: TextView
     private lateinit var sessionRows: LinearLayout
@@ -77,6 +78,7 @@ class MainActivity : Activity() {
                 root.addView(this)
             }
         curve = line()
+        timing = line(15f)
         report = line()
         line(15f).setText(R.string.diagnostic_report_scope)
         line(14f).text =
@@ -153,6 +155,8 @@ class MainActivity : Activity() {
         val curveState = DiagnosticRuntime.curve()
         renderSessions(DiagnosticRuntime.sessions(), curveState.session?.id)
         curve.text = liveCurveText(this, curveState)
+        val timingText = curveTimingText(this, DiagnosticRuntime.curveTiming())
+        if (timing.text.toString() != timingText) timing.text = timingText
         calculate.isEnabled = curveState.canCalculate
         calculate.setText(
             if (curveState.status in setOf(LiveCurveStatus.PENDING, LiveCurveStatus.FAILED))

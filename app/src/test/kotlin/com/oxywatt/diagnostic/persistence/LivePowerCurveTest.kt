@@ -301,27 +301,62 @@ class LivePowerCurveTest {
                 InputRepository(context, n, acquisition = metadata()).use { inputs ->
                     rides(inputs, 2)
                     val current = owner(n)
-                    AnalysisRepository(context, n).use { results ->
-                        val c =
-                            LiveCurveController(inputs, results, current, "test", { now }, clock)
-                        c.select(id)
-                        repeat(30) { c.pump() }
-                        c.request()
-                        repeat(100) {
-                            c.pump()
-                            if (c.shouldWaitAfterTurn()) c.waitForWorker {}
+                    val retained =
+                        AnalysisRepository(context, n).use { results ->
+                            val c =
+                                LiveCurveController(
+                                    inputs,
+                                    results,
+                                    current,
+                                    "test",
+                                    { now },
+                                    clock,
+                                )
+                            c.select(id)
+                            repeat(30) { c.pump() }
+                            c.request()
+                            repeat(100) {
+                                c.pump()
+                                if (c.shouldWaitAfterTurn()) c.waitForWorker {}
+                            }
+                            val saved = c.snapshot().saved!!
+                            assertEquals(1L, saved.generation)
+                            assertEquals(expectedHash, saved.terminal!!.curve!!.inputHash)
+                            assertEquals(
+                                100.0,
+                                saved.terminal!!
+                                    .curve!!
+                                    .snapshot
+                                    .durations
+                                    .first()
+                                    .record!!
+                                    .meanWatts,
+                                1e-9,
+                            )
+                            val summary = c.timingSnapshot()
+                            val readout = curveTimingText(context, summary)
+                            if (clock == null) {
+                                assertNull(summary)
+                                assertTrue(readout.contains("No runtime timing available"))
+                            } else {
+                                assertEquals(CurveOutcome.SAVED, summary!!.outcome)
+                                assertTrue(readout.contains("Outcome: saved"))
+                                assertEquals(
+                                    summary.incomplete,
+                                    readout.contains("Incomplete execution timing"),
+                                )
+                            }
+                            assertEquals(summary, c.timingSnapshot())
+                            assertTrue(
+                                saved.terminal!!.curve!!.snapshot.durations.drop(1).all {
+                                    it.record == null
+                                }
+                            )
+                            assertEquals(0, current.snapshot().pending)
+                            saved
                         }
-                        val saved = c.snapshot().saved!!
-                        assertEquals(1L, saved.generation)
-                        assertEquals(expectedHash, saved.terminal!!.curve!!.inputHash)
-                        assertEquals(
-                            100.0,
-                            saved.terminal!!.curve!!.snapshot.durations.first().record!!.meanWatts,
-                            1e-9,
-                        )
-                        if (clock == null) assertNull(c.timingSnapshot())
-                        else assertEquals(CurveOutcome.SAVED, c.timingSnapshot()!!.outcome)
-                        assertEquals(0, current.snapshot().pending)
+                    AnalysisRepository(context, n).use { reopened ->
+                        assertEquals(retained, reopened.newest(PowerCurveCalculation.realSlot(id)))
                     }
                 }
             }
@@ -329,6 +364,63 @@ class LivePowerCurveTest {
             assertEquals(DiagnosticReportStatus.LIMIT_REACHED, capture.snapshot().reportStatus)
         } finally {
             reportFile.delete()
+        }
+    }
+
+    @Test
+    fun `last attempt readout survives selection refresh and same code readback without a new generation`() {
+        val n = name()
+        InputRepository(context, n, acquisition = metadata()).use { inputs ->
+            val ids = rides(inputs, 2)
+            val current = owner(n)
+            AnalysisRepository(context, n).use { results ->
+                val c = LiveCurveController(inputs, results, current, "test", { now })
+                assertNull(c.timingSnapshot())
+                c.select(ids.first())
+                repeat(30) { c.pump() }
+                c.request()
+                repeat(100) { c.pump() }
+                val saved = c.snapshot().saved!!
+                val timing = c.timingSnapshot()!!
+                assertEquals(CurveOutcome.SAVED, timing.outcome)
+                val text = curveTimingText(context, timing)
+                assertTrue(text.contains("May differ from the selected session; not saved"))
+                assertFalse(text.contains(ids.first().toString()))
+                c.select(ids.last())
+                repeat(30) { c.pump() }
+                assertEquals(ids.last(), c.snapshot().session!!.id)
+                assertNull(c.snapshot().saved)
+                assertEquals(text, curveTimingText(context, c.timingSnapshot()))
+                c.refreshSessions()
+                repeat(30) { c.pump() }
+                assertEquals(timing, c.timingSnapshot())
+                assertNull(results.newest(PowerCurveCalculation.realSlot(ids.last())))
+                c.select(ids.first())
+                repeat(30) { c.pump() }
+                c.request()
+                repeat(30) { c.pump() }
+                assertEquals(saved, c.snapshot().saved)
+                assertEquals(timing, c.timingSnapshot())
+            }
+            AnalysisRepository(context, n).use { reopened ->
+                val fresh = LiveCurveController(inputs, reopened, current, "test", { now })
+                fresh.select(ids.first())
+                repeat(30) { fresh.pump() }
+                assertEquals(1L, fresh.snapshot().saved!!.generation)
+                assertNull(fresh.timingSnapshot())
+                fresh.request()
+                repeat(30) { fresh.pump() }
+                assertNull(fresh.timingSnapshot())
+                assertTrue(
+                    curveTimingText(context, fresh.timingSnapshot())
+                        .contains("No runtime timing available")
+                )
+                assertEquals(
+                    1L,
+                    reopened.newest(PowerCurveCalculation.realSlot(ids.first()))!!.generation,
+                )
+                assertNull(reopened.newest(PowerCurveCalculation.realSlot(ids.last())))
+            }
         }
     }
 

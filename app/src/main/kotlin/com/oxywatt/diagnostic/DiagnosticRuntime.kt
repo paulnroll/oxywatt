@@ -3,6 +3,8 @@ package com.oxywatt.diagnostic
 import android.content.Context
 import android.os.SystemClock
 import com.oxywatt.diagnostic.persistence.AnalysisRepository
+import com.oxywatt.diagnostic.persistence.CurveTimingSnapshot
+import com.oxywatt.diagnostic.persistence.CurveWork
 import com.oxywatt.diagnostic.persistence.InputRepository
 import java.io.File
 import java.util.UUID
@@ -41,6 +43,8 @@ internal object DiagnosticRuntime {
             val snapshot = live.curveSnapshot()
             if (live.finished) snapshot.copy(canCalculate = false) else snapshot
         } ?: LiveCurveSnapshot()
+
+    @Synchronized fun curveTiming(): CurveTimingSnapshot? = run?.timingSnapshot()
 
     @Synchronized
     fun calculateCurve() {
@@ -95,6 +99,8 @@ internal object DiagnosticRuntime {
         @Volatile private var owner: LiveDiagnosticCoordinator? = null
         @Volatile private var failure: String? = null
         @Volatile private var curveController: LiveCurveController? = null
+
+        fun timingSnapshot() = curveController?.timingSnapshot()
 
         fun curveSnapshot() = curveController?.snapshot() ?: LiveCurveSnapshot()
 
@@ -189,7 +195,9 @@ internal object DiagnosticRuntime {
                 var started = false
                 while (true) {
                     if (requestedStop || coordinator.shouldStopSource) handle?.close()
-                    coordinator.pump()
+                    val controller = curveController
+                    if (controller == null) coordinator.pump()
+                    else controller.measureWorker(CurveWork.CANONICAL) { coordinator.pump() }
                     if (!started && coordinator.ready && !requestedStop) {
                         started = true
                         handle = source(coordinator, capture, origin, ::signal)
@@ -198,14 +206,18 @@ internal object DiagnosticRuntime {
                     if (requestedStop && !started) coordinator.stopped()
                     if (coordinator.finished) break
                     curveController?.pump()
+                    // Continue through the outer canonical/stop checks, never a Job-internal loop.
+                    if (controller?.shouldWaitAfterTurn() == false) continue
                     // One reusable waiter; notifications never retain events or enqueue tasks.
                     val delay =
                         if (curveController?.hasWork == true) 1L else coordinator.waitMillis()
-                    synchronized(wake) { wake.wait(delay) }
+                    if (controller == null) synchronized(wake) { wake.wait(delay) }
+                    else controller.waitForWorker { synchronized(wake) { wake.wait(delay) } }
                 }
             } catch (error: Exception) {
                 failure = error.javaClass.simpleName.take(80)
             } finally {
+                curveController?.stopped()
                 try {
                     handle?.close()
                 } finally {
@@ -227,5 +239,26 @@ internal object DiagnosticRuntime {
             handle?.close()
             signal()
         }
+    }
+}
+
+/** Fixed operation-count pacing; canonical/stop checks still run before each analysis step. */
+internal class AnalysisPacing(val maximumTurns: Int = 16) {
+    init {
+        require(maximumTurns == 1 || maximumTurns == 16)
+    }
+
+    val policy = if (maximumTurns == 1) "single-effect-wait-v1" else "diagnostic-analysis-pacing-v1"
+    private var turns = 0
+
+    fun shouldWait(immediateAnalysis: Boolean): Boolean {
+        if (!immediateAnalysis) {
+            turns = 0
+            return true
+        }
+        turns++
+        if (turns < maximumTurns) return false
+        turns = 0
+        return true
     }
 }

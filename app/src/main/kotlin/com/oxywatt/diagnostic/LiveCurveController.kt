@@ -64,7 +64,44 @@ internal class LiveCurveController(
     private val owner: LiveDiagnosticCoordinator,
     private val codeVersion: String,
     private val elapsed: () -> Long,
+    private val executionClock: (() -> Long)? = System::nanoTime,
+    private val pacing: AnalysisPacing = AnalysisPacing(),
 ) {
+    @Volatile private var timing: CurveTiming? = null
+
+    fun timingSnapshot(): CurveTimingSnapshot? = timing?.snapshot()
+
+    private var analysisProgressed = false
+
+    /** Worker-only: list reads and retry/fault/cancellation turns cannot consume a burst. */
+    fun shouldWaitAfterTurn(): Boolean =
+        pacing.shouldWait(
+            analysisProgressed &&
+                busy &&
+                job != null &&
+                healthy() &&
+                elapsed() >= retryAt &&
+                !owner.analysisMustCancel() &&
+                (completion == null || completion?.terminal?.status == AnalysisStatus.AVAILABLE)
+        )
+
+    fun <T> measureWorker(bucket: CurveWork, action: () -> T): T {
+        val t = timing
+        return if (t == null) action() else t.measure(bucket, action)
+    }
+
+    fun waitForWorker(action: () -> Unit) {
+        val t = timing
+        t?.count(CurveCount.WAITS)
+        val bucket = if (elapsed() < retryAt) CurveWork.BACKOFF else CurveWork.WAIT
+        measureWorker(bucket, action)
+    }
+
+    fun stopped() {
+        pacing.shouldWait(false)
+        timing?.finish(CurveOutcome.STOPPED)
+    }
+
     private val actionGate = Any()
     private var requested: UUID? = null
     private var selection: UUID? = null
@@ -105,6 +142,7 @@ internal class LiveCurveController(
         synchronized(actionGate) {
             if (!busy) {
                 selection = id
+                if (requested != null) timing?.finish(CurveOutcome.DISCARDED)
                 requested = null
             }
         }
@@ -119,7 +157,19 @@ internal class LiveCurveController(
 
     fun request() =
         synchronized(actionGate) {
-            if (!busy && selection == null && snapshot().canCalculate) requested = view.session?.id
+            if (!busy && requested == null && selection == null && snapshot().canCalculate) {
+                requested = view.session?.id
+                // An acknowledged same-code result is read back, not a new attempt.
+                if (
+                    view.saved?.let {
+                        JSONObject(it.provenance).getString("codeVersion") == codeVersion &&
+                            it.status == AnalysisStatus.AVAILABLE
+                    } != true
+                )
+                    timing = executionClock?.let {
+                        CurveTiming(it, pacing.policy, pacing.maximumTurns)
+                    }
+            }
         }
 
     private var job: PowerCurveCalculation.Job? = null
@@ -313,6 +363,25 @@ internal class LiveCurveController(
     }
 
     fun pump() {
+        analysisProgressed = false
+        val t = timing
+        if (t != null) {
+            t.measure(CurveWork.CONTROL) { pumpInternal() }
+            if (!busy && synchronized(actionGate) { requested == null }) {
+                when {
+                    view.status == LiveCurveStatus.SAVED -> {
+                        t.mark(CurveMark.PUBLISHED)
+                        t.finish(CurveOutcome.SAVED)
+                    }
+                    view.reason == LiveCurveReason.CANCELLED -> t.finish(CurveOutcome.CANCELLED)
+                    view.status == LiveCurveStatus.FAILED -> t.finish(CurveOutcome.FAILED)
+                    view.status == LiveCurveStatus.UNAVAILABLE -> t.finish(CurveOutcome.DISCARDED)
+                }
+            }
+        } else pumpInternal()
+    }
+
+    private fun pumpInternal() {
         if (job != null && owner.analysisMustCancel()) {
             completion = if (!completionAttempted) job!!.cancel(true) else completion
             if (completion == null) {
@@ -346,6 +415,7 @@ internal class LiveCurveController(
                     problem = null
                 }
                 val click = synchronized(actionGate) { requested.also { requested = null } }
+                if (click != null) timing?.mark(CurveMark.FIRST_WORKER)
                 if (chosen == null && click == null && !loadFailed) {
                     if (target != null && loaded) publish()
                     if (pumpList()) return
@@ -393,13 +463,14 @@ internal class LiveCurveController(
                         updateCard(working = true)
                         job =
                             PowerCurveCalculation(inputs, analyses)
+                                .also { it.timing = timing }
                                 .beginReal(target!!, codeVersion, owner::analysisMustCancel)
                         completion = null
                         completionAttempted = false
                         problem = null
                         view =
                             LiveCurveSnapshot(LiveCurveStatus.CALCULATING, null, session = session)
-                    }
+                    } else timing?.finish(CurveOutcome.DISCARDED)
                 }
                 if (!busy) {
                     publish()
@@ -410,15 +481,20 @@ internal class LiveCurveController(
             if (completion == null) {
                 job!!.step()
                 completion = job!!.completion
+                analysisProgressed = true
             } else {
                 completionAttempted = true
-                analyses.complete(completion!!.generation, completion!!.terminal)
-                stored = readSaved(session!!)
-                job = null
-                completion = null
-                busy = false
-                publish()
-                updateCard()
+                measureWorker(CurveWork.COMPLETE) {
+                    analyses.complete(completion!!.generation, completion!!.terminal)
+                }
+                measureWorker(CurveWork.READBACK) {
+                    stored = readSaved(session!!)
+                    job = null
+                    completion = null
+                    busy = false
+                    publish()
+                    updateCard()
+                }
             }
             retryAt = 0L
             retryFailed = false
@@ -438,6 +514,7 @@ internal class LiveCurveController(
                     session = session,
                 )
         } catch (_: android.database.sqlite.SQLiteException) {
+            timing?.count(CurveCount.RETRIES)
             // No job/request exists if its initial frozen-revision read failed.
             if (busy && job == null)
                 synchronized(actionGate) {

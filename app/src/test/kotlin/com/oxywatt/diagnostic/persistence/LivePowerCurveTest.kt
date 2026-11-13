@@ -25,6 +25,469 @@ class LivePowerCurveTest {
     private val epoch = UUID(0, 201)
     private val id = UUID(0, 202)
 
+    @Test
+    fun `execution accounting excludes nested page work and preserves residual and retry waits`() {
+        var execution = 100L
+        val t = CurveTiming(clock = { execution })
+        execution += 7
+        t.mark(CurveMark.FIRST_WORKER)
+        t.measure(CurveWork.HASH) {
+            execution += 11
+            t.measure(CurveWork.HASH_PAGE) { execution += 13 }
+            execution += 17
+        }
+        t.measure(CurveWork.WAIT) { execution += 19 }
+        t.measure(CurveWork.BACKOFF) { execution += 23 }
+        t.count(CurveCount.WAITS)
+        t.count(CurveCount.RETRIES)
+        execution += 29
+        t.finish(CurveOutcome.SAVED)
+        val s = t.snapshot()
+        assertEquals(28L, s.work.getValue(CurveWork.HASH))
+        assertEquals(13L, s.work.getValue(CurveWork.HASH_PAGE))
+        assertEquals(19L, s.work.getValue(CurveWork.WAIT))
+        assertEquals(23L, s.work.getValue(CurveWork.BACKOFF))
+        assertEquals(36L, s.residualNanos)
+        assertEquals(119L, s.elapsedNanos)
+        assertEquals(7L, s.marks.getValue(CurveMark.FIRST_WORKER))
+        assertEquals(1L, s.counts.getValue(CurveCount.WAITS))
+        assertEquals(CurveOutcome.SAVED, s.outcome)
+        assertFalse(s.incomplete)
+    }
+
+    @Test
+    fun `broken execution clock cannot swallow analysis errors or stop work`() {
+        var fail = false
+        val t = CurveTiming(clock = { if (fail) error("clock failure") else 1L })
+        fail = true
+        var ran = false
+        t.measure(CurveWork.REPLAY) { ran = true }
+        assertTrue(ran)
+        val failure = IllegalArgumentException("analysis failure")
+        try {
+            t.measure(CurveWork.HASH) { throw failure }
+            fail("Expected analysis failure")
+        } catch (actual: IllegalArgumentException) {
+            assertSame(failure, actual)
+        }
+        t.finish(CurveOutcome.FAILED)
+        assertTrue(t.snapshot().incomplete)
+        assertEquals(CurveOutcome.FAILED, t.snapshot().outcome)
+    }
+
+    /** Literal first-ride facts and an independent typed-token SHA-256 encoder. */
+    private fun timingHashOracle(): String {
+        val digest = java.security.MessageDigest.getInstance("SHA-256")
+        fun token(text: String?) {
+            digest.update(
+                if (text == null) "N;".toByteArray()
+                else
+                    ("S" + text.toByteArray(Charsets.UTF_8).size + ":" + text).toByteArray(
+                        Charsets.UTF_8
+                    )
+            )
+        }
+        fun document(value: Any?) {
+            when (value) {
+                null,
+                JSONObject.NULL -> token(null)
+                is JSONObject -> {
+                    val keys = value.keys().asSequence().sorted().toList()
+                    token("object")
+                    token(keys.size.toString())
+                    keys.forEach {
+                        token(it)
+                        document(value.get(it))
+                    }
+                }
+                is org.json.JSONArray -> {
+                    token("array")
+                    token(value.length().toString())
+                    repeat(value.length()) { document(value.get(it)) }
+                }
+                is Number -> {
+                    token("number")
+                    token(value.toString())
+                }
+                is Boolean -> {
+                    token("boolean")
+                    token(value.toString())
+                }
+                is String -> {
+                    token("string")
+                    token(value)
+                }
+                else -> error("Unexpected literal")
+            }
+        }
+        fun stamp(second: Int, sequence: Int) =
+            JSONObject(
+                """{"utc":"${Instant.EPOCH.plusSeconds(second.toLong())}","epoch":"$epoch","elapsed":${second * 1_000_000_000L},"sequence":$sequence}"""
+            )
+        val source = """{"adapter":"karoo","version":"1.1.9","sequence":null}"""
+        token("power-replay-hash-v1")
+        token(id.toString())
+        token("canonical-power-hold-v1:power-range-means-v2:power-replay-work-v2:16384:100000000")
+        token("REAL_KAROO_DIAGNOSTIC:v1")
+        for (sequence in 1..8) {
+            val second = if (sequence == 1) 0 else sequence - 2
+            val ended = sequence == 8
+            val phase = if (ended) "ENDED_LOCALLY" else "RECORDING"
+            val payload =
+                when (sequence) {
+                    1 -> """{"kind":"recording","state":"RECORDING"}"""
+                    8 -> """{"kind":"recording","state":"IDLE"}"""
+                    else ->
+                        """{"kind":"metric","metric":"POWER_W","value":"0x1.9p6","missing":null,"sourceUtc":null,"meaning":null}"""
+                }
+            val session =
+                """{"id":"$id","epoch":"$epoch","phase":"$phase","origin":"OBSERVED_START","first":${stamp(0,1)},"last":${stamp(second,sequence)},"segment":0,"policy":{"version":"karoo-diagnostic-silence-v1","silence":5000000000},"source":$source,"normalization":"karoo-normalization-v1","ambiguity":null,"interruption":null}"""
+            val breaks =
+                if (ended)
+                    """[{"session":"$id","metric":"POWER_W","reason":"SESSION_ENDED","time":6000000000}]"""
+                else "[]"
+            val selected =
+                JSONObject(
+                    """{"envelope":{"session":"$id","input":{"stamp":${stamp(second,sequence)},"source":$source,"normalization":"karoo-normalization-v1","payload":$payload}},"segment":${if(ended) "null" else "0"},"sessions":[$session],"breaks":$breaks,"rejection":null,"checkpointSchema":"collector-checkpoint-v1","profile":null,"horizonReceipt":${second * 1_000_000_000L},"metadata":{"codec":1,"policy":{"version":"admission-v1","events":4096,"bytes":4194304,"reservedEvents":64,"reservedBytes":65536,"envelopeBytes":1024,"flushNanos":5000000000},"terminal":null,"loss":null}}"""
+                )
+            document(selected)
+            document(JSONObject(metadata()))
+        }
+        return digest.digest().joinToString("") { "%02x".format(it) }
+    }
+
+    @Test
+    fun `matched pacing preserves independent curves while reducing waits with unrelated history and canonical interleaving`() {
+        val expectedHash = timingHashOracle()
+        val baseline = mutableMapOf<Int, com.oxywatt.core.power.PowerCurveSnapshot>()
+        for (quantum in listOf(1, 16)) {
+            for (variant in 0..2) {
+                val n = name()
+                InputRepository(context, n, acquisition = metadata()).use { inputs ->
+                    val ids = rides(inputs, 2)
+                    val current = owner(n)
+                    if (variant == 1)
+                        repeat(1024) {
+                            now += 1_000_000
+                            offer(current, InputPayload.MetricReading(Metric.POWER_W, 999.0))
+                            if (it % 128 == 127) current.pump(true)
+                        }
+                    val frozen = inputs.state().revision
+                    // Two rides each have Idle, Recording, six power inputs, Idle: 18 effects.
+                    // owner() persists a recovery/time cut and its current-epoch Idle: two more
+                    // effects.
+                    val scanned = if (variant == 1) 1044L else 20L
+                    AnalysisRepository(context, n).use { results ->
+                        val c =
+                            LiveCurveController(
+                                inputs,
+                                results,
+                                current,
+                                "test",
+                                { now },
+                                pacing = AnalysisPacing(quantum),
+                            )
+                        c.select(ids.first())
+                        repeat(30) { c.pump() }
+                        c.request()
+                        c.request()
+                        assertEquals(0L, c.timingSnapshot()!!.counts.getValue(CurveCount.STEPS))
+                        val deadline = System.nanoTime() + 120_000_000_000L
+                        c.measureWorker(CurveWork.CANONICAL) { current.pump() }
+                        c.pump() // Freeze R before injecting the interleaved canonical writes.
+                        if (c.shouldWaitAfterTurn()) c.waitForWorker { Thread.sleep(1) }
+                        while (c.snapshot().status != LiveCurveStatus.SAVED) {
+                            if (variant == 2) {
+                                now += 1_000_000_000
+                                offer(current, InputPayload.MetricReading(Metric.POWER_W, 999.0))
+                            }
+                            c.measureWorker(CurveWork.CANONICAL) { current.pump(variant == 2) }
+                            c.pump()
+                            val mustWait = c.shouldWaitAfterTurn()
+                            if (c.snapshot().status != LiveCurveStatus.SAVED && mustWait)
+                                c.waitForWorker { Thread.sleep(1) }
+                            assertTrue(
+                                "Host timing diagnostic incomplete: 120 s limit",
+                                System.nanoTime() < deadline,
+                            )
+                        }
+                        val result = c.snapshot().saved!!
+                        val curve = result.terminal!!.curve!!
+                        assertEquals(expectedHash, curve.inputHash)
+                        if (quantum == 1) baseline[variant] = curve.snapshot
+                        else assertEquals(baseline.getValue(variant), curve.snapshot)
+                        assertEquals(frozen, curve.revision)
+                        assertEquals(1L, curve.firstRevision)
+                        assertEquals(1L, curve.lastRevision)
+                        assertEquals(8L, curve.effectCount)
+                        val record = curve.snapshot.durations.first().record!!
+                        assertEquals(100.0, record.meanWatts, 1e-9)
+                        assertEquals(0L, record.startNanos)
+                        assertEquals(5_000_000_000L, record.endNanos)
+                        curve.snapshot.durations.drop(1).forEach {
+                            assertNull(it.record)
+                            assertEquals(
+                                com.oxywatt.core.power.PowerUnavailableReason
+                                    .INSUFFICIENT_CONTIGUOUS_COVERAGE,
+                                it.unavailableReason,
+                            )
+                        }
+                        assertNull(results.newest(PowerCurveCalculation.realSlot(ids.last())))
+                        val timing = c.timingSnapshot()!!
+                        assertEquals(CurveOutcome.SAVED, timing.outcome)
+                        assertFalse(timing.incomplete)
+                        assertEquals(quantum, timing.maximumTurnsBetweenWaits)
+                        assertEquals(
+                            if (quantum == 1) "single-effect-wait-v1"
+                            else "diagnostic-analysis-pacing-v1",
+                            timing.pacingPolicy,
+                        )
+                        assertEquals(
+                            (2 * scanned + 3) / quantum,
+                            timing.counts.getValue(CurveCount.WAITS),
+                        )
+                        assertEquals(scanned, timing.counts.getValue(CurveCount.HASH_SCANNED))
+                        assertEquals(scanned, timing.counts.getValue(CurveCount.REPLAY_SCANNED))
+                        assertEquals(8L, timing.counts.getValue(CurveCount.HASH_SELECTED))
+                        assertEquals(8L, timing.counts.getValue(CurveCount.REPLAY_SELECTED))
+                        val pages = (scanned + 255) / 256 + 1
+                        assertEquals(pages, timing.counts.getValue(CurveCount.HASH_PAGES))
+                        assertEquals(pages, timing.counts.getValue(CurveCount.REPLAY_PAGES))
+                        assertEquals(2 * scanned + 3, timing.counts.getValue(CurveCount.STEPS))
+                        assertEquals(
+                            timing.elapsedNanos,
+                            timing.work.values.sum() + timing.residualNanos,
+                        )
+                        assertTrue(timing.work.getValue(CurveWork.WAIT) > 0)
+                        c.request()
+                        c.pump()
+                        assertEquals(timing, c.timingSnapshot())
+                        assertEquals(result.generation, c.snapshot().saved!!.generation)
+                        assertEquals(1L, result.generation)
+                        if (variant == 2) {
+                            assertTrue(inputs.state().revision > frozen)
+                            assertEquals(0, current.snapshot().pending)
+                        }
+                        println("S17 synthetic quantum=$quantum variant=$variant timing=$timing")
+                    }
+                    AnalysisRepository(context, n).use { reopened ->
+                        assertEquals(
+                            expectedHash,
+                            reopened
+                                .newest(PowerCurveCalculation.realSlot(id))!!
+                                .terminal!!
+                                .curve!!
+                                .inputHash,
+                        )
+                    }
+                }
+            }
+        }
+    }
+
+    @Test
+    fun `disabled or failed timing and capped report cannot change the saved result`() {
+        val reportFile = java.io.File(context.cacheDir, "timing-limit-${UUID.randomUUID()}")
+        try {
+            val capture = DiagnosticCapture(reportFile, maxBytes = 1)
+            capture.sourceStarted()
+            capture.flush()
+            assertEquals(DiagnosticReportStatus.LIMIT_REACHED, capture.snapshot().reportStatus)
+            val bytes = reportFile.length()
+            val expectedHash = timingHashOracle()
+            for (clock in
+                listOf<(() -> Long)?>(null, { error("clock unavailable") }, System::nanoTime)) {
+                val n = name()
+                InputRepository(context, n, acquisition = metadata()).use { inputs ->
+                    rides(inputs, 2)
+                    val current = owner(n)
+                    AnalysisRepository(context, n).use { results ->
+                        val c =
+                            LiveCurveController(inputs, results, current, "test", { now }, clock)
+                        c.select(id)
+                        repeat(30) { c.pump() }
+                        c.request()
+                        repeat(100) {
+                            c.pump()
+                            if (c.shouldWaitAfterTurn()) c.waitForWorker {}
+                        }
+                        val saved = c.snapshot().saved!!
+                        assertEquals(1L, saved.generation)
+                        assertEquals(expectedHash, saved.terminal!!.curve!!.inputHash)
+                        assertEquals(
+                            100.0,
+                            saved.terminal!!.curve!!.snapshot.durations.first().record!!.meanWatts,
+                            1e-9,
+                        )
+                        if (clock == null) assertNull(c.timingSnapshot())
+                        else assertEquals(CurveOutcome.SAVED, c.timingSnapshot()!!.outcome)
+                        assertEquals(0, current.snapshot().pending)
+                    }
+                }
+            }
+            assertEquals(bytes, reportFile.length())
+            assertEquals(DiagnosticReportStatus.LIMIT_REACHED, capture.snapshot().reportStatus)
+        } finally {
+            reportFile.delete()
+        }
+    }
+
+    @Test
+    fun `pre generation failure and superseded tap have terminal timing without a generation`() {
+        val n = name()
+        InputRepository(context, n).use { inputs ->
+            fill(inputs) // Deliberately no acquisition provenance for the target.
+            val current = owner(n)
+            AnalysisRepository(context, n).use { results ->
+                val c = LiveCurveController(inputs, results, current, "test", { now })
+                c.select(id)
+                c.pump()
+                c.request()
+                c.select(id)
+                c.pump()
+                assertEquals(CurveOutcome.DISCARDED, c.timingSnapshot()!!.outcome)
+                assertNull(results.newest(PowerCurveCalculation.realSlot(id)))
+                c.request()
+                repeat(20) { c.pump() }
+                val failed = c.timingSnapshot()!!
+                assertEquals(CurveOutcome.FAILED, failed.outcome)
+                assertFalse(failed.marks.containsKey(CurveMark.REQUESTED))
+                assertNull(results.newest(PowerCurveCalculation.realSlot(id)))
+                assertTrue(current.canAnalyze())
+            }
+        }
+    }
+
+    @Test
+    fun `every work bucket is exclusive and snapshots cannot mutate or resume stopped timing`() {
+        var tick = 0L
+        val t = CurveTiming(clock = { tick })
+        CurveWork.entries.forEachIndexed { index, bucket ->
+            t.measure(bucket) { tick += index + 1L }
+        }
+        t.finish(CurveOutcome.STOPPED)
+        val saved = t.snapshot()
+        CurveWork.entries.forEachIndexed { index, bucket ->
+            assertEquals(index + 1L, saved.work.getValue(bucket))
+        }
+        assertTrue(saved.incomplete)
+        assertEquals(0L, saved.residualNanos)
+        assertThrows(UnsupportedOperationException::class.java) {
+            (saved.work as MutableMap)[CurveWork.HASH] = 999L
+        }
+        tick += 100
+        t.measure(CurveWork.HASH) { tick += 100 }
+        t.count(CurveCount.STEPS)
+        assertEquals(saved, t.snapshot())
+        val broken = CurveTiming(clock = { tick-- })
+        broken.measure(CurveWork.HASH) {}
+        assertTrue(broken.snapshot().incomplete)
+    }
+
+    @Test
+    fun `selection after worker consumes a tap discards timing when the attempt cannot arm`() {
+        val n = name()
+        InputRepository(context, n, acquisition = metadata()).use { inputs ->
+            fill(inputs)
+            val current = owner(n)
+            AnalysisRepository(context, n).use { results ->
+                var ticks = 0
+                lateinit var c: LiveCurveController
+                c =
+                    LiveCurveController(
+                        inputs,
+                        results,
+                        current,
+                        "test",
+                        { now },
+                        {
+                            ticks++
+                            // Construction, controller entry, then FIRST_WORKER after consuming the
+                            // tap.
+                            if (ticks == 3) c.select(id)
+                            ticks.toLong()
+                        },
+                    )
+                c.select(id)
+                c.pump()
+                c.request()
+                c.pump()
+                assertNull(results.newest(PowerCurveCalculation.realSlot(id)))
+                assertEquals(CurveOutcome.DISCARDED, c.timingSnapshot()!!.outcome)
+            }
+        }
+    }
+
+    @Test
+    fun `only progressing eligible analysis can skip a wait and received controls cancel before another step`() {
+        val n = name()
+        InputRepository(context, n, acquisition = metadata()).use { inputs ->
+            fill(inputs)
+            val current = owner(n)
+            AnalysisRepository(context, n).use { results ->
+                val c = LiveCurveController(inputs, results, current, "test", { now })
+                repeat(5) {
+                    c.pump()
+                    assertTrue(c.shouldWaitAfterTurn())
+                }
+                c.select(id)
+                c.pump()
+                assertTrue(c.shouldWaitAfterTurn())
+                c.request()
+                c.pump()
+                assertFalse(c.shouldWaitAfterTurn())
+                val steps = c.timingSnapshot()!!.counts.getValue(CurveCount.STEPS)
+                offer(current, InputPayload.Recording(RecordingState.RECORDING))
+                offer(current, InputPayload.Recording(RecordingState.IDLE))
+                c.measureWorker(CurveWork.CANONICAL) { current.pump() }
+                c.pump()
+                assertTrue(c.shouldWaitAfterTurn())
+                assertEquals(CurveOutcome.CANCELLED, c.timingSnapshot()!!.outcome)
+                assertEquals(steps, c.timingSnapshot()!!.counts.getValue(CurveCount.STEPS))
+                assertNull(results.newest(PowerCurveCalculation.realSlot(id)))
+            }
+        }
+    }
+
+    @Test
+    fun `pause stop fatal and full revoke immediate analysis before another numerical step`() {
+        for (fault in 0..3) {
+            val n = name()
+            InputRepository(context, n, acquisition = metadata()).use { inputs ->
+                fill(inputs)
+                val current = owner(n)
+                AnalysisRepository(context, n).use { results ->
+                    val c = LiveCurveController(inputs, results, current, "test", { now })
+                    c.select(id)
+                    c.pump()
+                    c.request()
+                    c.pump()
+                    assertFalse(c.shouldWaitAfterTurn())
+                    val steps = c.timingSnapshot()!!.counts.getValue(CurveCount.STEPS)
+                    when (fault) {
+                        0 -> offer(current, InputPayload.Recording(RecordingState.PAUSED))
+                        1 -> current.stopped()
+                        else -> {
+                            offer(current, InputPayload.MetricReading(Metric.POWER_W, 999.0))
+                            workerInputs.last().beforeCheckpoint = {
+                                if (fault == 2) error("Injected canonical fatal")
+                                else throw android.database.sqlite.SQLiteFullException()
+                            }
+                        }
+                    }
+                    c.measureWorker(CurveWork.CANONICAL) { current.pump(true) }
+                    c.pump()
+                    assertTrue(c.shouldWaitAfterTurn())
+                    assertEquals(steps, c.timingSnapshot()!!.counts.getValue(CurveCount.STEPS))
+                    assertNull(results.newest(PowerCurveCalculation.realSlot(id)))
+                    if (fault == 2) assertEquals(LiveStorageStatus.FATAL, current.snapshot().status)
+                    if (fault == 3)
+                        assertEquals(LiveStorageStatus.RETRYING, current.snapshot().status)
+                }
+            }
+        }
+    }
+
     private fun name() = "live-curve-${UUID.randomUUID()}.db".also(names::add)
 
     @After
@@ -719,6 +1182,8 @@ class LivePowerCurveTest {
                 val committed = owner.snapshot().committed
                 offer(owner, InputPayload.Recording(RecordingState.RECORDING))
                 c.pump()
+                assertEquals(CurveOutcome.CANCELLED, c.timingSnapshot()!!.outcome)
+                assertFalse(c.timingSnapshot()!!.marks.containsKey(CurveMark.REPLAYED))
                 assertEquals(committed, owner.snapshot().committed)
                 assertEquals(1, owner.snapshot().pending)
                 assertEquals(
@@ -762,11 +1227,21 @@ class LivePowerCurveTest {
                 repeat(100) {
                     now += 1_000_000_000
                     owner.pump()
+                    val priorRetries = c.timingSnapshot()!!.counts.getValue(CurveCount.RETRIES)
                     c.pump()
+                    if (c.timingSnapshot()!!.counts.getValue(CurveCount.RETRIES) > priorRetries) {
+                        assertTrue(c.shouldWaitAfterTurn())
+                        val before = c.timingSnapshot()!!.counts.getValue(CurveCount.STEPS)
+                        c.pump()
+                        assertTrue(c.shouldWaitAfterTurn())
+                        assertEquals(before, c.timingSnapshot()!!.counts.getValue(CurveCount.STEPS))
+                    }
                 }
                 assertEquals(LiveCurveStatus.SAVED, c.snapshot().status)
                 assertEquals(1L, c.snapshot().saved!!.generation)
                 assertTrue(requestLost && completionLost)
+                assertEquals(2L, c.timingSnapshot()!!.counts.getValue(CurveCount.RETRIES))
+                assertEquals(CurveOutcome.SAVED, c.timingSnapshot()!!.outcome)
                 val saved = c.snapshot().saved!!.terminal
                 results.afterCommit = { throw android.database.sqlite.SQLiteDiskIOException() }
                 assertThrows(android.database.sqlite.SQLiteDiskIOException::class.java) {
@@ -1018,6 +1493,7 @@ class LivePowerCurveTest {
                     results.newest(PowerCurveCalculation.realSlot(id))!!.status,
                 )
                 assertFalse(controller.hasWork)
+                assertTrue(controller.shouldWaitAfterTurn())
                 workerInputs.last().beforeCheckpoint = {}
                 now += 1_000_000_000
                 owner.pump(true)

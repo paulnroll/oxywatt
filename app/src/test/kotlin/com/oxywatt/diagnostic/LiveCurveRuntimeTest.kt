@@ -26,6 +26,33 @@ import org.robolectric.shadows.ShadowSystemClock
 class LiveCurveRuntimeTest {
     @get:Rule val karoo = FakeKarooRule()
 
+    @Test
+    fun `bounded pacing matches independent wait counts and never skips ordinary work waits`() {
+        for ((turns, baseline, bounded) in listOf(Triple(44, 43, 2), Triple(2092, 2091, 130))) {
+            for ((quantum, expected) in listOf(1 to baseline, 16 to bounded)) {
+                val pacing = AnalysisPacing(quantum)
+                var waits = 0
+                repeat(turns) { turn ->
+                    val mustWait = pacing.shouldWait(turn < turns - 1)
+                    if (mustWait && turn < turns - 1) waits++
+                }
+                assertEquals(expected, waits)
+                repeat(20) { assertTrue(pacing.shouldWait(false)) }
+            }
+        }
+    }
+
+    @Test
+    fun `pacing resets partial allowance at every non progressing turn`() {
+        val pacing = AnalysisPacing()
+        repeat(10) { assertFalse(pacing.shouldWait(true)) }
+        assertTrue(pacing.shouldWait(false))
+        repeat(15) { assertFalse(pacing.shouldWait(true)) }
+        assertTrue(pacing.shouldWait(true))
+        assertFalse(pacing.shouldWait(true))
+        assertTrue(pacing.shouldWait(false))
+    }
+
     private fun views(v: View): List<View> =
         listOf(v) +
             if (v is ViewGroup) (0 until v.childCount).flatMap { views(v.getChildAt(it)) }
@@ -95,6 +122,13 @@ class LiveCurveRuntimeTest {
                 true.takeIf { DiagnosticRuntime.curve().status == LiveCurveStatus.SAVED }
             }
             val saved = DiagnosticRuntime.curve().saved!!
+            val timing = DiagnosticRuntime.curveTiming()!!
+            assertEquals(com.oxywatt.diagnostic.persistence.CurveOutcome.SAVED, timing.outcome)
+            assertFalse(timing.incomplete)
+            assertEquals("diagnostic-analysis-pacing-v1", timing.pacingPolicy)
+            assertEquals(16, timing.maximumTurnsBetweenWaits)
+            assertTrue(timing.work.getValue(com.oxywatt.diagnostic.persistence.CurveWork.WAIT) > 0)
+            assertEquals(timing.elapsedNanos, timing.work.values.sum() + timing.residualNanos)
             assertEquals(
                 200.0,
                 saved.terminal!!.curve!!.snapshot.durations.first().record!!.meanWatts,

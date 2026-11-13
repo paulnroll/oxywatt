@@ -14,6 +14,7 @@ class PowerCurveCalculation(
     private val inputs: InputRepository,
     private val analyses: AnalysisRepository,
 ) {
+    internal var timing: CurveTiming? = null
     private var pending: Job? = null
     val hasPreparedRequest
         get() = pending?.awaitingRequest == true
@@ -128,7 +129,11 @@ class PowerCurveCalculation(
             fun next(): CommittedEffect? {
                 if (offset == page.size) {
                     if (cancelled()) throw CancellationException()
-                    page = inputs.replay(revision, afterRevision, index)
+                    val pageBucket = if (phase == 0) CurveWork.HASH_PAGE else CurveWork.REPLAY_PAGE
+                    timing?.count(
+                        if (phase == 0) CurveCount.HASH_PAGES else CurveCount.REPLAY_PAGES
+                    )
+                    page = timed(pageBucket) { inputs.replay(revision, afterRevision, index) }
                     offset = 0
                     if (page.isEmpty()) return null
                 }
@@ -141,12 +146,26 @@ class PowerCurveCalculation(
 
         fun step() {
             if (completion != null) return
+            timing?.count(CurveCount.STEPS)
+            val bucket =
+                when (phase) {
+                    0 -> CurveWork.HASH
+                    1 -> CurveWork.REQUEST
+                    else -> CurveWork.REPLAY
+                }
+            timed(bucket) { stepInternal() }
+            timing?.count(CurveCount.COMPLETED_STEPS)
+        }
+
+        private fun stepInternal() {
             when (phase) {
                 0 -> {
                     if (live && cancelled()) throw CancellationException()
                     val row = cursor.next()
                     if (row != null) {
+                        timing?.count(CurveCount.HASH_SCANNED)
                         if (relevant(row.update, id)) {
+                            timing?.count(CurveCount.HASH_SELECTED)
                             row.update.sessionChanges
                                 .singleOrNull { it.id == id }
                                 ?.let { session = it }
@@ -224,6 +243,7 @@ class PowerCurveCalculation(
                                 codeVersion,
                             )
                         cursor = Cursor()
+                        timing?.mark(CurveMark.HASHED)
                         phase = 1
                     }
                 }
@@ -235,6 +255,7 @@ class PowerCurveCalculation(
                             requestId,
                             provenance!!,
                         )
+                    timing?.mark(CurveMark.REQUESTED)
                     phase = 2
                 }
                 2 ->
@@ -242,7 +263,9 @@ class PowerCurveCalculation(
                         if (live && cancelled()) throw CancellationException()
                         val row = cursor.next()
                         if (row != null) {
+                            timing?.count(CurveCount.REPLAY_SCANNED)
                             if (relevant(row.update, id)) {
+                                timing?.count(CurveCount.REPLAY_SELECTED)
                                 require(row.metadata.policy.version == "admission-v1") {
                                     "Unsupported admission policy"
                                 }
@@ -299,10 +322,15 @@ class PowerCurveCalculation(
             finish(AnalysisTerminal(AnalysisStatus.FAILED, Instant.now(), reason = reason))
 
         private fun finish(terminal: AnalysisTerminal) {
+            if (terminal.status == AnalysisStatus.AVAILABLE) timing?.mark(CurveMark.REPLAYED)
             completion = PreparedPowerCompletion(checkNotNull(generation), terminal)
             cursor = Cursor()
             phase = 3
         }
+    }
+
+    private fun <T> timed(bucket: CurveWork, action: () -> T): T = timing.let {
+        if (it == null) action() else it.measure(bucket, action)
     }
 
     private fun relevant(u: LifecycleUpdate, id: UUID) =
@@ -347,5 +375,161 @@ class PowerCurveCalculation(
         val terminal = row.metadata.terminal?.takeIf { session?.interruptionReason == it }
         j.put("metadata", CollectorCodec.metadata(row.metadata.policy, loss, terminal))
         return j
+    }
+}
+
+internal enum class CurveWork {
+    CONTROL,
+    HASH_PAGE,
+    HASH,
+    REQUEST,
+    REPLAY_PAGE,
+    REPLAY,
+    COMPLETE,
+    READBACK,
+    CANONICAL,
+    WAIT,
+    BACKOFF,
+}
+
+internal enum class CurveCount {
+    STEPS,
+    COMPLETED_STEPS,
+    HASH_SCANNED,
+    HASH_SELECTED,
+    HASH_PAGES,
+    REPLAY_SCANNED,
+    REPLAY_SELECTED,
+    REPLAY_PAGES,
+    WAITS,
+    RETRIES,
+}
+
+internal enum class CurveMark {
+    FIRST_WORKER,
+    HASHED,
+    REQUESTED,
+    REPLAYED,
+    PUBLISHED,
+}
+
+internal enum class CurveOutcome {
+    RUNNING,
+    SAVED,
+    FAILED,
+    CANCELLED,
+    DISCARDED,
+    STOPPED,
+}
+
+internal data class CurveTimingSnapshot(
+    val work: Map<CurveWork, Long>,
+    val counts: Map<CurveCount, Long>,
+    val marks: Map<CurveMark, Long>,
+    val elapsedNanos: Long,
+    val residualNanos: Long,
+    val outcome: CurveOutcome,
+    val incomplete: Boolean,
+    val pacingPolicy: String,
+    val maximumTurnsBetweenWaits: Int,
+)
+
+/** Fixed-size execution accounting; never part of canonical time or persisted result identity. */
+internal class CurveTiming(
+    private val clock: () -> Long = System::nanoTime,
+    private val pacingPolicy: String = "single-effect-wait-v1",
+    private val maximumTurnsBetweenWaits: Int = 1,
+) {
+    private val work = LongArray(CurveWork.entries.size)
+    private val counts = LongArray(CurveCount.entries.size)
+    private val marks = arrayOfNulls<Long>(CurveMark.entries.size)
+    private var incomplete = false
+    private var outcome = CurveOutcome.RUNNING
+    private var bucket: CurveWork? = null
+    private val start = readClock() ?: 0L
+    private var last = start
+
+    private fun readClock(): Long? =
+        try {
+            clock()
+        } catch (_: Exception) {
+            incomplete = true
+            null
+        }
+
+    private fun tick() {
+        if (incomplete || outcome != CurveOutcome.RUNNING) return
+        val now = readClock() ?: return
+        try {
+            val delta = Math.subtractExact(now, last)
+            check(delta >= 0)
+            // Validate the total before changing any exclusive bucket.
+            Math.subtractExact(now, start)
+            bucket?.let { work[it.ordinal] = Math.addExact(work[it.ordinal], delta) }
+            last = now
+        } catch (_: Exception) {
+            incomplete = true
+        }
+    }
+
+    fun <T> measure(bucket: CurveWork, action: () -> T): T {
+        val previous =
+            synchronized(this) {
+                tick()
+                this.bucket.also { this.bucket = bucket }
+            }
+        try {
+            return action()
+        } finally {
+            synchronized(this) {
+                tick()
+                this.bucket = previous
+            }
+        }
+    }
+
+    @Synchronized
+    fun count(counter: CurveCount) {
+        if (outcome == CurveOutcome.RUNNING && counts[counter.ordinal] < Long.MAX_VALUE)
+            counts[counter.ordinal]++
+    }
+
+    @Synchronized
+    fun mark(marker: CurveMark) {
+        if (outcome != CurveOutcome.RUNNING) return
+        tick()
+        if (!incomplete && marks[marker.ordinal] == null) marks[marker.ordinal] = last - start
+    }
+
+    @Synchronized
+    fun finish(outcome: CurveOutcome) {
+        if (this.outcome != CurveOutcome.RUNNING) return
+        tick()
+        this.outcome = outcome
+        if (outcome == CurveOutcome.STOPPED) incomplete = true
+    }
+
+    @Synchronized
+    fun snapshot(): CurveTimingSnapshot {
+        val elapsed = last - start
+        return CurveTimingSnapshot(
+            java.util.Collections.unmodifiableMap(
+                CurveWork.entries.associateWith { work[it.ordinal] }
+            ),
+            java.util.Collections.unmodifiableMap(
+                CurveCount.entries.associateWith { counts[it.ordinal] }
+            ),
+            java.util.Collections.unmodifiableMap(
+                CurveMark.entries
+                    .mapNotNull { key -> marks[key.ordinal]?.let { key to it } }
+                    .toMap()
+            ),
+            elapsed,
+            elapsed - work.sum(),
+            outcome,
+            incomplete,
+            pacingPolicy,
+            maximumTurnsBetweenWaits,
+        )
     }
 }

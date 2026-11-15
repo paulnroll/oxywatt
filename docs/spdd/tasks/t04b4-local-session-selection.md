@@ -95,7 +95,7 @@ First full verification completed successfully in 5 min 15 s: debug 194 PASS, pr
 **T04b4 SOFTWARE COMPLETE.** Final full application-source verification PASS in 4 min 49 s:
 
 ```sh
-ANDROID_HOME=/Users/pawelkozicki/Library/Android/sdk ./gradlew -PkarooDiagnostic=true -PkarooSdkJitpack=true spotlessCheck :core:check :core:build :app:testDebugUnitTest :app:testPreviewUnitTest :app:assembleDebug :app:assemblePreview :app:lintDebug :app:lintPreview :app:verifyReleaseDependencyIsolation :app:verifyPreviewIsolation --console=plain
+ANDROID_HOME=~/Library/Android/sdk ./gradlew -PkarooDiagnostic=true -PkarooSdkJitpack=true spotlessCheck :core:check :core:build :app:testDebugUnitTest :app:testPreviewUnitTest :app:assembleDebug :app:assemblePreview :app:lintDebug :app:lintPreview :app:verifyReleaseDependencyIsolation :app:verifyPreviewIsolation --console=plain
 ```
 
 Full debug **196 PASS**, full preview **220 PASS**, zero app failures/errors/skips. Unchanged core check/build PASS with cached 120 passes/one explicit private-FIT skip. Both APK builds/lints, formatting, release dependency and preview isolation PASS. First full 194/218 counts above are superseded for application-source verification. After the final full run, only the existing bounded-list test fixture was strengthened to commit canonical inputs between enrichment turns, asserting committed progress and zero pending tail. Application source was unchanged. Its combined debug/preview command reapplied the test filter to the preview task only: full debug **196 PASS** again, focused preview **2 PASS** on API 32/34 (`--tests '*LivePowerCurveTest.bounded recent list*'`, with spotlessApply). The last preview result files contain two executions, not the earlier full 220; no extra unique cases are claimed.
@@ -250,7 +250,7 @@ Risks: instrumentation overhead, double counting nested I/O, confusing receipt/e
 Executed on local main `61e26bd`, with no application/test source changes:
 
 ```sh
-ANDROID_HOME=/Users/pawelkozicki/Library/Android/sdk ./gradlew -PkarooDiagnostic=true -PkarooSdkJitpack=true spotlessCheck :core:check :app:testDebugUnitTest --tests '*LivePowerCurveTest' --console=plain
+ANDROID_HOME=~/Library/Android/sdk ./gradlew -PkarooDiagnostic=true -PkarooSdkJitpack=true spotlessCheck :core:check :app:testDebugUnitTest --tests '*LivePowerCurveTest' --console=plain
 ```
 
 BUILD SUCCESSFUL: **54 focused debug executions PASS**, zero failures/errors/skips. Core check UP-TO-DATE with cached 120 passes/one private-FIT skip; Spotless PASS. This focused run replaces local debug XML reports with 54 executions, not the earlier full 196. No full preview/build/lint/device rerun is claimed for this documentation-only follow-up. Initial sandbox Gradle-cache access was blocked; the same command succeeded with approved cache access. No private FIT opt-in.
@@ -288,7 +288,7 @@ Final self-review found a timing-only race: selection may supersede an already c
 **S09–S12 SOFTWARE PASS; S13 DOCUMENTATION PASS.** Final command, after the refused-arm timing race fix and its passing focused regression:
 
 ```sh
-ANDROID_HOME=/Users/pawelkozicki/Library/Android/sdk ./gradlew -PkarooDiagnostic=true -PkarooSdkJitpack=true spotlessCheck :core:check :core:build :app:testDebugUnitTest :app:testPreviewUnitTest :app:assembleDebug :app:assemblePreview :app:lintDebug :app:lintPreview :app:verifyReleaseDependencyIsolation :app:verifyPreviewIsolation --console=plain
+ANDROID_HOME=~/Library/Android/sdk ./gradlew -PkarooDiagnostic=true -PkarooSdkJitpack=true spotlessCheck :core:check :core:build :app:testDebugUnitTest :app:testPreviewUnitTest :app:assembleDebug :app:assemblePreview :app:lintDebug :app:lintPreview :app:verifyReleaseDependencyIsolation :app:verifyPreviewIsolation --console=plain
 ```
 
 BUILD SUCCESSFUL in **4 min 55 s**. Full debug **210 PASS**, full preview **234 PASS**, zero app failures/errors/skips. These final full XML reports replace all earlier focused/intermediate reports. Core check/build PASS, cached unchanged **120 passes / one explicit private-FIT skip**. Formatting, debug/preview assemble and lint, release dependency and preview isolation all PASS. Local final verification log is `/private/tmp/oxywatt-t04b4-timing-final-verification.log`; it contains software-tooling/synthetic results, no device/private inputs.
@@ -392,7 +392,7 @@ No device/private evidence/FIT access, native recording, installation, commit/pu
 **T04b4 S14–S17 SOFTWARE COMPLETE.** Final approved-source verification command:
 
 ```sh
-ANDROID_HOME=/Users/pawelkozicki/Library/Android/sdk ./gradlew -PkarooDiagnostic=true -PkarooSdkJitpack=true spotlessCheck :core:check :core:build :app:testDebugUnitTest :app:testPreviewUnitTest :app:assembleDebug :app:assemblePreview :app:lintDebug :app:lintPreview :app:verifyReleaseDependencyIsolation :app:verifyPreviewIsolation --console=plain
+ANDROID_HOME=~/Library/Android/sdk ./gradlew -PkarooDiagnostic=true -PkarooSdkJitpack=true spotlessCheck :core:check :core:build :app:testDebugUnitTest :app:testPreviewUnitTest :app:assembleDebug :app:assemblePreview :app:lintDebug :app:lintPreview :app:verifyReleaseDependencyIsolation :app:verifyPreviewIsolation --console=plain
 ```
 
 BUILD SUCCESSFUL in **4 min 58 s**. Full debug **218 PASS**, full preview **242 PASS**, zero app failures/errors/skips. Core check/build PASS with cached unchanged **120 passes / one private-FIT skip**. Formatting, both builds/lints, release dependency and preview isolation PASS. Final full XML reports now contain 218/242, replacing the earlier focused/intermediate reports. Log: `/private/tmp/oxywatt-t04b4-pacing-verification.log` (tooling/synthetic output only). No private-FIT opt-in or device action.
@@ -509,7 +509,7 @@ No core, SQL/repository implementation, analysis/pacing/instrumentation, SDK, sc
 **T04b4 S18–S20 SOFTWARE COMPLETE; S21–S22 NOT RUN / separate device-private-input approval required.** Final-source command:
 
 ```sh
-ANDROID_HOME=/Users/pawelkozicki/Library/Android/sdk ./gradlew -PkarooDiagnostic=true -PkarooSdkJitpack=true spotlessCheck :core:check :core:build :app:testDebugUnitTest :app:testPreviewUnitTest :app:assembleDebug :app:assemblePreview :app:lintDebug :app:lintPreview :app:verifyReleaseDependencyIsolation :app:verifyPreviewIsolation --console=plain
+ANDROID_HOME=~/Library/Android/sdk ./gradlew -PkarooDiagnostic=true -PkarooSdkJitpack=true spotlessCheck :core:check :core:build :app:testDebugUnitTest :app:testPreviewUnitTest :app:assembleDebug :app:assemblePreview :app:lintDebug :app:lintPreview :app:verifyReleaseDependencyIsolation :app:verifyPreviewIsolation --console=plain
 ```
 
 BUILD SUCCESSFUL in **5 min 17 s**. Full debug **226 PASS**, full preview **250 PASS**, zero app failures/errors/skips. Core check/build PASS, test task UP-TO-DATE with retained unchanged **120 passes / one private-FIT skip**. Formatting, both builds/lints, release dependency and preview isolation PASS. Final XML reports contain the full 226/250 results, superseding the focused run. Log: `/private/tmp/oxywatt-timing-readout-verification.log` (synthetic/tooling output only). Debug output metadata confirms com.oxywatt.diagnostic 0.7.0/code 7. This is a local build from bd9f436 plus the reviewed uncommitted implementation, not a clean future commit/PR build or installed APK. No private-FIT opt-in or device action.
@@ -536,7 +536,7 @@ Owner-authorized installation/publication continuation committed the fourteen re
 With a clean working tree, forced a fresh build:
 
 ```sh
-ANDROID_HOME=/Users/pawelkozicki/Library/Android/sdk ./gradlew -PkarooDiagnostic=true -PkarooSdkJitpack=true :app:assembleDebug --rerun-tasks --console=plain
+ANDROID_HOME=~/Library/Android/sdk ./gradlew -PkarooDiagnostic=true -PkarooSdkJitpack=true :app:assembleDebug --rerun-tasks --console=plain
 ```
 
 BUILD SUCCESSFUL in **8 s**, all 39 tasks executed. Generated BuildConfig confirms version 0.7.0/code 7, CODE_REVISION exactly 4d8502cfe36a992fcfdf1db21e79a1345b368b46 and CODE_DIRTY false. Prepared APK/package/signature checks PASS; both signatures verify with identical certificate digests. Installed package is still 0.6.0/code 6 and its APK hash matches the previously retained 0.6.0 artifact. The prepared APK hash and exact clean-commit build manifest are retained privately; this binary must not be relabelled as the later documentation/PR head. Source is unchanged from the earlier full 226 debug/250 preview verification except committed BuildConfig provenance; this rebuild is not another full test run.

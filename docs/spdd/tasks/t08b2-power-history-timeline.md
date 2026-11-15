@@ -77,7 +77,7 @@ Focused controller/geometry/native-render/SDK-fake tests pass before the final t
 Full verification (JDK 25, SDK 36, JVM target 17):
 
 ```sh
-ANDROID_HOME=/Users/pawelkozicki/Library/Android/sdk ./gradlew -PkarooDiagnostic=true -PkarooSdkJitpack=true spotlessApply spotlessCheck :core:check :core:build :app:testDebugUnitTest :app:testPreviewUnitTest :app:assembleDebug :app:assemblePreview :app:lintDebug :app:lintPreview :app:verifyReleaseDependencyIsolation :app:verifyPreviewIsolation --console=plain
+ANDROID_HOME=~/Library/Android/sdk ./gradlew -PkarooDiagnostic=true -PkarooSdkJitpack=true spotlessApply spotlessCheck :core:check :core:build :app:testDebugUnitTest :app:testPreviewUnitTest :app:assembleDebug :app:assemblePreview :app:lintDebug :app:lintPreview :app:verifyReleaseDependencyIsolation :app:verifyPreviewIsolation --console=plain
 ```
 
 BUILD SUCCESSFUL in **6 min 18 s**, 170 tasks (139 executed / 31 up-to-date). **294 debug / 318 preview PASS**, zero failures/errors/skips. Core **120 PASS / one explicitly opt-in private-FIT skip**, no failures/errors. Format, core JAR, debug/preview assemble/lint and release/preview isolation PASS. Raw log `/private/tmp/oxywatt-history-full-check.log`; full XML totals preserved in `/private/tmp/oxywatt-history-full-counts.json` before focused checks replace Gradle XML reports.

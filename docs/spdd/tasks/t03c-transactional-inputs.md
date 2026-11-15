@@ -23,7 +23,7 @@ Contract refinement: `prepareEffect` freezes one envelope-free timer/terminal/re
 The full verification command passed on JDK 25, Java 17 target, Android SDK 36 and the existing explicit public SDK tag build:
 
 ```sh
-ANDROID_HOME=/Users/pawelkozicki/Library/Android/sdk ./gradlew -PkarooDiagnostic=true -PkarooSdkJitpack=true spotlessApply :core:check :core:build :app:testDebugUnitTest :app:assembleDebug :app:lintDebug :app:verifyReleaseDependencyIsolation --console=plain
+ANDROID_HOME=~/Library/Android/sdk ./gradlew -PkarooDiagnostic=true -PkarooSdkJitpack=true spotlessApply :core:check :core:build :app:testDebugUnitTest :app:assembleDebug :app:lintDebug :app:verifyReleaseDependencyIsolation --console=plain
 ```
 
 App tests: 56 passed, zero failures/errors/skips; T03c adds 16 cases executed on both API 32 and 34 (32 executions) with native, file-backed SQLite. Core: 69 discovered, 68 passed, one explicit private-FIT opt-in skip. No private FIT or projection was read. Debug assembly and release dependency isolation pass; lint has zero errors and the existing ten warnings. Robolectric's explicit native-SQLite annotation is deprecated, and the existing Conscrypt native-access warning remains test-tooling output; neither is hardware evidence. No dependencies/build settings, sensor adapter or manifest permissions changed.

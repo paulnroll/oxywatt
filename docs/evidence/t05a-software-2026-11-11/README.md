@@ -39,7 +39,7 @@ Final command results are recorded below after completion. Existing SQLiteMode d
 Passed on JDK 25/JVM release 17:
 
 ```sh
-ANDROID_HOME=/Users/pawelkozicki/Library/Android/sdk ./gradlew -PkarooDiagnostic=true -PkarooSdkJitpack=true spotlessApply :core:check :core:build :app:testDebugUnitTest :app:testPreviewUnitTest :app:assemblePreview :app:lintPreview :app:verifyReleaseDependencyIsolation :app:verifyPreviewIsolation --console=plain
+ANDROID_HOME=~/Library/Android/sdk ./gradlew -PkarooDiagnostic=true -PkarooSdkJitpack=true spotlessApply :core:check :core:build :app:testDebugUnitTest :app:testPreviewUnitTest :app:assemblePreview :app:lintPreview :app:verifyReleaseDependencyIsolation :app:verifyPreviewIsolation --console=plain
 ```
 
 Full suites: core 108 executions (107 passed, one explicit private-FIT skip), debug 92 passed, preview 106 passed, zero failures/errors. The preview suite includes all 12 new small-fixture and 18 existing long persisted speed combinations. Build/lint/isolation passed. Runtime is descriptive software evidence only.
@@ -47,7 +47,7 @@ Full suites: core 108 executions (107 passed, one explicit private-FIT skip), de
 Final self-review added rejection of unsupported executable policy configuration and explicit independent unavailable-reason/end-boundary assertions. A descriptor may hash a different declared policy, but observations refuse to run it through a harness configured for the pinned current policy. Rechecked the affected path after those final changes:
 
 ```sh
-ANDROID_HOME=/Users/pawelkozicki/Library/Android/sdk ./gradlew -PkarooDiagnostic=true -PkarooSdkJitpack=true spotlessApply :core:check :core:build :app:testPreviewUnitTest --tests '*ExperimentReplayTest' :app:lintPreview :app:verifyReleaseDependencyIsolation :app:verifyPreviewIsolation --console=plain
+ANDROID_HOME=~/Library/Android/sdk ./gradlew -PkarooDiagnostic=true -PkarooSdkJitpack=true spotlessApply :core:check :core:build :app:testPreviewUnitTest --tests '*ExperimentReplayTest' :app:lintPreview :app:verifyReleaseDependencyIsolation :app:verifyPreviewIsolation --console=plain
 ```
 
 Passed: all 107 core tests plus the explicit skip, both selected preview tests (including 12 replay combinations), lint/build/isolation. This focused run replaces the local preview XML report with the two selected tests; the earlier full-suite count is not its count. Review covered tracked and new files, policy/config linkage, exact timestamps/reasons, independent hashes/tables, compatibility, privacy and scope. All 145 relative Markdown links in affected documents resolved before the final evidence links were added; final checks follow in the task. No source or model/hardware gate was closed by wording.

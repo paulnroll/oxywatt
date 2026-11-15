@@ -19,7 +19,7 @@ Expected files: shared helper, result repository/contracts and native file-backe
 The owner-supplied command passed on JDK 25/Java 17 target with Android SDK 36:
 
 ```sh
-ANDROID_HOME=/Users/pawelkozicki/Library/Android/sdk ./gradlew -PkarooDiagnostic=true -PkarooSdkJitpack=true spotlessApply :core:check :core:build :app:testDebugUnitTest :app:assembleDebug :app:lintDebug :app:verifyReleaseDependencyIsolation --console=plain
+ANDROID_HOME=~/Library/Android/sdk ./gradlew -PkarooDiagnostic=true -PkarooSdkJitpack=true spotlessApply :core:check :core:build :app:testDebugUnitTest :app:assembleDebug :app:lintDebug :app:verifyReleaseDependencyIsolation --console=plain
 ```
 
 70 app tests passed, no failures/errors/skips; seven new cases run on native file-backed SQLite at both API 32/34 (14 executions). Core: 68 passed and one explicit private-FIT skip. Debug assembly, lint and release dependency isolation passed. Existing native-access/SQLiteMode tooling warnings remain. No dependencies, SDK mapping, manifest permissions or physiology changed.

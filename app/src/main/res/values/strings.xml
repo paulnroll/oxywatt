@@ -41,7 +41,7 @@
     <string name="canonical_fatal">Canonical storage stopped · unknown tail</string>
     <string name="canonical_drained">Canonical source stopped · committed tail</string>
     <string name="canonical_none">—</string>
-    <string name="canonical_line">%1$s\nReceived callbacks (current run): %2$d\nCommitted canonical events (current epoch): %3$d\nPending events / payload bytes: %4$d / %5$d\nAdmission loss (current run): %6$d\nRejected after stop: %7$d\nCommitted revision: %8$d\nLast committed receipt time (may be historical): %9$s\nLocal session: %10$s · %11$s · %12$s\nStorage reason: %13$s\n%14$s</string>
+    <string name="canonical_line">%1$s\nReceived callbacks (current run): %2$d\nCommitted canonical events (current epoch): %3$d\nPending events / payload bytes: %4$d / %5$d\nAdmission loss (current run): %6$d\nRejected after stop: %7$d\nCommitted revision: %8$d\nLast committed receipt time (may be historical): %9$s\nLocal session: %10$s · %11$s · %12$s\nStorage reason: %13$s\n%14$s\nIdle metric callbacks intentionally not persisted (current run): %15$d</string>
     <string name="canonical_ended">Ended locally</string>
     <string name="canonical_interrupted">Interrupted</string>
     <string name="canonical_observed">Observed start</string>

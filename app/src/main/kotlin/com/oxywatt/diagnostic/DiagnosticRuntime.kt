@@ -249,6 +249,7 @@ internal object DiagnosticRuntime {
                         .put("dirty", BuildConfig.CODE_DIRTY)
                         .put("epoch", epoch.toString())
                         .put("ordering", "karoo-diagnostic-order-v1")
+                        .put("idleMetrics", "omit-while-received-idle-v1")
                         .put("retry", "karoo-diagnostic-retry-v1")
                         .put("firstRetryNanos", 1_000_000_000L)
                         .put("subsequentRetryNanos", 5_000_000_000L)
@@ -394,6 +395,6 @@ internal class AnalysisPacing(val maximumTurns: Int = 16) {
 
 /** Main-file capacity only; journal/temp overhead and retention are separate. */
 internal object LiveDiagnosticStorage {
-    const val POLICY = "karoo-diagnostic-storage-v2"
-    const val MAXIMUM_BYTES = 64L * 1024 * 1024
+    const val POLICY = "karoo-diagnostic-storage-v3"
+    const val MAXIMUM_BYTES = 512L * 1024 * 1024
 }

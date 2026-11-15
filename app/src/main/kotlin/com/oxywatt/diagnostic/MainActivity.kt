@@ -246,6 +246,7 @@ class MainActivity : Activity() {
                     if (saved.restartBlocked) R.string.canonical_restart_blocked
                     else R.string.canonical_restart_ready
                 ),
+                saved.idleMetricOmitted,
             )
         val connection =
             getString(

@@ -16,6 +16,7 @@ internal enum class LiveStorageStatus {
 
 internal data class LiveStorageSnapshot(
     val received: Long = 0,
+    val idleMetricOmitted: Long = 0,
     val committed: Long = 0,
     val pending: Int = 0,
     val bytes: Int = 0,
@@ -143,6 +144,12 @@ internal class LiveDiagnosticCoordinator(
             view = view.copy(received = increment(view.received))
             if (!accepting || admission.stopped) {
                 view = view.copy(rejected = increment(view.rejected))
+                return@synchronized
+            }
+            if (
+                receivedState == RecordingState.IDLE && input.payload is InputPayload.MetricReading
+            ) {
+                view = view.copy(idleMetricOmitted = increment(view.idleMetricOmitted))
                 return@synchronized
             }
             claim(input.stamp.elapsedNanos, false)

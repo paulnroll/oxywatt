@@ -59,7 +59,7 @@ class LiveCurveRuntimeTest {
             else emptyList()
 
     @Test
-    fun `live runtime opens data beyond the historical cap and publishes exact storage v2 metadata`() {
+    fun `live runtime opens data beyond the historical cap and publishes exact storage v3 metadata`() {
         val name = "oxywatt-live-diagnostic.db"
         val path = karoo.app.getDatabasePath(name)
         com.oxywatt.diagnostic.persistence.InputRepository(karoo.app, name).use { it.state() }
@@ -67,17 +67,19 @@ class LiveCurveRuntimeTest {
             db.execSQL("CREATE TABLE capacity_fixture (data BLOB NOT NULL)")
             db.execSQL(
                 "INSERT INTO capacity_fixture VALUES (zeroblob(?))",
-                arrayOf(33L * 1024 * 1024),
+                arrayOf(65L * 1024 * 1024),
             )
         }
-        assertTrue(path.length() > 33554432L)
+        assertTrue(path.length() > 67108864L)
         val service = Robolectric.buildService(DiagnosticExtension::class.java).create()
         try {
             karoo.awaitValue {
                 true.takeIf {
-                    karoo.system.consumerCount == 5 && DiagnosticRuntime.storage().received > 0
+                    (karoo.system.consumerCount == 5 && DiagnosticRuntime.storage().received > 0) ||
+                        DiagnosticRuntime.storage().status == LiveStorageStatus.FATAL
                 }
             }
+            assertNotEquals(LiveStorageStatus.FATAL, DiagnosticRuntime.storage().status)
             ShadowSystemClock.advanceBy(Duration.ofSeconds(6))
             karoo.awaitValue {
                 true.takeIf {
@@ -90,8 +92,8 @@ class LiveCurveRuntimeTest {
                 assertTrue(rows.isNotEmpty())
                 rows.forEach { row ->
                     val metadata = org.json.JSONObject(row.metadata.acquisition!!)
-                    assertEquals("karoo-diagnostic-storage-v2", metadata.getString("storage"))
-                    assertEquals(67108864L, metadata.getLong("maximumBytes"))
+                    assertEquals("karoo-diagnostic-storage-v3", metadata.getString("storage"))
+                    assertEquals(536870912L, metadata.getLong("maximumBytes"))
                 }
             }
             assertFalse(DiagnosticRuntime.curve().canCalculate)

@@ -319,6 +319,11 @@ internal object CollectorCodec {
                 "storage",
                 "silence",
             )) require(value.getString(key).isNotBlank())
+        if (value.has("idleMetrics")) {
+            require(value.get("idleMetrics") == "omit-while-received-idle-v1") {
+                "Unsupported Idle metric admission policy"
+            }
+        }
         java.util.UUID.fromString(value.getString("epoch"))
         value.getBoolean("dirty")
         require(value.getLong("firstRetryNanos") == 1_000_000_000L)
@@ -334,7 +339,8 @@ internal object CollectorCodec {
         val maximumBytes = value.getLong("maximumBytes")
         require(
             (storage == "karoo-diagnostic-storage-v1" && maximumBytes == 32L * 1024 * 1024) ||
-                (storage == "karoo-diagnostic-storage-v2" && maximumBytes == 64L * 1024 * 1024)
+                (storage == "karoo-diagnostic-storage-v2" && maximumBytes == 64L * 1024 * 1024) ||
+                (storage == "karoo-diagnostic-storage-v3" && maximumBytes == 512L * 1024 * 1024)
         ) {
             "Unsupported live storage policy/cap"
         }

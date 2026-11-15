@@ -219,7 +219,7 @@ Source: Scarf, *Power, heart rate, cadence field data, 4 riders*, version 1, DOI
 
 Downloaded archive: 13,577,164 bytes. Published and calculated MD5 match: `e706eca8dc9c9c5aa0645cfcab621c05`. Calculated archive SHA-256: `834e371c8aaf1e9fd04cf9c44619d045ac18dd3270ab7f2653e1f3692afe0c19`. ZIP CRC validation passes. Four legacy XLS workbooks, 48,616,960 expanded bytes, with 21 sheets in total. No archive README or independent data dictionary is included.
 
-All archive, extracted workbooks, catalog snapshot, aggregate audit JSON and local audit scripts are retained **outside the repository** at `/Users/pawelkozicki/Library/Caches/oxywatt/research/salford-3080560-v1/`. No raw cells, dates, event labels or workbooks are added to Git. Reader: Python standard-library ZIP/JSON plus `xlrd==2.0.2` in an isolated temporary environment, with no project dependency change and no spreadsheet formula recalculation. Cached summary cells are observations of the workbook, not independently executed source formulas.
+All archive, extracted workbooks, catalog snapshot, aggregate audit JSON and local audit scripts are retained **outside the repository** at `~/Library/Caches/oxywatt/research/salford-3080560-v1/`. No raw cells, dates, event labels or workbooks are added to Git. Reader: Python standard-library ZIP/JSON plus `xlrd==2.0.2` in an isolated temporary environment, with no project dependency change and no spreadsheet formula recalculation. Cached summary cells are observations of the workbook, not independently executed source formulas.
 
 Local audit scripts retained with the archive: `oxywatt-salford-audit.py` SHA-256 `fa2007db9e2f10ad57fc7091dae7f5e6db7411830e1d9f3a970469fa600029cb`; `oxywatt-salford-audit-extra.py` SHA-256 `74f63baff3723476afd8d6c04b36d0405bb9a4abea92e0f36092a33da4ba31e8`. The scripts are exploratory inspection tools outside Git, not a new repository runner/framework. Reproduction requires the named source archive, reader version and the interpretation below; no canonical normalization has been executed.
 
@@ -577,7 +577,7 @@ Raw pairing is assumed, equal row weights are conventional and data remain uncle
 
 ### Local reproducibility and verification
 
-Retained root: `/Users/pawelkozicki/Library/Caches/oxywatt/research/salford-3080560-v1/t08a4-exact-hr-rows-v1/`. Source remains the previously attributed Scarf/Salford four-rider archive, DOI `10.17866/rd.salford.3080560.v1`, Figshare article 3080560/file 4787857, CC BY 4.0, archive SHA-256 `834e371c8aaf1e9fd04cf9c44619d045ac18dd3270ab7f2653e1f3692afe0c19`. No source redownload or additional dataset/contact.
+Retained root: `~/Library/Caches/oxywatt/research/salford-3080560-v1/t08a4-exact-hr-rows-v1/`. Source remains the previously attributed Scarf/Salford four-rider archive, DOI `10.17866/rd.salford.3080560.v1`, Figshare article 3080560/file 4787857, CC BY 4.0, archive SHA-256 `834e371c8aaf1e9fd04cf9c44619d045ac18dd3270ab7f2653e1f3692afe0c19`. No source redownload or additional dataset/contact.
 
 | Artifact relative to retained root | SHA-256 | Role |
 |---|---|---|
@@ -649,7 +649,7 @@ No chronological sorting, column ranking, pairwise scalar differences, baseline,
 
 ### Reproducibility, independent checks and integrity
 
-Artifacts retained outside Git at `/Users/pawelkozicki/Library/Caches/oxywatt/research/salford-3080560-v1/t08a5-anchor115-v1/`. Source attribution remains Scarf/University of Salford, DOI `10.17866/rd.salford.3080560.v1`, Figshare article 3080560/file 4787857, CC BY 4.0; archive SHA-256 `834e371c8aaf1e9fd04cf9c44619d045ac18dd3270ab7f2653e1f3692afe0c19`. No new acquisition/contact or archive download.
+Artifacts retained outside Git at `~/Library/Caches/oxywatt/research/salford-3080560-v1/t08a5-anchor115-v1/`. Source attribution remains Scarf/University of Salford, DOI `10.17866/rd.salford.3080560.v1`, Figshare article 3080560/file 4787857, CC BY 4.0; archive SHA-256 `834e371c8aaf1e9fd04cf9c44619d045ac18dd3270ab7f2653e1f3692afe0c19`. No new acquisition/contact or archive download.
 
 | Local artifact | SHA-256 |
 |---|---|
@@ -719,7 +719,7 @@ Recommend ending the present fixed-table numerical sensitivity route here. There
 
 ### Provenance and verification
 
-Retained artifacts: `/Users/pawelkozicki/Library/Caches/oxywatt/research/salford-3080560-v1/t08a6-row-influence-v1/`. Source remains Scarf/University of Salford, DOI `10.17866/rd.salford.3080560.v1`, Figshare article 3080560/file 4787857, CC BY 4.0; archive SHA-256 `834e371c8aaf1e9fd04cf9c44619d045ac18dd3270ab7f2653e1f3692afe0c19`. No redownload or repeated support/time audit. Required identities include current T08a5 input authority, all prior pinned source/member/reader/config/contributor/check/table dependencies and reused offline authority helper hash.
+Retained artifacts: `~/Library/Caches/oxywatt/research/salford-3080560-v1/t08a6-row-influence-v1/`. Source remains Scarf/University of Salford, DOI `10.17866/rd.salford.3080560.v1`, Figshare article 3080560/file 4787857, CC BY 4.0; archive SHA-256 `834e371c8aaf1e9fd04cf9c44619d045ac18dd3270ab7f2653e1f3692afe0c19`. No redownload or repeated support/time audit. Required identities include current T08a5 input authority, all prior pinned source/member/reader/config/contributor/check/table dependencies and reused offline authority helper hash.
 
 | Local artifact | SHA-256 |
 |---|---|

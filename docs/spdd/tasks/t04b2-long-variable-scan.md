@@ -84,7 +84,7 @@ TDD evidence: the compiling four-hour completion test failed on the old wrapper,
 Final software verification (JDK 25/JVM release 17):
 
 ```sh
-ANDROID_HOME=/Users/pawelkozicki/Library/Android/sdk ./gradlew -PkarooDiagnostic=true -PkarooSdkJitpack=true spotlessApply :core:check :core:build :app:testDebugUnitTest :app:testPreviewUnitTest :app:assemblePreview :app:lintPreview :app:verifyReleaseDependencyIsolation :app:verifyPreviewIsolation --console=plain
+ANDROID_HOME=~/Library/Android/sdk ./gradlew -PkarooDiagnostic=true -PkarooSdkJitpack=true spotlessApply :core:check :core:build :app:testDebugUnitTest :app:testPreviewUnitTest :app:assemblePreview :app:lintPreview :app:verifyReleaseDependencyIsolation :app:verifyPreviewIsolation --console=plain
 ```
 
 Passed: core 101 executions, 100 passed and one explicit private-FIT skip; debug 92 passed; preview 104 passed, zero failures/errors. The single long-preview test contains all 18 combinations (six fixtures × three speeds), each checking exact fixture counts, independent results, full stored-curve equality, native SQLite save/reopen and preview readout. Build/lint, release dependency isolation and preview APK isolation passed. Existing SQLiteMode/Conscrypt warnings remain; no new device evidence. B2-01–08 software acceptance is complete; T02c/T03e/parent T04 live acceptance stays OPEN.

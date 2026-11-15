@@ -75,7 +75,7 @@ Expected bounded ownership: `core/src/main/kotlin/com/oxywatt/core/power/` prepr
 After implementation run JDK 25/Java 17 checks with the established command:
 
 ```sh
-ANDROID_HOME=/Users/pawelkozicki/Library/Android/sdk ./gradlew -PkarooDiagnostic=true -PkarooSdkJitpack=true spotlessApply :core:check :core:build :app:testDebugUnitTest :app:testPreviewUnitTest :app:assemblePreview :app:lintPreview :app:verifyReleaseDependencyIsolation --console=plain
+ANDROID_HOME=~/Library/Android/sdk ./gradlew -PkarooDiagnostic=true -PkarooSdkJitpack=true spotlessApply :core:check :core:build :app:testDebugUnitTest :app:testPreviewUnitTest :app:assemblePreview :app:lintPreview :app:verifyReleaseDependencyIsolation --console=plain
 ```
 
 Use API 32/34 file-backed repository tests, preview UI tests, production/release dependency and asset inspection, relative Markdown links, traceability and git diff --check. No private FIT opt-in. Record exact passing/skipped tests and operation counters. Done for T04b1 requires B1–B7 software evidence and durable readout after reopen; no implementation evidence exists in this proposal.
@@ -107,7 +107,7 @@ B7: pre-call reservation is tested against actual engine counters and a dense-th
 Verification command (JDK 25, Java 17 target, Android SDK 36, explicit JitPack SDK tag):
 
 ```sh
-ANDROID_HOME=/Users/pawelkozicki/Library/Android/sdk ./gradlew -PkarooDiagnostic=true -PkarooSdkJitpack=true spotlessApply :core:check :core:build :app:testDebugUnitTest :app:testPreviewUnitTest :app:assemblePreview :app:lintPreview :app:verifyReleaseDependencyIsolation :app:verifyPreviewIsolation --console=plain
+ANDROID_HOME=~/Library/Android/sdk ./gradlew -PkarooDiagnostic=true -PkarooSdkJitpack=true spotlessApply :core:check :core:build :app:testDebugUnitTest :app:testPreviewUnitTest :app:assemblePreview :app:lintPreview :app:verifyReleaseDependencyIsolation :app:verifyPreviewIsolation --console=plain
 ```
 
 Passed: core 91 executions, 90 passed/one explicit private-FIT skip; debug 92 passed; preview 103 passed, no failures/errors. Preview/release builds, preview lint and manifest/APK dependency/asset isolation passed. A prior full command also built :app:assemblePreviewAndroidTest. Existing Robolectric SQLiteMode deprecation/Conscrypt native-access warnings remain. No private FIT or projection read, no installation/screenshot/live test. Parent T04 and T02c/T03e hardware acceptance remain OPEN.

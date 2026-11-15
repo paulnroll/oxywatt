@@ -117,7 +117,7 @@ The final manual-follow-up runtime/UI test source is a fake SDK host, not device
 Expanded full verification passed in 4 min 45 s:
 
 ```sh
-ANDROID_HOME=/Users/pawelkozicki/Library/Android/sdk ./gradlew -PkarooDiagnostic=true -PkarooSdkJitpack=true spotlessApply :core:check :core:build :app:testDebugUnitTest :app:testPreviewUnitTest :app:assembleDebug :app:assemblePreview :app:lintDebug :app:lintPreview :app:verifyReleaseDependencyIsolation :app:verifyPreviewIsolation --console=plain
+ANDROID_HOME=~/Library/Android/sdk ./gradlew -PkarooDiagnostic=true -PkarooSdkJitpack=true spotlessApply :core:check :core:build :app:testDebugUnitTest :app:testPreviewUnitTest :app:assembleDebug :app:assemblePreview :app:lintDebug :app:lintPreview :app:verifyReleaseDependencyIsolation :app:verifyPreviewIsolation --console=plain
 ```
 
 Results: core check/build PASS (unchanged cached 120 passes/one explicit private-FIT skip, previously executed in this package), full debug 168 PASS, full preview 192 PASS, zero failures/errors. Debug/preview/release artifacts, lint and release/preview isolation PASS. Existing AGP source-directory, SQLiteMode and JDK native-access warnings remain tooling warnings.
@@ -127,7 +127,7 @@ Final self-review reproduced one additional compatibility regression: cancelling
 After that fix, the final affected checks passed in 44 s:
 
 ```sh
-ANDROID_HOME=/Users/pawelkozicki/Library/Android/sdk ./gradlew -PkarooDiagnostic=true -PkarooSdkJitpack=true spotlessApply :core:check :core:build :app:testDebugUnitTest :app:testPreviewUnitTest --tests '*PowerCurvePersistenceTest*' --tests '*LivePowerCurveTest*' --tests '*LiveCurveRuntimeTest*' :app:assembleDebug :app:assemblePreview :app:lintDebug :app:lintPreview :app:verifyReleaseDependencyIsolation :app:verifyPreviewIsolation --console=plain
+ANDROID_HOME=~/Library/Android/sdk ./gradlew -PkarooDiagnostic=true -PkarooSdkJitpack=true spotlessApply :core:check :core:build :app:testDebugUnitTest :app:testPreviewUnitTest --tests '*PowerCurvePersistenceTest*' --tests '*LivePowerCurveTest*' --tests '*LiveCurveRuntimeTest*' :app:assembleDebug :app:assemblePreview :app:lintDebug :app:lintPreview :app:verifyReleaseDependencyIsolation :app:verifyPreviewIsolation --console=plain
 ```
 
 Final full debug **170 PASS**; final focused preview **54 PASS** covering legacy storage/cancellation, real calculation/controller and Activity/runtime on API 32/34. The immediately preceding full preview **192 PASS** remains the numerical/long-fixture/isolation baseline, not a claimed final 194-test full rerun. Core check/build, format, both APK builds/lint and both isolation checks PASS again. C01–C08 software acceptance is complete with the scope/limits stated above.

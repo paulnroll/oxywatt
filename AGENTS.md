@@ -30,6 +30,10 @@ T08b2 P01–P08 synthetic-only software is locally complete and verified on 2026
 
 Owner subsequently authorized commit/push/PR publication of completed T08b2 P01–P08 on 2026-11-13. Reviewed software/test/documentation scope and verification remain as recorded in the task. Installation, P09/device/private-input execution, merge/release and broader automatic/history/scientific work remain separate.
 
+Owner explicitly authorized T08b2 installation on 2026-11-13 after PR #54 merged at 774f3d0. One same-signer data-preserving 0.10.0/code 10 update, normal launch and limited UI/package/storage readout after fresh Idle/storage checks are authorized. No Calculate/Retry, recording, FIT/canonical extraction, native field/profile reconfiguration, deletion/cap change, full P09 or publication/merge/release. See the T08b2 task; install identity/evidence is isolated from the merged feature branch.
+
+T08b2 0.10.0/code 10 is now actually installed on 2026-11-13, clean committed source 4e2c4ae on merged 774f3d0 plus version-only identity. Same signer, exact prepared/installed APK equality, normal launch, later Connected/Idle/source running, canonical writes without visible storage reason, retained session rows and new Power history/default-5-min unavailable-window/version footer are verified. PR #54 merged with four CI SUCCESS. Full P09, native history-field/profile configuration, new calculations/recordings/FIT/private canonical actions and publication of the identity/install-evidence follow-up remain separate. Earlier installed-0.9.0/not-installed statements are historical. Evidence is local in the T08b2 task/worktree `/private/tmp/oxywatt-t08b2-install`.
+
 ## Routing
 
 - Product intent: `docs/product/requirements.md`.
@@ -63,3 +67,6 @@ For T01a run `./gradlew :core:check --console=plain` (JDK 25, JVM target/release
 ## GitHub CLI account
 
 This repository uses its own GitHub CLI configuration: run repository GitHub commands with `GH_CONFIG_DIR=.git/gh-personal` from the repository root (for example, `GH_CONFIG_DIR=.git/gh-personal gh pr create`). Check this account before diagnosing authentication or collaborator failures; the global `gh` account may belong to a different identity. Do not request a new login or extract credentials from Git helpers to work around the wrong account. Keep `.git/gh-personal` private and out of commits.
+
+
+T08b2 documentation publication authorization — 2026-11-15: owner requested a documentation PR after native Rides inspection. This authorizes publication of these five documentation files, including preserved installation evidence and limited post-ride/native-save findings. Version-only 4e2c4ae source changes are not included; installed artifact provenance remains unchanged. Earlier unpublished/no-publication statements describe prior checkpoints. No merge/release, device write, analysis, raw database/FIT extraction or storage-policy implementation is authorized by this PR.

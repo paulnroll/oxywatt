@@ -123,6 +123,32 @@ class HistoryRuntimeTest {
                 }
                 assertEquals(0L, DiagnosticRuntime.storage().loss)
                 assertEquals(result.generation, f.results.newest(result.slot)!!.generation)
+                val omitted = DiagnosticRuntime.storage().idleMetricOmitted
+                karoo.system.setDataPoint(
+                    io.hammerhead.karooext.models.DataPoint(
+                        io.hammerhead.karooext.models.DataType.Type.POWER,
+                        mapOf(io.hammerhead.karooext.models.DataType.Field.POWER to 0.0),
+                    )
+                )
+                karoo.awaitValue {
+                    true.takeIf { DiagnosticRuntime.storage().idleMetricOmitted > omitted }
+                }
+                shadowOf(Looper.getMainLooper()).idleFor(Duration.ofSeconds(2))
+                assertTrue(
+                    views(screen.get().window.decorView)
+                        .filterIsInstance<android.widget.TextView>()
+                        .any {
+                            it.text.contains("Idle metric callbacks intentionally not persisted")
+                        }
+                )
+                assertEquals(
+                    "omit-while-received-idle-v1",
+                    org.json
+                        .JSONObject(
+                            f.inputs.replay(f.inputs.state().revision).last().metadata.acquisition!!
+                        )
+                        .getString("idleMetrics"),
+                )
                 host.stopView(field)
                 val frames = field.frames.size
                 shadowOf(Looper.getMainLooper()).idleFor(Duration.ofSeconds(3))

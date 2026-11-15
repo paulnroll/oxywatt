@@ -32,7 +32,7 @@ class LiveDiagnosticCoordinatorTest {
         }
 
     @Test
-    fun `received idle zero and missing inputs become saved only after real commit`() {
+    fun `idle metrics are omitted while controls and profiles become durable only after commit`() {
         val name = "live-test-${UUID.randomUUID()}.db"
         InputRepository(context, name).use { repo ->
             val owner = LiveDiagnosticCoordinator(repo, elapsed = { now }, utc = { Instant.EPOCH })
@@ -50,15 +50,130 @@ class LiveDiagnosticCoordinatorTest {
             assertTrue(repo.observations().isEmpty())
             now = 5_000_000_000
             owner.pump()
-            assertEquals(6L, owner.snapshot().committed)
+            assertEquals(4L, owner.snapshot().idleMetricOmitted)
+            assertEquals(2L, owner.snapshot().committed)
             assertEquals(0, owner.snapshot().pending)
             val rows = repo.observations()
-            assertEquals(6, rows.size)
-            assertEquals(6, rows.map { it.observation.stamp.ingestSequence }.toSet().size)
+            assertEquals(2, rows.size)
+            assertEquals(2, rows.map { it.observation.stamp.ingestSequence }.toSet().size)
             assertTrue(rows.all { it.sessionId == null })
-            assertNull((rows[2].observation.payload as InputPayload.MetricReading).value)
+            assertEquals(listOf(0L, 5L), rows.map { it.observation.stamp.ingestSequence })
         }
-        InputRepository(context, name).use { assertEquals(6, it.observations().size) }
+        InputRepository(context, name).use { assertEquals(2, it.observations().size) }
+        context.deleteDatabase(name)
+    }
+
+    @Test
+    fun `long Idle bursts stay out of the queue without hiding loss or post stop rejection`() {
+        val name = "idle-burst-${UUID.randomUUID()}.db"
+        InputRepository(context, name).use { repo ->
+            val owner = LiveDiagnosticCoordinator(repo, elapsed = { now })
+            input(owner, InputPayload.Recording(RecordingState.IDLE))
+            owner.pump(true)
+            val revision = repo.state().revision
+            repeat(20_000) {
+                now += 1_000_000
+                input(owner, InputPayload.MetricReading(Metric.POWER_W, 0.0))
+                if (it % 100 == 0) owner.pump()
+            }
+            owner.pump(true)
+            assertEquals(revision, repo.state().revision)
+            assertEquals(1, repo.observations().size)
+            assertEquals(20_000L, owner.snapshot().idleMetricOmitted)
+            assertEquals(20_001L, owner.snapshot().received)
+            assertEquals(1L, owner.snapshot().committed)
+            assertEquals(0L, owner.snapshot().loss)
+            assertEquals(0, owner.snapshot().pending)
+            owner.stopped()
+            input(owner, InputPayload.MetricReading(Metric.POWER_W, 0.0))
+            assertEquals(1L, owner.snapshot().rejected)
+            assertEquals(20_000L, owner.snapshot().idleMetricOmitted)
+        }
+        context.deleteDatabase(name)
+    }
+
+    @Test
+    fun `Unknown recording and paused metrics survive while Idle boundaries preserve original stamps`() {
+        val name = "idle-boundary-${UUID.randomUUID()}.db"
+        InputRepository(context, name).use { repo ->
+            val owner = LiveDiagnosticCoordinator(repo, elapsed = { now })
+            fun metric() = input(owner, InputPayload.MetricReading(Metric.POWER_W, 100.0))
+            metric() // Unknown is not assumed Idle.
+            input(owner, InputPayload.Recording(RecordingState.IDLE))
+            metric()
+            input(owner, InputPayload.Recording(RecordingState.RECORDING))
+            metric()
+            input(owner, InputPayload.Recording(RecordingState.PAUSED))
+            metric()
+            input(owner, InputPayload.Recording(RecordingState.RECORDING))
+            metric()
+            input(owner, InputPayload.Recording(RecordingState.IDLE))
+            metric()
+            owner.pump(true)
+            assertEquals(
+                listOf(0L, 1L, 3L, 4L, 5L, 6L, 7L, 8L, 9L),
+                repo.observations().map { it.observation.stamp.ingestSequence },
+            )
+            assertEquals(2L, owner.snapshot().idleMetricOmitted)
+            assertEquals(0L, owner.snapshot().loss)
+            assertEquals(SessionOrigin.OBSERVED_START, repo.checkpoint()!!.latestSession!!.origin)
+            assertEquals(SessionPhase.ENDED_LOCALLY, repo.checkpoint()!!.latestSession!!.phase)
+            assertTrue(owner.canAnalyze())
+        }
+        context.deleteDatabase(name)
+    }
+
+    @Test
+    fun `Idle omission does not discard a frozen FULL transaction or acknowledge an uncommitted control`() {
+        val name = "idle-full-${UUID.randomUUID()}.db"
+        InputRepository(context, name).use { repo ->
+            val owner = LiveDiagnosticCoordinator(repo, elapsed = { now })
+            input(owner, InputPayload.Recording(RecordingState.IDLE))
+            repo.beforeCheckpoint = { throw android.database.sqlite.SQLiteFullException() }
+            owner.pump(true)
+            repeat(100) { input(owner, InputPayload.MetricReading(Metric.POWER_W, 0.0)) }
+            assertEquals(1, owner.snapshot().pending)
+            assertEquals(100L, owner.snapshot().idleMetricOmitted)
+            assertFalse(owner.canAnalyze())
+            repo.beforeCheckpoint = {}
+            now = 1_000_000_000
+            owner.pump(true)
+            assertEquals(1, repo.observations().size)
+            assertEquals(1L, owner.snapshot().committed)
+            assertTrue(owner.canAnalyze())
+        }
+        context.deleteDatabase(name)
+    }
+
+    @Test
+    fun `lost Idle control stops admission and cannot disguise subsequent callbacks as intentional omissions`() {
+        val name = "idle-control-loss-${UUID.randomUUID()}.db"
+        InputRepository(context, name).use { repo ->
+            val owner =
+                LiveDiagnosticCoordinator(
+                    repo,
+                    elapsed = { now },
+                    policy =
+                        AdmissionPolicy(
+                            events = 2,
+                            reservedEvents = 1,
+                        ),
+                )
+            input(owner, InputPayload.Recording(RecordingState.RECORDING))
+            input(owner, InputPayload.MetricReading(Metric.POWER_W, 100.0))
+            input(owner, InputPayload.Recording(RecordingState.IDLE))
+            input(owner, InputPayload.MetricReading(Metric.POWER_W, 0.0))
+            assertTrue(owner.shouldStopSource)
+            assertFalse(owner.canAnalyze())
+            assertEquals(0L, owner.snapshot().idleMetricOmitted)
+            assertEquals(1L, owner.snapshot().loss)
+            assertEquals(1L, owner.snapshot().rejected)
+            owner.pump(true)
+            assertEquals(
+                InterruptionReason.TRANSPORT_LOSS,
+                repo.checkpoint()!!.latestSession!!.interruptionReason,
+            )
+        }
         context.deleteDatabase(name)
     }
 

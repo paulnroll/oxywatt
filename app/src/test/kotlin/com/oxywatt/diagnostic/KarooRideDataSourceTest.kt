@@ -379,6 +379,9 @@ class KarooRideDataSourceTest {
             val handle = adapter.start(owner::accept) { owner.stopped() }
             try {
                 ready()
+                val initial = owner.snapshot().received
+                karoo.system.setRideState(RideState.Recording)
+                karoo.awaitValue { true.takeIf { owner.snapshot().received > initial } }
                 val baseline = owner.snapshot().received
                 point(DataType.Type.POWER, 0.0)
                 point(DataType.Type.POWER, 0.0)

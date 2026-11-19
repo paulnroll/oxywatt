@@ -23,7 +23,8 @@ class CanonicalPowerReplay(
         if (changed != null) {
             require(
                 changed.policy.version == "preview-silence-v1" ||
-                    (changed.policy.version == "karoo-diagnostic-silence-v1" &&
+                    (changed.policy.version in
+                        setOf("karoo-diagnostic-silence-v1", "fit-file-silence-v1") &&
                         changed.policy.channelSilenceNanos == 5_000_000_000)
             ) {
                 "Unsupported lifecycle policy"

@@ -186,4 +186,17 @@ Input hash: %2$s
     <string name="history_removed">Session removed</string>
     <string name="history_y_axis">W · zero baseline</string>
     <string name="history_calculating">Analysis in progress</string>
+    <string name="history_source">History source</string>
+    <string name="history_source_live">Live Karoo observations</string>
+    <string name="history_source_fit">Imported FIT observations</string>
+    <string name="history_fit_utc">Original FIT dates · UTC</string>
+    <string name="history_fit_clock">FIT file time is reconstructed from original records and timers, including pauses and missing data. It is not live receipt time.</string>
+    <string name="history_fit_cohort">Imported FIT · record support up to 1 s · separate from live observations</string>
+    <string name="history_other_sources">Other sources outside this series: %1$d</string>
+    <string name="fit_import_none">FIT import: none staged</string>
+    <string name="fit_import_running">FIT import: maintenance in progress · do not start a ride</string>
+    <string name="fit_import_saved">FIT import: saved · select Imported FIT observations in Power history</string>
+    <string name="fit_import_failed">FIT import failed · private input retained · check live source status</string>
+    <string name="fit_session_hint">Imported FIT reconstruction · source file ended</string>
+    <string name="fit_session_identity">Imported FIT · %1$s\nFirst file event (UTC): %2$s\nReconstructed event span: %3$.1f s (includes pauses and gaps)</string>
 </resources>

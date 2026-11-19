@@ -238,6 +238,7 @@ internal object DiagnosticRuntime {
             var repository: InputRepository? = null
             var analyses: AnalysisRepository? = null
             try {
+                FitImportMaintenance.run(context)
                 val epoch = UUID.randomUUID()
                 val origin = SystemClock.elapsedRealtimeNanos()
                 val metadata =

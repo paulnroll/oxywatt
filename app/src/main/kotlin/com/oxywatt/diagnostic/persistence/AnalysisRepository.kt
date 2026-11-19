@@ -207,6 +207,8 @@ class AnalysisRepository(context: Context, name: String, maximumBytes: Long? = n
             check(it.session.id == old.slot.session) { "Curve session does not own generation" }
             val expected =
                 if (it.acquisition == null) PowerCurveCalculation.slot(it.session.id)
+                else if (JSONObject(it.acquisition).getString("origin") == FitSource.ORIGIN)
+                    FitSource.slot(it.session.id)
                 else PowerCurveCalculation.realSlot(it.session.id)
             check(old.slot == expected) { "Curve acquisition does not own result slot" }
         }

@@ -337,6 +337,28 @@ class InputRepository(
     internal fun limitStorageForTest(bytes: Long): Long =
         helper.writableDatabase.setMaximumSize(bytes)
 
+    /** One maintenance import; nested bounded commits roll back as a unit on any failure. */
+    internal fun <T> atomicImport(action: () -> T): T {
+        val db = helper.writableDatabase
+        db.beginTransaction()
+        var failure: Throwable? = null
+        try {
+            val result = action()
+            db.setTransactionSuccessful()
+            return result
+        } catch (error: Throwable) {
+            failure = error
+            throw error
+        } finally {
+            try {
+                db.endTransaction()
+            } catch (endError: Throwable) {
+                // Native FULL may already have rolled SQLite back; retain the original cause.
+                if (failure != null) failure.addSuppressed(endError) else throw endError
+            }
+        }
+    }
+
     fun committedRevision(batchId: UUID): Long? =
         helper.readableDatabase
             .rawQuery("SELECT revision FROM batches WHERE id=?", arrayOf(batchId.toString()))

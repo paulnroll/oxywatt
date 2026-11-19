@@ -52,4 +52,4 @@ jobs:
       - name: Verify FIT projections and malformed input rejection
         run: |
           python tools/verify_fit_replay.py
-          python -m unittest discover -s tools -p 'test_export_fit_replay.py'
+          python -m unittest discover -s tools -p 'test_export_fit*.py'

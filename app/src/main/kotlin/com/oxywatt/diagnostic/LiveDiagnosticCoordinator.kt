@@ -44,7 +44,15 @@ internal class LiveDiagnosticCoordinator(
         CollectorLifecycle(
             epoch,
             LifecyclePolicy("karoo-diagnostic-silence-v1", 5_000_000_000),
-            recovered = repository.checkpoint(),
+            recovered =
+                repository.checkpoint()?.let { checkpoint ->
+                    val previous = checkpoint.latestSession
+                    if (previous?.source?.adapterId == "fit-file") {
+                        // A finished file source is not an uncertain prior live recording.
+                        FitSource.requireSession(previous)
+                        checkpoint.copy(latestSession = null, profileObservation = null)
+                    } else checkpoint
+                },
         )
     private var receivedState = RecordingState.UNKNOWN
     private var receivedControl: ReceiptStamp? = null

@@ -8,9 +8,15 @@ import java.time.Instant
 import java.util.UUID
 import org.json.JSONObject
 
+internal enum class HistorySource {
+    LIVE,
+    FIT,
+}
+
 internal data class HistoryConfig(
     val duration: Int = 300,
     val appearance: FieldAppearance = FieldAppearance.LIGHT,
+    val source: HistorySource = HistorySource.LIVE,
 ) {
     init {
         require(duration in PowerCurveEngine.DURATIONS)
@@ -24,10 +30,15 @@ internal class HistorySettings(context: Context) {
         val raw = prefs.getString("config", null) ?: return HistoryConfig()
         require(raw.length <= 256)
         val j = JSONObject(raw)
-        require(j.length() == 3 && j.get("version") == 1 && j.get("duration") is Int)
+        require(j.get("duration") is Int)
+        require(
+            (j.get("version") == 1 && j.length() == 3) || (j.get("version") == 2 && j.length() == 4)
+        )
         return HistoryConfig(
             j.getInt("duration"),
             FieldAppearance.valueOf(j.getString("appearance")),
+            if (j.getInt("version") == 1) HistorySource.LIVE
+            else HistorySource.valueOf(j.getString("source")),
         )
     }
 
@@ -38,7 +49,8 @@ internal class HistorySettings(context: Context) {
                 .putString(
                     "config",
                     JSONObject()
-                        .put("version", 1)
+                        .put("version", 2)
+                        .put("source", config.source.name)
                         .put("duration", config.duration)
                         .put("appearance", config.appearance.name)
                         .toString(),
@@ -85,6 +97,7 @@ internal data class HistorySnapshot(
     val entries: List<HistoryEntry> = emptyList(),
     val truncated: Boolean = false,
     val refreshedAt: Instant? = null,
+    val otherSources: Int = 0,
 )
 
 /** Sole canonical worker owns reads. No history operation requests an analysis. */
@@ -104,6 +117,7 @@ internal class HistoryController(
     private var config = HistoryConfig()
     private var nextStart = 0L
     private var page: StoredSessionPage? = null
+    private var otherSources = 0
     private val gathered = mutableListOf<HistoryEntry>()
     private var index = 0
     private var verification = -1
@@ -193,7 +207,13 @@ internal class HistoryController(
                 if (now() < nextStart) return
                 nextStart = now() + 5_000_000_000L
                 loading()
-                page = inputs.recentSessions()
+                val inspected = inputs.recentSessions()
+                val selected =
+                    inspected.sessions.filter {
+                        (it.source.adapterId == "fit-file") == (config.source == HistorySource.FIT)
+                    }
+                otherSources = inspected.sessions.size - selected.size
+                page = inspected.copy(sessions = selected)
                 return
             }
             val sessions = page!!.sessions
@@ -220,6 +240,7 @@ internal class HistoryController(
                     ),
                     page!!.truncated,
                     utc(),
+                    otherSources,
                 )
             reset()
         } catch (_: Exception) {
@@ -232,6 +253,7 @@ internal class HistoryController(
     private fun load(id: UUID, originalDate: Instant): HistoryEntry {
         val session =
             inputs.session(id) ?: return HistoryEntry(id, originalDate, HistoryReason.REMOVED)
+        if (config.source == HistorySource.FIT) return loadFitHistory(analyses, session, config)
         if (!session.trendEligible)
             return HistoryEntry(id, session.firstReceipt.utc, HistoryReason.INCOMPLETE)
         if (id == activeSession)

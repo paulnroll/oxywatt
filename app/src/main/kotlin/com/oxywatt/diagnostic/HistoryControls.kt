@@ -12,6 +12,7 @@ import io.hammerhead.karooext.models.ViewConfig
 
 /** UI projects snapshots and emits commands only; no storage or acquisition ownership. */
 internal class HistoryControls(context: Context) : LinearLayout(context) {
+    private val source = Spinner(context)
     private val duration = Spinner(context)
     private val appearance = Spinner(context)
     private val refresh = Button(context)
@@ -24,6 +25,8 @@ internal class HistoryControls(context: Context) : LinearLayout(context) {
                 drawHistory()
             }
         }
+    private lateinit var clockHint: TextView
+    private lateinit var cohortHint: TextView
     private var current: HistorySnapshot? = null
     private var restored = false
 
@@ -38,6 +41,18 @@ internal class HistoryControls(context: Context) : LinearLayout(context) {
             )
         }
         label(R.string.history_title)
+        label(R.string.history_source)
+        source.contentDescription = context.getString(R.string.history_source)
+        source.adapter =
+            ArrayAdapter(
+                context,
+                android.R.layout.simple_spinner_dropdown_item,
+                listOf(
+                    context.getString(R.string.history_source_live),
+                    context.getString(R.string.history_source_fit),
+                ),
+            )
+        addView(source)
         label(R.string.history_duration)
         duration.contentDescription = context.getString(R.string.history_duration)
         duration.adapter =
@@ -66,6 +81,7 @@ internal class HistoryControls(context: Context) : LinearLayout(context) {
                 HistoryConfig(
                     PowerCurveEngine.DURATIONS[duration.selectedItemPosition],
                     FieldAppearance.entries[appearance.selectedItemPosition],
+                    HistorySource.entries[source.selectedItemPosition],
                 )
             )
         }
@@ -80,13 +96,14 @@ internal class HistoryControls(context: Context) : LinearLayout(context) {
         )
         addView(rows)
         label(R.string.history_hint)
-        label(R.string.history_clock)
-        label(R.string.history_cohort)
+        clockHint = TextView(context).also { addView(it) }
+        cohortHint = TextView(context).also { addView(it) }
     }
 
     fun render(snapshot: HistorySnapshot) {
         val enabled = snapshot.status != HistoryStatus.NO_WORKER
         refresh.isEnabled = enabled
+        source.isEnabled = enabled
         duration.isEnabled = enabled
         appearance.isEnabled = enabled
         if (
@@ -94,10 +111,19 @@ internal class HistoryControls(context: Context) : LinearLayout(context) {
         ) {
             duration.setSelection(PowerCurveEngine.DURATIONS.indexOf(snapshot.config.duration))
             appearance.setSelection(snapshot.config.appearance.ordinal)
+            source.setSelection(snapshot.config.source.ordinal)
             restored = true
         }
         if (current == snapshot) return
         current = snapshot
+        clockHint.setText(
+            if (snapshot.config.source == HistorySource.FIT) R.string.history_fit_clock
+            else R.string.history_clock
+        )
+        cohortHint.setText(
+            if (snapshot.config.source == HistorySource.FIT) R.string.history_fit_cohort
+            else R.string.history_cohort
+        )
         summary.text = historySummary(context, snapshot)
         rows.text = historyRows(context, snapshot)
         drawHistory()

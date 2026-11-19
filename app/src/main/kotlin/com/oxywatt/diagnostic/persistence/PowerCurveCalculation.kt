@@ -32,6 +32,12 @@ class PowerCurveCalculation(
     fun beginReal(id: UUID, codeVersion: String, cancelled: () -> Boolean = { false }): Job =
         Job(id, REAL, codeVersion, true, cancelled)
 
+    internal fun prepareFit(id: UUID, codeVersion: String): PreparedPowerCompletion {
+        val job = Job(id, FitSource.MANIFEST, codeVersion, false, { false }, true)
+        while (job.completion == null) job.step()
+        return job.completion!!
+    }
+
     fun prepareReal(id: UUID, codeVersion: String): PreparedPowerCompletion {
         val job = beginReal(id, codeVersion)
         while (job.completion == null) job.step()
@@ -71,6 +77,7 @@ class PowerCurveCalculation(
         val codeVersion: String,
         val live: Boolean,
         private val cancelled: () -> Boolean,
+        private val fit: Boolean = false,
     ) {
         val revision = inputs.state().revision
         private var session: SessionSnapshot? = null
@@ -92,7 +99,8 @@ class PowerCurveCalculation(
                 id,
                 cancelled = cancelled,
                 coverageOrigin =
-                    if (live) "committed-real-karoo-diagnostic-effects-v1"
+                    if (fit) FitSource.COVERAGE
+                    else if (live) "committed-real-karoo-diagnostic-effects-v1"
                     else "committed-synthetic-effects-v1",
             )
         private val replay =
@@ -173,14 +181,18 @@ class PowerCurveCalculation(
                             last = row.revision
                             count++
                             hash.document(selectedDocument(row, id))
-                            if (live) {
+                            if (live || fit) {
                                 val text =
                                     requireNotNull(row.metadata.acquisition) {
                                         "Missing acquisition provenance"
                                     }
                                 val j = JSONObject(text)
-                                CollectorCodec.validateLivePowerAcquisition(j)
-                                require(j.getString("origin") == "real-karoo-diagnostic")
+                                if (fit) FitSource.validate(j)
+                                else CollectorCodec.validateLivePowerAcquisition(j)
+                                require(
+                                    j.getString("origin") ==
+                                        if (fit) FitSource.ORIGIN else "real-karoo-diagnostic"
+                                )
                                 require(row.metadata.policy == AdmissionPolicy())
                                 require(
                                     j.getString("epoch") ==
@@ -196,7 +208,7 @@ class PowerCurveCalculation(
                                 acquisitionHash = digest
                                 hash.document(j)
                             }
-                            if (!live) {
+                            if (!live && !fit) {
                                 require(row.metadata.acquisition == null) {
                                     "Real acquisition cannot use a synthetic calculation"
                                 }
@@ -228,6 +240,7 @@ class PowerCurveCalculation(
                                     s.normalizationVersion == "karoo-normalization-v1"
                             )
                         }
+                        if (fit) FitSource.requireSession(s)
                         inputHash = hash.finish()
                         provenance =
                             AnalysisProvenance(
@@ -251,7 +264,7 @@ class PowerCurveCalculation(
                     if (live && cancelled()) throw CancellationException()
                     generation =
                         analyses.request(
-                            if (live) realSlot(id) else slot(id),
+                            if (fit) FitSource.slot(id) else if (live) realSlot(id) else slot(id),
                             requestId,
                             provenance!!,
                         )
@@ -269,7 +282,7 @@ class PowerCurveCalculation(
                                 require(row.metadata.policy.version == "admission-v1") {
                                     "Unsupported admission policy"
                                 }
-                                if (!live)
+                                if (!live && !fit)
                                     require(session!!.policy.version == "preview-silence-v1") {
                                         "Real policy cannot use a synthetic calculation"
                                     }

@@ -74,7 +74,7 @@ internal object HistoryRenderer {
         text(header, body * 2, color = accent)
         text(count, body * 3.5f)
         text(range, height - body * 3.5f)
-        text(context.getString(R.string.history_utc), height - body * 2)
+        text(historyClock(context, snapshot), height - body * 2)
         // Never cut an error/bound message. Wrap within the bounded available text area.
         fun wrap(value: String): List<String> {
             val lines = mutableListOf<String>()

@@ -603,3 +603,12 @@ T01f-B owner-requested execution — 2026-11-15: owner asks to put the inspected
 
 
 T01f-B software verified / authorized import resumed — 2026-11-19: owner resumed the one-file import and connected Karoo. Real FIT has separate provenance/codec/slot, original file dates and a separate history source selector; atomic bounded canonical writes retain earlier data and refuse silent duplicates. Twelve Python checks, initial full 330 debug/354 preview, then final all 334 debug/160 affected preview plus core/build/lint/format/isolation PASS. Native FULL and file-to-live identity regressions are covered. 0.12.0/code 12 is prepared for one same-signer update and import of the exact owner-supplied FIT, following fresh Idle/storage/signer checks. Actual installation/import remains pending at this preparation checkpoint; no publication or other analysis is implied. See T01f task evidence.
+
+
+T01f-B handoff requested — 2026-11-19: owner stops work for a new session before staging/install/import. Source is local clean commit 65eda04; exact clean 0.12.0 APK/signature/private-asset checks PASS, but device remains last-observed 0.11.0 and actual F10 NOT RUN. Final capture was on native pre-ride UI, so fresh OxyWatt Idle/storage/package checks are required next. Private supplied input/archive/reference are durably retained under ignored fixtures/private/t01f-supplied-fit; do not request re-upload or publish them. Existing scopes authorize one private staging/update/import; no publication or other analysis. Task contains exact resumption checkpoint.
+
+
+2026-11-19 — T01f-B F10 actual one-file device execution is verified: same-signer clean 65eda04 0.12.0 update with exact installed APK equality; one maintenance import reached SAVED/AVAILABLE, separate Imported FIT history uses original date, all duration outcomes match the private independent oracle, existing rows/binding are preserved and live resumes Connected/Idle with acknowledged healthy storage. Long maintenance is functional evidence only. No publication or broader reliability/physiology claim; see [T01f evidence](tasks/t01f-fit-history-recovery.md).
+
+
+2026-11-20 — Owner authorized T01f-B final self-review, evidence commit and branch/PR publication. Merge/release remain separate. Code stays exactly 65eda04; final review checks scope, source separation, private-data exclusion and preserved verification/device evidence. See [T01f publication evidence](tasks/t01f-fit-history-recovery.md).

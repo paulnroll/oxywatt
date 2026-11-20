@@ -319,7 +319,10 @@ internal class LiveCurveController(
                 card.copy(loading = false, status = null, availableDurations = null, error = true)
             } else
                 try {
-                    val result = readSaved(card.session)
+                    val result =
+                        if (card.session.source.adapterId == "fit-file")
+                            readRealSavedCurve(analyses, card.session, fit = true)
+                        else readSaved(card.session)
                     card.copy(
                         loading = false,
                         status = result?.status,

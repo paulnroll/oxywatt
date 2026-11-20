@@ -7,6 +7,14 @@ import com.oxywatt.core.collection.SessionSnapshot
 import com.oxywatt.diagnostic.persistence.AnalysisStatus
 
 internal fun sessionText(context: Context, session: SessionSnapshot): String {
+    if (session.source.adapterId == "fit-file")
+        return context.getString(
+            R.string.fit_session_identity,
+            session.id.toString(),
+            session.firstReceipt.utc.toString(),
+            (session.lastReceipt.elapsedNanos - session.firstReceipt.elapsedNanos) /
+                1_000_000_000.0,
+        )
     val phase =
         when (session.phase) {
             SessionPhase.RECORDING -> R.string.local_sessions_recording
@@ -47,6 +55,13 @@ internal fun sessionCardText(context: Context, card: LocalSessionCard): String {
     val coverage =
         card.availableDurations?.let { context.getString(R.string.local_sessions_coverage, it) }
             ?: context.getString(R.string.local_sessions_coverage_unknown)
-    return listOf(sessionText(context, card.session), context.getString(status), coverage)
+    return listOfNotNull(
+            if (card.session.source.adapterId == "fit-file")
+                context.getString(R.string.fit_session_hint)
+            else null,
+            sessionText(context, card.session),
+            context.getString(status),
+            coverage,
+        )
         .joinToString("\n")
 }

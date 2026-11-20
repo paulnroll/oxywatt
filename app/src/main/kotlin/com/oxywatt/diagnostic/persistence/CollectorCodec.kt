@@ -308,6 +308,10 @@ internal object CollectorCodec {
     fun validateAcquisition(value: JSONObject) {
         require(value.toString().length <= 8192)
         require(value.getInt("version") == 1) { "Unsupported acquisition version" }
+        if (value.getString("origin") == FitSource.ORIGIN) {
+            FitSource.validate(value)
+            return
+        }
         require(value.getString("origin") == "real-karoo-diagnostic")
         for (key in
             listOf(
@@ -333,6 +337,7 @@ internal object CollectorCodec {
 
     fun validateLivePowerAcquisition(value: JSONObject) {
         validateAcquisition(value)
+        require(value.getString("origin") == "real-karoo-diagnostic")
         require(value.getString("ordering") == "karoo-diagnostic-order-v1")
         require(value.getString("retry") == "karoo-diagnostic-retry-v1")
         val storage = value.getString("storage")

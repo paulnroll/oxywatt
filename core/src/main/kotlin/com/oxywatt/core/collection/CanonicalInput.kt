@@ -4,7 +4,10 @@ import java.time.Duration
 import java.time.Instant
 import java.util.UUID
 
-/** Receipt clock is local to an acquisition epoch, never sensor measurement time. */
+/**
+ * Epoch-local acquisition clock, never an inferred sensor measurement time. Live uses local receipt
+ * clocks; explicitly identified file imports reconstruct a file clock.
+ */
 data class ReceiptStamp(
     val utc: Instant,
     val epochId: UUID,

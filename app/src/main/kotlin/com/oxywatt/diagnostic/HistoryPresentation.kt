@@ -59,6 +59,7 @@ internal fun historyMessage(context: Context, snapshot: HistorySnapshot): String
             HistoryStatus.SETTINGS_ERROR -> R.string.history_settings_error
             HistoryStatus.READY ->
                 if (historyPoints(snapshot).isEmpty()) R.string.history_empty
+                else if (snapshot.config.source == HistorySource.FIT) R.string.history_fit_utc
                 else R.string.history_utc
         }
     )
@@ -80,7 +81,15 @@ internal fun historySummary(context: Context, snapshot: HistorySnapshot): String
         context.getString(R.string.history_header, fieldDuration(context, snapshot.config.duration))
     )
     add(historyMessage(context, snapshot))
+    add(
+        context.getString(
+            if (snapshot.config.source == HistorySource.FIT) R.string.history_source_fit
+            else R.string.history_source_live
+        )
+    )
     add(context.getString(R.string.history_bound))
+    if (snapshot.otherSources > 0)
+        add(context.getString(R.string.history_other_sources, snapshot.otherSources))
     if (snapshot.truncated) add(context.getString(R.string.history_truncated))
     if (snapshot.status == HistoryStatus.READY) {
         val entries = snapshot.entries
@@ -134,3 +143,9 @@ internal fun historyRows(
                 )
             }
             .joinToString("\n")
+
+internal fun historyClock(context: Context, snapshot: HistorySnapshot): String =
+    context.getString(
+        if (snapshot.config.source == HistorySource.FIT) R.string.history_fit_utc
+        else R.string.history_utc
+    )

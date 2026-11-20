@@ -24,18 +24,31 @@ data class StoredPowerCurve(
     init {
         acquisition?.let {
             val metadata = JSONObject(it)
-            CollectorCodec.validateLivePowerAcquisition(metadata)
-            require(metadata.getString("epoch") == session.epochId.toString())
-            require(session.policy == LifecyclePolicy("karoo-diagnostic-silence-v1", 5_000_000_000))
-            require(
-                session.phase == SessionPhase.ENDED_LOCALLY &&
-                    session.origin == SessionOrigin.OBSERVED_START &&
-                    session.ambiguityGroupId == null
-            )
-            require(manifest == PowerCurveCalculation.REAL)
-            require(
-                snapshot.provenance.coverageOrigin == "committed-real-karoo-diagnostic-effects-v1"
-            )
+            if (metadata.getString("origin") == FitSource.ORIGIN) {
+                FitSource.validate(metadata)
+                FitSource.requireSession(session)
+                require(metadata.getString("epoch") == session.epochId.toString())
+                require(
+                    manifest == FitSource.MANIFEST &&
+                        snapshot.provenance.coverageOrigin == FitSource.COVERAGE
+                )
+            } else {
+                CollectorCodec.validateLivePowerAcquisition(metadata)
+                require(metadata.getString("epoch") == session.epochId.toString())
+                require(
+                    session.policy == LifecyclePolicy("karoo-diagnostic-silence-v1", 5_000_000_000)
+                )
+                require(
+                    session.phase == SessionPhase.ENDED_LOCALLY &&
+                        session.origin == SessionOrigin.OBSERVED_START &&
+                        session.ambiguityGroupId == null
+                )
+                require(manifest == PowerCurveCalculation.REAL)
+                require(
+                    snapshot.provenance.coverageOrigin ==
+                        "committed-real-karoo-diagnostic-effects-v1"
+                )
+            }
         }
         if (acquisition == null)
             require(
@@ -76,11 +89,16 @@ internal object PowerCurveCodec {
     fun encode(v: StoredPowerCurve): JSONObject {
         val s = v.snapshot
         return JSONObject()
-            .put("codec", if (v.acquisition == null) 1 else 3)
+            .put(
+                "codec",
+                if (v.acquisition == null) 1
+                else if (JSONObject(v.acquisition).getString("origin") == FitSource.ORIGIN) 4
+                else 3,
+            )
             .apply {
                 v.acquisition?.let {
                     put("acquisition", JSONObject(it))
-                    put("acquisitionOrigin", "real-karoo-diagnostic")
+                    put("acquisitionOrigin", JSONObject(it).getString("origin"))
                 }
             }
             .put("session", CollectorCodec.session(v.session))
@@ -125,9 +143,15 @@ internal object PowerCurveCodec {
     }
 
     fun decode(j: JSONObject): StoredPowerCurve {
-        require(j.getInt("codec") in setOf(1, 3))
+        require(j.getInt("codec") in setOf(1, 3, 4))
         if (j.getInt("codec") == 3)
             require(j.getString("acquisitionOrigin") == "real-karoo-diagnostic")
+        if (j.getInt("codec") == 4) require(j.getString("acquisitionOrigin") == FitSource.ORIGIN)
+        if (j.getInt("codec") != 1)
+            require(
+                j.getString("acquisitionOrigin") ==
+                    j.getJSONObject("acquisition").getString("origin")
+            )
         val session = CollectorCodec.session(j.getJSONObject("session"))
         val ds = j.getJSONArray("durations")
         val durations =
@@ -176,7 +200,8 @@ internal object PowerCurveCodec {
             j.getBoolean("workLimited"),
             j.getLong("effects"),
             j.getLong("intervals"),
-            if (j.getInt("codec") == 3) j.getJSONObject("acquisition").toString() else null,
+            if (j.getInt("codec") in setOf(3, 4)) j.getJSONObject("acquisition").toString()
+            else null,
         )
     }
 }

@@ -19,6 +19,7 @@ import java.util.Locale
 class MainActivity : Activity() {
     private val handler = Handler(Looper.getMainLooper())
     private lateinit var capture: DiagnosticCapture
+    private lateinit var importStatus: TextView
     private lateinit var status: TextView
     private lateinit var report: TextView
     private lateinit var storage: TextView
@@ -59,6 +60,7 @@ class MainActivity : Activity() {
             }
         line(24f).setText(R.string.diagnostic_live_title)
         status = line()
+        importStatus = line(15f)
         for (metric in Metric.entries) metrics[metric] = line(21f)
         storage = line()
         line(21f).setText(R.string.local_sessions_title)
@@ -162,6 +164,7 @@ class MainActivity : Activity() {
     }
 
     private fun render() {
+        importStatus.setText(FitImportMaintenance.statusResource(this))
         val curveState = DiagnosticRuntime.curve()
         renderSessions(DiagnosticRuntime.sessions(), curveState.session?.id)
         savedFieldControls.render(

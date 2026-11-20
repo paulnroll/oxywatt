@@ -156,3 +156,6 @@ T04b3 local software completion (2026-11-12, owner-approved): [implementation/ev
 ## T08b2 raw observed-power history boundary — 2026-11-13
 
 [Proposed timeline](../spdd/tasks/t08b2-power-history-timeline.md) displays existing observed power values by receipt date without fitting a physiological trend. It adopts no power–HR candidate, smoothing parameters, fitness interpretation, confidence interval or scientific threshold. Differences between workouts can reflect effort and conditions. Existing estimator evidence gates remain unchanged; this specification makes no new literature-derived efficacy claim.
+
+
+T01f-B source/timing boundary (2026-11-19): real FIT history admission is an observational software task, not estimator approval. Its explicit original-file clock and <=1 s record support are reconstruction policies; independent literal software tests do not establish physiological validity, true sensor integration periods, maximal effort or live-collection continuity. File and live preprocessing cohorts remain separate. FTP/VO2max/smoothing gates are unchanged.

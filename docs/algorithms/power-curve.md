@@ -48,3 +48,8 @@ T04b3 local software completion (2026-11-12, owner-approved): [implementation/ev
 ## Proposed raw historical presentation — T08b2
 
 [T08b2](../spdd/tasks/t08b2-power-history-timeline.md) proposes plotting authoritative existing complete-search power observations across structurally eligible locally ended sessions, with receipt-UTC chronology, exact selected duration and explicit missing/incompatible/limited entries. No engine, curve formula, smoothing, fitness trend inference or FTP/VO2max estimator is selected. A point is an observed effort; no point does not mean zero. Owner subsequently approved P01–P08 synthetic-only software, with documentation publication first; execution remains NOT RUN. This is not scientific or hardware validation.
+
+
+## T01f-B file-source preprocessing — 2026-11-19
+
+The owner-requested FIT import reuses the confirmed-interval engine in a separate file-source cohort. `fit-history-normalization-v1` caps each recorded power observation's support at the next record or one second, whichever occurs first; explicit missing observations, timer pauses and derived gap markers break windows. No leading/trailing session-summary padding or pause compression. One-second support is a versioned conservative reconstruction convention, not proof that instantaneous file readings are physical interval means or that any effort represents maximal capacity. Canonical file-clock reconstruction and actual import time remain distinct. Literal irregular-time/pause/missing/zero fixtures verify software integration; no new FTP/VO2max method or scientific efficacy is inferred. Imported and live curves are not mixed into a comparable series. See T01f for contract/evidence.

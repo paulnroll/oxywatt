@@ -1,5 +1,23 @@
 # Decision log
 
+## OpenSpec workflow adoption — 2026-11-27
+
+Owner approved incremental migration starting with T08b1 and selected project npm
+tooling: exact OpenSpec 2.2.0 devDependency, package-lock.json, ignored node_modules
+and npm CLI/check/list scripts. Agent integration is each contributor's choice;
+the repository requires no particular installation location for agent skills.
+
+Use the [capability map](../../openspec/README.md) for current authorities:
+migrated behavior in OpenSpec, unmigrated contracts in legacy documents, and
+original decisions/tasks retained as history/evidence. New changes use the packaged
+spec-driven schema; R/N/T/V/F IDs and evidence distinctions retain their meaning.
+
+Owner authorized self-review and commit/push/PR publication of this documentation
+and tooling scope. No new application/device/private-input action is included;
+merge/release remain separate. Actual verification is recorded in the
+[completed adoption change](../../openspec/changes/archive/2026-11-27-adopt-openspec/tasks.md).
+Original dated decisions follow unchanged.
+
 2026-11-10. Owner direction is accepted as intent; technical recommendations remain proposed until reviewed. Owner subsequently approved T01a only in this session.
 
 | ID | State | Decision / rationale | Consequence |

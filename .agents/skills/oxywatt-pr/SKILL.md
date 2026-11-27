@@ -5,7 +5,7 @@ description: Prepare, self-review, create or update an OxyWatt pull request, inc
 
 # OxyWatt pull requests
 
-Read root AGENTS.md and the named task. Use the existing session authorization for publication. Creating this skill alone authorizes no push, PR, merge or release.
+Read root AGENTS.md, openspec/README.md and the named OpenSpec change or legacy task. Use existing session authorization for publication. Creating this skill alone authorizes no push, PR, merge or release.
 
 ## Prepare the change
 

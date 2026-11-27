@@ -1,5 +1,12 @@
 # OxyWatt REASONS Canvas v0.3 — simulation-first proposal
 
+**Workflow update — 2026-11-27:** owner approved incremental OpenSpec adoption.
+Use the [capability map](../../openspec/README.md) for current contract routing.
+T08b1 behavior is maintained in OpenSpec; its entries below retain historical
+intent and evidence. Other areas remain authoritative here until migrated.
+OpenSpec tooling is pinned through the project npm manifest/lockfile with ignored
+dependencies; agent integration is optional. See the capability map setup.
+
 Status: the owner approved the source-neutral architecture, T01a–T01c and T02a/T02b. The simulation-first architecture, T01d and T01e are owner-approved (2026-11-11); other implementation packages remain gated. Updated 2026-11-11. Owner decisions D01–D03 constrain all future slices. This is the maintained engineering prompt; linked documents expand it without creating competing requirements.
 
 Method: [Structured-Prompt-Driven Development, Thoughtworks authors on martinfowler.com](https://martinfowler.com/articles/structured-prompt-driven/). We adopt its REASONS structure and synchronization; specific engineering choices below belong to OxyWatt. [Open Mercato spec workflow](https://github.com/open-mercato/skills/blob/main/skills/om-spec-writing/SKILL.md) informs skeleton/review/phasing, not Android implementation rules.

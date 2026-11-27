@@ -1,0 +1,24 @@
+schema: spec-driven
+
+context: |
+  OxyWatt: offline cycling analytics for Karoo 3; pure Kotlin/JVM :core and Android :app.
+  Write all artifacts, UI, tests and contribution text in English.
+  Read AGENTS.md for authorization and invariants; openspec/README.md for capability authorities.
+  Product R/N IDs: docs/product/requirements.md; V IDs: docs/algorithms/validation-strategy.md.
+  Preserve T IDs and task-local acceptance IDs such as T08b1/F01–F08.
+  Artifact readiness is not named implementation approval, hardware or scientific acceptance.
+  Missing data is not zero; FTP and VO2max remain independent and unapproved models.
+  Use the project-pinned OpenSpec CLI via npm run openspec; npm ci restores its lockfile.
+  Dependencies and packaged schemas/templates stay in ignored node_modules; agent integration is optional.
+
+rules:
+  proposal:
+    - Identify affected R/N/T/V IDs, approval state, scope and exclusions.
+    - Use skip_specs for tooling/docs-only work without behavior deltas rather than inventing requirements.
+  specs:
+    - Preserve stable IDs and observable scenarios; distinguish software, hardware and scientific evidence.
+    - Follow the capability map to avoid competing contracts in legacy and migrated documents.
+  design:
+    - Record applicable dependencies, provenance, bounds, risks and unresolved assumptions.
+  tasks:
+    - Link acceptance IDs and record actual verification and limitations; checkboxes alone are not acceptance.

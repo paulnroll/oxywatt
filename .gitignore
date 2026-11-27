@@ -21,3 +21,6 @@ local.properties
 
 # Python developer tooling
 __pycache__/
+
+# npm developer tooling
+node_modules/

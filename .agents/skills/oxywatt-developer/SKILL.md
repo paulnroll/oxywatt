@@ -9,7 +9,7 @@ Deliver the approved behavior with the least machinery that makes it correct and
 
 ## Load one package
 
-Paths below are repository-root relative. Read `AGENTS.md`, the assigned task in `docs/spdd/tasks/`, its R/N/V acceptance sections, and the relevant accepted contracts. Use `docs/spdd/tasks/agent-work-packages.md` for handoff boundaries. Inspect the touched code and its callers before editing; load additional documents only when needed to settle a dependency or invariant.
+Paths below are repository-root relative. Read `AGENTS.md`, `openspec/README.md`, the assigned OpenSpec change or legacy task, its R/N/V and local acceptance sections, and the relevant accepted contracts. Legacy `docs/spdd/tasks/agent-work-packages.md` retains existing handoff boundaries. Inspect touched code and callers before editing; load additional documents only to settle a dependency or invariant.
 
 Verify named implementation authorization in the session and task scope. Creating this skill or planning packages does not authorize application code. A stale draft status does not require repeated permission when the owner has already approved the named scope in this session; record that approval accurately. Without approval, continue permitted specification work rather than scaffolding an app.
 
@@ -42,6 +42,6 @@ In a worker assignment, edit the assigned files; the coordinator owns shared con
 
 Resolve routine choices autonomously inside approved constraints. If a material contract or behavior must change, describe the concrete mismatch and affected R/T/V IDs, synchronize design intent before dependent implementation, and obtain further authorization only when the existing scope does not cover it. Continue independent authorized work while that dependency is unresolved.
 
-Close with the delivered behavior, changed files, actual verification results and remaining limitations. Update task evidence; synchronize Canvas and decisions when intent changes. Never equate a passing build with hardware or scientific acceptance. Leave publication and unrelated cleanup outside the package.
+Close with delivered behavior, changed files, actual verification and limitations. Update change/task evidence; synchronize material decisions and the applicable OpenSpec contract or unmigrated Canvas intent. Never equate a passing build with hardware or scientific acceptance. Leave publication and unrelated cleanup outside the package.
 
 Approach inspiration: [Ponytail](https://github.com/DietrichGebert/ponytail/blob/main/skills/ponytail/SKILL.md), for minimal complete changes. These project-specific instructions use OxyWatt's contracts and approval boundaries; they do not enable a session-wide mode or extra command interface.

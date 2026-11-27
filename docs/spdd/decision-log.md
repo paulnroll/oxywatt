@@ -1,5 +1,30 @@
 # Decision log
 
+## OpenSpec workflow adoption — 2026-11-27
+
+**Subsequent owner revision:** use a project package.json and package-lock.json
+with exact OpenSpec 2.2.0 devDependency, ignored node_modules and npm CLI/check/list
+scripts. This supersedes the initial global-only CLI/no-manifest layout below.
+Generic skills stay global; schemas/templates are consumed from the installed
+package without copying them into tracked project files. No application behavior
+or acceptance scope changes. The owner subsequently authorized self-review and
+commit/push/PR publication of the migration and npm follow-up; merge/release remain
+separate. Follow-up verification is recorded in the adoption task.
+
+Owner approved incremental migration, starting with T08b1, and required generic
+OpenSpec material outside the repository. Use the [capability map](../../openspec/README.md)
+for current authorities: migrated behavior in OpenSpec, unmigrated contracts in
+legacy documents, and original decisions/tasks retained as history/evidence.
+New changes use the packaged spec-driven schema; existing R/N/T/V/F IDs and all
+authorization/hardware/science distinctions remain. The migration is documentation
+and tooling only; no new application/device/private-input action is authorized.
+
+OpenSpec 2.2.0 is installed through global npm, with seven generic skills under
+`~/.agents/skills/` via `--scope global`. No generic schemas/templates/skills or
+npm dependency tree are vendored into OxyWatt. Actual migration verification is
+recorded in the [completed adoption change](../../openspec/changes/archive/2026-11-27-adopt-openspec/tasks.md). Original dated decisions follow unchanged.
+
+
 2026-11-10. Owner direction is accepted as intent; technical recommendations remain proposed until reviewed. Owner subsequently approved T01a only in this session.
 
 | ID | State | Decision / rationale | Consequence |

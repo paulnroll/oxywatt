@@ -1,18 +1,18 @@
 ---
 name: oxywatt-spec
-description: Create, review, phase or synchronize OxyWatt REASONS specifications and requirement-to-test traceability. Use for project behavior or architecture changes and readiness reviews.
+description: Create, review or synchronize OxyWatt OpenSpec changes, legacy contracts and requirement-to-test traceability. Use for project behavior or architecture changes and readiness reviews.
 ---
 
 # OxyWatt specifications
 
-Read `AGENTS.md`, `docs/product/requirements.md`, `docs/spdd/reasons-canvas.md`, and relevant decisions/tasks before changing intent. Repository-root paths below are relative to OxyWatt.
+Read `AGENTS.md`, `openspec/README.md`, `docs/product/requirements.md`, and the relevant capability/decisions/evidence before changing intent. Paths below are repository-root relative. The capability map identifies OpenSpec contracts versus still-authoritative legacy documents.
 
-Separate owner decisions, recommendations, source-verified facts and hardware/science evidence. Start a new feature with a compact problem/scope/unknowns sketch. Ask only questions that block product/architecture; continue independent authorized research. For this bootstrap, the owner requires an architectural review before any application code; never treat a draft Canvas as approval.
+Separate owner decisions, recommendations, source-verified facts and hardware/science evidence. Use the project-pinned OpenSpec CLI through `npm run openspec -- <args>` and its packaged spec-driven schema; `npm ci` restores tooling. Keep dependencies/templates/schemas in ignored node_modules and generic skills global. Project context/rules belong in `openspec/config.yaml`. Start with problem, scope and unknowns. Artifact readiness never substitutes for named implementation approval; honor existing session authorization without repeating it.
 
-Use REASONS: Requirements, Entities, Approach, Structure, Operations, Norms, Safeguards. Extend existing documents instead of duplicating their requirements in a parallel spec directory. Preserve R/T/V IDs; each behavior needs an observable criterion and named verification. Every task needs goal, scope, dependencies, expected files, tests, risks and Done evidence. Small fixes need no full new Canvas.
+For migrated capabilities, maintain behavior in `openspec/specs/` through deltas in `openspec/changes/<name>/`; keep proposal, design and tasks together. For unmigrated capabilities, read and explicitly migrate the existing contract before extending it, distinguishing implemented, proposed and unverified behavior. Preserve legacy evidence/anchors and R/N/T/V plus local acceptance IDs; avoid competing maintained contracts. REASONS remains a useful legacy architecture checklist, not a mandatory second specification. Every task needs clear scope, dependencies, affected files, verification, risks and actual Done evidence; keep small corrections proportional. Tooling/docs-only changes without behavior deltas may use `skip_specs: true`.
 
 Readiness check: input/time semantics, session identity, lifecycle, missing-data policy, quality/provenance, scientific method status, device assumptions and budget are explicit. An unresolved assumption cannot become supported by wording alone. Mark blockers per slice; source-only approval does not close a hardware or model gate.
 
-When implementing later, read the approved task, keep changes within it, record deviations and actual verification. Update design intent before a material behavior change; synchronize actual structure after a refactor. Completion requires evidence, not checkbox wording. Do not introduce mandatory agents or external PR operations.
+When implementing, read the approved change/task, stay within scope and record deviations and actual verification. Synchronize affected architecture/science documents; log material intent decisions. Completed software tasks do not close separately gated device/science work. Archive only completed changes with honest evidence/limitations; archiving is not release acceptance. Do not introduce mandatory agents or external PR operations.
 
-Reference process inspiration: [Open Mercato spec-writing](https://github.com/open-mercato/skills/blob/main/skills/om-spec-writing/SKILL.md) and [SPDD](https://martinfowler.com/articles/structured-prompt-driven/). OxyWatt's local rules take precedence over those external examples.
+Generic workflow instructions come from the external OpenSpec installation; this skill contains OxyWatt-specific routing and evidence requirements.

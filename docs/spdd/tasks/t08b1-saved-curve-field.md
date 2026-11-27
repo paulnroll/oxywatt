@@ -1,5 +1,12 @@
 # T08b1 — Saved power curve ride field
 
+**Contract migrated — 2026-11-27:** maintain current behavior in the
+[OpenSpec saved-curve-field contract](../../../openspec/specs/saved-curve-field/spec.md).
+This file retains original design, approval chronology, F01–F08 mappings and actual
+evidence; earlier pending/NOT RUN paragraphs are historical where superseded below.
+F08 remains PARTIAL: limited physical editor/binding/readout checks passed;
+remaining cases are unverified. Migration adds no new application or device verification. See the [authority map](../../../openspec/README.md).
+
 Date: 2026-11-13. Status: **SOFTWARE COMPLETE AND VERIFIED on merged main a23f074; owner approved synthetic-only implementation on 2026-11-13. 0.9.0 installation/limited readout PASS; F08 physical editor placement/numeric/presentation trial PARTIAL; recording-time and wider matrix untested.** The owner requested a polished widget, then authorized preparation of its scope and mockup with “to dawaj”. This does not name or approve a new application implementation slice. Storage remediation is being handled in another session; preserve that work and do not change branches underneath it.
 
 ## Goal and dependencies

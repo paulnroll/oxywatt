@@ -1,0 +1,16 @@
+{
+  "name": "oxywatt-tooling",
+  "private": true,
+  "description": "Development tooling for OxyWatt specifications",
+  "engines": {
+    "node": ">=22.20.0"
+  },
+  "scripts": {
+    "openspec": "OPENSPEC_TELEMETRY=0 openspec",
+    "spec:check": "npm run openspec -- validate --all --strict --no-interactive",
+    "spec:list": "npm run openspec -- list --specs"
+  },
+  "devDependencies": {
+    "@fission-ai/openspec": "2.2.0"
+  }
+}

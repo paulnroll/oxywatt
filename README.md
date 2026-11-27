@@ -6,10 +6,14 @@ Offline-first cycling analytics for Hammerhead Karoo 3, with a device-independen
 
 **Status: JVM contracts and replay fixtures are in place. The T02a diagnostic host installs and launches on Karoo 3.**
 
-Start with [the review packet](docs/spdd/review.md), [REASONS Canvas](docs/spdd/reasons-canvas.md), and [implementation plan](docs/spdd/implementation-plan.md).
+Start with the [OpenSpec capability map and workflow](openspec/README.md).
+Migration is incremental: T08b1's saved-curve-field contract has moved; the
+[review packet](docs/spdd/review.md), [Canvas](docs/spdd/reasons-canvas.md) and
+[implementation plan](docs/spdd/implementation-plan.md) retain legacy context.
 
 ## Documentation map
 
+- [OpenSpec contracts and external-tooling setup](openspec/README.md)
 - [Product requirements](docs/product/requirements.md) and [roadmap](docs/product/roadmap.md)
 - [SDK feasibility](docs/discovery/karoo-sdk-feasibility.md), [scientific research](docs/discovery/scientific-research.md), [risks](docs/discovery/risk-assessment.md)
 - [Domain model](docs/architecture/domain-model.md), [context](docs/architecture/context.md), [boundaries](docs/architecture/bounded-contexts.md), [modules](docs/architecture/module-structure.md), [flow](docs/architecture/data-flow.md)

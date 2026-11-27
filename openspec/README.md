@@ -47,26 +47,14 @@ product release or hardware/scientific acceptance.
 
 ## Project tooling
 
-The owner revised the initial global-only setup on 2026-11-27: OpenSpec **2.2.0**
-is pinned in the root package.json and package-lock.json. Node **22.20.0 or newer**
-is required; Node 24.14.0 was used here. The package is private developer tooling,
-independent of Android app versioning/builds. Dependencies and generic package
-schemas/templates are downloaded to ignored `node_modules/`, not vendored into
-tracked files. Generic skills remain global under `~/.agents/skills/`.
-
-On another machine:
+OpenSpec **2.2.0** is pinned in the root package.json and package-lock.json.
+Node **22.20.0 or newer** is required; Node 24.14.0 was used here. This private
+developer-tools package is independent of Android app versioning/builds.
+Dependencies and packaged schemas/templates are installed in ignored `node_modules/`.
+Agent integration is optional and configured by each contributor.
 
 ```sh
 npm ci --ignore-scripts --no-fund --no-audit
-npm run openspec -- init --tools codex --scope global --profile core --no-copilot-cloud --no-animation
-```
-
-Keep `--scope global`; generic generated skills and copied schema/template sources
-do not belong in tracked project files. Existing `.agents/skills/oxywatt-*` and
-`karoo-extension` stay here because they contain OxyWatt-specific guidance.
-On upgrades inspect installed CLI help and keep the global scope.
-
-```sh
 npm run spec:list
 npm run spec:check
 npm run openspec -- list

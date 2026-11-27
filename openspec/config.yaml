@@ -9,7 +9,7 @@ context: |
   Artifact readiness is not named implementation approval, hardware or scientific acceptance.
   Missing data is not zero; FTP and VO2max remain independent and unapproved models.
   Use the project-pinned OpenSpec CLI via npm run openspec; npm ci restores its lockfile.
-  Dependencies and packaged schemas/templates stay in ignored node_modules; generic skills stay global.
+  Dependencies and packaged schemas/templates stay in ignored node_modules; agent integration is optional.
 
 rules:
   proposal:

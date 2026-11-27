@@ -13,7 +13,7 @@ Migration is incremental: T08b1's saved-curve-field contract has moved; the
 
 ## Documentation map
 
-- [OpenSpec contracts and external-tooling setup](openspec/README.md)
+- [OpenSpec contracts and npm tooling](openspec/README.md)
 - [Product requirements](docs/product/requirements.md) and [roadmap](docs/product/roadmap.md)
 - [SDK feasibility](docs/discovery/karoo-sdk-feasibility.md), [scientific research](docs/discovery/scientific-research.md), [risks](docs/discovery/risk-assessment.md)
 - [Domain model](docs/architecture/domain-model.md), [context](docs/architecture/context.md), [boundaries](docs/architecture/bounded-contexts.md), [modules](docs/architecture/module-structure.md), [flow](docs/architecture/data-flow.md)

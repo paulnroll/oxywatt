@@ -5,13 +5,11 @@
 Owner approved incremental OpenSpec adoption on 2026-11-27. Start at
 `openspec/README.md` for capability authorities. New work uses
 `openspec/changes/<name>/`; migrated contracts live in `openspec/specs/`.
-Owner subsequently requested project npm tooling: `package.json` and lockfile pin
-the CLI; `npm ci` installs it and packaged schemas/templates into ignored
-`node_modules/`. Generic skills stay global; do not copy them or package templates
-into tracked project files. Existing project-specific skills remain local.
-This approves documentation/tooling, not further application or device/private-input
-actions. Owner subsequently authorized self-review and commit/push/PR publication
-of this migration and npm follow-up. Merge/release remain separate.
+`package.json` and package-lock.json pin the CLI; `npm ci` restores tooling in
+ignored `node_modules/`. Agent integration is each contributor's choice.
+Owner authorized self-review and commit/push/PR publication of this migration and
+npm tooling. Application/device/private-input actions and merge/release remain
+subject to their separate approved scopes.
 
 ## Current authorization
 
